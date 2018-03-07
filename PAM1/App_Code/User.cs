@@ -41,19 +41,16 @@ public class User
         get { return firstName; }
         set { firstName = value; }
     }
-
     public string LastName
     {
         get { return lastName; }
         set { lastName = value; }
     }
-
     public string PhoneNumber
     {
         get { return phoneNumber; }
         set { phoneNumber = value; }
     }
-
     public string BirthDate
     {
         get
@@ -66,7 +63,6 @@ public class User
             birthDate = value;
         }
     }
-
     public string Email
     {
         get
@@ -79,7 +75,6 @@ public class User
             email = value;
         }
     }
-
     public string Password
     {
         get
@@ -92,7 +87,6 @@ public class User
             password = value;
         }
     }
-
     public string Picture
     {
         get
@@ -105,7 +99,6 @@ public class User
             picture = value;
         }
     }
-
     public string City
     {
         get
@@ -118,7 +111,6 @@ public class User
             city = value;
         }
     }
-
     public int UserType
     {
         get
@@ -131,7 +123,6 @@ public class User
             userType = value;
         }
     }
-
     public int UserId
     {
         get
