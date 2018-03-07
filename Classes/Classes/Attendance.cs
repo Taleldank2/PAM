@@ -12,19 +12,19 @@ namespace Classes
         //Fields
         private int eventNumber, athleteNumber;
         private bool present;
-        private string remark;
+        private string note;
 
         //Ctors
         public Attendance()
         {
 
         }
-        public Attendance(int eventNumber, int athleteNumber, bool present, string remark)
+        public Attendance(int eventNumber, int athleteNumber, bool present, string note)
         {
-            this.eventNumber = eventNumber;
-            this.athleteNumber = athleteNumber;
-            this.present = present;
-            this.remark = remark;
+            this.EventNumber = eventNumber;
+            this.AthleteNumber = athleteNumber;
+            this.Present = present;
+            this.Note = note;
         }
 
         //Props
@@ -67,16 +67,16 @@ namespace Classes
             }
         }
 
-        public string Remark
+        public string Note
         {
             get
             {
-                return remark;
+                return note;
             }
 
             set
             {
-                remark = value;
+                note = value;
             }
         }
 

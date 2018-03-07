@@ -11,7 +11,7 @@ namespace Classes
 
         //Fields
         private int teamNumber, eventKind, eventNumber;
-        private string title, body, eventDate, startTime, endTime, loction, remark;
+        private string title, body, eventDate, startTime, endTime, loction, note;
         private bool recurrent;
 
         //Ctors
@@ -19,7 +19,7 @@ namespace Classes
         {
 
         }
-        public Event(int teamNumber, int eventKind, string title, string body, string eventDate, string startTime, string endTime, string loction, bool recurrent, string remark)
+        public Event(int teamNumber, int eventKind, string title, string body, string eventDate, string startTime, string endTime, string loction, bool recurrent, string note)
         {
             this.TeamNumber = teamNumber;
             this.EventKind = eventKind;
@@ -29,7 +29,7 @@ namespace Classes
             this.StartTime = startTime;
             this.EndTime = endTime;
             this.Loction = loction;
-            this.Remark = remark;
+            this.Note = note;
             this.Recurrent = recurrent;
         }
 
@@ -112,16 +112,16 @@ namespace Classes
             }
         }
 
-        public string Remark
+        public string Note
         {
             get
             {
-                return remark;
+                return note;
             }
 
             set
             {
-                remark = value;
+                note = value;
             }
         }
 
