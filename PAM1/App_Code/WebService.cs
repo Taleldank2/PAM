@@ -38,7 +38,7 @@ public class WebService : System.Web.Services.WebService
         }
         catch (Exception)
         {
-            return "EROR 1";
+            return "ERROR 1";
             throw;
         }
 
@@ -53,12 +53,12 @@ public class WebService : System.Web.Services.WebService
             else if (user.PhoneNumber == phoneNumber && user.Password != password)
                 return "סיסמא שגויה";
             else
-                return "EROR 2";
+                return "ERROR 2";
         }
         catch (Exception)
         {
-            return "EROR 3";
-            throw;
+            return "ERROR 3";
+            throw Exception;
         }
         
     }

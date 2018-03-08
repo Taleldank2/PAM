@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// call an ajax function and pass it the request
+// Login
 //-----------------------------------------------------------------------
 function Login(request, successCB, errorCB) {
 

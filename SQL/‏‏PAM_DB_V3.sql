@@ -1,25 +1,62 @@
+USE bgroup57_test2
+go
+
 -------------------------------------------------------------------------
 --------------------------------PAM DB-----------------------------------
 -------------------------------------------------------------------------
 /*
+SELECT * 
+FROM sys.foreign_keys
+
+ALTER TABLE TeamsMessages
+DROP CONSTRAINT TeamMessages_fk0
+
+ALTER TABLE TeamsMessages
+DROP CONSTRAINT TeamMessages_fk1
+
+ALTER TABLE TeamsEvents
+DROP CONSTRAINT TeamEvents_fk0
+
+ALTER TABLE TeamsEvents
+DROP CONSTRAINT TeamEvents_fk1
+
+ALTER TABLE Users
+DROP CONSTRAINT Users_fk0
+
+ALTER TABLE Coaches
+DROP CONSTRAINT Coaches_fk0
+
+ALTER TABLE Teams
+DROP CONSTRAINT Teams_fk0
+
+ALTER TABLE Messages
+DROP CONSTRAINT Messages_fk0
+
+ALTER TABLE Events
+DROP CONSTRAINT Events_fk0
+*/
+
+
+/*
 drop table Attendances
+drop table UserTypes
 drop table EventRates
-drop table Events
-drop table EventTypes
 drop table Games
 drop table Messages
 drop table Results
 drop table ResultTypes
-drop table athletes
+drop table Athletes
 drop table Coaches
 drop table Teams
 drop table Users
-drop table UserTypes
+drop table Events
+drop table EventTypes
+drop table TeamsEvents
+drop table TeamsMessages
 GO
 */
 
-USE bgroup57_test2
-go
+
 ------------------------------------------------------------------------------
 --------------------------------CREATE TABELS---------------------------------
 ------------------------------------------------------------------------------
@@ -27,7 +64,7 @@ go
 CREATE TABLE [Events] (
 	EventID int IDENTITY(1,1),	
 	EventType int NOT NULL,
-	Title ntext,
+	Title nvarchar(30),
 	E_Body ntext,
 	E_Date date,
 	StartTime time,
@@ -64,12 +101,12 @@ GO
 CREATE TABLE [Users] (
 	UserID int IDENTITY(1,1),
 	UserType int NOT NULL,
-	FirstName nvarchar(30)(25) NOT NULL,
-	LastName nvarchar(30)(25) NOT NULL,
-	PhoneNumber nvarchar(30)(15) NOT NULL,
-	Email nvarchar(30) NOT NULL,
+	FirstName nvarchar(30) NOT NULL,
+	LastName nvarchar(30)NOT NULL,
+	PhoneNumber nvarchar(30)NOT NULL,
+	Email nvarchar(40) NOT NULL,
 	Password nvarchar(9) NOT NULL,
-	Picture nvarchar(30),
+	Picture nvarchar(200),
 	City nvarchar(30),
 	BirthDate date,
 	CONSTRAINT PK_USERS PRIMARY KEY (UserID)  
@@ -97,7 +134,7 @@ CREATE TABLE [Messages] (
 	MessageID int IDENTITY(1,1),	
 	CreatorID int NOT NULL,
 	Title nvarchar(30),
-	mBody nvarchar(30),
+	mBody ntext,
 	mDate date,
 	mTime timestamp,
   CONSTRAINT [PK_MESSAGES] PRIMARY KEY (MessageID)
@@ -120,7 +157,7 @@ CREATE TABLE [Games] (
 	Game_id int,
 	GoTransportTime time,
 	BackTransportTime time,
-	TransportLocation nvarchar(30),
+	TransportLocation ntext,
 	OpponentName nvarchar(30),
 	OpponentGoals int,
 	TivonScore int,
@@ -239,6 +276,14 @@ GO
 --------------------------------INSERT DATA INTO TABELS----------------------------------
 -----------------------------------------------------------------------------------------
 
+INSERT INTO EventTypes(
+	EventType,
+	Description
+	)
+VALUES(1,'PRACTICE')
+GO
+
+
 INSERT INTO EVENTS(		
 	EventType,
 	Title,
@@ -249,7 +294,7 @@ INSERT INTO EVENTS(
 	IsRecursive,
 	Location,
 	Note,
-	CreationTime,
+	CreationTime
 	)
 VALUES (1,'BIG PRACTICE',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
 GO
@@ -264,46 +309,68 @@ INSERT INTO EVENTS(
 	IsRecursive,
 	Location,
 	Note,
-	CreationTime,
+	CreationTime
 	)
 VALUES (1,'SMALL PRACTICE',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
 GO
+
+
+INSERT INTO UserTypes (
+	UserType,
+	Description
+	)
+VALUES(1,'SYSTEM ADMIN')
+GO
+
+INSERT INTO UserTypes (
+	UserType,
+	Description
+	)
+VALUES(2,'COACH')
+GO
+
+INSERT INTO UserTypes (
+	UserType,
+	Description
+	)
+VALUES(3,'ATHLETE')
+GO
+
+	
+INSERT INTO USERS(
+	
+	UserType,
+	FirstName,
+	LastName,
+	PhoneNumber,
+	Email,
+	Password,
+	Picture,
+	City,
+	BirthDate
+)
+VALUES (1,'TAL','KAFTORI','0523488825','KAFTIKAFT1@GMAL.COM','A123456a',NULL,NULL,NULL)--SYS ADMIN
+GO
+
+INSERT INTO USERS(
+
+	
+	UserType,
+	FirstName,
+	LastName,
+	PhoneNumber,
+	Email,
+	Password,
+	Picture,
+	City,
+	BirthDate
+)
+VALUES (1,'TAL','ELDAN','0505999470','BRAP@GMAIL.COM','A123456a',NULL,NULL,NULL)--SYS ADMIN
+GO
 	
 INSERT INTO USERS(
 
-	UserID,
-	UserType,
-	FirstName,
-	LastName,
-	PhoneNumber,
-	Email,
-	Password,
-	Picture,
-	City,
-	BirthDate,
-)
-VALUES (1,'TAL','KAFTORI','050-59998744','KAFTIKAFT1@GMAL.COM','A123456a',NULL,NULL,NULL,NULL)--SYS ADMIN
-GO
-
-INSERT INTO USERS(
-
-	UserID,
-	UserType,
-	FirstName,
-	LastName,
-	PhoneNumber,
-	Email,
-	Password,
-	Picture,
-	City,
-	BirthDate,
-)
-VALUES (1,'TAL','ELDAN','050-59998744','BRAP@GMAIL.COM','A123456a',NULL,NULL,NULL,NULL)--SYS ADMIN
-GO
 	
-INSERT INTO USERS(
-
-	UserID,
 	UserType,
 	FirstName,
 	LastName,
@@ -312,14 +379,14 @@ INSERT INTO USERS(
 	Password,
 	Picture,
 	City,
-	BirthDate,
+	BirthDate
 )
-VALUES (2,'JESSY','KLIP','050-59998744','BRAP@GMAIL.COM','A123456a',NULL,NULL,NULL,NULL)--ATHLETE
+VALUES (2,'JESSY','KLIP','050-59998744','BRAP@GMAIL.COM','A123456a',NULL,NULL,NULL)--ATHLETE
 GO
 
 INSERT INTO USERS(
 
-	UserID,
+	
 	UserType,
 	FirstName,
 	LastName,
@@ -328,23 +395,51 @@ INSERT INTO USERS(
 	Password,
 	Picture,
 	City,
-	BirthDate,
+	BirthDate
 )
-VALUES (3,'FALKA','WAYWAY','050-59998744','BRAP@GMAIL.COM','A123456a',NULL,NULL,NULL,NULL)--COACH
+VALUES (3,'FALKA','WAYWAY','050-59998744','BRAP@GMAIL.COM','A123456a',NULL,NULL,NULL)--COACH
 GO
+
+INSERT INTO COACHES(
+CoachID,
+StartDate)
+VALUES(6,NULL)
 	
 	
 INSERT INTO TEAMS(	
 	TeamName,
-	HeadCoachID,
+	HeadCoachID
 	)
-VALUES ('GIRLS 16',4)
+VALUES ('GIRLS 16',6)
 GO
 	
 INSERT INTO TEAMS(	
 	TeamName,
-	HeadCoachID,
+	HeadCoachID
 	)
-VALUES ('BOYS 16',4)
+VALUES ('BOYS 16',6)
+GO
+
+INSERT INTO RESULTS(
+
+	AthleteID,
+	ResultType,
+	Distance,
+	rTime,
+	rDate,
+	Note
+	)
+VALUES (7,1,200,'00:01:03',NULL,NULL)
+GO
+
+INSERT INTO RESULTS(
+	AthleteID,
+	ResultType,
+	Distance,
+	rTime,
+	rDate,
+	Note
+	)
+VALUES (7,2,200,'00:04:03',NULL,NULL)
 GO
 
