@@ -30,4 +30,12 @@ public class WebService : System.Web.Services.WebService
         return "Hello World";
     }
 
+    public string Login(string UserName, string Password)
+    {
+
+        
+        return "Hello World";
+
+    }
+
 }

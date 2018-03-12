@@ -12,15 +12,15 @@ public class User
 {
     //Fields
     private string firstName, lastName, phoneNumber, birthDate, email, password, picture, city;
-    private int userType, userId;
-
+    private string userType, userId;
+   
     //Ctros
     public User()
     {
 
     }
 
-    public User(int userType, string firstName, string lastName, string phoneNumber, string birthDate, string email, string password, string picture, string city)
+    public User(string userType, string firstName, string lastName, string phoneNumber, string birthDate, string email, string password, string picture, string city)
     {
         this.UserType = userType;
         this.FirstName = firstName;
@@ -111,7 +111,7 @@ public class User
             city = value;
         }
     }
-    public int UserType
+    public string UserType
     {
         get
         {
@@ -123,7 +123,7 @@ public class User
             userType = value;
         }
     }
-    public int UserId
+    public string UserId
     {
         get
         {
