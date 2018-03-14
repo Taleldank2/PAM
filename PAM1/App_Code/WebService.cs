@@ -35,76 +35,15 @@ public class WebService : System.Web.Services.WebService
         dbHandler = new DBServices(connectionString);
     }
 
-    private string getUserFromSession(string sessionId)
-    {
-        foreach (KeyValuePair<String, String> pair in usersSessions)
-        {
-            if (pair.Value == sessionId)
-            {
-                return pair.Key;
-            }
-        }
 
-        throw new Exception("Invalid session id");
-    }
-
-    private string dataTableToJson(DataTable table)
-    {
-        JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-        List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-        Dictionary<string, object> childRow;
-        foreach (DataRow row in table.Rows)
-        {
-            childRow = new Dictionary<string, object>();
-            foreach (DataColumn col in table.Columns)
-            {
-                childRow.Add(col.ColumnName, row[col]);
-            }
-            parentRow.Add(childRow);
-        }
-
-        return jsSerializer.Serialize(parentRow);
-    }
-
-    [WebMethod]
-    public string checkUserSession(string userSession)
-    {
-        string response = "false";
-
-        if (usersSessions.Values.Contains(userSession))
-        {
-            response = "true";
-        }
-
-        return response;
-    }
-
-    [WebMethod]
-    public void register(string userType, string userName, string userLastName, string phoneNumber,
-                           string userMail, string userPassword, string userPicBase64, string city,
-                           string userBirthday)
-    {
-        dbHandler.registerUser(userType, userName, userLastName, phoneNumber, userMail, userPassword,
-                               userPicBase64, city, userBirthday);
-    }
-
-
-    [WebMethod]
-    public string getPicturePath()
-    {
-        string userSession = Context.Request.Cookies["session"]["session"];
-
-        string userId = getUserFromSession(userSession);
-
-        string picturePath = dbHandler.getPicturePath(userId);
-
-        return picturePath;
-    }
+    //--------------------------------------------------------------------
+    //                           Login
+    //--------------------------------------------------------------------
 
     [WebMethod]
     public string Login(string phoneNumber, string password)
     {
-        
+
         //Create New User obj
         User myUser = new User();
 
@@ -140,21 +79,23 @@ public class WebService : System.Web.Services.WebService
                     }
                     else
                     {
+                        
                         usersSessions.Add(dt.Rows[0][0].ToString(), userGuid);
+                        
                     }
 
                     HttpCookie cookie = new HttpCookie("session");
                     cookie["session"] = userGuid;
 
                     cookie.Expires = DateTime.Now.AddHours(1);
-                    
+
                     Context.Response.Cookies.Add(cookie);
 
                     // serialize to string
-                    JavaScriptSerializer js = new JavaScriptSerializer();                    
+                    JavaScriptSerializer js = new JavaScriptSerializer();
                     string jsonString = js.Serialize("ברוך הבא");
                     return jsonString;
-                    
+
                 }
 
                 else
@@ -175,11 +116,68 @@ public class WebService : System.Web.Services.WebService
             // serialize to string
             JavaScriptSerializer js = new JavaScriptSerializer();
             string jsonString = js.Serialize("Unable to read from the database" + ex.Message);
-            return jsonString;            
+            return jsonString;
             throw;
         }
 
     }
+
+    private string getUserFromSession(string sessionId)
+    {
+        foreach (KeyValuePair<String, String> pair in usersSessions)
+        {
+            if (pair.Value == sessionId)
+            {
+                return pair.Key;
+            }
+        }
+
+        throw new Exception("Invalid session id");
+    }
+   
+    [WebMethod]
+    public string checkUserSession(string userSession)
+    {
+        string response = "false";
+
+        if (usersSessions.Values.Contains(userSession))
+        {
+            response = "true";
+        }
+
+        return response;
+    }
+
+    //--------------------------------------------------------------------
+    //                           Register
+    //--------------------------------------------------------------------
+
+    [WebMethod]
+    public void register(string userType, string userName, string userLastName, string phoneNumber,
+                           string userMail, string userPassword, string userPicBase64, string city,
+                           string userBirthday)
+    {
+        dbHandler.registerUser(userType, userName, userLastName, phoneNumber, userMail, userPassword,
+                               userPicBase64, city, userBirthday);
+    }
+
+    [WebMethod]
+    public string getPicturePath()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string userId = getUserFromSession(userSession);
+
+        string picturePath = dbHandler.getPicturePath(userId);
+
+        return picturePath;
+    }
+
+
+
+    //--------------------------------------------------------------------
+    //                           Main Page
+    //--------------------------------------------------------------------
 
     [WebMethod]
     public string getUserLastEvent()
@@ -193,6 +191,30 @@ public class WebService : System.Web.Services.WebService
         string response = dataTableToJson(events);
 
         return response;
+    }
+         
+    [WebMethod]
+    public string getScore()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string userId = getUserFromSession(userSession);
+
+        string score = dbHandler.getUserScore(userId);
+
+        return score;
+    }
+
+    [WebMethod]
+    public string getName()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string userId = getUserFromSession(userSession);
+
+        string name = dbHandler.getUserName(userId);
+
+        return name;
     }
 
     [WebMethod]
@@ -221,17 +243,10 @@ public class WebService : System.Web.Services.WebService
         return messagesCount;
     }
 
-    [WebMethod]
-    public string getScore()
-    {
-        string userSession = Context.Request.Cookies["session"]["session"];
 
-        string userId = getUserFromSession(userSession);
-
-        string score = dbHandler.getUserScore(userId);
-
-        return score;
-    }
+    //--------------------------------------------------------------------
+    //                           App Pages
+    //--------------------------------------------------------------------
 
     [WebMethod]
     public string getUserResults()
@@ -243,6 +258,20 @@ public class WebService : System.Web.Services.WebService
         DataTable result = dbHandler.getUserResults(userId);
 
         string response = dataTableToJson(result);
+
+        return response;
+    }
+
+    [WebMethod]
+    public string getUserMessages()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string userId = getUserFromSession(userSession);
+
+        DataTable messages = dbHandler.getUserMessages(userId);
+
+        string response = dataTableToJson(messages);
 
         return response;
     }
@@ -261,19 +290,31 @@ public class WebService : System.Web.Services.WebService
         return response;
     }
 
-    [WebMethod]
-    public string getUserMessages()
+    //--------------------------------------------------------------------
+    //                           Snippets
+    //--------------------------------------------------------------------
+
+    private string dataTableToJson(DataTable table)
     {
-        string userSession = Context.Request.Cookies["session"]["session"];
+        JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+        List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+        Dictionary<string, object> childRow;
+        foreach (DataRow row in table.Rows)
+        {
+            childRow = new Dictionary<string, object>();
+            foreach (DataColumn col in table.Columns)
+            {
+                childRow.Add(col.ColumnName, row[col]);
+            }
+            parentRow.Add(childRow);
+        }
 
-        string userId = getUserFromSession(userSession);
-
-        DataTable messages = dbHandler.getUserMessages(userId);
-
-        string response = dataTableToJson(messages);
-
-        return response;
+        return jsSerializer.Serialize(parentRow);
     }
+
+
+
+
 
 }
 

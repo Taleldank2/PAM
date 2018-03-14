@@ -1,4 +1,6 @@
-﻿
+﻿//--------------------------------------------------------------------
+//                            Main Page
+//--------------------------------------------------------------------
 
 
 function getUserLastEvent() {
@@ -10,14 +12,19 @@ function getUserLastEvent() {
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
         success: parseLastEvent
-    }) // end of ajax call
+    }) 
 
 }
 
 function parseLastEvent(results)
 {
-    alert(results.d);
+    results = $.parseJSON(results.d);
+    str = results[0].Title;
+    $("#MainNextEvent").html(str);
+
 }
+
+//---------------------------------//
 
 function getLastResult() {
 
@@ -32,10 +39,13 @@ function getLastResult() {
 
 }
 
-
 function parseUserLastResult(results) {
-    alert(results.d);
+    results = $.parseJSON(results.d);
+    str = results[0].Distance + " מטר | " + results[0].Description + " | " + results[0].rTime.Minutes + ":" + results[0].rTime.Seconds;
+    $("#MainLastResult").html(str);
 }
+
+//---------------------------------//
 
 function getMessagesCount() {
 
@@ -46,14 +56,17 @@ function getMessagesCount() {
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
         success: parseMessagesCount
-    }) // end of ajax call
+    }) 
 
 }
-
 
 function parseMessagesCount(results) {
-    alert(results.d);
+    str = results.d;
+    $("#MainMessages").html(str);
 }
+
+//---------------------------------//
+
 
 function getScore() {
 
@@ -64,17 +77,43 @@ function getScore() {
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
         success: parseScore
-    }) // end of ajax call
+    }) 
 
 }
-
 
 function parseScore(results) {
-    alert(results.d);
+    
+    str = results.d;
+    $("#MainAppScore").html(str);
 }
 
+//---------------------------------//
+
+function getName() {
+
+    $.ajax({
+        url: 'WebService.asmx/getName',
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: parseName
+    })
+
+}
+
+function parseName(results) {
+    alert("Name:" + results.d);
+    str = results.d;
+    $("#MainWelcome").append(" "+str);
+}
+
+//---------------------------------//
 
 
+//--------------------------------------------------------------------
+//                           Results Page
+//--------------------------------------------------------------------
 function getUserResults() {
 
     $.ajax({
@@ -88,10 +127,13 @@ function getUserResults() {
 
 }
 
-
 function parseUserResults(results) {
     alert(results.d);
 }
+
+//--------------------------------------------------------------------
+//                           Events Page
+//--------------------------------------------------------------------
 
 function getUserEvents() {
 
@@ -106,12 +148,14 @@ function getUserEvents() {
 
 }
 
-
 function parseUserEvents(results) {
-    alert(results.d);
+    alert("events: "+results.d);
 }
 
 
+//--------------------------------------------------------------------
+//                           Messages Page
+//--------------------------------------------------------------------
 function getUserMessages() {
 
     $.ajax({
@@ -127,11 +171,14 @@ function getUserMessages() {
 
 
 function parseUserMessages(results) {
-    alert(results.d);
-
+    alert("Messaes "+ results.d);
+   
 }
 
 
+//--------------------------------------------------------------------
+//                             Register
+//--------------------------------------------------------------------
 function getPicturePath() {
 
     $.ajax({
@@ -144,7 +191,6 @@ function getPicturePath() {
     }) // end of ajax call
 
 }
-
 
 function updateUserPicture(results) {
     $.get(results.d, function (data) {

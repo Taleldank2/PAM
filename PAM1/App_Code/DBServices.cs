@@ -32,62 +32,29 @@ public class DBServices
         return con;
     }
 
-    public void savePicture(string picPath,string userPicBase64)
+
+    //---------------------------------------------------------------------------------
+    // Create the SqlCommand
+    //---------------------------------------------------------------------------------
+    private SqlCommand CreateCommand(string CommandSTR, SqlConnection con)
     {
-        string dirPath = Path.Combine(HttpRuntime.AppDomainAppPath, picPath.Replace("/", "\\"));
 
-        File.WriteAllText(dirPath, userPicBase64);
-    }
+        SqlCommand cmd = new SqlCommand(); // create the command object
 
-    public bool registerUser(string userType, string userName, string userLastName, string phoneNumber,
-                           string userMail, string userPassword, string userPicBase64, string city,
-                           string userBirthday)
-    {
-        SqlConnection con = null;
+        cmd.Connection = con;              // assign the connection to the command object
 
-        try
-        {
-            con = connect();
+        cmd.CommandText = CommandSTR;      // can be Select, Insert, Update, Delete 
 
-            string picPath = "images/profiles/" + phoneNumber + ".html";
+        cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
 
-            savePicture(picPath, userPicBase64);
+        cmd.CommandType = System.Data.CommandType.Text; // the type of the command, can also be stored procedure
 
-            string command = "INSERT INTO[dbo].[Users] " +
-                             "([UserType], [FirstName], [LastName], [PhoneNumber], [Email]," +
-                             " [Password],[Picture],[City],[BirthDate]) " +
-                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')";
-
-            
-            string[] birthDayArray = userBirthday.Split('/');
-
-            string parsedBirthDay = birthDayArray[2] + "-" + birthDayArray[1] + "-" + birthDayArray[0];
-
-
-            string formattedCommand = String.Format(command, userType, userName, userLastName,
-                phoneNumber, userMail, userPassword, picPath, city, parsedBirthDay); 
-             
-            SqlCommand insert = new SqlCommand(formattedCommand, con);
-
-            return Convert.ToBoolean(insert.ExecuteNonQuery());
-        }
-        catch (Exception ex)
-        {
-            // write to log
-            throw ex;
-        }
-        finally
-        {
-            if (con != null)
-            {
-                con.Close();
-            }
-        }
+        return cmd;
     }
 
 
     //--------------------------------------------------------------------
-    // Read from the DB into a table
+    // This function is used to SELECT tabels from the DB
     //--------------------------------------------------------------------
     private DataTable queryDb(string query)
     {
@@ -120,7 +87,9 @@ public class DBServices
         }
     }
 
-    // Function for Login
+    //--------------------------------------------------------------------
+    //Function for Login module
+    //--------------------------------------------------------------------
     public DataTable getUser(string userID)
     {
             
@@ -132,8 +101,77 @@ public class DBServices
         return user;
     }
 
+    //--------------------------------------------------------------------
+    // Register
+    //--------------------------------------------------------------------
 
-    // Function for Main Page
+    public bool registerUser(string userType, string userName, string userLastName, string phoneNumber,
+                           string userMail, string userPassword, string userPicBase64, string city,
+                           string userBirthday)
+    {
+        SqlConnection con = null;
+
+        try
+        {
+            con = connect();
+
+            string picPath = "images/profiles/" + phoneNumber + ".html";
+
+            savePicture(picPath, userPicBase64);
+
+            string command = "INSERT INTO[dbo].[Users] " +
+                             "([UserType], [FirstName], [LastName], [PhoneNumber], [Email]," +
+                             " [Password],[Picture],[City],[BirthDate]) " +
+                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')";
+
+
+            string[] birthDayArray = userBirthday.Split('/');
+
+            string parsedBirthDay = birthDayArray[2] + "-" + birthDayArray[1] + "-" + birthDayArray[0];
+
+
+            string formattedCommand = String.Format(command, userType, userName, userLastName,
+                phoneNumber, userMail, userPassword, picPath, city, parsedBirthDay);
+
+            SqlCommand insert = new SqlCommand(formattedCommand, con);
+
+            return Convert.ToBoolean(insert.ExecuteNonQuery());
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw ex;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
+    }
+
+    public void savePicture(string picPath, string userPicBase64)
+    {
+        string dirPath = Path.Combine(HttpRuntime.AppDomainAppPath, picPath.Replace("/", "\\"));
+
+        File.WriteAllText(dirPath, userPicBase64);
+    }
+
+    public string getPicturePath(string userID)
+    {
+        string query = "SELECT Picture FROM [dbo].[Users] WHERE UserID =" + userID;
+
+        DataTable userTable = queryDb(query);
+
+        string picturePath = userTable.Rows[0][0].ToString();
+
+        return picturePath;
+    }
+
+    //--------------------------------------------------------------------
+    // Main Page 
+    //--------------------------------------------------------------------
     public DataTable getUserLastEvent(string userID)
     {
        
@@ -148,7 +186,7 @@ public class DBServices
         return UserEvent;
     }
 
-    // Function for Login
+    
     public string getMessagesCount(string userID)
     {
 
@@ -164,23 +202,38 @@ public class DBServices
         return messagesCount;
     }
 
-    // Function for Login
+    
     public string getUserScore(string userID)
     {
 
         string query = "select AppScore	from athletes where AthleteID = " + userID;
 
-        DataTable messagesTable = queryDb(query);
+        DataTable scoreTable = queryDb(query);
 
-        string userScore = messagesTable.Rows[0][0].ToString();
+        string userScore = scoreTable.Rows[0][0].ToString();
 
         return userScore;
     }
 
+    public string getUserName(string userID)
+    {
+
+        string query = "Select Users.FirstName from Users"+
+                        " Join Athletes ON Users.UserID = Athletes.AthleteID"+
+                        " where AthleteID = " + userID;
+
+        DataTable userNames = queryDb(query);
+
+        string userName = userNames.Rows[0][0].ToString();
+
+        return userName;
+    }
 
     public DataTable getUserLastResult(string userID)
     {
+
         string query = "select top 1 * from results " +
+                        "join ResultTypes on results.ResultType = ResultTypes.ResultType "+
                        "WHERE AthleteID = " + userID + " " +
                        "ORDER BY rDate DESC";
 
@@ -190,6 +243,10 @@ public class DBServices
         return userLastResult;
     }
 
+
+    //--------------------------------------------------------------------
+    // Results Page
+    //--------------------------------------------------------------------
     public DataTable getUserResults(string userID)
     {
         string query = "select * from results " +
@@ -202,7 +259,9 @@ public class DBServices
         return userResults;
     }
 
-    // Function for Main Page
+    //--------------------------------------------------------------------
+    // Events Page
+    //--------------------------------------------------------------------
     public DataTable getUserEvents(string userID)
     {
         string query = "Select * from events e"
@@ -216,8 +275,10 @@ public class DBServices
         return UserEvent;
     }
 
+    //--------------------------------------------------------------------
+    // Messages page
+    //--------------------------------------------------------------------
 
-    // Function for Main Page
     public DataTable getUserMessages(string userID)
     {
         string query = "SELECT * FROM [dbo].[Messages] m " +
@@ -229,38 +290,6 @@ public class DBServices
 
         return messagesTable;
     }
-
-    // Function for Login
-    public string getPicturePath(string userID)
-    {
-        string query = "SELECT Picture FROM [dbo].[Users] WHERE UserID =" + userID;
-
-        DataTable userTable = queryDb(query);
-
-        string picturePath = userTable.Rows[0][0].ToString();
-
-        return picturePath;
-    }
-
-    //---------------------------------------------------------------------------------
-    // Create the SqlCommand
-    //---------------------------------------------------------------------------------
-    private SqlCommand CreateCommand(string CommandSTR, SqlConnection con)
-    {
-
-        SqlCommand cmd = new SqlCommand(); // create the command object
-
-        cmd.Connection = con;              // assign the connection to the command object
-
-        cmd.CommandText = CommandSTR;      // can be Select, Insert, Update, Delete 
-
-        cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
-
-        cmd.CommandType = System.Data.CommandType.Text; // the type of the command, can also be stored procedure
-
-        return cmd;
-    }
-
 
 
 }

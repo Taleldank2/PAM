@@ -1,4 +1,7 @@
-﻿$(document).ready(function () {
+﻿//----------------------------------------------------------------------------------------
+//Session handling if the user is trying to navigate to pages before logging to the system
+//----------------------------------------------------------------------------------------
+$(document).ready(function () {
 
     cookie = document.cookie
 
@@ -42,7 +45,7 @@ function checkUserExists(session) {
 }
 
 function checkSession(results) {
-    //this is the callBackFunc
+    
     response = results.d
 
     if (response == "false") {
@@ -51,13 +54,14 @@ function checkSession(results) {
     else
     {
         // Load Data to html on every page when session is verified.
-        if (window.location.pathname == "/Main.html")
+        if (window.location.pathname == "/index.html")
         {
             getPicturePath()
             getUserLastEvent()
             getLastResult()
             getMessagesCount()
             getScore()
+            getName()
         }
         else if (window.location.pathname == "/Results.html")
         {

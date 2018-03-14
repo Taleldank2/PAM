@@ -1,8 +1,6 @@
 //-----------------------------------------------------------------------
-//                              Login
-//-----------------------------------------------------------------------------
-// Login
-//-----------------------------------------------------------------------------//-----------------------------------------------------------------------
+//                              Login JS
+//------------------------------------------------------------------------
 function Login() {
 
     PhoneNumber = document.getElementById("PhoneNumber").value;
@@ -17,11 +15,9 @@ function Login() {
 
 }
 
-
-function successCB(results) {
-    //this is the callBackFunc
+function successCB(results) {    
     alert("" + results.d);
-    window.location = "Main.html";
+    window.location = "index.html";
 }
 
 function errorCB(e) {
@@ -29,9 +25,12 @@ function errorCB(e) {
 }
 
 
+//-----------------------------------------------------------------------
+//                              Login AJAX
+//------------------------------------------------------------------------
 function ajaxLogin(request, successCB, errorCB) {
 
-    // serialize the object to JSON string
+    //Serialize the object to JSON string
     var dataString = JSON.stringify(request);
 
     $.ajax({
@@ -43,9 +42,13 @@ function ajaxLogin(request, successCB, errorCB) {
         contentType: 'application/json; charset = utf-8',
         success: successCB,
         error: errorCB
-    }) // end of ajax call
+    }) 
 }
 
+
+//-----------------------------------------------------------------------
+//Session handling only if the user try to navigate to Main directly 
+//------------------------------------------------------------------------
 $(document).ready(function () {
     
     cookie = document.cookie
@@ -80,16 +83,16 @@ function checkUserExists(session)
         dataType: 'json',                     
         contentType: 'application/json; charset = utf-8',
         success: checkSession
-    }) // end of ajax call
+    }) 
 
 }
 
 function checkSession(results) {
-    //this is the callBackFunc
+    
     response = results.d
 
     if (response == "true") {
-        window.location = "Main.html";
+        window.location = "index.html";
     }
 }
 
