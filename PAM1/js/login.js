@@ -1,6 +1,8 @@
 //-----------------------------------------------------------------------
 //                              Login
-//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+// Login
+//-----------------------------------------------------------------------------//-----------------------------------------------------------------------
 function Login() {
 
     PhoneNumber = document.getElementById("PhoneNumber").value;
@@ -16,23 +18,33 @@ function Login() {
 }
 
 
+function successCB(results) {
+    //this is the callBackFunc
+    alert("" + results.d);
+    window.location = "Main.html";
+}
+
+function errorCB(e) {
+    alert("The exception message is : " + e.responseText);
+}
+
+
 function ajaxLogin(request, successCB, errorCB) {
 
     // serialize the object to JSON string
     var dataString = JSON.stringify(request);
 
-    $.ajax({ 
-        url: 'WebService.asmx/Login',         
-        data: dataString,                     
+    $.ajax({
+        url: 'WebService.asmx/Login',
+        data: dataString,
         type: 'POST',
         async: false,
-        dataType: 'json',                     
+        dataType: 'json',
         contentType: 'application/json; charset = utf-8',
-        success: successCB,                
+        success: successCB,
         error: errorCB
     }) // end of ajax call
 }
-
 
 $(document).ready(function () {
     
@@ -82,16 +94,3 @@ function checkSession(results) {
 }
 
 
-
-//-----------------------------------------------------------------------------
-// A Method for presenting the results
-//-----------------------------------------------------------------------------
-function successCB(results) {
-    //this is the callBackFunc
-    alert("" + results.d);
-    window.location = "Main.html";
-}
-
-function errorCB(e) {
-    alert("The exception message is : " + e.responseText);
-}
