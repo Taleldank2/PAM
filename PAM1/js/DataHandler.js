@@ -129,6 +129,20 @@ function getUserResults() {
 
 function parseUserResults(results) {
     alert(results.d);
+    results = $.parseJSON(results.d);
+    $(function () {
+        alert("Im in results function!!!!")
+        $.each(results, function (i, item) {
+            var $tr = $('<tr>').append(
+                $('<td>').html("<i class='mdi mdi-access-point'></i>"),
+                $('<td>').text(item.Distance),
+                $('<td>').text(item.rTime.Minutes +":" + item.rTime.Seconds)
+            ).appendTo('#ResultsTable');
+            //console.log($tr.wrap('<p>').html());
+        });
+    });
+    //$("#ResultsTable").append(str);
+
 }
 
 //--------------------------------------------------------------------
