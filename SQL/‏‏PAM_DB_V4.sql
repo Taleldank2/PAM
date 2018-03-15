@@ -58,21 +58,31 @@ GO
 
 --DROP DATA FROM TABLES
 /*
-DELETE * FROM Attendances
-DELETE * FROM UserTypes
-DELETE * FROM EventRates
-DELETE * FROM Games
-DELETE * FROM Messages
-DELETE * FROM Results
-DELETE * FROM ResultTypes
-DELETE * FROM Athletes
-DELETE * FROM Coaches
-DELETE * FROM Teams
-DELETE * FROM Users
-DELETE * FROM Events
-DELETE * FROM EventTypes
-DELETE * FROM TeamsEvents
-DELETE * FROM TeamsMessages
+DELETE FROM Attendances
+
+DELETE FROM UserTypes
+
+DELETE FROM EventRates
+DELETE FROM Games
+
+DELETE FROM Messages
+
+DELETE FROM Results
+DELETE FROM ResultTypes
+DELETE FROM Athletes
+
+DELETE FROM Coaches
+
+DELETE FROM Teams
+
+DELETE FROM Users
+
+DELETE FROM Events
+
+DELETE FROM EventTypes
+
+DELETE FROM TeamsEvents
+DELETE FROM TeamsMessages
 GO
 */
 
@@ -641,7 +651,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (1,'איתמר','קנוף','0523553795','itamar1307@gmail.com','1307',NULL,'תמרת',Convert(date,'10-02-2002',105))--ATHLETE
+VALUES (1,'איתמר','קנוף','0523553795','itamar1307@gmail.com','1307','images/profiles/פרופיל ריק.png','תמרת',Convert(date,'10-02-2002',105))--ATHLETE
 GO
 
 INSERT INTO USERS(
