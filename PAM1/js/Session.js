@@ -66,14 +66,17 @@ function checkSession(results) {
         else if (window.location.pathname == "/Results.html")
         {
             getUserResults()
+            getPicturePath()
         }
-        else if (window.location.pathname == "/Calender.html")
+        else if (window.location.pathname == "/Calendar.html")
         {
             getUserEvents()
+            getPicturePath()
         }
         else if (window.location.pathname == "/Inbox.html")
         {
             getUserMessages()
+            getPicturePath()
         }
     }
 }
