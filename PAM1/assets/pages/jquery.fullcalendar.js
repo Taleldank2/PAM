@@ -137,7 +137,37 @@
         var form = '';
         var today = new Date($.now());
 
-        var defaultEvents =  [{
+        var myEvents = JSON.parse(getUserEvents())
+
+        var eventList = []
+
+        for (var i = 0; i < myEvents.length; i++) {
+
+            event = myEvents[i];
+
+            var eventTime = parseInt(event["E_Date"].split("(")[1].split(")")[0])
+            var eventStartDate = new Date(eventTime)
+
+            eventStartDate.setMilliseconds(event["StartTime"].TotalMilliseconds)
+            
+
+            var eventEndDate = new Date(eventTime)
+
+            eventEndDate.setMilliseconds(event["EndTime"].TotalMilliseconds)
+
+            eventList.push(
+                {
+                    title: event["Title"],
+                    start: eventStartDate,
+                    end: eventEndDate,
+                    className: "bg-purple"
+                }
+                )
+        }
+
+        var defaultEvents = eventList
+
+        /*var defaultEvents =  [{
                 title: 'Hey!',
                 start: new Date($.now() + 158000000),
                 className: 'bg-purple'
@@ -151,7 +181,7 @@
                 start: new Date($.now() + 338000000),
                 className: 'bg-primary'
             }];
-
+            */
         var $this = this;
         $this.$calendarObj = $this.$calendar.fullCalendar({
             slotDuration: '00:15:00', /* If we want to split day time each 15minutes */

@@ -73,15 +73,17 @@ public class WebService : System.Web.Services.WebService
 
                     try
                     {
-                        String userGuid = Guid.NewGuid().ToString();
+                        string userGuid = Guid.NewGuid().ToString();
 
-                        if (usersSessions.Keys.Contains(myUser.PhoneNumber))
+                        string userId = dt.Rows[0][0].ToString();
+
+                        if (usersSessions.Keys.Contains(userId))
                         {
-                            usersSessions[dt.Rows[0][0].ToString()] = userGuid;
+                            usersSessions[userId] = userGuid;
                         }
                         else
                         {
-                            usersSessions.Add(dt.Rows[0][0].ToString(), userGuid);
+                            usersSessions.Add(userId, userGuid);
                         }
 
                         HttpCookie cookie = new HttpCookie("session");
