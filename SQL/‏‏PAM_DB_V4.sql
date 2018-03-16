@@ -637,7 +637,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (1,'גיא','כהן','0522549591','guycohen123@gmail.com','123',NULL,'טבעון',Convert(date,'19-12-2004',105))--ATHLETE
+VALUES (1,'גיא','כהן','0522549591','guycohen123@gmail.com','123','images/profiles/פרופיל ריק.html','טבעון',Convert(date,'19-12-2004',105))--ATHLETE
 GO
 
 INSERT INTO USERS(
@@ -651,7 +651,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (1,'איתמר','קנוף','0523553795','itamar1307@gmail.com','1307','images/profiles/פרופיל ריק.png','תמרת',Convert(date,'10-02-2002',105))--ATHLETE
+VALUES (1,'איתמר','קנוף','0523553795','itamar1307@gmail.com','1307','images/profiles/פרופיל ריק.html','תמרת',Convert(date,'10-02-2002',105))--ATHLETE
 GO
 
 INSERT INTO USERS(
@@ -665,7 +665,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (1,'תום','קפלן','0586636591','tom.kaplan@gmail.com','591',NULL,'תמרת',Convert(date,'15-02-2003',105))--ATHLETE
+VALUES (1,'תום','קפלן','0586636591','tom.kaplan@gmail.com','591','images/profiles/פרופיל ריק.html','תמרת',Convert(date,'15-02-2003',105))--ATHLETE
 GO
 
 INSERT INTO USERS(
