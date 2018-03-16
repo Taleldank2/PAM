@@ -185,8 +185,20 @@ function getUserMessages() {
 
 
 function parseUserMessages(results) {
-    alert("Messaes "+ results.d);
-   
+    results = $.parseJSON(results.d);
+    $(function () {
+        alert("Im in inbox function!!!!")
+        $.each(results, function (i, item) {
+            var str=item.mDate;
+            var $tr = $('<tr>').append(
+                $('<td>').html("<a class='email-name'></a>").text(item.CreatorId),
+                $('<td class="hidden-xs">').html("<a class='email-msg'></a>").text(item.Title),
+                $('<td class="text-right">').text(item.mTime.Minutes + ":" + item.mTime.Seconds),
+                $('<td class="text-right">').text(str)
+            ).appendTo('#InboxTable');
+            //console.log($tr.wrap('<p>').html());
+        });
+    });   
 }
 
 
