@@ -131,13 +131,12 @@ function parseUserResults(results) {
     alert(results.d);
     results = $.parseJSON(results.d);
     $(function () {
-        alert("Im in results function!!!!")
         $.each(results, function (i, item) {
             var $tr = $('<tr>').append(
                 $('<td>').html("<i class='mdi mdi-access-point'></i>"),
                 $('<td>').text(item.Distance),
                 $('<td>').text(item.rTime.Minutes +":" + item.rTime.Seconds),
-                $('<td>').text(item.rDate.toString())
+                $('<td>').text(item.rDate)
             ).appendTo('#ResultsTable');
             //console.log($tr.wrap('<p>').html());
         });
@@ -190,7 +189,7 @@ function parseUserMessages(results) {
     $(function () {
         alert("Im in inbox function!!!!")
         $.each(results, function (i, item) {
-            var str=item.mDate;
+            var str=item.mDate.toString();
             var $tr = $('<tr>').append(
                 $('<td>').html("<a class='email-name'></a>").text(item.CreatorId),
                 $('<td class="hidden-xs">').html("<a class='email-msg'></a>").text(item.Title),
