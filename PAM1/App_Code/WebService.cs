@@ -71,30 +71,42 @@ public class WebService : System.Web.Services.WebService
                     myUser.Password = dt.Rows[0][6].ToString();
                     myUser.PhoneNumber = dt.Rows[0][4].ToString();
 
-                    String userGuid = Guid.NewGuid().ToString();
-
-                    if (usersSessions.Keys.Contains(myUser.PhoneNumber))
+                    try
                     {
-                        usersSessions[dt.Rows[0][0].ToString()] = userGuid;
+                        String userGuid = Guid.NewGuid().ToString();
+
+                        if (usersSessions.Keys.Contains(myUser.PhoneNumber))
+                        {
+                            usersSessions[dt.Rows[0][0].ToString()] = userGuid;
+                        }
+                        else
+                        {
+                            usersSessions.Add(dt.Rows[0][0].ToString(), userGuid);
+                        }
+
+                        HttpCookie cookie = new HttpCookie("session");
+                        cookie["session"] = userGuid;
+
+                        cookie.Expires = DateTime.Now.AddHours(1);
+
+                        Context.Response.Cookies.Add(cookie);
+
+                        // serialize to string
+                        JavaScriptSerializer js = new JavaScriptSerializer();
+                        string jsonString = js.Serialize("ברוך הבא");
+                        return jsonString;
+
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        
-                        usersSessions.Add(dt.Rows[0][0].ToString(), userGuid);
-                        
+
+                        // serialize to string
+                        JavaScriptSerializer js = new JavaScriptSerializer();
+                        string jsonString = js.Serialize("Session table error (Go to WebService class to debug!): " + ex.Message);
+                        return jsonString;
+                        throw;
+
                     }
-
-                    HttpCookie cookie = new HttpCookie("session");
-                    cookie["session"] = userGuid;
-
-                    cookie.Expires = DateTime.Now.AddHours(1);
-
-                    Context.Response.Cookies.Add(cookie);
-
-                    // serialize to string
-                    JavaScriptSerializer js = new JavaScriptSerializer();
-                    string jsonString = js.Serialize("ברוך הבא");
-                    return jsonString;
 
                 }
 
@@ -134,7 +146,7 @@ public class WebService : System.Web.Services.WebService
 
         throw new Exception("Invalid session id");
     }
-   
+
     [WebMethod]
     public string checkUserSession(string userSession)
     {
@@ -192,7 +204,7 @@ public class WebService : System.Web.Services.WebService
 
         return response;
     }
-         
+
     [WebMethod]
     public string getScore()
     {
