@@ -62,10 +62,11 @@
                         
 
                         <li class="list-inline-item dropdown notification-list">
-                            <a class="nav-link dropdown-toggle waves-effect nav-user" data-toggle="dropdown" role="button"
+                            <a class="nav-link dropdown-toggle waves-effect nav-user" data-toggle="dropdown" href="#" role="button"
                                aria-haspopup="false" aria-expanded="false">
-                                <img id="profileimage" src="images/profiles/פרופיל ריק.html" style="height:60px; margin-top:15%; width:60px" alt="user" class="rounded-circle"/>
-                            </a>     
+                                <img id="profileimage" src="images/profiles/פרופיל ריק.html" style="height:60px; margin-top:15%; width:60px" alt="user" class="rounded-circle">
+                            </a>
+                           
                         </li>
 
                     </ul>
@@ -82,7 +83,7 @@
             <div class="container-fluid">
                 <div id="navigation" style="top:80px">
                     <!-- Navigation Menu-->
-                    <ul class="navigation-menu" >
+                    <ul class="navigation-menu">
 
                         <li class="has-submenu">
                             <a href="index.html"><i class="ti-home"></i>בית</a>
@@ -98,19 +99,20 @@
 
                         <li class="has-submenu">
                             <a href="Results.html"><i class="ti-timer"></i>תוצאות</a>
-                        </li> 
+                        </li>
 
                         <li class="has-submenu">
                             <a href="#"><i class="ti-user"></i>פרופיל</a>
-                        </li> 
+                        </li>
 
                         <li class="has-submenu">
                             <a href="#"><i class="ti-settings"></i>הגדרות</a>
-                        </li> 
+                        </li>
 
                         <li class="has-submenu">
                             <a href="#" onclick="logOut()"><i class="ti-power-off"></i>התנתק/י</a>
-                        </li> 
+                        </li>
+
 
                     </ul>
                     <!-- End navigation menu -->
@@ -130,62 +132,18 @@
                     <div class="page-title-box" style="padding:0px;margin-top:45px;">
                         <div class="btn-group pull-right">
                             <ol class="breadcrumb hide-phone p-0 m-0">
-                                <li class="breadcrumb-item">בית</li>
+                                <li class="breadcrumb-item active">שם הדף</li>
+                                <li class="breadcrumb-item"><a href="index.html">בית</a></li>
                                 <li class="breadcrumb-item active">PAM</li>
                             </ol>
                         </div>
-                        <h4 id="MainWelcome" class="page-title" style="font-size:30px;">ברוך הבא</h4>
+                        <h4 class="page-title" style="font-size:40px;">שם הדף</h4>
                     </div>
                 </div>
             </div>
             <!-- end page title end breadcrumb -->
 
-            <div class="row">
-                <div class="col-sm-6 col-lg-3">
-                    <div class="widget-simple-chart text-right card-box" style="text-align:right !important; margin-bottom:5px">
-                        <!--<div class="circliful-chart" data-dimension="90" data-text="35%" data-width="5" data-fontsize="14" data-percent="35" data-fgcolor="#5fbeaa" data-bgcolor="#ebeff2"></div>-->
-                        <span><i class="ti-star" style="float:left; margin-bottom:40px; font-size:40px"></i></span>
-                        <h3 class="text-success counter m-t-10">דירוג אפליקציה</h3>
-                        <p id="MainAppScore" class="text-muted text-nowrap m-b-10"></p>
-                    </div>
-                </div>
-
-
-                <div class="col-sm-6 col-lg-3">
-                    <a href="Inbox.html">
-                        <div class="widget-simple-chart text-right card-box" style="text-align:right !important; margin-bottom:5px">
-                            <!--<div class="circliful-chart" data-dimension="90" data-text="75%" data-width="5" data-fontsize="14" data-percent="75" data-fgcolor="#3bafda" data-bgcolor="#ebeff2"></div>-->
-                            <span><i class="mdi mdi-comment-text-outline" style="float:left; margin-bottom:40px; font-size:40px"></i></span>
-                            <h3 class="text-primary counter m-t-10">הודעות</h3>
-                            <p id="MainMessages" class="text-muted text-nowrap m-b-10"></p>
-                        </div>
-                    </a>
-                </div>
-
-
-                <div class="col-sm-6 col-lg-3">
-                    <a href="Calendar.html">
-                        <div class="widget-simple-chart text-right card-box" style="text-align:right !important; margin-bottom:5px">
-                            <!--<div class="circliful-chart" data-dimension="90" data-text="58%" data-width="5" data-fontsize="14" data-percent="58" data-fgcolor="#f76397" data-bgcolor="#ebeff2"></div>-->
-                            <span><i class="ti-calendar" style="float:left;margin-bottom:40px; font-size:40px"></i></span>
-                            <h3 class="text-pink m-t-10"><span class="counter">האירוע הבא</span></h3>
-                            <p id="MainNextEvent" class="text-muted text-nowrap m-b-10"></p>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-sm-6 col-lg-3">
-                    <a href="Results.html">
-                        <div class="widget-simple-chart text-right card-box" style="text-align:right !important; margin-bottom:5px">
-                            <!--<div class="circliful-chart" data-dimension="90" data-text="49%" data-width="5" data-fontsize="14" data-percent="49" data-fgcolor="#98a6ad" data-bgcolor="#ebeff2"></div>-->
-                            <span><i class="ti-timer" style="float:left;margin-bottom:40px; font-size:40px"></i></span>
-                            <h3 class="text-inverse counter m-t-10">תוצאה אחרונה</h3>
-                            <p id="MainLastResult" class="text-muted text-nowrap m-b-10"></p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <!-- end row -->
+           
 
         </div> <!-- end container -->
     </div>

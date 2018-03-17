@@ -173,7 +173,6 @@ function getUserMessages() {
         contentType: 'application/json; charset = utf-8',
         success: parseUserMessages
     })
-
 }
 
 
@@ -187,14 +186,10 @@ function parseUserMessages(results) {
             var strDate = "";
             strDate += messageStartDate.getDay() + "/" + messageStartDate.getMonth() + "/" + messageStartDate.getFullYear();
 
-            var eventHour = item.mTime;
-            var messageHour = new Date(eventHour);
-            messageHour = messageHour
-
             var $tr = $('<tr>').append(
-                $('<td>').html("<a class='email-name'></a>").text(item.CreatorId),
+                $('<td>').html("<a class='email-name'></a>").text(item.FirstName + " " + item.LastName),
                 $('<td class="hidden-xs">').html("<a class='email-msg'></a>").text(item.Title),
-                $('<td class="text-right">').text(messageHour),
+                $('<td class="text-right">').text(item.mTime.Hours + ":" + item.mTime.Minutes),
                 $('<td class="text-right">').text(strDate)
             ).appendTo('#InboxTable');
         });

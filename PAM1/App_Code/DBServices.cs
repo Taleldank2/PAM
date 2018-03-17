@@ -284,6 +284,7 @@ public class DBServices
         string query = "SELECT * FROM [dbo].[Messages] m " +
                        "JOIN dbo.TeamsMessages t on m.MessageID = t.MessageID " +
                        "join dbo.Athletes a on t.TeamID = a.TeamID " +
+                       "join Users u on m.CreatorID = u.UserID "+
                        "WHERE AthleteID = " + userID;
 
         DataTable messagesTable = queryDb(query);
