@@ -137,22 +137,28 @@
         var form = '';
         var today = new Date($.now());
 
+        //Get events from db
         var myEvents = JSON.parse(getUserEvents())
 
+        //load them into temp var
         var eventList = []
 
+        //go over each event to exctract date
         for (var i = 0; i < myEvents.length; i++) {
 
+            //take the X event
             event = myEvents[i];
 
+            //Parse the event date into int
             var eventTime = parseInt(event["E_Date"].split("(")[1].split(")")[0])
-            var eventStartDate = new Date(eventTime)
 
+            //convert to date
+            var eventStartDate = new Date(eventTime)
+            //Covert the event start time to milliseconds (milliseconds can be converted to the event start hour after.)
             eventStartDate.setMilliseconds(event["StartTime"].TotalMilliseconds)
             
-
+            //Covert the event start time to milliseconds (milliseconds can be converted to the event start hour after.)
             var eventEndDate = new Date(eventTime)
-
             eventEndDate.setMilliseconds(event["EndTime"].TotalMilliseconds)
 
             eventList.push(
