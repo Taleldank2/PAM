@@ -43,10 +43,24 @@
     /* on click on event */
     CalendarApp.prototype.onEventClick = function (calEvent, jsEvent, view) {
         var $this = this;
-        var form = $("<form></form>");
+        document.getElementById("EventModalTitle").innerText = calEvent.title;
+        document.getElementById("EventModalBody").innerText =calEvent.body;
+        document.getElementById("EventModalLocation").innerText = "איפה: "+calEvent.location;
+        document.getElementById("EventModalDateTime").innerText ="מתי: "+ calEvent.edate;
+
+        //var form = $("<form></form>");
         //form.append("<label>Change event name</label>");
-        form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' />");//<span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div>");
-        form.append("<div class='input-group'><body class='form-control' type=text value='" + calEvent.title + "' />");
+        //alert(calEvent.title);
+        //alert(calEvent.body);
+        //alert(calEvent.location);
+        //alert(calEvent.note);
+        //alert(calEvent.edate);
+        //form.append("<h1>" + calEvent.title + "</h1>");
+        //document.getElementById("EventModalTitle").innerText = calEvent.title;
+        //form.append("<h6 style='direction:rtl'>" + calEvent.body + "</h6>");
+        //form.append("<h6 style='direction:rtl'>" + "מיקום:" + calEvent.location + "</h6>");
+        //form.append("<h6 style='direction:rtl'>" + "תאריך:" + calEvent.edate + "</h6>");
+        //form.append("<h6 style='direction:rtl'>" + "שעות:" + calEvent.start + " - " + calEvent.end + "</h6>");
         $this.$modal.modal({
             backdrop: 'static'
         });
@@ -149,7 +163,10 @@
             event = myEvents[i];
 
             //Parse the event date into int
-            var eventTime = parseInt(event["E_Date"].split("(")[1].split(")")[0])
+            var eventTime = parseInt(event["E_Date"].split("(")[1].split(")")[0]);
+            var EventStartDate = new Date(eventTime);
+            var strDate = "";
+            strDate = EventStartDate.getDay() + "/" + EventStartDate.getMonth() + "/" + EventStartDate.getFullYear();
 
             //convert to date
             var eventStartDate = new Date(eventTime)
@@ -182,7 +199,10 @@
             eventList.push(
                 {
                     title: event["Title"],
-                    body: event["eBody"],
+                    body: "תוכן: "+event["E_Body"],                
+                    location: event["Location"],
+                    note: event["Note"],
+                    edate: strDate,
                     start: eventStartDate,
                     end: eventEndDate,
                     className: cName
