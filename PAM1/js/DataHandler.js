@@ -189,7 +189,7 @@ function parseUserMessages(results) {
     $(function () {
         alert("Im in inbox function!!!!")
         $.each(results, function (i, item) {
-            var str=item.mDate.toString();
+            var str=item.mDate;
             var $tr = $('<tr>').append(
                 $('<td>').html("<a class='email-name'></a>").text(item.CreatorId),
                 $('<td class="hidden-xs">').html("<a class='email-msg'></a>").text(item.Title),
