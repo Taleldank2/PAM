@@ -43,24 +43,19 @@
     /* on click on event */
     CalendarApp.prototype.onEventClick = function (calEvent, jsEvent, view) {
         var $this = this;
+        var startHour=parseInt((calEvent.start / (1000 * 60 * 60)) % 24);
+        var startMin = parseInt((calEvent.start / (1000 * 60)) % 60);
+        var endHour =parseInt((calEvent.end / (1000 * 60 * 60)) % 24);
+        var endMin = parseInt((calEvent.end / (1000 * 60)) % 60);
+        if (startMin == 0)
+            startMin = "00";
+        if (endMin == 0)
+            endMin = "00";
         document.getElementById("EventModalTitle").innerText = calEvent.title;
         document.getElementById("EventModalBody").innerText =calEvent.body;
-        document.getElementById("EventModalLocation").innerText = "איפה: "+calEvent.location;
-        document.getElementById("EventModalDateTime").innerText ="מתי: "+ calEvent.edate;
-
-        //var form = $("<form></form>");
-        //form.append("<label>Change event name</label>");
-        //alert(calEvent.title);
-        //alert(calEvent.body);
-        //alert(calEvent.location);
-        //alert(calEvent.note);
-        //alert(calEvent.edate);
-        //form.append("<h1>" + calEvent.title + "</h1>");
-        //document.getElementById("EventModalTitle").innerText = calEvent.title;
-        //form.append("<h6 style='direction:rtl'>" + calEvent.body + "</h6>");
-        //form.append("<h6 style='direction:rtl'>" + "מיקום:" + calEvent.location + "</h6>");
-        //form.append("<h6 style='direction:rtl'>" + "תאריך:" + calEvent.edate + "</h6>");
-        //form.append("<h6 style='direction:rtl'>" + "שעות:" + calEvent.start + " - " + calEvent.end + "</h6>");
+        document.getElementById("EventModalLocation").innerText =calEvent.location;
+        document.getElementById("EventModalDateTime").innerText = calEvent.edate + " | " + startHour + ":" + startMin +
+            " - " + endHour + ":" + endMin;
         $this.$modal.modal({
             backdrop: 'static'
         });
@@ -151,10 +146,10 @@
         var today = new Date($.now());
 
         //Get events from db
-        var myEvents = JSON.parse(getUserEvents())
+        var myEvents = JSON.parse(getUserEvents());
 
         //load them into temp var
-        var eventList = []
+        var eventList = [];
 
         //go over each event to exctract date
         for (var i = 0; i < myEvents.length; i++) {
@@ -169,13 +164,13 @@
             strDate = EventStartDate.getDay() + "/" + EventStartDate.getMonth() + "/" + EventStartDate.getFullYear();
 
             //convert to date
-            var eventStartDate = new Date(eventTime)
+            var eventStartDate = new Date(eventTime);
             //Covert the event start time to milliseconds (milliseconds can be converted to the event start hour after.)
-            eventStartDate.setMilliseconds(event["StartTime"].TotalMilliseconds)
+            eventStartDate.setMilliseconds(event["StartTime"].TotalMilliseconds);
 
             //Covert the event start time to milliseconds (milliseconds can be converted to the event start hour after.)
-            var eventEndDate = new Date(eventTime)
-            eventEndDate.setMilliseconds(event["EndTime"].TotalMilliseconds)
+            var eventEndDate = new Date(eventTime);
+            eventEndDate.setMilliseconds(event["EndTime"].TotalMilliseconds);
 
             //Set ClassName in caes of different event types
             //Set default value for the background color
@@ -199,7 +194,7 @@
             eventList.push(
                 {
                     title: event["Title"],
-                    body: "תוכן: "+event["E_Body"],                
+                    body:event["E_Body"],                
                     location: event["Location"],
                     note: event["Note"],
                     edate: strDate,
@@ -210,23 +205,7 @@
                 )
         }
 
-        var defaultEvents = eventList
-
-        /*var defaultEvents =  [{
-                title: 'Hey!',
-                start: new Date($.now() + 158000000),
-                className: 'bg-purple'
-            }, {
-                title: 'See John Deo',
-                start: today,
-                end: today,
-                className: 'bg-danger'
-            }, {
-                title: 'Buy a Moltran',
-                start: new Date($.now() + 338000000),
-                className: 'bg-primary'
-            }];
-            */
+        var defaultEvents = eventList;
         var $this = this;
         $this.$calendarObj = $this.$calendar.fullCalendar({
             slotDuration: '00:15:00', /* If we want to split day time each 15minutes */
