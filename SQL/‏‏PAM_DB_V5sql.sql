@@ -38,12 +38,6 @@ DROP CONSTRAINT Events_fk0
 
 --DROP TABLES
 /*
-drop table EventTypes
-drop table ResultTypes
-drop table UserTypes
-drop table Users
-drop table Teams
-drop table Coaches
 drop table Athletes
 drop table Events
 drop table EventRates
@@ -53,16 +47,28 @@ drop table Results
 drop table Attendances
 drop table TeamsEvents
 drop table TeamsMessages
+
+drop table Coaches
+drop table Users
+drop table Teams
+
+drop table EventTypes
+drop table ResultTypes
+drop table UserTypes
 GO
 */
 
---RESET ALL IDENTITY ID'S
---DBCC CHECKIDENT ('[Events]', RESEED, 0);
---DBCC CHECKIDENT ('[Users]', RESEED, 0);
---DBCC CHECKIDENT ('[Teams]', RESEED, 0);
---DBCC CHECKIDENT ('[Messages]', RESEED, 0);
---DBCC CHECKIDENT ('[Results]', RESEED, 0);
---GO
+/*
+RESET ALL IDENTITY ID'S
+
+DBCC CHECKIDENT ('[Events]', RESEED, 0);
+DBCC CHECKIDENT ('[Users]', RESEED, 0);
+DBCC CHECKIDENT ('[Teams]', RESEED, 0);
+DBCC CHECKIDENT ('[Messages]', RESEED, 0);
+DBCC CHECKIDENT ('[Results]', RESEED, 0);
+GO
+*/
+
 
 --DROP DATA FROM TABLES
 /*
@@ -83,8 +89,6 @@ DELETE FROM TeamsEvents
 DELETE FROM TeamsMessages
 GO
 */
-
-
 
 ------------------------------------------------------------------------------
 --------------------------------CREATE TABELS---------------------------------
@@ -395,7 +399,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (3,'טל','כפתורי','0523488825','talkaf1@gmail.com','12345',NULL,'תמרת',Convert(date,'14-04-1991',105))--SYS ADMIN
+VALUES (3,'טל','כפתורי','0523488825','talkaf1@gmail.com','12345','images/profiles/פרופיל ריק.html','תמרת',Convert(date,'14-04-1991',105))--SYS ADMIN
 GO
 
 INSERT INTO USERS(
@@ -409,7 +413,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (3,'טל','אלדן','0505999470','taleldan188@gmail.com','12345',NULL,'רעננה',Convert(date,'20-02-1991',105))--SYS ADMIN
+VALUES (3,'טל','אלדן','0505999470','taleldan188@gmail.com','12345','images/profiles/פרופיל ריק.html','רעננה',Convert(date,'20-02-1991',105))--SYS ADMIN
 GO
 	
 INSERT INTO USERS(
@@ -423,7 +427,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (2,'עידן','כפתורי','0528539214','idankaftori@gmail.com','IDAN',NULL,'טבעון',Convert(date,'12-02-1985',105))--COACH
+VALUES (2,'עידן','כפתורי','0528539214','idankaftori@gmail.com','IDAN','images/profiles/פרופיל ריק.html','טבעון',Convert(date,'12-02-1985',105))--COACH
 GO
 
 INSERT INTO USERS(
@@ -437,7 +441,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (2,'ליאור','קליין','05059998744','lior.klain@gmail.com','A123456a',NULL,'קיבוץ רמת יוחנן',Convert(date,'18-10-1981',105))--COACH
+VALUES (2,'ליאור','קליין','05059998744','lior.klain@gmail.com','A123456a','images/profiles/פרופיל ריק.html','קיבוץ רמת יוחנן',Convert(date,'18-10-1981',105))--COACH
 GO
 
 INSERT INTO USERS(
@@ -451,7 +455,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (2,'שאול','אלקנה','0505999925','shaul.el@gmail.com','A123456a',NULL,'אלוני אבא',Convert(date,'19-12-1959',105))--COACH
+VALUES (2,'שאול','אלקנה','0505999925','shaul.el@gmail.com','A123456a','images/profiles/פרופיל ריק.html','אלוני אבא',Convert(date,'19-12-1959',105))--COACH
 GO
 
 INSERT INTO USERS(
@@ -465,7 +469,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (1,'גיא','כהן','0522549591','guycohen123@gmail.com','123','images/profiles/פרופיל ריק.html','טבעון',Convert(date,'19-12-2004',105))--ATHLETE
+VALUES (1,'גיא','כהן','0522549591','guycohen123@gmail.com','123','images/profiles/0522549591.html','טבעון',Convert(date,'19-12-2004',105))--ATHLETE
 GO
 
 INSERT INTO USERS(
@@ -479,7 +483,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (1,'איתמר','קנוף','0523553795','itamar1307@gmail.com','1307','images/profiles/פרופיל ריק.html','תמרת',Convert(date,'10-02-2002',105))--ATHLETE
+VALUES (1,'איתמר','קנוף','0523553795','itamar1307@gmail.com','1307','images/profiles/0523553795.html','תמרת',Convert(date,'10-02-2002',105))--ATHLETE
 GO
 
 INSERT INTO USERS(
@@ -493,7 +497,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (1,'תום','קפלן','0586636591','tom.kaplan@gmail.com','591','images/profiles/פרופיל ריק.html','תמרת',Convert(date,'15-02-2003',105))--ATHLETE
+VALUES (1,'תום','קפלן','0586636591','tom.kaplan@gmail.com','591','images/profiles/0586636591.html','תמרת',Convert(date,'15-02-2003',105))--ATHLETE
 GO
 
 INSERT INTO USERS(
@@ -507,7 +511,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (1,'קורי','חשמונאי','0504082324','korihash@gmail.com','2324',NULL,'טבעון',Convert(date,'24-09-2002',105))--ATHLETE
+VALUES (1,'קורי','חשמונאי','0504082324','korihash@gmail.com','2324','images/profiles/0504082324.html','טבעון',Convert(date,'24-09-2002',105))--ATHLETE
 GO
 
 INSERT INTO USERS(
@@ -521,7 +525,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (1,'גיא','בן חיון','0546239300','guybenayun@gmail.com','300',NULL,'רמת ישי',Convert(date,'30-07-2005',105))--ATHLETE
+VALUES (1,'גיא','בן חיון','0546239300','guybenayun@gmail.com','300','images/profiles/0546239300.html','רמת ישי',Convert(date,'30-07-2005',105))--ATHLETE
 GO
 
 INSERT INTO USERS(
@@ -535,7 +539,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (1,'בני','בונפלד','0542847590','bennyb@gmail.com','590',NULL,'טבעון',Convert(date,'20-01-2004',105))--ATHLETE
+VALUES (1,'בני','בונפלד','0542847590','bennyb@gmail.com','590','images/profiles/0542847590.html','טבעון',Convert(date,'20-01-2004',105))--ATHLETE
 GO
 
 INSERT INTO USERS(
@@ -549,7 +553,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (1,'ניר','חן','0523956352','nirhen@gmail.com','352',NULL,'טבעון',Convert(date,'20-01-2002',105))--ATHLETE
+VALUES (1,'ניר','חן','0523956352','nirhen@gmail.com','352','images/profiles/0523956352.html','טבעון',Convert(date,'20-01-2002',105))--ATHLETE
 GO
 
 INSERT INTO USERS(
@@ -563,9 +567,30 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (1,'גיא','אלדן','0544848396','guyeldan@gmail.com','123',NULL,'טבעון',Convert(date,'20-08-2003',105))--ATHLETE
+VALUES (1,'גיא','אלדן','0544848396','guyeldan@gmail.com','123','images/profiles/0544848396.html','טבעון',Convert(date,'20-08-2003',105))--ATHLETE
 GO
 
+--------------------------------------------------
+----------INSERT DATA COACH-----------------------
+--------------------------------------------------
+
+INSERT INTO COACHES(
+CoachID,
+StartDate)
+VALUES(3,CONVERT(date,'01-02-2014',105))
+GO
+
+INSERT INTO COACHES(
+CoachID,
+StartDate)
+VALUES(4,CONVERT(date,'01-04-2012',105))
+GO
+
+INSERT INTO COACHES(
+CoachID,
+StartDate)
+VALUES(5,CONVERT(date,'01-01-2001',105))
+GO
 
 --------------------------------------------------
 ----------INSERT DATA TEAMS-----------------------
@@ -608,30 +633,6 @@ GO
 
 
 --------------------------------------------------
-----------INSERT DATA COACH-----------------------
---------------------------------------------------
-
-INSERT INTO COACHES(
-CoachID,
-StartDate)
-VALUES(3,CONVERT(date,'01-02-2014',105))
-GO
-
-INSERT INTO COACHES(
-CoachID,
-StartDate)
-VALUES(4,CONVERT(date,'01-04-2012',105))
-GO
-
-INSERT INTO COACHES(
-CoachID,
-StartDate)
-VALUES(5,CONVERT(date,'01-01-2001',105))
-GO
-
-
-
---------------------------------------------------
 ----------INSERT DATA ATHLETES--------------------
 --------------------------------------------------
 
@@ -640,25 +641,41 @@ INSERT INTO ATHLETES	(
 	VALUES	(6,5,1.62,70,205)
 	GO
 
-	INSERT INTO ATHLETES	(
+INSERT INTO ATHLETES	(
 	AthleteID, TeamId, Highet, Weight, AppScore)
 	VALUES	(7,4,1.68,66,140)
 	GO
 
-	INSERT INTO ATHLETES	(
+INSERT INTO ATHLETES	(
 	AthleteID, TeamId, Highet, Weight, AppScore)
 	VALUES	(8,3,1.78,82,168)
 	GO
 
-	INSERT INTO ATHLETES	(
+INSERT INTO ATHLETES	(
 	AthleteID, TeamId, Highet, Weight, AppScore)
 	VALUES	(9,3,1.80,84,230)
 	GO
 
-	INSERT INTO ATHLETES	(
+INSERT INTO ATHLETES	(
 	AthleteID, TeamId, Highet, Weight, AppScore)
 	VALUES	(10,2,1.63,60,190)
 	GO
+
+INSERT INTO ATHLETES	(
+	AthleteID, TeamId, Highet, Weight, AppScore)
+	VALUES	(11,2,1.67,96,180)
+	GO
+
+INSERT INTO ATHLETES	(
+	AthleteID, TeamId, Highet, Weight, AppScore)
+	VALUES	(12,2,1.53,65,300)
+	GO
+
+INSERT INTO ATHLETES	(
+	AthleteID, TeamId, Highet, Weight, AppScore)
+	VALUES	(13,2,1.83,80,134)
+	GO
+
 
 
 --------------------------------------------------
@@ -677,7 +694,7 @@ INSERT INTO EVENTS(
 	Note,
 	CreationTime
 	)
-VALUES (1,'אימון רגיל','תרגול דיוק מסירות ומהירות תנועה',CONVERT(date,'12-4-2017',105),'18:00','19:30',1,'בריכה','להגיע 10 דקות לפני תחילת האימון ולעשות חימום יבש',NULL)
+VALUES (1,'אימון רגיל','תרגול דיוק מסירות ומהירות תנועה',CONVERT(date,'12-4-2018',105),'18:00','19:30',1,'בריכה','להגיע 10 דקות לפני תחילת האימון ולעשות חימום יבש',NULL)
 GO
 	
 INSERT INTO EVENTS(		
@@ -692,7 +709,7 @@ INSERT INTO EVENTS(
 	Note,
 	CreationTime
 	)
-VALUES (1,'הכנה לפני משחק','נתרגל מצבי משחק והכנה טקטית',CONVERT(date,'14-4-2017',105),'18:00','19:00',0,'בריכה','לא לאחר!',NULL)
+VALUES (1,'הכנה לפני משחק','נתרגל מצבי משחק והכנה טקטית',CONVERT(date,'14-4-2018',105),'18:00','19:00',0,'בריכה','לא לאחר!',NULL)
 GO
 
 INSERT INTO EVENTS(		
@@ -707,7 +724,7 @@ INSERT INTO EVENTS(
 	Note,
 	CreationTime
 	)
-VALUES (1,'דגש על עבודת רגל רגל','נעבוד על הרבה רגל רגל',CONVERT(date,'19-4-2017',105),'18:00','19:00',1,'בריכה','להגיע לפני לעשות חימום יבש וריצה קלה!',NULL)
+VALUES (1,'דגש על עבודת רגל רגל','נעבוד על הרבה רגל רגל',CONVERT(date,'19-4-2018',105),'18:00','19:00',1,'בריכה','להגיע לפני לעשות חימום יבש וריצה קלה!',NULL)
 GO
 
 INSERT INTO EVENTS(		
@@ -722,7 +739,7 @@ INSERT INTO EVENTS(
 	Note,
 	CreationTime
 	)
-VALUES (2,'משחק נגד אס"א תל-אביב','חצי גמר גביע',CONVERT(date,'16-4-2017',105),'19:00','20:00',0,'אס"א תל-אביב','לנוח כמו שצריך',NULL)
+VALUES (2,'משחק נגד אס"א תל-אביב','חצי גמר גביע',CONVERT(date,'16-4-2018',105),'19:00','20:00',0,'אס"א תל-אביב','לנוח כמו שצריך',NULL)
 GO
 
 INSERT INTO EVENTS(		
@@ -737,7 +754,7 @@ INSERT INTO EVENTS(
 	Note,
 	CreationTime
 	)
-VALUES (3,'שיחה הכנה לפני המשחק',NULL,CONVERT(date,'15-4-2017',105),'20:00','21:00',0,'בית הספורטאי','להביא מאכל ושתיה',NULL)
+VALUES (3,'שיחה הכנה לפני המשחק',NULL,CONVERT(date,'15-4-2018',105),'20:00','21:00',0,'בית הספורטאי','להביא מאכל ושתיה',NULL)
 GO
 
 INSERT INTO EVENTS(		
@@ -752,7 +769,7 @@ INSERT INTO EVENTS(
 	Note,
 	CreationTime
 	)
-VALUES (3,'ארוחה לכבוד האליפות!',NULL,CONVERT(date,'28-4-2017',105),'19:00','21:00',0,'רחוב קק"ל 20','להגיע רעבים ;)',NULL)
+VALUES (3,'ארוחה לכבוד האליפות!',NULL,CONVERT(date,'28-4-2018',105),'19:00','21:00',0,'רחוב קק"ל 20','להגיע רעבים ;)',NULL)
 GO
 
 INSERT INTO EVENTS(		
@@ -767,7 +784,7 @@ INSERT INTO EVENTS(
 	Note,
 	CreationTime
 	)
-VALUES (1,'אימון ריצה עם שאול',NULL,CONVERT(date,'19-4-2017',105),'18:30','19:15',1,'חנייה','ביגוד ריצה',NULL)
+VALUES (1,'אימון ריצה עם שאול',NULL,CONVERT(date,'19-4-2018',105),'18:30','19:15',1,'חנייה','ביגוד ריצה',NULL)
 GO
 
 INSERT INTO EVENTS(		
@@ -782,7 +799,7 @@ INSERT INTO EVENTS(
 	Note,
 	CreationTime
 	)
-VALUES (1,'אימון שחייה','3 קילוטר בסהכ',CONVERT(date,'19-4-2017',105),'19:30','20:30',1,'בריכה',NULL,NULL)
+VALUES (1,'אימון שחייה','3 קילוטר בסהכ',CONVERT(date,'19-4-2018',105),'19:30','20:30',1,'בריכה',NULL,NULL)
 GO
 
 INSERT INTO EVENTS(		
@@ -797,7 +814,7 @@ INSERT INTO EVENTS(
 	Note,
 	CreationTime
 	)
-VALUES (1,'אימון כוח עם שאול','פלג גוף תחתון',CONVERT(date,'21-4-2017',105),'18:00','18:30',1,'חדר כושר','להביא מגבת קטנה',NULL)
+VALUES (1,'אימון כוח עם שאול','פלג גוף תחתון',CONVERT(date,'21-4-2018',105),'18:00','18:30',1,'חדר כושר','להביא מגבת קטנה',NULL)
 GO
 
 INSERT INTO EVENTS(		
@@ -812,7 +829,7 @@ INSERT INTO EVENTS(
 	Note,
 	CreationTime
 	)
-VALUES (1,'טקטיקה במים','תרגול אחד יותר אחד פחות',CONVERT(date,'21-4-2017',105),'19:00','20:00',0,'בריכה',NULL,NULL)
+VALUES (1,'טקטיקה במים','תרגול אחד יותר אחד פחות',CONVERT(date,'21-4-2018',105),'19:00','20:00',0,'בריכה',NULL,NULL)
 GO
 
 INSERT INTO EVENTS(		
@@ -827,7 +844,7 @@ INSERT INTO EVENTS(
 	Note,
 	CreationTime
 	)
-VALUES (2,'טורניר הבנים','הטורניר השנתי',CONVERT(date,'28-4-2017',105),'09:00','14:30',0,'בריכה','לבוא עם חולצות קבוצה',NULL)
+VALUES (2,'טורניר הבנים','הטורניר השנתי',CONVERT(date,'28-4-2018',105),'09:00','14:30',0,'בריכה','לבוא עם חולצות קבוצה',NULL)
 GO
 
 --------------------------------------------------
@@ -949,11 +966,6 @@ INSERT INTO Games	(
 	VALUES	(4, '16:30:00', '21:45:00','חניון אולם זוהר','אס"א תל -אביב',6,3,0)
 	GO
 
-INSERT INTO Games	(
-	GameId, GoTransportTime, BackTransportTime, TransportLocation, OpponentName,OpponentGoals,TivonScore,IsHome)
-	VALUES	(11, '00:00:00', '00:00:00','','16 א',6,8,1)
-	GO
-
 --------------------------------------------------
 -------------INSERT DATA ATTENDANCE---------------
 --------------------------------------------------
@@ -1019,8 +1031,6 @@ INSERT INTO Attendances	(
 --------------------------------------------------
 
 
-
-
 --------------------------------------------------
 ----------INSERT DATA CONNECTION TABLES-----------
 --------------------------------------------------
@@ -1060,15 +1070,6 @@ INSERT INTO EventRates	(
 	EventId, AthleteId,Rate)
 	VALUES	(4, 12, 7)
 	GO
-	INSERT INTO EventRates	(
-	EventId, AthleteId,Rate)
-	VALUES	(11, 6, 7)
-	GO
-	INSERT INTO EventRates	(
-	EventId, AthleteId,Rate)
-	VALUES	(4, 7, 7)
-	GO
-
 
 --------------------------------------------------
 ----------INSERT DATA TEAM EVENTS-----------------
@@ -1084,46 +1085,17 @@ INSERT INTO TeamsEvents	(
 	VALUES	(4, 1)
 	GO
 
-INSERT INTO TeamsEvents	(
-	EventId, TeamId)
-	VALUES	(11, 2)
-	GO
-
-INSERT INTO TeamsEvents	(
-	EventId, TeamId)
-	VALUES	(11, 3)
-	GO
 
 INSERT INTO TeamsEvents	(
 	EventId, TeamId)
 	VALUES	(11, 4)
 	GO
 
-INSERT INTO TeamsEvents	(
-	EventId, TeamId)
-	VALUES	(11, 5)
-	GO
-
-INSERT INTO TeamsEvents	(
-	EventId, TeamId)
-	VALUES	(1,3)
-	GO
 
 INSERT INTO TeamsEvents	(
 	EventId, TeamId)
 	VALUES	(2, 2)
 	GO
-
-INSERT INTO TeamsEvents	(
-	EventId, TeamId)
-	VALUES	(2,3)
-	GO
-
-INSERT INTO TeamsEvents	(
-	EventId, TeamId)
-	VALUES	(3,3)
-	GO
-
 
 --------------------------------------------------
 ----------INSERT DATA TEAM MESSAGES---------------
