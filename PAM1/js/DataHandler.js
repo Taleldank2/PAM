@@ -4,7 +4,6 @@
 
 
 function getUserLastEvent() {
-
     $.ajax({
         url: 'WebService.asmx/getUserLastEvent',
         type: 'POST',
@@ -21,13 +20,11 @@ function parseLastEvent(results)
     results = $.parseJSON(results.d);
     str = results[0].Title;
     $("#MainNextEvent").html(str);
-
 }
 
 //---------------------------------//
 
 function getLastResult() {
-
     $.ajax({
         url: 'WebService.asmx/getLastResult',
         type: 'POST',
@@ -48,7 +45,6 @@ function parseUserLastResult(results) {
 //---------------------------------//
 
 function getMessagesCount() {
-
     $.ajax({
         url: 'WebService.asmx/getMessagesCount',
         type: 'POST',
@@ -57,7 +53,6 @@ function getMessagesCount() {
         contentType: 'application/json; charset = utf-8',
         success: parseMessagesCount
     }) 
-
 }
 
 function parseMessagesCount(results) {
@@ -69,7 +64,6 @@ function parseMessagesCount(results) {
 
 
 function getScore() {
-
     $.ajax({
         url: 'WebService.asmx/getScore',
         type: 'POST',
@@ -82,7 +76,6 @@ function getScore() {
 }
 
 function parseScore(results) {
-    
     str = results.d;
     $("#MainAppScore").html(str);
 }
@@ -90,7 +83,6 @@ function parseScore(results) {
 //---------------------------------//
 
 function getName() {
-
     $.ajax({
         url: 'WebService.asmx/getName',
         type: 'POST',
@@ -99,11 +91,9 @@ function getName() {
         contentType: 'application/json; charset = utf-8',
         success: parseName
     })
-
 }
 
 function parseName(results) {
-    alert("Name:" + results.d);
     str = results.d;
     $("#MainWelcome").append(" "+str);
 }
@@ -114,8 +104,8 @@ function parseName(results) {
 //--------------------------------------------------------------------
 //                           Results Page
 //--------------------------------------------------------------------
-function getUserResults() {
 
+function getUserResults() {
     $.ajax({
         url: 'WebService.asmx/getUserResults',
         type: 'POST',
@@ -124,11 +114,9 @@ function getUserResults() {
         contentType: 'application/json; charset = utf-8',
         success: parseUserResults
     }) 
-
 }
 
 function parseUserResults(results) {
-    alert(results.d);
     results = $.parseJSON(results.d);
     $(function () {
         $.each(results, function (i, item) {
@@ -232,7 +220,6 @@ function getPicturePath() {
 
 function updateUserPicture(results) {
     $.get(results.d, function (data) {
-
         profileImg = $('#profileimage')
         profileImg.attr("src", data)
 
