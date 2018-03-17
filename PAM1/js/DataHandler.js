@@ -123,7 +123,7 @@ function getUserResults() {
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
         success: parseUserResults
-    }) // end of ajax call
+    }) 
 
 }
 
@@ -184,7 +184,7 @@ function getUserMessages() {
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
         success: parseUserMessages
-    }) // end of ajax call
+    })
 
 }
 
