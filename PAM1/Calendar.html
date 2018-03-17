@@ -9,9 +9,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <link rel="shortcut icon" href="assets/images/favicon.ico">
+    
+    <link href="plugins/fullcalendar/css/fullcalendar.min.css" rel="stylesheet" />
 
-
-    <link href="../plugins/jquery-circliful/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
+   
 
     <!-- App css -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -144,112 +145,63 @@
             </div>
             <!-- end page title end breadcrumb -->
 
-
-            <!-- Calendar -->
-            <div class="col-lg-9">
-                <div class="card-box">
-                    <div id="calendar" class="fc fc-unthemed fc-ltr">
-                        <!-- ToolBar -->
-                        <div class="fc-toolbar">
-                            <div class="fc-left">
-                                <div class="fc-button-group">
-                                    <button type="button" class="fc-prev-button fc-button fc-state-default fc-corner-left">
-                                        <span class="fc-icon fc-icon-left-single-arrow"></span>
-                                    </button>
-                                    <button type="button" class="fc-next-button fc-button fc-state-default fc-corner-right">
-                                        <span class="fc-icon fc-icon-right-single-arrow"></span>
-                                    </button>
-                                </div>
-                                <button type="button" class="fc-today-button fc-button fc-state-default fc-corner-left fc-corner-right fc-state-disabled" disabled="">היום</button>
-                            </div>
-                            <div class="fc-right">
-                                <div class="fc-button-group">
-                                    <button type="button" class="fc-month-button fc-button fc-state-default fc-corner-left fc-state-active">חודש</button>
-                                    <button type="button" class="fc-agendaWeek-button fc-button fc-state-default">שבוע</button>
-                                    <button type="button" class="fc-agendaDay-button fc-button fc-state-default fc-corner-right">חודש</button>
-                                </div>
-                            </div>
-                            <div class="fc-center"><h2>מרץ 2018</h2></div><div class="fc-clear"></div>
-                        </div>
-                        <!-- end of ToolBar -->
-                        
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <!-- Calendar -->
                         <div class="col-lg-9">
                             <div class="card-box">
-                                <div id="calendar"></div>
-                            </div>
-                        </div> <!-- end col -->
+                                <div id="calendar" class="fc fc-unthemed fc-ltr">
+                                    <div class="col-lg-9">
+                                        <div class="card-box">
+                                            <div id="calendar"></div>
+                                        </div>
+                                    </div> <!-- end col -->
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <!-- End od Calendar -->
+                       
+
+                </div> <!-- end container -->
+         </div>
+    </div>
+</div>
+            <!-- end wrapper -->
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            PAM © T&T PRODUCTIONS 2018
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- End od Calendar -->
+            </footer>
+            <!-- End Footer -->
+            <!-- jQuery  -->
+            <script src="assets/js/jquery.min.js"></script>
+            <script src="assets/js/popper.min.js"></script><!-- Popper for Bootstrap -->
+            <script src="assets/js/bootstrap.min.js"></script>
+            <script src="assets/js/waves.js"></script>
+            <script src="assets/js/jquery.slimscroll.js"></script>
+            <script src="assets/js/jquery.scrollTo.min.js"></script>
 
+            <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 
-        </div> <!-- end container -->
-    </div>
-    <!-- end wrapper -->
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    PAM © T&T PRODUCTIONS 2018
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- End Footer -->
-
-    <!-- jQuery  -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/popper.min.js"></script><!-- Popper for Bootstrap -->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/waves.js"></script>
-    <script src="assets/js/jquery.slimscroll.js"></script>
-    <script src="assets/js/jquery.scrollTo.min.js"></script>
-
-    <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
-
-    <!-- BEGIN PAGE SCRIPTS -->
-    <script src="../plugins/moment/moment.js"></script>
-    <script src='../plugins/fullcalendar/js/fullcalendar.min.js'></script>
-    <script src="assets/pages/jquery.fullcalendar.js"></script>
-
-    <!-- App js -->
-    <script src="assets/js/jquery.core.js"></script>
-    <script src="assets/js/jquery.app.js"></script>
+            <!-- BEGIN PAGE SCRIPTS -->
     <script src="js/DataHandler.js"></script>
-    <script src="js/Session.js"></script>
 
+            <script src="plugins/moment/moment.js"></script>
+            <script src='plugins/fullcalendar/js/fullcalendar.min.js'></script>
+            <script src="assets/pages/jquery.fullcalendar.js"></script>
 
-    <!--<script type="text/javascript">
-        jQuery(document).ready(function ($) {
-            $('.counter').counterUp({
-                delay: 100,
-                time: 1200
-            });
-            $('.circliful-chart').circliful();
-        });
-
-        // BEGIN SVG WEATHER ICON
-        if (typeof Skycons !== 'undefined') {
-            var icons = new Skycons(
-                    { "color": "#3bafda" },
-                    { "resizeClear": true }
-                    ),
-                    list = [
-                        "clear-day", "clear-night", "partly-cloudy-day",
-                        "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
-                        "fog"
-                    ],
-                    i;
-
-            for (i = list.length; i--;)
-                icons.set(list[i], list[i]);
-            icons.play();
-        };
-
-    </script>-->
+            <!-- App js -->
+            <script src="assets/js/jquery.core.js"></script>
+            <script src="assets/js/jquery.app.js"></script>
+            <script src="js/Session.js"></script>
 
 </body>
 </html>

@@ -70,7 +70,7 @@ function checkSession(results) {
         }
         else if (window.location.pathname == "/Calendar.html")
         {
-            getUserEvents()
+            //getUserEvents()
             getPicturePath()
         }
         else if (window.location.pathname == "/Inbox.html")
@@ -85,5 +85,11 @@ function err(e)
 {
     alert(e)
     window.location = "Login.html";
+}
+
+function logOut()
+{
+    document.cookie = "session=;expires=Thu, 01 Jan 1970 00:00:00 UTC"
+    document.location = "Login.html";
 }
 

@@ -151,19 +151,15 @@ function parseUserResults(results) {
 
 function getUserEvents() {
 
-    $.ajax({
+    events = $.ajax({
         url: 'WebService.asmx/getUserEvents',
         type: 'POST',
-        async: true,
+        async: false,
         dataType: 'json',
-        contentType: 'application/json; charset = utf-8',
-        success: parseUserEvents
+        contentType: 'application/json; charset = utf-8'
     }) // end of ajax call
 
-}
-
-function parseUserEvents(results) {
-    alert("events: "+results.d);
+    return events.responseJSON.d
 }
 
 
