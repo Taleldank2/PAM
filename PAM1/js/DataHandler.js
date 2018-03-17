@@ -132,16 +132,25 @@ function parseUserResults(results) {
     results = $.parseJSON(results.d);
     $(function () {
         $.each(results, function (i, item) {
+            var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
+            var eventStartDate = new Date(eventTime);
+            var strDate = "";
+            strDate += eventStartDate.getDay() + "/" + eventStartDate.getMonth() + "/" + eventStartDate.getFullYear();
+            var resultType;
+            if (item.ResultType == 1)
+                resultType = "mdi mdi-swim";
+            else if (item.ResultType == 2)
+                resultType = "mdi mdi-run-fast";
+            else
+                resultType = "mdi mdi-clock-fast";
             var $tr = $('<tr>').append(
-                $('<td>').html("<i class='mdi mdi-access-point'></i>"),
+                $('<td>').html("<i class='"+resultType+"'></i>"),
                 $('<td>').text(item.Distance),
                 $('<td>').text(item.rTime.Minutes +":" + item.rTime.Seconds),
-                $('<td>').text(item.rDate)
+                $('<td>').text(strDate)
             ).appendTo('#ResultsTable');
-            //console.log($tr.wrap('<p>').html());
         });
     });
-    //$("#ResultsTable").append(str);
 
 }
 
@@ -183,16 +192,23 @@ function getUserMessages() {
 function parseUserMessages(results) {
     results = $.parseJSON(results.d);
     $(function () {
-        alert("Im in inbox function!!!!")
         $.each(results, function (i, item) {
-            var str=item.mDate;
+
+            var messageDate = parseInt(item["mDate"].split("(")[1].split(")")[0]);
+            var messageStartDate = new Date(messageDate);
+            var strDate = "";
+            strDate += messageStartDate.getDay() + "/" + messageStartDate.getMonth() + "/" + messageStartDate.getFullYear();
+
+            var eventHour = item.mTime;
+            var messageHour = new Date(eventHour);
+            messageHour = messageHour
+
             var $tr = $('<tr>').append(
                 $('<td>').html("<a class='email-name'></a>").text(item.CreatorId),
                 $('<td class="hidden-xs">').html("<a class='email-msg'></a>").text(item.Title),
-                $('<td class="text-right">').text(item.mTime.Minutes + ":" + item.mTime.Seconds),
-                $('<td class="text-right">').text(str)
+                $('<td class="text-right">').text(messageHour),
+                $('<td class="text-right">').text(strDate)
             ).appendTo('#InboxTable');
-            //console.log($tr.wrap('<p>').html());
         });
     });   
 }
