@@ -44,8 +44,9 @@
     CalendarApp.prototype.onEventClick = function (calEvent, jsEvent, view) {
         var $this = this;
         var form = $("<form></form>");
-        form.append("<label>Change event name</label>");
-        form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div>");
+        //form.append("<label>Change event name</label>");
+        form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' />");//<span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div>");
+        form.append("<div class='input-group'><body class='form-control' type=text value='" + calEvent.title + "' />");
         $this.$modal.modal({
             backdrop: 'static'
         });
@@ -181,6 +182,7 @@
             eventList.push(
                 {
                     title: event["Title"],
+                    body: event["eBody"],
                     start: eventStartDate,
                     end: eventEndDate,
                     className: cName
