@@ -175,7 +175,6 @@ function getUserMessages() {
     })
 }
 
-
 function parseUserMessages(results) {
     results = $.parseJSON(results.d);
     $(function () {
@@ -185,16 +184,46 @@ function parseUserMessages(results) {
             var messageStartDate = new Date(messageDate);
             var strDate = "";
             strDate += messageStartDate.getDay() + "/" + messageStartDate.getMonth() + "/" + messageStartDate.getFullYear();
-
+            var messageid = item["MessageID"]
             var $tr = $('<tr>').append(
-                $('<td>').html("<a class='email-name'></a>").text(item.FirstName + " " + item.LastName),
-                $('<td class="hidden-xs">').html("<a class='email-msg'></a>").text(item.Title),
+                $('<td>').html("<a class='  '></a>").text(item.FirstName + " " + item.LastName),
+                $('<td class="hidden-xs">').html("<a id='" + messageid + "' class='email-msg'>"+item.Title+"</a>"),
                 $('<td class="text-right">').text(item.mTime.Hours + ":" + item.mTime.Minutes),
                 $('<td class="text-right">').text(strDate)
             ).appendTo('#InboxTable');
         });
     });   
 }
+
+function getUserMessagesbyID() {
+
+    $.ajax({
+        url: 'WebService.asmx/getUserMessages',
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: parseUserMessageModal,
+        error: messageModalError
+        
+    });
+    
+}
+
+function parseUserMessageModal(results) {
+    
+    results = $.parseJSON(results.d);  
+    //return results;
+}
+
+function messageModalError(a,b,c)
+{
+    console.log(a);
+    console.log(b);
+    console.log(c);
+    alert('getUserMessagesbyID() error');
+}
+
 
 
 //--------------------------------------------------------------------
@@ -214,9 +243,9 @@ function getPicturePath() {
 }
 
 function updateUserPicture(results) {
-    $.get(results.d, function (data) {
-        profileImg = $('#profileimage')
-        profileImg.attr("src", data)
+        $.get(results.d, function (data) {
+            profileImg = $('#profileimage')
+            profileImg.attr("src", data)
 
-    });
-}
+        });
+    }

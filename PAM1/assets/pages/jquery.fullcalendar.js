@@ -44,9 +44,9 @@
     CalendarApp.prototype.onEventClick = function (calEvent, jsEvent, view) {
         var $this = this;
         document.getElementById("EventModalTitle").innerText = calEvent.title;
-        document.getElementById("EventModalBody").innerText =calEvent.body;
-        document.getElementById("EventModalLocation").innerText = "איפה: "+calEvent.location;
-        document.getElementById("EventModalDateTime").innerText ="מתי: "+ calEvent.edate;
+        document.getElementById("EventModalBody").innerText = calEvent.body;
+        document.getElementById("EventModalLocation").innerText = calEvent.location;
+        document.getElementById("EventModalDateTime").innerText = calEvent.edate;
 
         //var form = $("<form></form>");
         //form.append("<label>Change event name</label>");
@@ -191,15 +191,14 @@
                 //2 - game (green)
                 cName = "bg-green";
             }
-            else {
-                //3 - mifgash (yellow)
+            else {               
                 cName = "bg-yellow";
             }
 
             eventList.push(
                 {
                     title: event["Title"],
-                    body: "תוכן: "+event["E_Body"],                
+                    body:event["E_Body"],        
                     location: event["Location"],
                     note: event["Note"],
                     edate: strDate,
