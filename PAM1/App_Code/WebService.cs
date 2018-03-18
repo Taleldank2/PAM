@@ -20,7 +20,7 @@ using System.Data;
 [System.Web.Script.Services.ScriptService]
 public class WebService : System.Web.Services.WebService
 {
-    static Dictionary<String, String> usersSessions = new Dictionary<string, string>();
+    static Dictionary<string, string> usersSessions = new Dictionary<string, string>();
 
     private DBServices dbHandler;
 
@@ -73,19 +73,25 @@ public class WebService : System.Web.Services.WebService
 
                     try
                     {
+                        //Crete GUID number
                         string userGuid = Guid.NewGuid().ToString();
 
+                        //get the userid
                         string userId = dt.Rows[0][0].ToString();
 
+                        // Search inside userSession dictionary table if user is there 
                         if (usersSessions.Keys.Contains(userId))
                         {
                             usersSessions[userId] = userGuid;
                         }
                         else
                         {
+                            //if user is not there, add him to the dictionary
                             usersSessions.Add(userId, userGuid);
                         }
 
+                        //Give the user cookie named "session" and give it the value of the user guid for example:
+                        //"session=4564564-5646-456-4564"
                         HttpCookie cookie = new HttpCookie("session");
                         cookie["session"] = userGuid;
 
@@ -136,21 +142,10 @@ public class WebService : System.Web.Services.WebService
 
     }
 
-    private string getUserFromSession(string sessionId)
-    {
-        foreach (KeyValuePair<String, String> pair in usersSessions)
-        {
-            if (pair.Value == sessionId)
-            {
-                return pair.Key;
-            }
-        }
-
-        throw new Exception("Invalid session id");
-    }
-
     [WebMethod]
-    public string checkUserSession(string userSession)
+    public string checkUserSession(string userSession) //user session is the GUID string that is being send from:
+                                                       //checkUserExists ajax call
+                                                       //this method is being called on every page load
     {
         string response = "false";
 
@@ -161,6 +156,21 @@ public class WebService : System.Web.Services.WebService
 
         return response;
     }
+
+
+    private string getUserFromSession(string sessionId)//Extract the user id from the session table
+    {
+        foreach (KeyValuePair<string, string> pair in usersSessions)
+        {
+            if (pair.Value == sessionId)
+            {
+                return pair.Key;
+            }
+        }
+
+        throw new Exception("Invalid session id");
+    }
+
 
     //--------------------------------------------------------------------
     //                           Register
@@ -325,9 +335,6 @@ public class WebService : System.Web.Services.WebService
 
         return jsSerializer.Serialize(parentRow);
     }
-
-
-
 
 
 }

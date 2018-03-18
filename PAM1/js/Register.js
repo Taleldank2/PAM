@@ -40,9 +40,7 @@ function registerNewUser(pictureBase64) {
     };
 
     var dataString = JSON.stringify(request);
-
-    alert(dataString)
-
+   
     $.ajax({
          url: 'WebService.asmx/register',
          data: dataString,
@@ -52,7 +50,7 @@ function registerNewUser(pictureBase64) {
          contentType: 'application/json; charset = utf-8',
          success: registerCompleted,
          error: errorCB
-     }) // end of ajax call */
+     }) 
 
 }
 

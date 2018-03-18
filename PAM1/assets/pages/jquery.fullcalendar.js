@@ -51,25 +51,19 @@
             startMin = "00";
         if (endMin == 0)
             endMin = "00";
-        document.getElementById("EventModalTitle").innerText = calEvent.title;
-        // document.getElementById("EventModalBody").innerText = calEvent.body;
-        // document.getElementById("EventModalLocation").innerText = calEvent.location;
-        // document.getElementById("EventModalDateTime").innerText = calEvent.edate;
-
+        
+        //document.getElementById("EventModalBody").innerText = calEvent.body;
+        //document.getElementById("EventModalLocation").innerText = calEvent.location;
+        //document.getElementById("EventModalDateTime").innerText = calEvent.edate;
         //var form = $("<form></form>");
-        //form.append("<label>Change event name</label>");
-        //alert(calEvent.title);
-        //alert(calEvent.body);
-        //alert(calEvent.location);
-        //alert(calEvent.note);
-        //alert(calEvent.edate);
-        //form.append("<h1>" + calEvent.title + "</h1>");
-        //document.getElementById("EventModalTitle").innerText = calEvent.title;
+        //form.append("<label>Change event name</label>");      
+        //form.append("<h1>" + calEvent.title + "</h1>");        
         //form.append("<h6 style='direction:rtl'>" + calEvent.body + "</h6>");
         //form.append("<h6 style='direction:rtl'>" + "מיקום:" + calEvent.location + "</h6>");
         //form.append("<h6 style='direction:rtl'>" + "תאריך:" + calEvent.edate + "</h6>");
         //form.append("<h6 style='direction:rtl'>" + "שעות:" + calEvent.start + " - " + calEvent.end + "</h6>");
 
+        document.getElementById("EventModalTitle").innerText = calEvent.title;
         document.getElementById("EventModalBody").innerText = calEvent.body;
         document.getElementById("EventModalLocation").innerText =calEvent.location;
         document.getElementById("EventModalDateTime").innerText = calEvent.edate + " | " + startHour + ":" + startMin +
@@ -195,13 +189,10 @@
             var cName = "bg-purple";
 
 
-            if (event["EventType"] == 1) {
-                //1 - practice (blue)
+            if (event["EventType"] == 1) {                
                 cName = "bg-blue";
-
             }
-            else if (event["EventType"] == 2) {
-                //2 - game (green)
+            else if (event["EventType"] == 2) {                
                 cName = "bg-green";
             }
             else {               
@@ -211,11 +202,7 @@
             eventList.push(
                 {
                     title: event["Title"],
-<<<<<<< HEAD
-                    body:event["E_Body"],        
-=======
                     body:event["E_Body"],                
->>>>>>> bb244f1d76f8cef99b4fa02e7bd1ba2e864de250
                     location: event["Location"],
                     note: event["Note"],
                     edate: strDate,
