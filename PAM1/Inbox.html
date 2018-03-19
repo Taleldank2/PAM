@@ -142,6 +142,64 @@
                     </div>
                     <!-- end page title end breadcrumb -->
 
+                    <!-- Content -->
+                    <div class="row">
+
+                        <!-- Right Sidebar -->
+                        <div class="col-xl-9 col-lg-8">
+
+
+
+                            <div class="card-box p-1 m-t-20">
+                                <div class="panel-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover mails m-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>מאת</th>
+                                                    <th>נושא</th>
+                                                    <th>שעה</th>
+                                                    <th>תאריך</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody id="InboxTable"></tbody>
+
+                                        </table>
+                                    </div>
+
+                                </div> <!-- panel body -->
+                            </div> <!-- panel -->
+
+                            <div class="row m-b-20">
+                                <div id="CountInbox" class="col-7">
+                                    <!--Showing 1 - 20 of 289-->
+                                </div>
+                                <div class="col-5">
+                                    <div class="btn-group pull-right">
+                                        <button type="button" class="btn btn-sm btn-secondary waves-effect"><i class="fa fa-chevron-left"></i></button>
+                                        <button type="button" class="btn btn-sm btn-secondary waves-effect"><i class="fa fa-chevron-right"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- end Col-9 -->
+
+                    </div>
+                    <!-- End row -->
+
+                    <!-- Footer -->
+                    <footer class="footer">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    PAM © T&T PRODUCTIONS 2018
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                    <!-- End Footer -->
 
 
                 </div> <!-- end container -->
@@ -149,66 +207,6 @@
             <!-- end wrapper -->
 
 
-    <div class="row">
-
-
-
-        <!-- Right Sidebar -->
-        <div class="col-xl-9 col-lg-8">
-
-
-
-            <div class="card-box p-1 m-t-20">
-                <div class="panel-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover mails m-0">
-                            <thead>
-                                <tr>
-                                    <th>מאת</th>
-                                    <th>נושא</th>
-                                    <th>שעה</th>
-                                    <th>תאריך</th>
-                                </tr>
-                            </thead>
-
-                            <tbody id="InboxTable">
-                                
-
-                            </tbody>
-
-
-                        </table>
-                    </div>
-
-                </div> <!-- panel body -->
-            </div> <!-- panel -->
-
-            <div class="row m-b-20">
-                <div id="CountInbox" class="col-7">
-                    <!--Showing 1 - 20 of 289-->
-                </div>
-                <div class="col-5">
-                    <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-sm btn-secondary waves-effect"><i class="fa fa-chevron-left"></i></button>
-                        <button type="button" class="btn btn-sm btn-secondary waves-effect"><i class="fa fa-chevron-right"></i></button>
-                    </div>
-                </div>
-            </div>
-
-        </div> <!-- end Col-9 -->
-
-    </div><!-- End row -->
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        PAM © T&T PRODUCTIONS 2018
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- End Footer -->
         <!-- jQuery  -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/popper.min.js"></script><!-- Popper for Bootstrap --><!-- Tether for Bootstrap -->
@@ -239,7 +237,44 @@
         <script src="assets/js/jquery.app.js"></script>
         <!--<script src="js/DataHandler.js"></script>-->
         <script src="js/Session.js"></script>
-               
+       
+    <script type="text/javascript">
+        //When Document is ready
+        $(document).ready(function () {
+            //When message is clicked take the message id from the message cliked
+            //and put it inside MessageInfo object inside a property
+            $(document).on('click', 'a.email-msg', function () {
+                MessageInfo = new Object();
+                MessageInfo.id = parseInt(this.id);
+                //GetMessage for the spesific category ID
+                //var UserMessages = getUserMessagesbyID();
+                //alert(UserMessages[0]["MessageID"]);
+                //var Message;
+                //go over each event to exctract date
+                //for (var i = 0; i < UserMessages.length; i++) {
+                //    //take the X event
+                //    if (UserMessages[i]["MessageID"] == Message.id) {
+                //        Message = UserMessages[i];
+                //        var eventTitle = Message["Title"];
+                //        var eventBody = Message["mBody"];
+                //        var eventDate = Message["mDate"];
+                //        alert(eventTitle);
+                //        alert(eventBody);
+                //        alert(eventDate);
+                //        break;
+                //    }
+                //    else {
+                //        return;
+                //    }
+
+                //}
+                //Open modal with the message according to the message info
+
+            });
+        });
+
+    </script>
+
 
         <!--<script type="text/javascript">
             jQuery(document).ready(function ($) {
@@ -268,7 +303,7 @@
                 icons.play();
             };
 
-        </script>-->
+    </script>-->
 
 </body>
 
