@@ -104,8 +104,6 @@ function parseName(results) {
 //                           Profile Page
 //--------------------------------------------------------------------
 
-//---------------------------------//
-
 function getUserDetails() {
     $.ajax({
         url: 'WebService.asmx/getUserDetails',
@@ -116,11 +114,13 @@ function getUserDetails() {
         success: parseUserDetails
     })
 }
+
 //TODO
 function parseUserDetails(results) {
-    results = $.parseJSON(results.d);
-    str = results[0]["FirstName"];
-    $("#ProfileName").html(str);
+    alert(str);
+    str = results[0].FirstName;
+    
+    $("#ProfileName").append(str);
 }
 
 
@@ -268,8 +268,9 @@ function getPicturePath() {
 
 function updateUserPicture(results) {
         $.get(results.d, function (data) {
-            profileImg = $('#profileimage')
-            profileImg.attr("src", data)
-
+            profileImg = $('#profileimage');
+            profileImg.attr("src", data);
+            profileImgProfilePage = $('#profileimageProfile');
+            profileImgProfilePage.attr("src", data);
         });
     }

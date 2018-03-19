@@ -69,10 +69,10 @@ function checkSession(results) {
             getPicturePath()
         }
         else if (window.location.pathname == "/Profile.html") {
-            //getUserDetails()
+            getUserDetails();
             //getScore()
             //getName()
-            getPicturePath()
+            getPicturePath();
         }
         else if (window.location.pathname == "/Calendar.html")
         {
