@@ -100,6 +100,30 @@ function parseName(results) {
 
 //---------------------------------//
 
+//--------------------------------------------------------------------
+//                           Profile Page
+//--------------------------------------------------------------------
+
+//---------------------------------//
+
+function getUserDetails() {
+    $.ajax({
+        url: 'WebService.asmx/getUserDetails',
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: parseUserDetails
+    })
+}
+//TODO
+function parseUserDetails(results) {
+    results = $.parseJSON(results.d);
+    str = results[0]["FirstName"];
+    $("#ProfileName").html(str);
+}
+
+
 
 //--------------------------------------------------------------------
 //                           Results Page

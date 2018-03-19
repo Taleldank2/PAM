@@ -263,6 +263,23 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
 
     [WebMethod]
+    public string getUserDetails()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string userId = getUserFromSession(userSession);
+
+        DataTable details = dbHandler.getDetails(userId);
+
+        string response = dataTableToJson(details);
+
+        return response;
+    }
+
+
+
+
+    [WebMethod]
     public string getUserResults()
     {
         string userSession = Context.Request.Cookies["session"]["session"];

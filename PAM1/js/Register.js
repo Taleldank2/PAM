@@ -41,7 +41,7 @@ function registerNewUser(pictureBase64) {
 
     var dataString = JSON.stringify(request);
 
-    alert(dataString)
+    alert(dataString);
 
     $.ajax({
          url: 'WebService.asmx/register',
@@ -57,7 +57,7 @@ function registerNewUser(pictureBase64) {
 }
 
 function registerCompleted(result) {
-    alert("Register Completed!")
+    alert("ההרשמה בוצעה בהצלחה :)")
     window.location = "Login.html";
 }
 
