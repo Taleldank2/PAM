@@ -112,7 +112,7 @@ public class WebService : System.Web.Services.WebService
                         JavaScriptSerializer js = new JavaScriptSerializer();
                         string jsonString = js.Serialize("Session table error (Go to WebService class to debug!): " + ex.Message);
                         return jsonString;
-                        throw;
+                        
 
                     }
 
@@ -137,7 +137,7 @@ public class WebService : System.Web.Services.WebService
             JavaScriptSerializer js = new JavaScriptSerializer();
             string jsonString = js.Serialize("Unable to read from the database" + ex.Message);
             return jsonString;
-            throw;
+            
         }
 
     }
