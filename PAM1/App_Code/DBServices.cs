@@ -169,6 +169,24 @@ public class DBServices
         return picturePath;
     }
 
+
+    //--------------------------------------------------------------------
+    // Profile Page 
+    //--------------------------------------------------------------------
+
+    public DataTable getDetails(string userID)
+    {
+
+        string query = "Select top 1 * from Users" +
+                        " Join Athletes ON Users.UserID = Athletes.AthleteID" +
+                        " where AthleteID = " + userID;
+
+        DataTable UserEvent = queryDb(query);
+
+        return UserEvent;
+    }
+
+
     //--------------------------------------------------------------------
     // Main Page 
     //--------------------------------------------------------------------

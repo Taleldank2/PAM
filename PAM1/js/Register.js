@@ -40,7 +40,13 @@ function registerNewUser(pictureBase64) {
     };
 
     var dataString = JSON.stringify(request);
+<<<<<<< HEAD
+
+    alert(dataString);
+
+=======
    
+>>>>>>> 1112a77fecbdb3303bc9bf2a4e3c457ee15df78c
     $.ajax({
          url: 'WebService.asmx/register',
          data: dataString,
@@ -55,7 +61,7 @@ function registerNewUser(pictureBase64) {
 }
 
 function registerCompleted(result) {
-    alert("Register Completed!")
+    alert("ההרשמה בוצעה בהצלחה :)")
     window.location = "Login.html";
 }
 
