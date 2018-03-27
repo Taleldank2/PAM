@@ -5,11 +5,11 @@ $(document).ready(function () {
 
     cookie = document.cookie
 
-    arr = cookie.split("=")
+    arr = cookie.split("=") //cookie looks kige this session=session=123142342-2342342-234234--234234
 
     if (arr.length == 3) {
         if (arr[0] == "session") {
-            session = arr[2]
+            session = arr[2] //aar[2] is the guid number
 
             checkUserExists(session)
         }
@@ -40,7 +40,7 @@ function checkUserExists(session) {
         contentType: 'application/json; charset = utf-8',
         success: checkSession,
         error: err
-    }) // end of ajax call
+    }) 
 
 }
 
@@ -48,6 +48,7 @@ function checkSession(results) {
     
     response = results.d
 
+    // false = session is not exist
     if (response == "false") {
         window.location = "Login.html";
     }
@@ -70,7 +71,7 @@ function checkSession(results) {
         }
         else if (window.location.pathname == "/Calendar.html")
         {
-            //getUserEvents()
+            //getUserEvents() ---> jquery.fullcalendar.js is calling this function on page load
             getPicturePath()
         }
         else if (window.location.pathname == "/Inbox.html")
@@ -89,7 +90,7 @@ function err(e)
 
 function logOut()
 {
-    document.cookie = "session=;expires=Thu, 01 Jan 1970 00:00:00 UTC";
+    document.cookie = "session=;Path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
     document.location = "Login.html";
 }
 
