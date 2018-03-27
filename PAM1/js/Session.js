@@ -69,6 +69,12 @@ function checkSession(results) {
             getUserResults()
             getPicturePath()
         }
+        else if (window.location.pathname == "/Profile.html") {
+            getUserDetails();
+            //getScore()
+            //getName()
+            getPicturePath();
+        }
         else if (window.location.pathname == "/Calendar.html")
         {
             //getUserEvents() ---> jquery.fullcalendar.js is calling this function on page load

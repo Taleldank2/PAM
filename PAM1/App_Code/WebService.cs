@@ -112,7 +112,7 @@ public class WebService : System.Web.Services.WebService
                         JavaScriptSerializer js = new JavaScriptSerializer();
                         string jsonString = js.Serialize("Session table error (Go to WebService class to debug!): " + ex.Message);
                         return jsonString;
-                        throw;
+                        
 
                     }
 
@@ -137,7 +137,7 @@ public class WebService : System.Web.Services.WebService
             JavaScriptSerializer js = new JavaScriptSerializer();
             string jsonString = js.Serialize("Unable to read from the database" + ex.Message);
             return jsonString;
-            throw;
+            
         }
 
     }
@@ -271,6 +271,21 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
     //                           App Pages
     //--------------------------------------------------------------------
+
+    [WebMethod]
+    public string getUserDetails()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string userId = getUserFromSession(userSession);
+
+        DataTable details = dbHandler.getDetails(userId);
+
+        string response = dataTableToJson(details);
+
+        return response;
+    }
+
 
     [WebMethod]
     public string getUserResults()

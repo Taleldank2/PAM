@@ -194,13 +194,13 @@ $('#reportrange').daterangepicker({
     cancelClass: 'btn-secondary',
     separator: ' to ',
     locale: {
-        applyLabel: 'Submit',
-        cancelLabel: 'Cancel',
+        applyLabel: 'אשר',
+        cancelLabel: 'בטל',
         fromLabel: 'From',
         toLabel: 'To',
         customRangeLabel: 'Custom',
-        daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        daysOfWeek: ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ש'],
+        monthNames: ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יונה', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'],
         firstDay: 1
     }
 }, function (start, end, label) {
