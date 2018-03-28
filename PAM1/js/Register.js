@@ -24,6 +24,8 @@ function registerNewUser(pictureBase64) {
     userPicture = pictureBase64
     userCity = $('#city').val()
     userBirthday = $('#datepicker').val()
+    athleteWeight = $('#AthleteWeight').val()
+    athleteHeight = $('#AthleteHeight').val()
 
     request = {
         "userType": userType,
@@ -34,17 +36,18 @@ function registerNewUser(pictureBase64) {
         "userPassword": userPassword,
         "userPicBase64": userPicture,
         "city": userCity,
-        "userBirthday": userBirthday
+        "userBirthday": userBirthday,
+        "athleteWeight": athleteWeight,
+        "athleteHeight": athleteHeight
+
     };
 
     var dataString = JSON.stringify(request);
-<<<<<<< HEAD
+
 
     alert(dataString);
 
-=======
-   
->>>>>>> 1112a77fecbdb3303bc9bf2a4e3c457ee15df78c
+
     $.ajax({
          url: 'WebService.asmx/register',
          data: dataString,
