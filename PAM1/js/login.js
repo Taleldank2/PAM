@@ -9,16 +9,10 @@ function Login() {
         phoneNumber: PhoneNumber,
         password: Password
     };
+
     ajaxLogin(request, successCB, errorCB);
 }
 
-function successCB(results) {    
-    window.location = "index.html";
-}
-
-function errorCB(e) {
-    alert("The exception message is: " + e.responseText);
-}
 
 
 //-----------------------------------------------------------------------
@@ -38,6 +32,15 @@ function ajaxLogin(request, successCB, errorCB) {
         error: errorCB
     }) 
 }
+
+function successCB(results) {
+    window.location = "index.html";
+}
+
+function errorCB(e) {
+    alert("The exception message is: " + e.responseText);
+}
+
 
 
 //-----------------------------------------------------------------------
@@ -64,6 +67,7 @@ function checkUserExists(session)
     request = {
         userSession: session,
     };
+
     var dataString = JSON.stringify(request);
     $.ajax({ 
         url: 'WebService.asmx/checkUserSession',         
@@ -72,7 +76,8 @@ function checkUserExists(session)
         async: false,
         dataType: 'json',                     
         contentType: 'application/json; charset = utf-8',
-        success: checkSession
+        success: checkSession,
+        error:checkSessionError
     }) 
 }
 
@@ -81,6 +86,13 @@ function checkSession(results) {
     if (response == "true") {
         window.location = "index.html";
     }
+}
+
+function checkSessionError(a,b,c) {
+    console.log(a);
+    console.log(b);
+    console.log(c);
+    alert('checkSessionError');
 }
 
 
