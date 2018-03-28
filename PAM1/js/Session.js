@@ -55,7 +55,7 @@ function checkSession(results) {
     else
     {
         // Load Data to html on every page when session is verified.
-        if (window.location.pathname == "/index.html")
+        if (window.location.pathname == "/index.html" || window.location.pathname == "/bgroup57/test1/tar1/index.html")
         {
             getPicturePath()
             getUserLastEvent()
@@ -64,23 +64,23 @@ function checkSession(results) {
             getScore()
             getName()
         }
-        else if (window.location.pathname == "/Results.html")
+        else if (window.location.pathname == "/Results.html" || window.location.pathname == "/bgroup57/test1/tar1/Results.html")
         {
             getUserResults()
             getPicturePath()
         }
-        else if (window.location.pathname == "/Profile.html") {
+        else if (window.location.pathname == "/Profile.html" || window.location.pathname == "/bgroup57/test1/tar1/Profile.html") {
             getUserDetails();
             //getScore()
             //getName()
             getPicturePath();
         }
-        else if (window.location.pathname == "/Calendar.html")
+        else if (window.location.pathname == "/Calendar.html" || window.location.pathname == "/bgroup57/test1/tar1/Calendar.html")
         {
             //getUserEvents() ---> jquery.fullcalendar.js is calling this function on page load
             getPicturePath()
         }
-        else if (window.location.pathname == "/Inbox.html")
+        else if (window.location.pathname == "/Inbox.html" || window.location.pathname == "/bgroup57/test1/tar1/Inbox.html")
         {
             getUserMessages()
             getPicturePath()
