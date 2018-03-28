@@ -23,7 +23,7 @@
     <div class="wrapper-page">
 
         <div class="text-center">
-            <img style="height:90%;width:90%;" src="images/Logo.jpg" />
+            <img style="height:90%;width:90%;" src="images/Logo.png" />
         </div>
 
 
@@ -40,45 +40,72 @@
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                    </div>
+                    <input id="name" class="form-control" type="text" required="" placeholder="שם פרטי">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="mdi mdi-account-multiple"></i></span>
+                    </div>
+                    <input id="lastname" class="form-control" type="text" required="" placeholder="שם משפחה">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="mdi mdi-cellphone-basic"></i></span>
+                    </div>
+                    <input id="phonenumber" class="form-control" type="text" required="" placeholder="מספר נייד">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
                         <span class="input-group-text"><i class="mdi mdi-email"></i></span>
                     </div>
-                    <input id="mail" class="form-control" type="email" required="" placeholder="Email">
+                    <input id="mail" class="form-control" type="email" required="" placeholder="אימייל">
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="mdi mdi-account"></i></span>
-                    </div>
-                    <input id="name" class="form-control" type="text" required="" placeholder="Name">
-                </div>
-            </div>
 
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="mdi mdi-account"></i></span>
-                    </div>
-                    <input id="lastname" class="form-control" type="text" required="" placeholder="LastName">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="mdi mdi-account"></i></span>
-                    </div>
-                    <input id="phonenumber" class="form-control" type="text" required="" placeholder="PhoneNumber">
-                </div>
-            </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="mdi mdi-key"></i></span>
                     </div>
-                    <input id="pass" class="form-control" type="password" required="" placeholder="Password">
+                    <input id="pass" class="form-control" type="password" required="" placeholder="סיסמא">
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="mdi mdi-home"></i></span>
+                    </div>
+                    <input id="city" class="form-control" type="text" required="" placeholder="מגורים">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="ion-calendar"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="תאריך יום הולדת" id="datepicker">
+
+                    </div>
+                    <!-- input-group -->
                 </div>
             </div>
 
@@ -89,40 +116,17 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="mdi mdi-account"></i></span>
                     </div>
-                    <select id="usertype" class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                        <option value="" disabled selected>
-                            בחר סוג משתמש
-                        </option>
+                    <select id="usertype" class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true" onchange="AthleteDetails(this.selectedIndex);">
+                        <option value="" disabled selected> בחר סוג משתמש </option>
                         <option value="2">מאמן</option>
                         <option value="3">מתאמן</option>
                     </select>
                 </div>
             </div>
 
+            <div id="filedsAccount">
 
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="mdi mdi-account"></i></span>
-                    </div>
-                    <input id="city" class="form-control" type="text" required="" placeholder="City">
-                </div>
             </div>
-
-            <div class="form-group row">
-                <div class="col-sm-8">
-                    <div class="input-group">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="ion-calendar"></i></span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Choose Birthday" id="datepicker">
-
-                    </div>
-                    <!-- input-group -->
-                </div>
-            </div>
-
-
             <input type="file" name="Picture" id="picture">
 
             <!-- END -->
@@ -144,6 +148,31 @@
                     <a href="Login.html" class="text-muted">התחברות למשתמש קיים</a>
                 </div>
             </div>
+
+            <script>
+
+                function AthleteDetails(index) {
+                    if (index == 2) {
+                        str = "<div class='form-group'><div class='input-group'>" +
+                    "<div class='input-group-prepend'><span class='input-group-text'>" +
+                    "<i class='mdi mdi-key'></i></span></div>" +
+                    "<input id='AthleteWeight' class='form-control' type='text' required='' placeholder='משקל'></div></div>";
+
+                        str += "<div class='form-group'><div class='input-group'>" +
+                        "<div class='input-group-prepend'><span class='input-group-text'>" +
+                        "<i class='mdi mdi-key'></i></span></div>" +
+                        "<input id='AthleteHeight' class='form-control' type='text' required='' placeholder='גובה'></div></div>";
+
+                        $('#filedsAccount').append(str);
+                    }
+                    else {
+                        str = "";
+                        $('#filedsAccount').hide;
+                    }
+
+                }
+
+            </script>
 
         </form>
 
