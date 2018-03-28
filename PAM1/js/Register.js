@@ -1,6 +1,4 @@
-﻿
-
-document.getElementById("myForm").onsubmit = register;
+﻿document.getElementById("myForm").onsubmit = register;
 
 function register() {
     file = $('#picture')[0].files[0]
@@ -65,7 +63,27 @@ function registerCompleted(result) {
     window.location = "Login.html";
 }
 
-
 function errorCB(e) {
     alert("The exception message is : " + e.responseText);
+}
+
+function AthleteDetails(index) {
+    if (index == 2) {
+        str = "<div class='form-group'><div class='input-group'>" +
+    "<div class='input-group-prepend'><span class='input-group-text'>" +
+    "<i class='mdi mdi-key'></i></span></div>" +
+    "<input id='AthleteWeight' class='form-control' type='text' required='' placeholder='משקל'></div></div>";
+
+        str += "<div class='form-group'><div class='input-group'>" +
+        "<div class='input-group-prepend'><span class='input-group-text'>" +
+        "<i class='mdi mdi-key'></i></span></div>" +
+        "<input id='AthleteHeight' class='form-control' type='text' required='' placeholder='גובה'></div></div>";
+
+        $('#filedsAccount').append(str);
+    }
+    else {
+        str = "";
+        $('#filedsAccount').html(str);
+    }
+
 }

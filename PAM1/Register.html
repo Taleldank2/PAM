@@ -124,9 +124,10 @@
                 </div>
             </div>
 
-            <div id="filedsAccount">
+            <div id="filedsAccount">  <!-- Place Holder -->
 
             </div>
+
             <input type="file" name="Picture" id="picture">
 
             <!-- END -->
@@ -148,31 +149,6 @@
                     <a href="Login.html" class="text-muted">התחברות למשתמש קיים</a>
                 </div>
             </div>
-
-            <script>
-
-                function AthleteDetails(index) {
-                    if (index == 2) {
-                        str = "<div class='form-group'><div class='input-group'>" +
-                    "<div class='input-group-prepend'><span class='input-group-text'>" +
-                    "<i class='mdi mdi-key'></i></span></div>" +
-                    "<input id='AthleteWeight' class='form-control' type='text' required='' placeholder='משקל'></div></div>";
-
-                        str += "<div class='form-group'><div class='input-group'>" +
-                        "<div class='input-group-prepend'><span class='input-group-text'>" +
-                        "<i class='mdi mdi-key'></i></span></div>" +
-                        "<input id='AthleteHeight' class='form-control' type='text' required='' placeholder='גובה'></div></div>";
-
-                        $('#filedsAccount').append(str);
-                    }
-                    else {
-                        str = "";
-                        $('#filedsAccount').hide;
-                    }
-
-                }
-
-            </script>
 
         </form>
 
