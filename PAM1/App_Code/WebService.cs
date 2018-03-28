@@ -184,7 +184,29 @@ public class WebService : System.Web.Services.WebService
     {
         dbHandler.registerUser(userType, userName, userLastName, phoneNumber, userMail, userPassword,
                                userPicBase64, city, userBirthday);
+
+        if(Convert.ToInt32(userType)==3)
+        {
+            string userSession = Context.Request.Cookies["session"]["session"];
+
+            string userId = getUserFromSession(userSession);
+
+            dbHandler.registerAthlete(userId, athleteWeight, athleteHeight);
+
+        }
     }
+
+    [WebMethod]
+    public string getTeamsNames()
+    {
+
+        DataTable TeamNames = dbHandler.getTeamsNames();
+
+        string response = dataTableToJson(TeamNames);
+
+        return response;
+    }
+
 
     [WebMethod]
     public string getPicturePath()
@@ -197,7 +219,6 @@ public class WebService : System.Web.Services.WebService
 
         return picturePath;
     }
-
 
 
     //--------------------------------------------------------------------

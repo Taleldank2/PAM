@@ -1,5 +1,43 @@
 ﻿document.getElementById("myForm").onsubmit = register;
 
+function getTeamsNames() {
+
+    $.ajax({
+        url: 'WebService.asmx/getTeamsNames',
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: getTeamsNamesCompleted,
+        error: getTeamsNamesFailed
+    })
+}
+
+function getTeamsNamesCompleted(results) {
+    alert(results.d);
+    results = $.parseJSON(results.d);
+        str = "<div class='form-group'><div class='input-group'><div class='input-group-prepend'>" +
+                        "<span class='input-group-text'><i class='mdi mdi-swim'></i></span></div>" +
+                        "<select id='userteam' class='form-control select2 select2-hidden-accessible' tabindex='-1'" +
+                        "aria-hidden='true' ><option value='' disabled selected> בחר קבוצה </option> ";
+        for (var i = 0; i < results.length; i++) {
+            str += "<option value=" + results[i].TeamID + " >" + results[i].TeamName + "</option>";
+        }
+        str += "</select></div> </div>";
+        alert(str);
+        $('#TeamsNamesDDL').append(str);
+
+        //$.each(results, function (i, item) {
+        //    var $select = $('<select>').append(
+        //        $('<option>').html("<i class='" + resultType + "'></i>")
+        //    ).appendTo('#TeamsNamesDDL');
+        //});
+}
+
+function getTeamsNamesFailed() {
+    alert("שמות קבוצה לא יובאו");
+}
+
 function register() {
     file = $('#picture')[0].files[0]
 
@@ -47,15 +85,15 @@ function registerNewUser(pictureBase64) {
     alert(dataString);
 
     $.ajax({
-         url: 'WebService.asmx/register',
-         data: dataString,
-         type: 'POST',
-         async: false,
-         dataType: 'json',
-         contentType: 'application/json; charset = utf-8',
-         success: registerCompleted,
-         error: errorCB
-     }) 
+        url: 'WebService.asmx/register',
+        data: dataString,
+        type: 'POST',
+        async: false,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: registerCompleted,
+        error: errorCB
+    })
 
 }
 
@@ -80,11 +118,11 @@ function AthleteDetails(index) {
         "<i class='mdi mdi-ruler'></i></span></div>" +
         "<input id='AthleteHeight' class='form-control' type='text' required='' placeholder='גובה'></div></div>";
 
-        $('#filedsAccount').append(str);
+        $('#AthleteFileds').append(str);
     }
     else {
         str = "";
-        $('#filedsAccount').html(str);
+        $('#AthleteFileds').html(str);
     }
 
 }
