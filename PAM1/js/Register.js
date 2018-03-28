@@ -43,17 +43,9 @@ function registerNewUser(pictureBase64) {
     };
 
     var dataString = JSON.stringify(request);
-<<<<<<< HEAD
 
     alert(dataString);
 
-=======
-
-
-    alert(dataString);
-
-
->>>>>>> 1c7d9839550b5bebbc6bb9fc623cf23810a07f95
     $.ajax({
          url: 'WebService.asmx/register',
          data: dataString,
