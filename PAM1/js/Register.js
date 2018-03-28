@@ -38,13 +38,9 @@ function registerNewUser(pictureBase64) {
     };
 
     var dataString = JSON.stringify(request);
-<<<<<<< HEAD
 
     alert(dataString);
 
-=======
-   
->>>>>>> 1112a77fecbdb3303bc9bf2a4e3c457ee15df78c
     $.ajax({
          url: 'WebService.asmx/register',
          data: dataString,
@@ -71,12 +67,12 @@ function AthleteDetails(index) {
     if (index == 2) {
         str = "<div class='form-group'><div class='input-group'>" +
     "<div class='input-group-prepend'><span class='input-group-text'>" +
-    "<i class='mdi mdi-key'></i></span></div>" +
+    "<i class='mdi mdi-weight-kilogram'></i></span></div>" +
     "<input id='AthleteWeight' class='form-control' type='text' required='' placeholder='משקל'></div></div>";
 
         str += "<div class='form-group'><div class='input-group'>" +
         "<div class='input-group-prepend'><span class='input-group-text'>" +
-        "<i class='mdi mdi-key'></i></span></div>" +
+        "<i class='mdi mdi-ruler'></i></span></div>" +
         "<input id='AthleteHeight' class='form-control' type='text' required='' placeholder='גובה'></div></div>";
 
         $('#filedsAccount').append(str);
