@@ -151,6 +151,39 @@ public class DBServices
         }
     }
 
+    public bool registerAthlete(string userId, string athleteWeight, string athleteHeight)
+    {
+        SqlConnection con = null;
+
+        try
+        {
+            con = connect();
+
+            string command = "INSERT INTO[dbo].[Athletes] " +
+                             "([AthleteID], [TeamID], [Highet], [Weight], [AppScore]) " +
+                             " VALUES({0},'{1}','{2}','{3}','{4}')";
+
+            string formattedCommand = String.Format(command, userId, athleteWeight, athleteHeight, 0);
+
+            SqlCommand insert = new SqlCommand(formattedCommand, con);
+
+            return Convert.ToBoolean(insert.ExecuteNonQuery());
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw ex;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
+    }
+    
+
     public void savePicture(string picPath, string userPicBase64)
     {
         string dirPath = Path.Combine(HttpRuntime.AppDomainAppPath, picPath.Replace("/", "\\"));
@@ -169,10 +202,21 @@ public class DBServices
         return picturePath;
     }
 
+    public DataTable getTeamsNames()
+    {
+
+        string query = "Select * from Teams";
+
+        DataTable Teams = queryDb(query);
+
+        return Teams;
+    }
+
 
     //--------------------------------------------------------------------
     // Profile Page 
     //--------------------------------------------------------------------
+
 
     public DataTable getDetails(string userID)
     {
