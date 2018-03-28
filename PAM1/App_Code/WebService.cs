@@ -180,7 +180,7 @@ public class WebService : System.Web.Services.WebService
     [WebMethod]
     public void register(string userType, string userName, string userLastName, string phoneNumber,
                            string userMail, string userPassword, string userPicBase64, string city,
-                           string userBirthday)
+                           string userBirthday, string athleteWeight, string athleteHeight)
     {
         dbHandler.registerUser(userType, userName, userLastName, phoneNumber, userMail, userPassword,
                                userPicBase64, city, userBirthday);

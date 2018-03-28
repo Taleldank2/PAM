@@ -232,8 +232,8 @@ function parseUserMessages(results) {
             var strDate = "";
             strDate += messageStartDate.getDay() + "/" + messageStartDate.getMonth() + "/" + messageStartDate.getFullYear();
             var messageid = item["MessageID"]
-            var $tr = $('<tr>').append(
-                $('<td>').html("<a class='  '></a>").text(item.FirstName + " " + item.LastName),
+            var $tr = $('<tr class="email-msg">').append(
+                $('<td>').html("<a class=''></a>").text(item.FirstName + " " + item.LastName),
                 $('<td class="hidden-xs">').html("<a id='" + messageid + "' class='email-msg'>"+item.Title+"</a>"),
                 $('<td class="text-right">').text(item.mTime.Hours + ":" + item.mTime.Minutes),
                 $('<td class="text-right">').text(strDate)
