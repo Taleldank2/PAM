@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     cookie = document.cookie
 
-    arr = cookie.split("=") //cookie looks kige this session=session=123142342-2342342-234234--234234
+    arr = cookie.split("=") //cookie looks like this session=session=123142342-2342342-234234--234234
 
     if (arr.length == 3) {
         if (arr[0] == "session") {
@@ -96,7 +96,7 @@ function err(e)
 
 function logOut()
 {
-    document.cookie = "session=;Path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC";
+    document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.location = "Login.html";
 }
 
