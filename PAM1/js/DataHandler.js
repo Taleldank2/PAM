@@ -219,7 +219,7 @@ function parseUserMessages(results) {
     });   
 }
 
-function getUserMessagesbyID() {
+function UserMessageModal() {
 
     $.ajax({
         url: 'WebService.asmx/getUserMessages',
@@ -236,8 +236,22 @@ function getUserMessagesbyID() {
 
 function parseUserMessageModal(results) {
     
+    //Convert results back to JSON
     results = $.parseJSON(results.d);  
-    //return results;
+   
+    //Go Over the results;
+    for (var i = 0; i < results.length; i++) {
+        if (results[i].MessageID == MessageInfo.id) {
+            //load values to data modal
+            document.getElementById("messageModalTitle").innerText = results[i].Title;
+            document.getElementById("messageModalBody").innerText = results[i].mBody;
+            //open modal
+            $('#message-modal').modal('show');
+            return;
+        }
+       
+    }
+    alert("Could not find message");
 }
 
 function messageModalError(a,b,c)
