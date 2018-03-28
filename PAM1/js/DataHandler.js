@@ -98,7 +98,6 @@ function parseName(results) {
     $("#MainWelcome").append(" "+str);
 }
 
-//---------------------------------//
 
 //--------------------------------------------------------------------
 //                           Profile Page
@@ -115,12 +114,36 @@ function getUserDetails() {
     })
 }
 
-//TODO
+
 function parseUserDetails(results) {
-    alert(str);
-    str = results[0].FirstName;
+    results = $.parseJSON(results.d);
+
+    strProfileName = results[0].FirstName + " " + results[0].LastName;
+    $("#ProfileName").append(strProfileName);
+
+    strProfileWeight = results[0].Weight+" קילו";
+    $("#ProfileWeight").append(strProfileWeight);
+
+    strProfileHeight = results[0].Highet +" מטר";
+    $("#ProfileHeight").append(strProfileHeight);
+
+    var birthDate = parseInt(results[0]["BirthDate"].split("(")[1].split(")")[0]);
+    var tempProfileAge = new Date(birthDate);
+    strProfileAge = tempProfileAge.getDay() + "/" + tempProfileAge.getMonth() + "/" + tempProfileAge.getFullYear();
+    $("#ProfileAge").append(strProfileAge);
     
-    $("#ProfileName").append(str);
+    strProfileCity = results[0].City;
+    $("#ProfileCity").append(strProfileCity);
+
+    strProfileEmail = results[0].Email;
+    $("#ProfileEmail").append(strProfileEmail);
+    
+    strProfilePhone = results[0].PhoneNumber;
+    $("#ProfilePhone").append(strProfilePhone);
+
+    strProfileAppScore = results[0].AppScore;
+    $("#ProfileAppScore").append(strProfileAppScore);
+    
 }
 
 

@@ -51,23 +51,13 @@
             startMin = "00";
         if (endMin == 0)
             endMin = "00";
-        
-        //document.getElementById("EventModalBody").innerText = calEvent.body;
-        //document.getElementById("EventModalLocation").innerText = calEvent.location;
-        //document.getElementById("EventModalDateTime").innerText = calEvent.edate;
-        //var form = $("<form></form>");
-        //form.append("<label>Change event name</label>");      
-        //form.append("<h1>" + calEvent.title + "</h1>");        
-        //form.append("<h6 style='direction:rtl'>" + calEvent.body + "</h6>");
-        //form.append("<h6 style='direction:rtl'>" + "מיקום:" + calEvent.location + "</h6>");
-        //form.append("<h6 style='direction:rtl'>" + "תאריך:" + calEvent.edate + "</h6>");
-        //form.append("<h6 style='direction:rtl'>" + "שעות:" + calEvent.start + " - " + calEvent.end + "</h6>");
 
         document.getElementById("EventModalTitle").innerText = calEvent.title;
         document.getElementById("EventModalBody").innerText = calEvent.body;
         document.getElementById("EventModalLocation").innerText =calEvent.location;
         document.getElementById("EventModalDateTime").innerText = calEvent.edate + " | " + startHour + ":" + startMin +
             " - " + endHour + ":" + endMin;
+
         $this.$modal.modal({
             backdrop: 'static'
         });
