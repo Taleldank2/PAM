@@ -18,13 +18,13 @@
     <script src="assets/js/modernizr.min.js"></script>
 
 </head>
-<body onload="getTeamsNames()">
+<body">
 
     <div class="wrapper-page">
 
         <!-- LOGO -->
         <div class="text-center">
-            <img style="height:90%;width:90%;" src="images/Logo.png" />
+            <img style="height:75%;width:75%;" src="images/Logo.png" />
         </div>
 
 
@@ -117,7 +117,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="mdi mdi-bookmark"></i></span>
                     </div>
-                    <select id="usertype" class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true" onchange="AthleteDetails(this.selectedIndex);">
+                    <select id="usertype" class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true" onchange="AthleteDetails(this.selectedIndex); ">
                         <option value="" disabled selected> בחר סוג משתמש </option>
                         <option value="2">מאמן</option>
                         <option value="3">מתאמן</option>
@@ -125,12 +125,10 @@
                 </div>
             </div>
 
-            <div id="TeamsNamesDDL">
-            </div>
+            
+            <div id="TeamsNamesDDL"><!-- Place Holder -->   </div>
 
-
-            <div id="AthleteFileds">  <!-- Place Holder -->
-            </div>
+            <div id="AthleteFileds"> <!-- Place Holder -->  </div>
 
             <input type="file" name="Picture" id="picture">
 

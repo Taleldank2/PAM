@@ -46,7 +46,7 @@ function checkUserExists(session) {
 
 function checkSession(results) {
     
-    response = results.d
+    response = results.d;
 
     // false = session is not exist
     if (response == "false") {
@@ -57,40 +57,38 @@ function checkSession(results) {
         // Load Data to html on every page when session is verified.
         if (window.location.pathname == "/index.html" || window.location.pathname == "/bgroup57/test1/tar1/index.html")
         {
-            getPicturePath()
-            getUserLastEvent()
-            getLastResult()
-            getMessagesCount()
-            getScore()
-            getName()
+            getPicturePath();
+            getUserLastEvent();
+            getLastResult();
+            getMessagesCount();
+            getScore();
+            getName();
         }
         else if (window.location.pathname == "/Results.html" || window.location.pathname == "/bgroup57/test1/tar1/Results.html")
         {
-            getUserResults()
-            getPicturePath()
+            getUserResults();
+            getPicturePath();
         }
         else if (window.location.pathname == "/Profile.html" || window.location.pathname == "/bgroup57/test1/tar1/Profile.html") {
             getUserDetails();
-            //getScore()
-            //getName()
             getPicturePath();
         }
         else if (window.location.pathname == "/Calendar.html" || window.location.pathname == "/bgroup57/test1/tar1/Calendar.html")
         {
             //getUserEvents() ---> jquery.fullcalendar.js is calling this function on page load
-            getPicturePath()
+            getPicturePath();
         }
         else if (window.location.pathname == "/Inbox.html" || window.location.pathname == "/bgroup57/test1/tar1/Inbox.html")
         {
-            getUserMessages()
-            getPicturePath()
+            getUserMessages();
+            getPicturePath();
         }
     }
 }
 
 function err(e)
 {
-    alert(e)
+    alert(e);
     window.location = "Login.html";
 }
 

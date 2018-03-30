@@ -14,7 +14,6 @@ function getTeamsNames() {
 }
 
 function getTeamsNamesCompleted(results) {
-    alert(results.d);
     results = $.parseJSON(results.d);
         str = "<div class='form-group'><div class='input-group'><div class='input-group-prepend'>" +
                         "<span class='input-group-text'><i class='mdi mdi-swim'></i></span></div>" +
@@ -24,14 +23,7 @@ function getTeamsNamesCompleted(results) {
             str += "<option value=" + results[i].TeamID + " >" + results[i].TeamName + "</option>";
         }
         str += "</select></div> </div>";
-        alert(str);
         $('#TeamsNamesDDL').append(str);
-
-        //$.each(results, function (i, item) {
-        //    var $select = $('<select>').append(
-        //        $('<option>').html("<i class='" + resultType + "'></i>")
-        //    ).appendTo('#TeamsNamesDDL');
-        //});
 }
 
 function getTeamsNamesFailed() {
@@ -39,31 +31,30 @@ function getTeamsNamesFailed() {
 }
 
 function register() {
-    file = $('#picture')[0].files[0]
+    file = $('#picture')[0].files[0];
 
     var reader = new FileReader();
-
 
     reader.onload = function (e) {
         registerNewUser(e.target.result)
     };
 
-    reader.readAsDataURL(file)
+    reader.readAsDataURL(file);
 }
 
 function registerNewUser(pictureBase64) {
 
-    userType = $('#usertype').val()
-    userName = $('#name').val()
-    userLastName = $('#lastname').val()
-    userPhoneNumber = $('#phonenumber').val()
-    userMail = $('#mail').val()
-    userPassword = $('#pass').val()
-    userPicture = pictureBase64
-    userCity = $('#city').val()
-    userBirthday = $('#datepicker').val()
-    athleteWeight = $('#AthleteWeight').val()
-    athleteHeight = $('#AthleteHeight').val()
+    userType = $('#usertype').val();
+    userName = $('#name').val();
+    userLastName = $('#lastname').val();
+    userPhoneNumber = $('#phonenumber').val();
+    userMail = $('#mail').val();
+    userPassword = $('#pass').val();
+    userPicture = pictureBase64;
+    userCity = $('#city').val();
+    userBirthday = $('#datepicker').val();
+    athleteWeight = $('#AthleteWeight').val();
+    athleteHeight = $('#AthleteHeight').val();
 
     request = {
         "userType": userType,
@@ -77,7 +68,6 @@ function registerNewUser(pictureBase64) {
         "userBirthday": userBirthday,
         "athleteWeight": athleteWeight,
         "athleteHeight": athleteHeight
-
     };
 
     var dataString = JSON.stringify(request);
@@ -108,6 +98,7 @@ function errorCB(e) {
 
 function AthleteDetails(index) {
     if (index == 2) {
+        getTeamsNames();
         str = "<div class='form-group'><div class='input-group'>" +
     "<div class='input-group-prepend'><span class='input-group-text'>" +
     "<i class='mdi mdi-weight-kilogram'></i></span></div>" +
@@ -123,6 +114,7 @@ function AthleteDetails(index) {
     else {
         str = "";
         $('#AthleteFileds').html(str);
+        $('#TeamsNamesDDL').html(str);
     }
 
 }
