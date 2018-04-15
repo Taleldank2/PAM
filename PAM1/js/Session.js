@@ -3,15 +3,14 @@
 //----------------------------------------------------------------------------------------
 $(document).ready(function () {
 
-    cookie = document.cookie
+    cookie = document.cookie;
 
-    arr = cookie.split("=") //cookie looks like this session=session=123142342-2342342-234234--234234
+    arr = cookie.split("="); //cookie looks like this session=session=123142342-2342342-234234--234234
 
     if (arr.length == 3) {
         if (arr[0] == "session") {
-            session = arr[2] //aar[2] is the guid number
-
-            checkUserExists(session)
+            session = arr[2]; //aar[2] is the guid number
+            checkUserExists(session);
         }
         else {
             window.location = "Login.html";
