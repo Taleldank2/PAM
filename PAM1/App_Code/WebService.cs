@@ -22,13 +22,10 @@ using System.Data;
 public class WebService : System.Web.Services.WebService
 {
     static Dictionary<string, string> usersSessions = new Dictionary<string, string>();
-
     private DBServices dbHandler;
-
 
     public WebService()
     {
-
         //Uncomment the following line if using designed components 
         //InitializeComponent(); 
 
@@ -40,14 +37,11 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
     //                           Login
     //--------------------------------------------------------------------
-
     [WebMethod]
     public string Login(string phoneNumber, string password)
     {
-
         //Create New User obj
         User myUser = new User();
-
         try
         {
             //Search User in DataBase
@@ -77,7 +71,7 @@ public class WebService : System.Web.Services.WebService
                         //Crete GUID number
                         string userGuid = Guid.NewGuid().ToString();
 
-                        //get the userid
+                        //get the user id
                         string userId = dt.Rows[0][0].ToString();
 
                         // Search inside userSession dictionary table if user is there 
@@ -102,7 +96,11 @@ public class WebService : System.Web.Services.WebService
 
                         // serialize to string
                         JavaScriptSerializer js = new JavaScriptSerializer();
-                        string jsonString = js.Serialize("ברוך הבא");
+                        string jsonString = "";
+                        if (Convert.ToInt32(myUser.UserType)==1)
+                            jsonString = js.Serialize("ברוך הבא "+myUser.FirstName);
+                        else
+                            jsonString = js.Serialize(2);
                         return jsonString;
 
                     }
@@ -113,16 +111,11 @@ public class WebService : System.Web.Services.WebService
                         JavaScriptSerializer js = new JavaScriptSerializer();
                         string jsonString = js.Serialize("Session table error (Go to WebService class to debug!): " + ex.Message);
                         return jsonString;
-                        
-
                     }
-
                 }
-
                 else
                 {
                     //Password not approved
-
                     // serialize to string
                     JavaScriptSerializer js = new JavaScriptSerializer();
                     string jsonString = js.Serialize("סיסמה שגויה");

@@ -34,7 +34,10 @@ function ajaxLogin(request, successCB, errorCB) {
 }
 
 function successCB(results) {
-    window.location = "index.html";
+    if (results.d == "2")
+        window.location = "MasterPage.html";
+    else
+        window.location = "index.html";
 }
 
 function errorCB(e) {
@@ -82,7 +85,7 @@ function checkUserExists(session)
 }
 
 function checkSession(results) {
-    response = results.d
+    response = results.d;
     if (response == "true") {
         window.location = "index.html";
     }
