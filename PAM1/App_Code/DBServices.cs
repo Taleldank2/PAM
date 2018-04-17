@@ -247,7 +247,6 @@ public class DBServices
 
         return UserEvent;
     }
-
     
     public string getMessagesCount(string userID)
     {
@@ -263,7 +262,6 @@ public class DBServices
 
         return messagesCount;
     }
-
     
     public string getUserScore(string userID)
     {
@@ -335,6 +333,20 @@ public class DBServices
         DataTable UserEvent = queryDb(query);
 
         return UserEvent;
+    }
+
+    public DataTable getCoachEvents(string userID)
+    {
+        string query = "Select * from events e"
+            + " join dbo.TeamsEvents t on t.EventID = e.EventID"
+            + " join dbo.Teams te on t.TeamID = te.TeamID"
+            + " join dbo.Coaches a on t.TeamID = a.TeamID"
+            + " WHERE a.CoachID =" + userID +
+            " ORDER BY E_Date DESC";
+
+        DataTable CoachEvent = queryDb(query);
+
+        return CoachEvent;
     }
 
     //--------------------------------------------------------------------

@@ -114,7 +114,6 @@ function getUserDetails() {
     })
 }
 
-
 function parseUserDetails(results) {
     results = $.parseJSON(results.d);
 
@@ -145,7 +144,6 @@ function parseUserDetails(results) {
     $("#ProfileAppScore").append(strProfileAppScore);
     
 }
-
 
 
 //--------------------------------------------------------------------
@@ -193,6 +191,20 @@ function parseUserResults(results) {
 //                           Events Page
 //--------------------------------------------------------------------
 
+function getUserType() {
+
+    userType = $.ajax({
+        url: 'WebService.asmx/getUser',
+        type: 'POST',
+        async: false,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8'
+    }) // end of ajax call
+
+    return userType.responseJSON.d
+}
+
+
 function getUserEvents() {
 
     events = $.ajax({
@@ -206,10 +218,24 @@ function getUserEvents() {
     return events.responseJSON.d
 }
 
+function getCoachEvents() {
+
+    events = $.ajax({
+        url: 'WebService.asmx/getCoachEvents',
+        type: 'POST',
+        async: false,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8'
+    }) // end of ajax call
+
+    return events.responseJSON.d
+}
+
 
 //--------------------------------------------------------------------
 //                           Messages Page
 //--------------------------------------------------------------------
+
 function getUserMessages() {
 
     $.ajax({
@@ -284,7 +310,6 @@ function messageModalError(a,b,c)
     console.log(c);
     alert('getUserMessagesbyID() error');
 }
-
 
 
 //--------------------------------------------------------------------

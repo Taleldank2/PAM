@@ -158,7 +158,7 @@ public class WebService : System.Web.Services.WebService
         return response;
     }
 
-
+    [WebMethod]
     private string getUserFromSession(string sessionId)//Extract the user id from the session table
     {
         foreach (KeyValuePair<string, string> pair in usersSessions)
@@ -171,6 +171,21 @@ public class WebService : System.Web.Services.WebService
 
         throw new Exception("Invalid session id");
     }
+
+    [WebMethod]
+    private string getUser()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string userId = getUserFromSession(userSession);
+
+        DataTable details = dbHandler.getUser(userId);
+
+        string response = dataTableToJson(details);
+
+        return response;
+
+    }//Get user object from session
 
 
     //--------------------------------------------------------------------
@@ -206,7 +221,6 @@ public class WebService : System.Web.Services.WebService
 
         return response;
     }
-
 
     [WebMethod]
     public string getPicturePath()
@@ -308,7 +322,6 @@ public class WebService : System.Web.Services.WebService
         return response;
     }
 
-
     [WebMethod]
     public string getUserResults()
     {
@@ -349,6 +362,22 @@ public class WebService : System.Web.Services.WebService
         string response = dataTableToJson(events);
 
         return response;
+
+    }
+
+    [WebMethod]
+    public string getCoachEvents()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string userId = getUserFromSession(userSession);
+
+        DataTable events = dbHandler.getUserEvents(userId);
+
+        string response = dataTableToJson(events);
+
+        return response;
+
     }
 
     //--------------------------------------------------------------------
