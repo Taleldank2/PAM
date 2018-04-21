@@ -12,7 +12,6 @@
 
 
     <link href="../plugins/jquery-circliful/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
-    כ
     <!-- App css -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
@@ -26,7 +25,7 @@
 
     <!-- Navigation Bar-->
     <header id="topnav">
-        <div class="topbar-main" style="background-color:#ffc107;height:80px;">
+        <div class="topbar-main" style="background-color:#ffc107;height:80px">
             <div class="container-fluid">
 
                 <!-- Logo container-->
@@ -127,14 +126,14 @@
             <!-- Page-Title -->
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="page-title-box" style="text-align:center;padding:0px;margin-top:15px;">
+                    <div class="page-title-box" style="text-align:center;padding:0px;margin-top:40px;">
                         <div class="btn-group pull-right">
                             <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item">בית</li>
                                 <li class="breadcrumb-item active">PAM</li>
                             </ol>
                         </div>
-                        <h5 id="MainWelcome" class="page-title" style="font-size:30px;font-weight:bold">ברוך הבא</h5>
+                        <h5 id="MainWelcome" class="page-title" style="color:#6a6578;font-size:30px;font-weight:bold">ברוך הבא</h5>
                         <h6 id="MainAppScore" class="text-success counter m-t-10">דירוג אישי:</h6>
                     </div>
 
@@ -142,8 +141,8 @@
             </div>
             <!-- end page title end breadcrumb -->
 
-            <!--<div class="row">
-                <div class="col-sm-6 col-lg-3">
+            <div class="row">
+                <!--<div class="col-sm-6 col-lg-3">
                     <div class="widget-simple-chart text-right card-box" style="text-align:right !important; margin-bottom:5px">
                         <span><i class="ti-star" style="color:#00b19d !important;float:left; margin-bottom:40px; font-size:40px"></i></span>
                         <h4 class="text-success counter m-t-10">הדירוג שלי</h4>
@@ -154,10 +153,10 @@
 
                 <div class="col-sm-6 col-lg-3">
                     <a href="Inbox.html">
-                        <div class="widget-simple-chart text-right card-box" style="text-align:right !important; margin-bottom:10px">
-                            <span><i class="mdi mdi-comment-text-outline" style="color:#3bafda !important ;float:left; margin-bottom:40px; font-size:40px"></i></span>
-                            <h5 class="text-primary counter m-t-10">הודעות</h5>
-                            <p id="MainMessages" style="color:#3bafda !important" class="text-muted text-nowrap m-b-10"></p>
+                        <div class="widget-simple-chart text-right card-box" style="background-color:#ff0707c9 ;text-align:right !important; margin-bottom:10px">
+                            <span><i class="mdi mdi-comment-text-outline" style="color:black !important ;float:left; margin-bottom:40px; font-size:40px"></i></span>
+                            <h5 style="color:black" class="text-black m-t-10">הודעות</h5>
+                            <p id="MainMessages" style="color:black !important" class="text-muted text-nowrap m-b-10"></p>
                         </div>
                     </a>
                 </div>
@@ -165,21 +164,21 @@
 
                 <div class="col-sm-6 col-lg-3">
                     <a href="Calendar.html">
-                        <div class="widget-simple-chart text-right card-box" style="text-align:right !important; margin-bottom:10px">
-                            <span><i class="ti-calendar" style="color:#f76397 !important;float:left;margin-bottom:40px; margin-top:10px;font-size:40px"></i></span>
-                            <h5 class="text-pink m-t-10"><span class="counter">האירוע הבא</span></h5>
-                            <p id="MainNextEvent" style="color:#f76397 !important" class="text-muted text-nowrap m-b-10"></p>
+                        <div class="widget-simple-chart text-right card-box" style="background-color:#ff6a00ed;text-align:right !important; margin-bottom:10px">
+                            <span><i class="ti-calendar" style="color:black !important;float:left;margin-bottom:40px; margin-top:10px;font-size:40px"></i></span>
+                            <h5 style="color:black" class="text-black m-t-10"><span class="counter">האירוע הבא</span></h5>
+                            <p id="MainNextEvent" style="color:black !important" class="text-muted text-nowrap m-b-10"></p>
                         </div>
                     </a>
                 </div>
 
                 <div class="col-sm-6 col-lg-3">
                     <a href="Results.html">
-                        <div class="widget-simple-chart text-right card-box" style="text-align:right !important; margin-bottom:10px">
+                        <div class="widget-simple-chart text-right card-box" style="background-color:#fff700b8;text-align:right !important; margin-bottom:10px">
                             <!--<div class="circliful-chart" data-dimension="90" data-text="49%" data-width="5" data-fontsize="14" data-percent="49" data-fgcolor="#98a6ad" data-bgcolor="#ebeff2"></div>-->
-                            <span><i class="ti-timer" style="color:#4c5667 !important;float:left;margin-bottom:40px; margin-top:10px;font-size:40px"></i></span>
-                            <h5 class="text-inverse counter m-t-10">תוצאה אחרונה</h5>
-                            <p id="MainLastResult" style="color:#4c5667 !important" class="text-muted text-nowrap m-b-10"></p>
+                            <span><i class="ti-timer" style="color:black;float:left;margin-bottom:40px; margin-top:10px;font-size:40px"></i></span>
+                            <h5 style="color:black" class="text-black m-t-10">תוצאה אחרונה</h5>
+                            <p id="MainLastResult" style="color:black !important" class="text-muted text-nowrap m-b-10"></p>
                         </div>
                     </a>
                 </div>
@@ -190,7 +189,7 @@
     </div>
     <!-- end wrapper -->
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" style="background-color:#ffc107;border-color:darkred">
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
