@@ -77,7 +77,7 @@ function getScore() {
 
 function parseScore(results) {
     str = results.d;
-    $("#MainAppScore").html(str);
+    $("#MainAppScore").append(" " + str);
 }
 
 //---------------------------------//
