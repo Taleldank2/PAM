@@ -45,6 +45,7 @@ function register() {
 function registerNewUser(pictureBase64) {
 
     userType = $('#usertype').val();
+    userTeam = $('#userteam').val();
     userName = $('#name').val();
     userLastName = $('#lastname').val();
     userPhoneNumber = $('#phonenumber').val();
@@ -58,6 +59,7 @@ function registerNewUser(pictureBase64) {
 
     request = {
         "userType": userType,
+        "userTeam": userTeam,
         "userName": userName,
         "userLastName": userLastName,
         "phoneNumber": userPhoneNumber,

@@ -88,6 +88,31 @@ public class DBServices
     }
 
     //--------------------------------------------------------------------
+    //Function for update profile athlete
+    //--------------------------------------------------------------------
+    //public bool updateUser(string userId, string phoneNumber, string userMail, string userPassword, string city, string athleteWeight, string athleteHeight)
+    //{
+    //    SqlConnection con = null;
+
+    //    try
+    //    {
+    //        con = connect();
+
+    //        string command = "INSERT INTO[dbo].[Users] " +
+    //                         "([UserType], [FirstName], [LastName], [PhoneNumber], [Email]," +
+    //                         " [Password],[Picture],[City],[BirthDate]) " +
+    //                         " VALUES({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')";
+
+    //        string formattedCommand = String.Format(command,phoneNumber, userMail, userPassword, city);
+
+    //        SqlCommand insert = new SqlCommand(formattedCommand, con);
+
+    //        return Convert.ToBoolean(insert.ExecuteNonQuery());
+    //        return;
+    //}
+
+
+    //--------------------------------------------------------------------
     //Function for Login module
     //--------------------------------------------------------------------
     public DataTable getUser(string userID)
@@ -151,7 +176,7 @@ public class DBServices
         }
     }
 
-    public bool registerAthlete(string userId, string athleteWeight, string athleteHeight)
+    public bool registerAthlete(string userId,string userTeam, string athleteWeight, string athleteHeight)
     {
         SqlConnection con = null;
 
@@ -159,11 +184,11 @@ public class DBServices
         {
             con = connect();
 
-            string command = "INSERT INTO[dbo].[Athletes] " +
+            string command = "INSERT INTO [dbo].[Athletes] " +
                              "([AthleteID], [TeamID], [Highet], [Weight], [AppScore]) " +
                              " VALUES({0},'{1}','{2}','{3}','{4}')";
 
-            string formattedCommand = String.Format(command, userId, athleteWeight, athleteHeight, 0);
+            string formattedCommand = String.Format(command, userId, userTeam, athleteWeight, athleteHeight, 0);
 
             SqlCommand insert = new SqlCommand(formattedCommand, con);
 

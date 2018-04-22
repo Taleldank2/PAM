@@ -33,6 +33,17 @@ public class WebService : System.Web.Services.WebService
         dbHandler = new DBServices(connectionString);
     }
 
+    //--------------------------------------------------------------------
+    //                           Profile
+    //--------------------------------------------------------------------
+    [WebMethod]
+    public void update(string phoneNumber, string userMail, string userPassword, string city, string athleteWeight, string athleteHeight)
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string userId = getUserFromSession(userSession);
+        dbHandler.updateUser(userId, phoneNumber, userMail, userPassword, city, athleteWeight, athleteHeight);
+    }
 
     //--------------------------------------------------------------------
     //                           Login
@@ -186,20 +197,20 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
 
     [WebMethod]
-    public void register(string userType, string userName, string userLastName, string phoneNumber,
+    public void register(string userType,string userTeam, string userName, string userLastName, string phoneNumber,
                            string userMail, string userPassword, string userPicBase64, string city,
                            string userBirthday, string athleteWeight, string athleteHeight)
     {
         dbHandler.registerUser(userType, userName, userLastName, phoneNumber, userMail, userPassword,
                                userPicBase64, city, userBirthday);
 
-        if(Convert.ToInt32(userType)==3)
+        if(Convert.ToInt32(userType)==1)
         {
             string userSession = Context.Request.Cookies["session"]["session"];
 
             string userId = getUserFromSession(userSession);
 
-            dbHandler.registerAthlete(userId, athleteWeight, athleteHeight);
+            dbHandler.registerAthlete(userId, userTeam, athleteWeight, athleteHeight);
 
         }
     }
