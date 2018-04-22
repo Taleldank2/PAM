@@ -42,7 +42,8 @@ public class WebService : System.Web.Services.WebService
         string userSession = Context.Request.Cookies["session"]["session"];
 
         string userId = getUserFromSession(userSession);
-        dbHandler.updateUser(userId, phoneNumber, userMail, userPassword, city, athleteWeight, athleteHeight);
+
+        dbHandler.updateDetails(userId, phoneNumber, userMail, userPassword, city, athleteWeight, athleteHeight);
     }
 
     //--------------------------------------------------------------------

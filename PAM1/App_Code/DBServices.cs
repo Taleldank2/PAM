@@ -64,10 +64,10 @@ public class DBServices
         {
             con = connect();
 
-            SqlDataAdapter da = new SqlDataAdapter(query, con); 
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
 
-            DataSet ds = new DataSet();  
-            da.Fill(ds);   
+            DataSet ds = new DataSet();
+            da.Fill(ds);
 
             DataTable dt = ds.Tables[0];
 
@@ -87,39 +87,15 @@ public class DBServices
         }
     }
 
-    //--------------------------------------------------------------------
-    //Function for update profile athlete
-    //--------------------------------------------------------------------
-    //public bool updateUser(string userId, string phoneNumber, string userMail, string userPassword, string city, string athleteWeight, string athleteHeight)
-    //{
-    //    SqlConnection con = null;
-
-    //    try
-    //    {
-    //        con = connect();
-
-    //        string command = "INSERT INTO[dbo].[Users] " +
-    //                         "([UserType], [FirstName], [LastName], [PhoneNumber], [Email]," +
-    //                         " [Password],[Picture],[City],[BirthDate]) " +
-    //                         " VALUES({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')";
-
-    //        string formattedCommand = String.Format(command,phoneNumber, userMail, userPassword, city);
-
-    //        SqlCommand insert = new SqlCommand(formattedCommand, con);
-
-    //        return Convert.ToBoolean(insert.ExecuteNonQuery());
-    //        return;
-    //}
-
 
     //--------------------------------------------------------------------
     //Function for Login module
     //--------------------------------------------------------------------
     public DataTable getUser(string userID)
     {
-            
+
         string query = "SELECT * FROM Users" +
-                        " WHERE  PhoneNumber ='" + userID + "'";
+                        " WHERE PhoneNumber ='" + userID + "'";
 
         DataTable user = queryDb(query);
 
@@ -187,7 +163,7 @@ public class DBServices
         }
     }
 
-    public bool registerAthlete(string userId,string userTeam, string athleteWeight, string athleteHeight)
+    public bool registerAthlete(string userId, string userTeam, string athleteWeight, string athleteHeight)
     {
         SqlConnection con = null;
 
@@ -218,7 +194,7 @@ public class DBServices
             }
         }
     }
-    
+
 
     public void savePicture(string picPath, string userPicBase64)
     {
@@ -261,18 +237,108 @@ public class DBServices
                         " Join Athletes ON Users.UserID = Athletes.AthleteID" +
                         " where AthleteID = " + userID;
 
-        DataTable UserEvent = queryDb(query);
+        DataTable UserDetails = queryDb(query);
 
-        return UserEvent;
+        return UserDetails;
     }
 
+    //--------------------------------------------------------------------
+    //Function for update profile athlete
+    //--------------------------------------------------------------------
+    public bool updateDetails(string userId, string phoneNumber, string userMail, string userPassword, string city, string athleteWeight, string athleteHeight)
+    {
+        SqlConnection con = null;
+
+        try
+        {
+            con = connect();
+            int countUpdatesUser = 0, countUpdatesAthlete=0;
+            bool updatedUser = true, updatedAthlete= true;
+
+
+            string commandUser = "UPDATE [dbo].[Users] SET ";
+            if (phoneNumber != null && phoneNumber!="")
+            {
+                commandUser += " [PhoneNumber] =" + phoneNumber;
+                countUpdatesUser++;
+            }
+            if (userMail != null && userMail != "")
+            {
+                if (countUpdatesUser != 0)
+                    commandUser += ",";
+                commandUser += " [Email] =" + userMail;
+                countUpdatesUser++;
+            }
+            if (userPassword != null && userPassword != "")
+            {
+                if (countUpdatesUser != 0)
+                    commandUser += ",";
+                commandUser += " [Password] =" + userPassword;
+                countUpdatesUser++;
+            }
+            if (city != null && city != "")
+            {
+                if (countUpdatesUser != 0)
+                    commandUser += ",";
+                commandUser += " [City] =" + city;
+                countUpdatesUser++;
+            }
+            commandUser += " WHERE [UserID]=" + userId;
+
+
+            string commandAthlete = "UPDATE [dbo].[Athletes] SET ";
+            if (athleteHeight != null && athleteHeight != "")
+            {
+                commandAthlete += " [Highet] =" + athleteHeight;
+                countUpdatesAthlete++;
+            }
+            if (athleteWeight != null && athleteWeight != "")
+            {
+                if (countUpdatesAthlete != 0)
+                    commandAthlete += ",";
+                commandAthlete += " [Weight] =" + athleteWeight;
+                countUpdatesAthlete++;
+            }
+            commandAthlete += " WHERE [AthleteID]=" + userId;
+
+
+            if(countUpdatesUser>0)
+            {
+                string formattedCommandUser = String.Format(commandUser);
+                SqlCommand updateUser = new SqlCommand(formattedCommandUser, con);
+                updatedUser = Convert.ToBoolean(updateUser.ExecuteNonQuery());
+            }
+
+            if (countUpdatesAthlete > 0)
+            {
+                string formattedCommandAthlete = String.Format(commandAthlete);
+                SqlCommand updateAthlete = new SqlCommand(formattedCommandAthlete, con);
+                updatedAthlete = Convert.ToBoolean(updateAthlete.ExecuteNonQuery());
+            }
+
+            return updatedAthlete && updatedUser;
+
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw ex;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
+    }
 
     //--------------------------------------------------------------------
     // Main Page 
     //--------------------------------------------------------------------
     public DataTable getUserLastEvent(string userID)
     {
-       
+
         string query = "Select TOP 1 * from events e"
             + " join dbo.TeamsEvents t on t.EventID = e.EventID"
             + " join dbo.Athletes a on t.TeamID = a.TeamID"
@@ -283,7 +349,7 @@ public class DBServices
 
         return UserEvent;
     }
-    
+
     public string getMessagesCount(string userID)
     {
 
@@ -291,14 +357,14 @@ public class DBServices
                        "JOIN dbo.TeamsMessages t on m.MessageID = t.MessageID " +
                        "join dbo.Athletes a on t.TeamID = a.TeamID " +
                        "WHERE AthleteID = " + userID;
-        
+
         DataTable messagesTable = queryDb(query);
 
         string messagesCount = messagesTable.Rows[0][0].ToString();
 
         return messagesCount;
     }
-    
+
     public string getUserScore(string userID)
     {
 
@@ -314,8 +380,8 @@ public class DBServices
     public string getUserName(string userID)
     {
 
-        string query = "Select Users.FirstName from Users"+
-                        " Join Athletes ON Users.UserID = Athletes.AthleteID"+
+        string query = "Select Users.FirstName from Users" +
+                        " Join Athletes ON Users.UserID = Athletes.AthleteID" +
                         " where AthleteID = " + userID;
 
         DataTable userNames = queryDb(query);
@@ -329,7 +395,7 @@ public class DBServices
     {
 
         string query = "select top 1 * from results " +
-                        "join ResultTypes on results.ResultType = ResultTypes.ResultType "+
+                        "join ResultTypes on results.ResultType = ResultTypes.ResultType " +
                        "WHERE AthleteID = " + userID + " " +
                        "ORDER BY rDate DESC";
 
@@ -394,7 +460,7 @@ public class DBServices
         string query = "SELECT * FROM [dbo].[Messages] m " +
                        "JOIN dbo.TeamsMessages t on m.MessageID = t.MessageID " +
                        "join dbo.Athletes a on t.TeamID = a.TeamID " +
-                       "join Users u on m.CreatorID = u.UserID "+
+                       "join Users u on m.CreatorID = u.UserID " +
                        "WHERE AthleteID = " + userID;
 
         DataTable messagesTable = queryDb(query);
