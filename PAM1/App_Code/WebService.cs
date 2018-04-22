@@ -166,13 +166,28 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    private string getUser()
+    public string getUser()
     {
         string userSession = Context.Request.Cookies["session"]["session"];
 
-        string userId = getUserFromSession(userSession);
+        string userID = getUserFromSession(userSession);
 
-        DataTable details = dbHandler.getUser(userId);
+        DataTable details = dbHandler.getUser(userID);
+
+        string response = dataTableToJson(details);
+
+        return response;
+
+    }//Get user object from session
+
+    [WebMethod]
+    public string getUserType()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string userID = getUserFromSession(userSession);
+
+        DataTable details = dbHandler.getUserType(userID);
 
         string response = dataTableToJson(details);
 
@@ -365,7 +380,7 @@ public class WebService : System.Web.Services.WebService
 
         string userId = getUserFromSession(userSession);
 
-        DataTable events = dbHandler.getUserEvents(userId);
+        DataTable events = dbHandler.getCoachEvents(userId);
 
         string response = dataTableToJson(events);
 

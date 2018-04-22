@@ -101,6 +101,17 @@ public class DBServices
         return user;
     }
 
+    public DataTable getUserType(string userID)
+    {
+
+        string query = "SELECT * FROM Users" +
+                        " WHERE UserID ='" + userID + "'";
+
+        DataTable user = queryDb(query);
+
+        return user;
+    }
+
     //--------------------------------------------------------------------
     // Register
     //--------------------------------------------------------------------
@@ -340,8 +351,8 @@ public class DBServices
         string query = "Select * from events e"
             + " join dbo.TeamsEvents t on t.EventID = e.EventID"
             + " join dbo.Teams te on t.TeamID = te.TeamID"
-            + " join dbo.Coaches a on t.TeamID = a.TeamID"
-            + " WHERE a.CoachID =" + userID +
+            + " join dbo.Coaches c on te.HeadCoachID = c.CoachID"
+            + " WHERE c.CoachID =" + userID +
             " ORDER BY E_Date DESC";
 
         DataTable CoachEvent = queryDb(query);

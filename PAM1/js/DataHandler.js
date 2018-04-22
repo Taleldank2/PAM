@@ -2,7 +2,6 @@
 //                            Main Page
 //--------------------------------------------------------------------
 
-
 function getUserLastEvent() {
     $.ajax({
         url: 'WebService.asmx/getUserLastEvent',
@@ -194,16 +193,28 @@ function parseUserResults(results) {
 function getUserType() {
 
     userType = $.ajax({
-        url: 'WebService.asmx/getUser',
+        url: 'WebService.asmx/getUserType',
         type: 'POST',
         async: false,
         dataType: 'json',
-        contentType: 'application/json; charset = utf-8'
+        contentType: 'application/json; charset = utf-8',
+       
     }) // end of ajax call
 
-    return userType.responseJSON.d
+   return userType.responseJSON.d
 }
 
+//function parseUserType(results) {
+//    results = $.parseJSON(results.d);
+//    alert(results.UserType);
+//}
+
+//function MessageError(a, b, c) {
+//    console.log(a);
+//    console.log(b);
+//    console.log(c);
+//    alert('error');
+//}
 
 function getUserEvents() {
 

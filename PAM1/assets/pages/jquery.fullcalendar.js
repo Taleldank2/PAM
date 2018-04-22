@@ -172,12 +172,12 @@
         //userSession = getCookie("session");
 
         //Get the user type according to the user session details
-        var userType = getUserType().userType;
+        var userType = JSON.parse(getUserType());
         //Get events from db
-        if (userType == 1)
+        if (userType[0].UserType == 1)
             //Athlete
             myEvents = JSON.parse(getUserEvents());
-        else if (userType == 2)
+        else if (userType[0].UserType == 2)
             //Coach
             myEvents = JSON.parse(getCoachEvents());
         else
