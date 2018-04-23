@@ -148,28 +148,7 @@
         var today = new Date($.now());
 
         //deside which data to fetch -  Athlete or Coach
-        var myEvents;
-
-        ////Get the user session details
-        //var userSession;
-                        
-        //function getCookie(cname) {
-        //    var name = cname + "=";
-        //    var decodedCookie = decodeURIComponent(document.cookie);
-        //    var ca = decodedCookie.split(';');
-        //    for (var i = 0; i < ca.length; i++) {
-        //        var c = ca[i];
-        //        while (c.charAt(0) == ' ') {
-        //            c = c.substring(1);
-        //        }
-        //        if (c.indexOf(name) == 0) {
-        //            return c.substring(name.length, c.length);
-        //        }
-        //    }
-        //    return "";
-        //}
-
-        //userSession = getCookie("session");
+        var myEvents;       
 
         //Get the user type according to the user session details
         var userType = JSON.parse(getUserType());

@@ -94,7 +94,7 @@ public class DBServices
     {
             
         string query = "SELECT * FROM Users" +
-                        " WHERE  PhoneNumber ='" + userID + "'";
+                        " WHERE PhoneNumber ='" + userID + "'";
 
         DataTable user = queryDb(query);
 

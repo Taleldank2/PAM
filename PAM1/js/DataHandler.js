@@ -204,18 +204,6 @@ function getUserType() {
    return userType.responseJSON.d
 }
 
-//function parseUserType(results) {
-//    results = $.parseJSON(results.d);
-//    alert(results.UserType);
-//}
-
-//function MessageError(a, b, c) {
-//    console.log(a);
-//    console.log(b);
-//    console.log(c);
-//    alert('error');
-//}
-
 function getUserEvents() {
 
     events = $.ajax({
