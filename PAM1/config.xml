@@ -2,22 +2,22 @@
 
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.phonegap.nir7"
+        id        = "com.phonegap.taleldan188"
         version   = "1.0.0">
 
-  <name>tal</name>
+  <name>PAM</name>
   <description>
-    splash screen and icon sample
+    Kirat Tivon Water Polo
   </description>
 
   <author href="http://phonegap.com" email="nir@phonegap.com">
-    tal
+    TT PRODUCTIONS
   </author>
 
 
   <!--<preference name="phonegap-version" value="3.7.0"/>-->
-  <preference name="phonegap-version" value="cli-6.3.0"/>
-
+  <!--<preference name="phonegap-version" value="cli-6.3.0"/>-->
+  <preference name="phonegap-version" value="cli-6.5.0"/>
 
   <plugin name="cordova-plugin-splashscreen"  source="npm"/>
   <!--<plugin name="cordova-plugin-camera" source="npm"/>
