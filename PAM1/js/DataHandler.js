@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------------------------
-//                            Main Page
+//                            index Page
 //--------------------------------------------------------------------
 
 function getUserLastEvent() {
@@ -69,7 +69,8 @@ function getScore() {
         async: true,
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
-        success: parseScore
+        success: parseScore,
+        error: changeToCoachMode
     }) 
 
 }
@@ -77,6 +78,10 @@ function getScore() {
 function parseScore(results) {
     str = results.d;
     $("#MainAppScore").append(" " + str);
+}
+
+function changeToCoachMode(e){
+    window.location = "Dashboard.html";
 }
 
 //---------------------------------//

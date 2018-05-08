@@ -56,11 +56,11 @@ function checkSession(results) {
         // Load Data to html on every page when session is verified.
         if (window.location.pathname == "/index.html" || window.location.pathname == "/bgroup57/test1/tar1/index.html")
         {
+            getScore();
             getPicturePath();
             getUserLastEvent();
             getLastResult();
-            getMessagesCount();
-            getScore();
+            getMessagesCount(); 
             getName();
         }
         else if (window.location.pathname == "/Results.html" || window.location.pathname == "/bgroup57/test1/tar1/Results.html")

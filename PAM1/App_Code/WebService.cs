@@ -77,6 +77,7 @@ public class WebService : System.Web.Services.WebService
                     myUser.UserType = dt.Rows[0][1].ToString();
                     myUser.Password = dt.Rows[0][6].ToString();
                     myUser.PhoneNumber = dt.Rows[0][4].ToString();
+                    myUser.FirstName = dt.Rows[0][2].ToString();
 
                     try
                     {
@@ -112,7 +113,7 @@ public class WebService : System.Web.Services.WebService
                         if (Convert.ToInt32(myUser.UserType)==1)
                             jsonString = js.Serialize("ברוך הבא "+myUser.FirstName);
                         else
-                            jsonString = js.Serialize(2);
+                            jsonString = js.Serialize("2");
                         return jsonString;
 
                     }

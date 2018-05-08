@@ -34,8 +34,12 @@ function ajaxLogin(request, successCB, errorCB) {
 }
 
 function successCB(results) {
-    if (results.d == "2")
+    alert(results.d);
+    results = $.parseJSON(results.d);
+    alert(results);
+    if (results == "2") {
         window.location = "MasterPage.html";
+    }
     else
         window.location = "index.html";
 }
@@ -51,16 +55,16 @@ function errorCB(e) {
 //------------------------------------------------------------------------
 $(document).ready(function () {
     
-    cookie = document.cookie
+    cookie = document.cookie;
 
-    arr = cookie.split("=")
+    arr = cookie.split("=");
 
     if (arr.length==3)
     {
         if (arr[0] == "session")
         {
-            session = arr[2]
-            checkUserExists(session)
+            session = arr[2];
+            checkUserExists(session);
         }
     }
 });
