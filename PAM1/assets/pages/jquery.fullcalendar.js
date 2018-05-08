@@ -203,16 +203,16 @@
             }
 
             eventList.push(
-                {
-                    title: event["Title"],
-                    body:event["E_Body"],                
-                    location: event["Location"],
-                    note: event["Note"],
-                    edate: strDate,
-                    start: eventStartDate,
-                    end: eventEndDate,
-                    className: cName
-                }
+                    {
+                        title: event["Title"],
+                        body:event["E_Body"],                
+                        location: event["Location"],
+                        note: event["Note"],
+                        edate: strDate,
+                        start: eventStartDate,
+                        end: eventEndDate,
+                        className: cName
+                    }
                 )
         }
 

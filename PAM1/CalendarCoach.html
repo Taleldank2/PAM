@@ -154,31 +154,31 @@
                                 <div class="widget-body">
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <button type="button" data-toggle="modal" data-target="#add-category" class="btn btn-lg btn-primary btn-block waves-effect waves-light">
+                                            <!--<button type="button" data-toggle="modal" data-target="#add-category" class="btn btn-lg btn-primary btn-block waves-effect waves-light">
                                                 <i class="fa fa-plus"></i> Create New
-                                            </button>
+                                            </button>-->
                                             <div id="external-events" class="m-t-20">
 
-                                                <p>Drag and drop your event or click in the calendar</p>
-                                                <div class="external-event bg-primary ui-draggable ui-draggable-handle" data-class="bg-primary" style="position: relative;">
-                                                    <i class="fa fa-move"></i>My Event One
+                                                <p>גרור ושחרר את האירוע במקום הרצוי או לחץ על הלוח שנה</p>
+                                                <div class="external-event bg-success ui-draggable ui-draggable-handle" data-class="bg-success" style="position: relative;">
+                                                    <i class="fa fa-move"></i>אימון
                                                 </div>
-                                                <div class="external-event bg-pink ui-draggable ui-draggable-handle" data-class="bg-pink" style="position: relative;">
-                                                    <i class="fa fa-move"></i>My Event Two
+                                                <div class="external-event bg-pink ui-draggable ui-draggable-handle" data-class="bg-danger" style="position: relative;">
+                                                    <i class="fa fa-move"></i>משחק
                                                 </div>
                                                 <div class="external-event bg-info ui-draggable ui-draggable-handle" data-class="bg-info" style="position: relative;">
-                                                    <i class="fa fa-move"></i>My Event Three
+                                                    <i class="fa fa-move"></i>מפגש
                                                 </div>
-                                                <div class="external-event bg-purple ui-draggable ui-draggable-handle" data-class="bg-purple" style="position: relative;">
+                                                <!--<div class="external-event bg-purple ui-draggable ui-draggable-handle" data-class="bg-purple" style="position: relative;">
                                                     <i class="fa fa-move"></i>My Event Four
-                                                </div>
+                                                </div>-->
                                             </div>
 
                                             <!-- checkbox -->
                                             <div class="checkbox text-left m-t-20">
                                                 <input id="drop-remove" type="checkbox">
                                                 <label for="drop-remove">
-                                                    Remove after drop
+                                                    הסר אחרי גרירה
                                                 </label>
                                             </div>
 
@@ -199,14 +199,14 @@
                             </div>
                         </div>
 
-                        
+
 
                     </div>
 
-                    
+
 
                     <!-- BEGIN MODAL -->
-                    <div class="modal fade none-border" id="event-modal">
+                    <div class="modal fade none-border show" id="event-modal">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -215,23 +215,37 @@
                                 </div>
 
                                 <div class="modal-header" style="display:inline;float:right">
-                                    <h5 style="float:right;font-weight:bold; text-decoration:underline">תוכן: </h5>
+                                    <h5 style="float:right;font-weight:bold; text-decoration:underline"> תוכן: </h5>
                                     <h5 id="EventModalBody" style="display:inline;float:right"></h5>
                                 </div>
                                 <div class="modal-header" style="display:inline;float:right">
-                                    <h5 style="float:right;font-weight:bold; text-decoration:underline">איפה: </h5>
+                                    <h5 style="float:right;font-weight:bold; text-decoration:underline"> איפה: </h5>
                                     <h5 id="EventModalLocation" style="display:inline;float:right"></h5>
                                 </div>
                                 <div class="modal-header" style="display:inline;float:right">
-                                    <h5 style="float:right;font-weight:bold; text-decoration:underline">מתי: </h5>
+                                    <h5 style="float:right;font-weight:bold; text-decoration:underline"> מתי: </h5>
                                     <h5 id="EventModalDateTime" style="display:inline;float:right"></h5>
+                                </div>
+
+                                <div class="modal-body">
+                                    <form>
+                                        <label>Change event name</label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" value="Buy a Moltran">
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn btn-success waves-effect waves-light">
+                                                    <i class="fa fa-check"></i> שמור
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </form>
                                 </div>
 
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">סגור</button>
-                                    <!--<button type="button" class="btn btn-success save-event waves-effect waves-light">Create event</button>-->
-                                    <!--<button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>-->
+                                    <!--<button type="button" class="btn btn-success save-event waves-effect waves-light" data-dismiss="modal">שמור</button>-->
+                                    <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">מחק</button>
                                 </div>
                             </div>
                         </div>
@@ -243,21 +257,24 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h5 class="modal-title mt-0"><strong>Add</strong> a category</h5>
+                                    <h3 class="modal-title mt-0">קטגוריית אירוע חדשה</h3>
                                 </div>
                                 <div class="modal-body">
                                     <form role="form">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label class="control-label">Category Name</label>
-                                                <input class="form-control form-white" placeholder="Enter name" type="text" name="category-name" />
+                                                <label class="control-label">כותרת</label>
+                                                <input class="form-control form-white" placeholder="הכנס שם" type="text" name="category-name" />
                                             </div>
                                             <div class="col-md-6">
-                                                <label class="control-label">Choose Category Color</label>
+                                                <label class="control-label">בחר קטגוריה</label>
                                                 <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
-                                                    <option value="practice">אימון</option>
+                                                    <option value="success">אימון</option>
+                                                    <option value="danger">משחק</option>
+                                                    <option value="info">מפגש</option>
+                                                    <!--<option value="practice">אימון</option>
                                                     <option value="game">משחק</option>
-                                                    <option value="meeting">מפגש</option>
+                                                    <option value="meeting">מפגש</option>-->
                                                     <!--<option value="pink">Pink</option>
                                                     <option value="primary">Primary</option>
                                                     <option value="warning">Warning</option>
@@ -282,7 +299,6 @@
         </div>
     </div>
     <!-- end wrapper -->
-
     <!-- Footer -->
     <footer class="footer" style="background-color:#ffc107;border-color:darkred">
         <div class="container">
@@ -294,7 +310,6 @@
         </div>
     </footer>
     <!-- End Footer -->
-
     <!-- jQuery  -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/popper.min.js"></script><!-- Popper for Bootstrap -->
