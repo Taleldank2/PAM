@@ -332,7 +332,7 @@ public class DBServices
     }
 
     //--------------------------------------------------------------------
-    // Main Page 
+    // index Page 
     //--------------------------------------------------------------------
     public DataTable getUserLastEvent(string userID)
     {
@@ -365,14 +365,22 @@ public class DBServices
 
     public string getUserScore(string userID)
     {
+        try
+        {
+            string query = "select AppScore	from athletes where AthleteID = " + userID;
 
-        string query = "select AppScore	from athletes where AthleteID = " + userID;
+            DataTable scoreTable = queryDb(query);
 
-        DataTable scoreTable = queryDb(query);
+            string userScore = scoreTable.Rows[0][0].ToString();
 
-        string userScore = scoreTable.Rows[0][0].ToString();
-
-        return userScore;
+            return userScore;
+        }
+        catch (Exception)
+        {
+            return null;
+            throw;
+        }
+        
     }
 
     public string getUserName(string userID)
@@ -435,6 +443,8 @@ public class DBServices
         return UserEvent;
     }
 
+
+    //TO DO
     public DataTable getCoachEvents(string userID)
     {
         string query = "Select * from events e"

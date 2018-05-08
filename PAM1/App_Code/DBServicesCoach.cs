@@ -334,7 +334,7 @@ public class DBServicesCoach
     }
 
     //--------------------------------------------------------------------
-    // Main Page 
+    // Dashboard Page 
     //--------------------------------------------------------------------
     public DataTable getUserLastEvent(string userID)
     {
@@ -391,19 +391,24 @@ public class DBServicesCoach
         return userName;
     }
 
-    public DataTable getUserLastResult(string userID)
+
+    //Coach Dashboard results
+    public DataTable getCoachLastResults()
     {
+        string query = "SELECT TOP (5) " +
+            "dbo.Results.ResultID, dbo.Results.AthleteID, dbo.Results.ResultType, dbo.Results.Distance, dbo.Results.rTime, dbo.Results.rDate, dbo.Results.Note, dbo.Users.FirstName, dbo.Users.LastName " +
+            " FROM  dbo.Athletes INNER JOIN dbo.Results " +
+            " ON dbo.Athletes.AthleteID = dbo.Results.AthleteID INNER JOIN dbo.ResultTypes " +
+            " ON dbo.Results.ResultType = dbo.ResultTypes.ResultType INNER JOIN dbo.Users " +
+            " ON dbo.Athletes.AthleteID = dbo.Users.UserID " +
+            " ORDER BY dbo.Results.rDate DESC";
 
-        string query = "select top 1 * from results " +
-                        "join ResultTypes on results.ResultType = ResultTypes.ResultType " +
-                       "WHERE AthleteID = " + userID + " " +
-                       "ORDER BY rDate DESC";
+        DataTable CoachLastResults = queryDb(query);
 
-
-        DataTable userLastResult = queryDb(query);
-
-        return userLastResult;
+        return CoachLastResults;
     }
+
+
 
 
     //--------------------------------------------------------------------

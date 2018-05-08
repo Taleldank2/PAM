@@ -34,11 +34,9 @@ function ajaxLogin(request, successCB, errorCB) {
 }
 
 function successCB(results) {
-    alert(results.d);
     results = $.parseJSON(results.d);
-    alert(results);
     if (results == "2") {
-        window.location = "MasterPage.html";
+        window.location = "Dashboard.html";
     }
     else
         window.location = "index.html";

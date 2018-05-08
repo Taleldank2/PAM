@@ -77,9 +77,12 @@ function getScore() {
 
 function parseScore(results) {
     str = results.d;
+    if (str == null)
+        window.location = "Dashboard.html";
     $("#MainAppScore").append(" " + str);
 }
 
+//Can remove
 function changeToCoachMode(e){
     window.location = "Dashboard.html";
 }
@@ -320,7 +323,6 @@ function messageModalError(a,b,c)
 //                             Register
 //--------------------------------------------------------------------
 function getPicturePath() {
-
     $.ajax({
         url: 'WebService.asmx/getPicturePath',
         type: 'POST',
@@ -329,7 +331,6 @@ function getPicturePath() {
         contentType: 'application/json; charset = utf-8',
         success: updateUserPicture
     }) // end of ajax call
-
 }
 
 function updateUserPicture(results) {
@@ -340,3 +341,50 @@ function updateUserPicture(results) {
             profileImgProfilePage.attr("src", data);
         });
     }
+
+//--------------------------------------------------------------------
+//                             Dashboard
+//--------------------------------------------------------------------
+function getCoachLastResults() {
+    $.ajax({
+        url: 'WebServiceCoach.asmx/getCoachLastResults',
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: parseCoachLastResluts,
+        error: errorCoachLastResults
+    }) // end of ajax call
+}
+
+function errorCoachLastResults(e){
+    alert(e.responseText);
+}
+
+function parseCoachLastResluts(results) {
+    results = $.parseJSON(results.d);
+    alert(results.d);
+    $(function () {
+        $.each(results, function (i, item) {
+            var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
+            var eventStartDate = new Date(eventTime);
+            var strDate = "";
+            strDate += eventStartDate.getDay() + "/" + eventStartDate.getMonth() + "/" + eventStartDate.getFullYear();
+            var resultType;
+            if (item.ResultType == 1)
+                resultType = "mdi mdi-swim";
+            else if (item.ResultType == 2)
+                resultType = "mdi mdi-run-fast";
+            else
+                resultType = "mdi mdi-clock-fast";
+            var $tr = $('<tr>').append(
+                 $('<td>').text(item.FirstName+" "+item.LastName),
+                $('<td>').html("<i class='" + resultType + "'></i>"),
+                $('<td>').text(item.Distance),
+                $('<td>').text(item.rTime.Minutes + ":" + item.rTime.Seconds),
+                $('<td>').text(strDate)
+            ).appendTo('#ResultsTableDashboard');
+        });
+    });
+    
+}
