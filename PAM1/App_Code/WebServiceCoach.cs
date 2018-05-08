@@ -16,12 +16,12 @@ using System.Data;
 [WebService(Namespace = "http://tempuri.org/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
-// [System.Web.Script.Services.ScriptService]
+[System.Web.Script.Services.ScriptService]
 public class WebServiceCoach : System.Web.Services.WebService
 {
 
     static Dictionary<string, string> usersSessions = new Dictionary<string, string>();
-    private DBServices dbHandler;
+    private DBServicesCoach dbHandler;
 
     public WebServiceCoach()
     {
@@ -30,7 +30,7 @@ public class WebServiceCoach : System.Web.Services.WebService
         //InitializeComponent(); 
 
         string connectionString = WebConfigurationManager.ConnectionStrings["PamDBconnectionString"].ConnectionString;
-        dbHandler = new DBServices(connectionString);
+        dbHandler = new DBServicesCoach(connectionString);
 
 
     }
@@ -196,9 +196,6 @@ public class WebServiceCoach : System.Web.Services.WebService
 
     }//Get user object from session
 
-
-
-
     //--------------------------------------------------------------------
     //                           Snippets
     //--------------------------------------------------------------------
@@ -221,4 +218,18 @@ public class WebServiceCoach : System.Web.Services.WebService
         return jsSerializer.Serialize(parentRow);
     }
 
+    //--------------------------------------------------------------------
+    //                           Dashboard
+    //--------------------------------------------------------------------
+
+    [WebMethod]
+    public string getCoachLastResults()
+    {
+
+        DataTable result = dbHandler.getCoachLastResults();
+
+        string response = dataTableToJson(result);
+
+        return response;
+    }
 }
