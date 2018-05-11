@@ -53,7 +53,7 @@ function checkSession(results) {
     }
     else
     {
-        // Load Data to html on every page when session is verified.
+        // Load Data to html on every page when session is verified
         if (window.location.pathname == "/index.html" || window.location.pathname == "/bgroup57/test1/tar1/index.html")
         {
             getCoachLastResults();

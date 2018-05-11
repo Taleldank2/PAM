@@ -536,7 +536,7 @@ public class DBServices
         try
         {
             string query = "SELECT TOP (5) " +
-            " select *, Users.FirstName,Users.LastName,Users.UserID "+
+            " *, Users.FirstName,Users.LastName,Users.UserID "+
             " from results join athletes "+
             " on Athletes.AthleteID = Results.AthleteID join Users "+
             " on Users.UserID = Athletes.AthleteID join teams "+
