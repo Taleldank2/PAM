@@ -2,26 +2,40 @@
 
 function profile() {
 
+    document.getElementById("editBTN").remove();
     document.getElementById("confirmBTN").style.visibility = "visible";
-    document.getElementById("editBTN").style.visibility = "hidden";
+    document.getElementById("cancelBTN").style.visibility = "visible";
+    
 
-    str = "<input id='phonenumber' class='form-control' type='text' placeholder='מספר נייד' style='margin-bottom:5px'>";
-    str += "<input id='mail' class='form-control' type='email' placeholder='אימייל' style='margin-bottom:5px'>";
+    str = "<input id='mail' class='form-control' type='email' placeholder='אימייל' style='margin-bottom:5px'>";
     str += "<input id='city' class='form-control' type='text' placeholder='מגורים' style='margin-bottom:5px'>";
     str += "<input id='AthleteWeight' class='form-control' type='text' placeholder='משקל' style='margin-bottom:5px'>";
     str += "<input id='AthleteHeight' class='form-control' type='text' placeholder='גובה' style='margin-bottom:5px'>";
+    str += "<input id='phonenumber' class='form-control' type='text' placeholder='מספר נייד' style='margin-bottom:5px'>";
     str += "<input id='pass' class='form-control' type='password' placeholder='סיסמא' style='margin-bottom:5px'>";
+    str += "<input id='confirmPass' class='form-control' type='password' placeholder='אימות סיסמא' style='margin-bottom:5px'>";
     $('#profileDetails').html(str);
 }
 
-
+document.getElementById("cancelBTN").onclick = cancel;
 document.getElementById("confirmBTN").onclick = confirm;
 
-function confirm() {
 
+function cancel() {
+    window.location = "Profile.html";
+}
+
+function confirm() {
+    userPassword = $('#pass').val();
+    userConfirmPassword = $('confirmPass').val();
+    if (userPassword != userConfirmPassword)
+    {
+        alert("אימות סיסמא נכשל!")
+        window.location = "Profile.html";
+    }
     userPhoneNumber = $('#phonenumber').val();
     userMail = $('#mail').val();
-    userPassword = $('#pass').val();
+   
     userCity = $('#city').val();
     athleteWeight = $('#AthleteWeight').val();
     athleteHeight = $('#AthleteHeight').val();
@@ -58,4 +72,5 @@ function confirmCompleted(result) {
 
 function errorCB(e) {
     alert("The exception message is : " + e.responseText);
+    window.location = "Profile.html";
 }
