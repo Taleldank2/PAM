@@ -536,14 +536,14 @@ public class DBServices
         try
         {
             string query = "SELECT TOP (5) " +
-            " dbo.Results.*, dbo.Users.FirstName, dbo.Users.LastName " +
-            " FROM dbo.Athletes INNER JOIN dbo.Results " +
-            " ON dbo.Athletes.AthleteID = dbo.Results.AthleteID INNER JOIN dbo.Teams " +
-            " ON dbo.Athletes.TeamID = dbo.Teams.TeamID INNER JOIN dbo.Coaches " +
-            " ON dbo.Teams.HeadCoachID = dbo.Coaches.CoachID INNER JOIN dbo.Users " +
-            " ON dbo.Athletes.AthleteID = dbo.Users.UserID AND dbo.Coaches.CoachID = dbo.Users.UserID" +
-            " WHERE dbo.Teams.HeadCoachID=" + coachID +
-            " ORDER BY dbo.Results.rDate DESC";
+            " select *, Users.FirstName,Users.LastName,Users.UserID "+
+            " from results join athletes "+
+            " on Athletes.AthleteID = Results.AthleteID join Users "+
+            " on Users.UserID = Athletes.AthleteID join teams "+
+            " on teams.TeamID = Athletes.TeamID join Coaches "+
+            " on Coaches.CoachId = teams.HeadCoachID "+
+            " where Coaches.coachID ="+ coachID +
+            " ORDER BY dbo.Results.rDate DESC ";
 
             DataTable CoachLastResults = queryDb(query);
 
