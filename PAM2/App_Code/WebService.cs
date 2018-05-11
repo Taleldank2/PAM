@@ -226,8 +226,7 @@ public class WebService : System.Web.Services.WebService
 
     }//Get user object from session
 
-
-
+    
     //--------------------------------------------------------------------
     //                           Events page
     //--------------------------------------------------------------------
