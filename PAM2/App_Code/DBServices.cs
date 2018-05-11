@@ -530,52 +530,26 @@ public class DBServices
     }
 
 
-    //Coach Dashboard results
-    public DataTable getCoachLastResults(string coachID)
+    //--------------------------------------------------------------------
+    // Results Page
+    //--------------------------------------------------------------------
+    public DataTable getCoachResults(string coachID)
     {
         try
         {
-            string query = "SELECT TOP (5) " +
-            " *, Users.FirstName,Users.LastName,Users.UserID "+
-            " from results join athletes "+
-            " on Athletes.AthleteID = Results.AthleteID join Users "+
-            " on Users.UserID = Athletes.AthleteID join teams "+
-            " on teams.TeamID = Athletes.TeamID join Coaches "+
-            " on Coaches.CoachId = teams.HeadCoachID "+
-            " where Coaches.coachID ="+ coachID +
+            string query = "SELECT " +
+            " *, Users.FirstName,Users.LastName,Users.UserID " +
+            " from results join athletes " +
+            " on Athletes.AthleteID = Results.AthleteID join Users " +
+            " on Users.UserID = Athletes.AthleteID join teams " +
+            " on teams.TeamID = Athletes.TeamID join Coaches " +
+            " on Coaches.CoachId = teams.HeadCoachID " +
+            " where Coaches.coachID =" + coachID +
             " ORDER BY dbo.Results.rDate DESC ";
 
             DataTable CoachLastResults = queryDb(query);
 
             return CoachLastResults;
-        }
-        catch (Exception ex)
-        {
-            using (StreamWriter w = File.AppendText("log.txt"))
-            {
-                Log(ex.Message, w);
-            }
-            throw ex;
-        }
-
-    }
-
-
-    //--------------------------------------------------------------------
-    // Results Page
-    //--------------------------------------------------------------------
-    public DataTable getUserResults(string userID)
-    {
-        try
-        {
-            string query = "select * from results " +
-               "WHERE AthleteID = " + userID + " " +
-               "ORDER BY rDate DESC";
-
-
-            DataTable userResults = queryDb(query);
-
-            return userResults;
         }
         catch (Exception ex)
         {
@@ -659,6 +633,39 @@ public class DBServices
             DataTable messagesTable = queryDb(query);
 
             return messagesTable;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
+    }
+
+    //--------------------------------------------------------------------
+    // Dashboard page
+    //--------------------------------------------------------------------
+
+    public DataTable getCoachLastResults(string coachID)
+    {
+        try
+        {
+            string query = "SELECT TOP (5) " +
+            " *, Users.FirstName,Users.LastName,Users.UserID " +
+            " from results join athletes " +
+            " on Athletes.AthleteID = Results.AthleteID join Users " +
+            " on Users.UserID = Athletes.AthleteID join teams " +
+            " on teams.TeamID = Athletes.TeamID join Coaches " +
+            " on Coaches.CoachId = teams.HeadCoachID " +
+            " where Coaches.coachID =" + coachID +
+            " ORDER BY dbo.Results.rDate DESC ";
+
+            DataTable CoachLastResults = queryDb(query);
+
+            return CoachLastResults;
         }
         catch (Exception ex)
         {
