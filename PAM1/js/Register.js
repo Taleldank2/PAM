@@ -15,15 +15,15 @@ function getTeamsNames() {
 
 function getTeamsNamesCompleted(results) {
     results = $.parseJSON(results.d);
-        str = "<div class='form-group'><div class='input-group'><div class='input-group-prepend'>" +
-                        "<span class='input-group-text'><i class='mdi mdi-swim'></i></span></div>" +
-                        "<select id='userteam' class='form-control select2 select2-hidden-accessible' tabindex='-1'" +
-                        "aria-hidden='true' ><option value='' disabled selected> בחר קבוצה </option> ";
-        for (var i = 0; i < results.length; i++) {
-            str += "<option value=" + results[i].TeamID + " >" + results[i].TeamName + "</option>";
-        }
-        str += "</select></div> </div>";
-        $('#TeamsNamesDDL').append(str);
+    str = "<div class='form-group'><div class='input-group'><div class='input-group-prepend'>" +
+                    "<span class='input-group-text'><i class='mdi mdi-swim'></i></span></div>" +
+                    "<select id='userteam' class='form-control select2 select2-hidden-accessible' tabindex='-1'" +
+                    "aria-hidden='true' ><option value='' disabled selected> בחר קבוצה </option> ";
+    for (var i = 0; i < results.length; i++) {
+        str += "<option value=" + results[i].TeamID + " >" + results[i].TeamName + "</option>";
+    }
+    str += "</select></div> </div>";
+    $('#TeamsNamesDDL').append(str);
 }
 
 function getTeamsNamesFailed() {
@@ -90,7 +90,7 @@ function registerNewUser(pictureBase64) {
 }
 
 function registerCompleted(result) {
-    alert("ההרשמה בוצעה בהצלחה :)")
+    alert("ההרשמה בוצעה בהצלחה :)");
     window.location = "Login.html";
 }
 
