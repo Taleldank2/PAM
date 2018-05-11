@@ -13,6 +13,7 @@ using System.IO;
 /// </summary>
 public class DBServices
 {
+
     private string connectionString;
 
     public DBServices(string connection)
@@ -25,11 +26,23 @@ public class DBServices
     //--------------------------------------------------------------------------------------------------
     private SqlConnection connect()
     {
-        SqlConnection con = new SqlConnection(connectionString);
+        try
+        {
+            SqlConnection con = new SqlConnection(connectionString);
 
-        con.Open();
+            con.Open();
 
-        return con;
+            return con;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
     }
 
 
@@ -38,20 +51,29 @@ public class DBServices
     //---------------------------------------------------------------------------------
     private SqlCommand CreateCommand(string CommandSTR, SqlConnection con)
     {
+        try
+        {
+            SqlCommand cmd = new SqlCommand(); // create the command object
 
-        SqlCommand cmd = new SqlCommand(); // create the command object
+            cmd.Connection = con;              // assign the connection to the command object
 
-        cmd.Connection = con;              // assign the connection to the command object
+            cmd.CommandText = CommandSTR;      // can be Select, Insert, Update, Delete 
 
-        cmd.CommandText = CommandSTR;      // can be Select, Insert, Update, Delete 
+            cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
 
-        cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
+            cmd.CommandType = System.Data.CommandType.Text; // the type of the command, can also be stored procedure
 
-        cmd.CommandType = System.Data.CommandType.Text; // the type of the command, can also be stored procedure
-
-        return cmd;
+            return cmd;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
     }
-
 
     //--------------------------------------------------------------------
     // This function is used to SELECT tabels from the DB
@@ -75,7 +97,10 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            // write to log
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
             throw ex;
         }
         finally
@@ -87,30 +112,51 @@ public class DBServices
         }
     }
 
-
     //--------------------------------------------------------------------
     //Function for Login module
     //--------------------------------------------------------------------
     public DataTable getUser(string userID)
     {
-
-        string query = "SELECT * FROM Users" +
+        try
+        {
+            string query = "SELECT * FROM Users" +
                         " WHERE PhoneNumber ='" + userID + "'";
 
-        DataTable user = queryDb(query);
+            DataTable user = queryDb(query);
 
-        return user;
+            return user;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
     }
 
     public DataTable getUserType(string userID)
     {
+        try
+        {
+            string query = "SELECT * FROM Users" +
+                " WHERE UserID ='" + userID + "'";
 
-        string query = "SELECT * FROM Users" +
-                        " WHERE UserID ='" + userID + "'";
+            DataTable user = queryDb(query);
 
-        DataTable user = queryDb(query);
+            return user;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
 
-        return user;
     }
 
     //--------------------------------------------------------------------
@@ -151,7 +197,10 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            // write to log
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
             throw ex;
         }
         finally
@@ -183,7 +232,10 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            // write to log
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
             throw ex;
         }
         finally
@@ -198,30 +250,63 @@ public class DBServices
 
     public void savePicture(string picPath, string userPicBase64)
     {
-        string dirPath = Path.Combine(HttpRuntime.AppDomainAppPath, picPath.Replace("/", "\\"));
+        try
+        {
+            string dirPath = Path.Combine(HttpRuntime.AppDomainAppPath, picPath.Replace("/", "\\"));
 
-        File.WriteAllText(dirPath, userPicBase64);
+            File.WriteAllText(dirPath, userPicBase64);
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
     }
 
     public string getPicturePath(string userID)
     {
-        string query = "SELECT Picture FROM [dbo].[Users] WHERE UserID =" + userID;
+        try
+        {
+            string query = "SELECT Picture FROM [dbo].[Users] WHERE UserID =" + userID;
 
-        DataTable userTable = queryDb(query);
+            DataTable userTable = queryDb(query);
 
-        string picturePath = userTable.Rows[0][0].ToString();
+            string picturePath = userTable.Rows[0][0].ToString();
 
-        return picturePath;
+            return picturePath;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
     }
 
     public DataTable getTeamsNames()
     {
+        try
+        {
+            string query = "Select * from Teams";
 
-        string query = "Select * from Teams";
+            DataTable Teams = queryDb(query);
 
-        DataTable Teams = queryDb(query);
+            return Teams;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
 
-        return Teams;
     }
 
 
@@ -229,17 +314,26 @@ public class DBServices
     // Profile Page 
     //--------------------------------------------------------------------
 
-
     public DataTable getDetails(string userID)
     {
+        try
+        {
+            string query = "Select top 1 * from Users" +
+                " Join Athletes ON Users.UserID = Athletes.AthleteID" +
+                " where AthleteID = " + userID;
 
-        string query = "Select top 1 * from Users" +
-                        " Join Athletes ON Users.UserID = Athletes.AthleteID" +
-                        " where AthleteID = " + userID;
+            DataTable UserDetails = queryDb(query);
 
-        DataTable UserDetails = queryDb(query);
-
-        return UserDetails;
+            return UserDetails;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
     }
 
     //--------------------------------------------------------------------
@@ -252,12 +346,12 @@ public class DBServices
         try
         {
             con = connect();
-            int countUpdatesUser = 0, countUpdatesAthlete=0;
-            bool updatedUser = true, updatedAthlete= true;
+            int countUpdatesUser = 0, countUpdatesAthlete = 0;
+            bool updatedUser = true, updatedAthlete = true;
 
 
             string commandUser = "UPDATE [dbo].[Users] SET ";
-            if (phoneNumber != null && phoneNumber!="")
+            if (phoneNumber != null && phoneNumber != "")
             {
                 commandUser += " [PhoneNumber] =" + phoneNumber;
                 countUpdatesUser++;
@@ -302,7 +396,7 @@ public class DBServices
             commandAthlete += " WHERE [AthleteID]=" + userId;
 
 
-            if(countUpdatesUser>0)
+            if (countUpdatesUser > 0)
             {
                 string formattedCommandUser = String.Format(commandUser);
                 SqlCommand updateUser = new SqlCommand(formattedCommandUser, con);
@@ -321,7 +415,10 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            // write to log
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
             throw ex;
         }
         finally
@@ -338,64 +435,108 @@ public class DBServices
     //--------------------------------------------------------------------
     public DataTable getUserLastEvent(string userID)
     {
+        try
+        {
+            string query = "Select TOP 1 * from events e"
+    + " join dbo.TeamsEvents t on t.EventID = e.EventID"
+    + " join dbo.Athletes a on t.TeamID = a.TeamID"
+    + " WHERE a.AthleteID =" + userID +
+    " ORDER BY E_Date DESC";
 
-        string query = "Select TOP 1 * from events e"
-            + " join dbo.TeamsEvents t on t.EventID = e.EventID"
-            + " join dbo.Athletes a on t.TeamID = a.TeamID"
-            + " WHERE a.AthleteID =" + userID +
-            " ORDER BY E_Date DESC";
+            DataTable UserEvent = queryDb(query);
 
-        DataTable UserEvent = queryDb(query);
+            return UserEvent;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
 
-        return UserEvent;
     }
 
     public string getMessagesCount(string userID)
     {
+        try
+        {
+            string query = "SELECT count(*) as messagescount FROM [dbo].[Messages] m " +
+               "JOIN dbo.TeamsMessages t on m.MessageID = t.MessageID " +
+               "join dbo.Athletes a on t.TeamID = a.TeamID " +
+               "WHERE AthleteID = " + userID;
 
-        string query = "SELECT count(*) as messagescount FROM [dbo].[Messages] m " +
-                       "JOIN dbo.TeamsMessages t on m.MessageID = t.MessageID " +
-                       "join dbo.Athletes a on t.TeamID = a.TeamID " +
-                       "WHERE AthleteID = " + userID;
+            DataTable messagesTable = queryDb(query);
 
-        DataTable messagesTable = queryDb(query);
+            string messagesCount = messagesTable.Rows[0][0].ToString();
 
-        string messagesCount = messagesTable.Rows[0][0].ToString();
+            return messagesCount;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
 
-        return messagesCount;
     }
 
     public string getUserScore(string userID)
     {
+        try
+        {
+            string query = "select AppScore	from athletes where AthleteID = " + userID;
 
-        string query = "select AppScore	from athletes where AthleteID = " + userID;
+            DataTable scoreTable = queryDb(query);
 
-        DataTable scoreTable = queryDb(query);
+            string userScore = scoreTable.Rows[0][0].ToString();
 
-        string userScore = scoreTable.Rows[0][0].ToString();
-
-        return userScore;
+            return userScore;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
     }
 
     public string getUserName(string userID)
     {
+        try
+        {
+            string query = "Select Users.FirstName from Users" +
+                " Join Athletes ON Users.UserID = Athletes.AthleteID" +
+                " where AthleteID = " + userID;
 
-        string query = "Select Users.FirstName from Users" +
-                        " Join Athletes ON Users.UserID = Athletes.AthleteID" +
-                        " where AthleteID = " + userID;
+            DataTable userNames = queryDb(query);
 
-        DataTable userNames = queryDb(query);
+            string userName = userNames.Rows[0][0].ToString();
 
-        string userName = userNames.Rows[0][0].ToString();
-
-        return userName;
+            return userName;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
     }
 
 
     //Coach Dashboard results
     public DataTable getCoachLastResults()
     {
-        string query = "SELECT TOP (5) " +
+        try
+        {
+            string query = "SELECT TOP (5) " +
             "dbo.Results.ResultID, dbo.Results.AthleteID, dbo.Results.ResultType, dbo.Results.Distance, dbo.Results.rTime, dbo.Results.rDate, dbo.Results.Note, dbo.Users.FirstName, dbo.Users.LastName " +
             " FROM  dbo.Athletes INNER JOIN dbo.Results " +
             " ON dbo.Athletes.AthleteID = dbo.Results.AthleteID INNER JOIN dbo.ResultTypes " +
@@ -403,12 +544,20 @@ public class DBServices
             " ON dbo.Athletes.AthleteID = dbo.Users.UserID " +
             " ORDER BY dbo.Results.rDate DESC";
 
-        DataTable CoachLastResults = queryDb(query);
+            DataTable CoachLastResults = queryDb(query);
 
-        return CoachLastResults;
+            return CoachLastResults;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
     }
-
-
 
 
     //--------------------------------------------------------------------
@@ -416,14 +565,26 @@ public class DBServices
     //--------------------------------------------------------------------
     public DataTable getUserResults(string userID)
     {
-        string query = "select * from results " +
-                       "WHERE AthleteID = " + userID + " " +
-                       "ORDER BY rDate DESC";
+        try
+        {
+            string query = "select * from results " +
+               "WHERE AthleteID = " + userID + " " +
+               "ORDER BY rDate DESC";
 
 
-        DataTable userResults = queryDb(query);
+            DataTable userResults = queryDb(query);
 
-        return userResults;
+            return userResults;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
     }
 
     //--------------------------------------------------------------------
@@ -431,29 +592,53 @@ public class DBServices
     //--------------------------------------------------------------------
     public DataTable getUserEvents(string userID)
     {
-        string query = "Select * from events e"
+        try
+        {
+            string query = "Select * from events e"
             + " join dbo.TeamsEvents t on t.EventID = e.EventID"
             + " join dbo.Athletes a on t.TeamID = a.TeamID"
             + " WHERE a.AthleteID =" + userID +
             " ORDER BY E_Date DESC";
 
-        DataTable UserEvent = queryDb(query);
+            DataTable UserEvent = queryDb(query);
 
-        return UserEvent;
+            return UserEvent;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
     }
 
     public DataTable getCoachEvents(string userID)
     {
-        string query = "Select * from events e"
-            + " join dbo.TeamsEvents t on t.EventID = e.EventID"
-            + " join dbo.Teams te on t.TeamID = te.TeamID"
-            + " join dbo.Coaches c on te.HeadCoachID = c.CoachID"
-            + " WHERE c.CoachID =" + userID +
-            " ORDER BY E_Date DESC";
+        try
+        {
+            string query = "Select * from events e"
+    + " join dbo.TeamsEvents t on t.EventID = e.EventID"
+    + " join dbo.Teams te on t.TeamID = te.TeamID"
+    + " join dbo.Coaches c on te.HeadCoachID = c.CoachID"
+    + " WHERE c.CoachID =" + userID +
+    " ORDER BY E_Date DESC";
 
-        DataTable CoachEvent = queryDb(query);
+            DataTable CoachEvent = queryDb(query);
 
-        return CoachEvent;
+            return CoachEvent;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
     }
 
     //--------------------------------------------------------------------
@@ -462,16 +647,39 @@ public class DBServices
 
     public DataTable getUserMessages(string userID)
     {
-        string query = "SELECT * FROM [dbo].[Messages] m " +
-                       "JOIN dbo.TeamsMessages t on m.MessageID = t.MessageID " +
-                       "join dbo.Athletes a on t.TeamID = a.TeamID " +
-                       "join Users u on m.CreatorID = u.UserID " +
-                       "WHERE AthleteID = " + userID;
+        try
+        {
+            string query = "SELECT * FROM [dbo].[Messages] m " +
+               "JOIN dbo.TeamsMessages t on m.MessageID = t.MessageID " +
+               "join dbo.Athletes a on t.TeamID = a.TeamID " +
+               "join Users u on m.CreatorID = u.UserID " +
+               "WHERE AthleteID = " + userID;
 
-        DataTable messagesTable = queryDb(query);
+            DataTable messagesTable = queryDb(query);
 
-        return messagesTable;
+            return messagesTable;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
     }
 
-
+    //--------------------------------------------------------------------
+    // log message (error)
+    //--------------------------------------------------------------------
+    public static void Log(string logMessage, TextWriter w)
+    {
+        w.Write("\r\nLog Entry : ");
+        w.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(),
+            DateTime.Now.ToLongDateString());
+        w.WriteLine("  :");
+        w.WriteLine("  :{0}", logMessage);
+        w.WriteLine("-------------------------------");
+    }
 }
