@@ -229,14 +229,14 @@ public class WebService : System.Web.Services.WebService
         w.WriteLine("-------------------------------");
     }
 
-    public static void DumpLog(StreamReader r)
-    {
-        string line;
-        while ((line = r.ReadLine()) != null)
-        {
-            Console.WriteLine(line);
-        }
-    }
+    //public static void DumpLog(StreamReader r)
+    //{
+    //    string line;
+    //    while ((line = r.ReadLine()) != null)
+    //    {
+    //        Console.WriteLine(line);
+    //    }
+    //}
 
     //--------------------------------------------------------------------
     //                           Dashboard
