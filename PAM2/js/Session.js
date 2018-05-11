@@ -56,12 +56,13 @@ function checkSession(results) {
         // Load Data to html on every page when session is verified.
         if (window.location.pathname == "/index.html" || window.location.pathname == "/bgroup57/test1/tar1/index.html")
         {
-            getScore();
+            getCoachLastResults();
+            //getScore();
             getPicturePath();
-            getUserLastEvent();
-            getLastResult();
-            getMessagesCount(); 
-            getName();
+            //getUserLastEvent();
+            //getLastResult();
+            //getMessagesCount(); 
+            //getName();
         }
         else if (window.location.pathname == "/Results.html" || window.location.pathname == "/bgroup57/test1/tar1/Results.html")
         {
@@ -81,11 +82,6 @@ function checkSession(results) {
         {
             getUserMessages();
             getPicturePath();
-        }
-        else if (window.location.pathname == "/Dashboard.html" || window.location.pathname == "/bgroup57/test1/tar1/Dashboard.html") {
-            //getCoachMessages();
-            getPicturePath();
-            getCoachLastResults();
         }
     }
 }
