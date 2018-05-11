@@ -82,11 +82,6 @@ function parseScore(results) {
     $("#MainAppScore").append(" " + str);
 }
 
-//Can remove
-function changeToCoachMode(e){
-    window.location = "index.html";
-}
-
 //---------------------------------//
 
 function getName() {

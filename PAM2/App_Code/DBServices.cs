@@ -633,7 +633,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText("..\\log.txt"))
             {
                 Log(ex.Message, w);
             }
