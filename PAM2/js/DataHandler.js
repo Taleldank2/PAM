@@ -62,28 +62,6 @@ function parseMessagesCount(results) {
 //---------------------------------//
 
 
-function getScore() {
-    $.ajax({
-        url: 'WebService.asmx/getScore',
-        type: 'POST',
-        async: true,
-        dataType: 'json',
-        contentType: 'application/json; charset = utf-8',
-        success: parseScore,
-        error: changeToCoachMode
-    }) 
-
-}
-
-function parseScore(results) {
-    str = results.d;
-    if (str == null)
-        window.location = "index.html";
-    $("#MainAppScore").append(" " + str);
-}
-
-//---------------------------------//
-
 function getName() {
     $.ajax({
         url: 'WebService.asmx/getName',
@@ -358,7 +336,6 @@ function errorCoachLastResults(e){
 
 function parseCoachLastResluts(results) {
     results = $.parseJSON(results.d);
-    alert(results.d);
     $(function () {
         $.each(results, function (i, item) {
             var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
