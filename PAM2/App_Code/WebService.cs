@@ -109,6 +109,9 @@ public class WebService : System.Web.Services.WebService
                     catch (Exception ex)
                     {
 
+                        using (StreamWriter w = File.AppendText("log.txt"))
+                        { Log(ex.Message, w); }
+
                         // serialize to string
                         JavaScriptSerializer js = new JavaScriptSerializer();
                         string jsonString = js.Serialize("Session table error (Go to WebService class to debug!): " + ex.Message);
@@ -129,6 +132,10 @@ public class WebService : System.Web.Services.WebService
 
         catch (Exception ex)
         {
+            // send to log file
+            using (StreamWriter w = File.AppendText("log.txt"))
+            { Log(ex.Message, w); }
+
             // serialize to string
             JavaScriptSerializer js = new JavaScriptSerializer();
             string jsonString = js.Serialize("Unable to read from the database" + ex.Message);
@@ -156,29 +163,43 @@ public class WebService : System.Web.Services.WebService
     [WebMethod]
     private string getUserFromSession(string sessionId)//Extract the user id from the session table
     {
-        foreach (KeyValuePair<string, string> pair in usersSessions)
-        {
-            if (pair.Value == sessionId)
-            {
-                return pair.Key;
-            }
-        }
 
-        throw new Exception("Invalid session id");
+        
+        
+            foreach (KeyValuePair<string, string> pair in usersSessions)
+            {
+                if (pair.Value == sessionId)
+                {
+                    return pair.Key;
+                }
+            }
+            throw new Exception("Invalid session id");
+
     }
 
     [WebMethod]
     public string getUser()
     {
-        string userSession = Context.Request.Cookies["session"]["session"];
+        try
+        {
+            string userSession = Context.Request.Cookies["session"]["session"];
 
-        string userID = getUserFromSession(userSession);
+            string userID = getUserFromSession(userSession);
 
-        DataTable details = dbHandler.getUser(userID);
+            DataTable details = dbHandler.getUser(userID);
 
-        string response = dataTableToJson(details);
+            string response = dataTableToJson(details);
 
-        return response;
+            return response;
+        }
+        catch(Exception ex)
+        {
+            // send to log file
+            using (StreamWriter w = File.AppendText("log.txt"))
+            { Log(ex.Message, w); }
+            throw ex;
+        }
+        
 
     }//Get user object from session
 
@@ -196,6 +217,21 @@ public class WebService : System.Web.Services.WebService
         return response;
 
     }//Get user object from session
+
+    //--------------------------------------------------------------------
+    //                           Dashboard
+    //--------------------------------------------------------------------
+
+    [WebMethod]
+    public string getCoachLastResults()
+    {
+
+        DataTable result = dbHandler.getCoachLastResults();
+
+        string response = dataTableToJson(result);
+
+        return response;
+    }
 
     //--------------------------------------------------------------------
     //                           Snippets
@@ -236,20 +272,5 @@ public class WebService : System.Web.Services.WebService
         {
             Console.WriteLine(line);
         }
-    }
-
-    //--------------------------------------------------------------------
-    //                           Dashboard
-    //--------------------------------------------------------------------
-
-    [WebMethod]
-    public string getCoachLastResults()
-    {
-
-        DataTable result = dbHandler.getCoachLastResults();
-
-        string response = dataTableToJson(result);
-
-        return response;
     }
 }
