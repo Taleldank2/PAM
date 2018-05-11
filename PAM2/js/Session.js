@@ -57,7 +57,6 @@ function checkSession(results) {
         if (window.location.pathname == "/index.html" || window.location.pathname == "/bgroup57/test1/tar1/index.html")
         {
             getCoachLastResults();
-            //getScore();
             getPicturePath();
             //getUserLastEvent();
             //getLastResult();
@@ -66,7 +65,8 @@ function checkSession(results) {
         }
         else if (window.location.pathname == "/Results.html" || window.location.pathname == "/bgroup57/test1/tar1/Results.html")
         {
-            getUserResults();
+            getCoachResults();
+            //getUserResults();
             getPicturePath();
         }
         else if (window.location.pathname == "/Profile.html" || window.location.pathname == "/bgroup57/test1/tar1/Profile.html") {

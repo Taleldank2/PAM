@@ -37,7 +37,16 @@ function getLastResult() {
 
 function parseUserLastResult(results) {
     results = $.parseJSON(results.d);
-    str = results[0].Distance + " מטר | " + results[0].Description + " | " + results[0].rTime.Minutes + ":" + results[0].rTime.Seconds;
+
+    //parse time
+    min = results[0].rTime.Minutes;
+    sec = results[0].rTime.Seconds;
+    if (results[0].rTime.Minutes < 10)
+        min = "0" + results[0].rTime.Minutes;
+    if (results[0].rTime.Seconds < 10)
+        sec = "0" + results[0].rTime.Seconds;
+
+    str = results[0].Distance + " מטר | " + results[0].Description + " | " + min + ":" + sec;
     $("#MainLastResult").html(str);
 }
 

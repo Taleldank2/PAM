@@ -277,6 +277,36 @@ public class WebService : System.Web.Services.WebService
     }
 
     //--------------------------------------------------------------------
+    //                           Results (new)
+    //--------------------------------------------------------------------
+    [WebMethod]
+    public string getCoachResults()
+    {
+        try
+        {
+            string userSession = Context.Request.Cookies["session"]["session"];
+
+            string coachID = getUserFromSession(userSession);
+
+            DataTable result = dbHandler.getCoachLastResults(coachID);
+
+            string response = dataTableToJson(result);
+
+            return response;
+        }
+        catch (Exception ex)
+        {
+            // send to log file
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
+    }
+
+    //--------------------------------------------------------------------
     //                           Snippets
     //--------------------------------------------------------------------
     private string dataTableToJson(DataTable table)

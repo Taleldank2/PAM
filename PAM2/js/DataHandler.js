@@ -147,10 +147,14 @@ function parseUserResults(results) {
     results = $.parseJSON(results.d);
     $(function () {
         $.each(results, function (i, item) {
+
+            //parse date
             var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
             var eventStartDate = new Date(eventTime);
             var strDate = "";
             strDate += eventStartDate.getDay() + "/" + eventStartDate.getMonth() + "/" + eventStartDate.getFullYear();
+
+            //parse type
             var resultType;
             if (item.ResultType == 1)
                 resultType = "mdi mdi-swim";
@@ -158,6 +162,8 @@ function parseUserResults(results) {
                 resultType = "mdi mdi-run-fast";
             else
                 resultType = "mdi mdi-clock-fast";
+
+            //parse table
             var $tr = $('<tr>').append(
                 $('<td>').html("<i class='"+resultType+"'></i>"),
                 $('<td>').text(item.Distance),
@@ -340,10 +346,22 @@ function parseCoachLastResluts(results) {
     results = $.parseJSON(results.d);
     $(function () {
         $.each(results, function (i, item) {
+
+            //parse time
+            min = item.rTime.Minutes;
+            sec = item.rTime.Seconds;
+            if (item.rTime.Minutes < 10)
+                min = "0" + item.rTime.Minutes;
+            if (item.rTime.Seconds < 10)
+                sec = "0" + item.rTime.Seconds;
+
+            //parse date
             var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
             var eventStartDate = new Date(eventTime);
             var strDate = "";
             strDate += eventStartDate.getDay() + "/" + eventStartDate.getMonth() + "/" + eventStartDate.getFullYear();
+
+            //parse type
             var resultType;
             if (item.ResultType == 1)
                 resultType = "mdi mdi-swim";
@@ -351,14 +369,75 @@ function parseCoachLastResluts(results) {
                 resultType = "mdi mdi-run-fast";
             else
                 resultType = "mdi mdi-clock-fast";
+
+            //parse table
             var $tr = $('<tr>').append(
                  $('<td>').text(item.FirstName+" "+item.LastName),
                 $('<td>').html("<i class='" + resultType + "'></i>"),
                 $('<td>').text(item.Distance),
-                $('<td>').text(item.rTime.Minutes + ":" + item.rTime.Seconds),
+                $('<td>').text(min + ":" + sec),
                 $('<td>').text(strDate)
             ).appendTo('#ResultsTableDashboard');
         });
     });
     
+}
+
+//--------------------------------------------------------------------
+//                             Results
+//--------------------------------------------------------------------
+function getCoachResults() {
+    $.ajax({
+        url: 'WebService.asmx/getCoachResults',
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: parseCoachResluts,
+        error: errorCoachResults
+    }) // end of ajax call
+}
+
+function errorCoachResults(e) {
+    alert(e.responseText);
+}
+
+function parseCoachResluts(results) {
+    results = $.parseJSON(results.d);
+    $(function () {
+        $.each(results, function (i, item) {
+
+            //parse date
+            var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
+            var eventStartDate = new Date(eventTime);
+            var strDate = "";
+            strDate += eventStartDate.getDay() + "/" + eventStartDate.getMonth() + "/" + eventStartDate.getFullYear();
+
+            //parse type
+            var resultType;
+            if (item.ResultType == 1)
+                resultType = "mdi mdi-swim";
+            else if (item.ResultType == 2)
+                resultType = "mdi mdi-run-fast";
+            else
+                resultType = "mdi mdi-clock-fast";
+
+            //parse note
+            if (item.Note == null)
+                note = "";
+            else
+                note = item.Note;
+
+            //parse table
+            var $tr = $('<tr>').append(
+                 $('<td>').text(item.FirstName + " " + item.LastName),
+                $('<td>').html("<i class='" + resultType + "'></i>"),
+                $('<td>').text(item.Distance),
+                $('<td>').text(item.rTime.Minutes + ":" + item.rTime.Seconds),
+                $('<td>').text(strDate),
+                $('<td>').text(note)
+            ).appendTo('#ResultsTable');
+        });
+    });
+
 }

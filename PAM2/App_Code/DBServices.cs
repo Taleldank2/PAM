@@ -530,6 +530,7 @@ public class DBServices
     }
 
 
+<<<<<<< HEAD
     //Coach Dashboard results
     public DataTable getCoachLastResults(string coachID)
     {
@@ -561,21 +562,28 @@ public class DBServices
     }
 
 
+=======
+>>>>>>> de66f56bcf9dfad15b15b4864d23a09ce9833a16
     //--------------------------------------------------------------------
     // Results Page
     //--------------------------------------------------------------------
-    public DataTable getUserResults(string userID)
+    public DataTable getCoachResults(string coachID)
     {
         try
         {
-            string query = "select * from results " +
-               "WHERE AthleteID = " + userID + " " +
-               "ORDER BY rDate DESC";
+            string query = "SELECT " +
+            " *, Users.FirstName,Users.LastName,Users.UserID " +
+            " from results join athletes " +
+            " on Athletes.AthleteID = Results.AthleteID join Users " +
+            " on Users.UserID = Athletes.AthleteID join teams " +
+            " on teams.TeamID = Athletes.TeamID join Coaches " +
+            " on Coaches.CoachId = teams.HeadCoachID " +
+            " where Coaches.coachID =" + coachID +
+            " ORDER BY dbo.Results.rDate DESC ";
 
+            DataTable CoachLastResults = queryDb(query);
 
-            DataTable userResults = queryDb(query);
-
-            return userResults;
+            return CoachLastResults;
         }
         catch (Exception ex)
         {
@@ -663,6 +671,39 @@ public class DBServices
         catch (Exception ex)
         {
             using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
+    }
+
+    //--------------------------------------------------------------------
+    // Dashboard page
+    //--------------------------------------------------------------------
+
+    public DataTable getCoachLastResults(string coachID)
+    {
+        try
+        {
+            string query = "SELECT TOP (5) " +
+            " *, Users.FirstName,Users.LastName,Users.UserID " +
+            " from results join athletes " +
+            " on Athletes.AthleteID = Results.AthleteID join Users " +
+            " on Users.UserID = Athletes.AthleteID join teams " +
+            " on teams.TeamID = Athletes.TeamID join Coaches " +
+            " on Coaches.CoachId = teams.HeadCoachID " +
+            " where Coaches.coachID =" + coachID +
+            " ORDER BY dbo.Results.rDate DESC ";
+
+            DataTable CoachLastResults = queryDb(query);
+
+            return CoachLastResults;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
             {
                 Log(ex.Message, w);
             }
