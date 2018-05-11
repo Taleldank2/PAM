@@ -78,13 +78,13 @@ function getScore() {
 function parseScore(results) {
     str = results.d;
     if (str == null)
-        window.location = "Dashboard.html";
+        window.location = "index.html";
     $("#MainAppScore").append(" " + str);
 }
 
 //Can remove
 function changeToCoachMode(e){
-    window.location = "Dashboard.html";
+    window.location = "index.html";
 }
 
 //---------------------------------//

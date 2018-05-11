@@ -218,6 +218,27 @@ public class WebService : System.Web.Services.WebService
 
     }//Get user object from session
 
+
+
+    //--------------------------------------------------------------------
+    //                           Events page
+    //--------------------------------------------------------------------
+
+    [WebMethod]
+    public string getUserEvents()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string userId = getUserFromSession(userSession);
+
+        DataTable events = dbHandler.getUserEvents(userId);
+
+        string response = dataTableToJson(events);
+
+        return response;
+
+    }
+
     //--------------------------------------------------------------------
     //                           Dashboard
     //--------------------------------------------------------------------
