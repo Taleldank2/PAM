@@ -164,16 +164,16 @@ public class WebService : System.Web.Services.WebService
     private string getUserFromSession(string sessionId)//Extract the user id from the session table
     {
 
-        
-        
-            foreach (KeyValuePair<string, string> pair in usersSessions)
+
+
+        foreach (KeyValuePair<string, string> pair in usersSessions)
+        {
+            if (pair.Value == sessionId)
             {
-                if (pair.Value == sessionId)
-                {
-                    return pair.Key;
-                }
+                return pair.Key;
             }
-            throw new Exception("Invalid session id");
+        }
+        throw new Exception("Invalid session id");
 
     }
 
@@ -192,29 +192,40 @@ public class WebService : System.Web.Services.WebService
 
             return response;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             // send to log file
             using (StreamWriter w = File.AppendText("log.txt"))
             { Log(ex.Message, w); }
             throw ex;
         }
-        
+
 
     }//Get user object from session
 
     [WebMethod]
     public string getUserType()
     {
-        string userSession = Context.Request.Cookies["session"]["session"];
+        try
+        {
+            string userSession = Context.Request.Cookies["session"]["session"];
 
-        string userID = getUserFromSession(userSession);
+            string userID = getUserFromSession(userSession);
 
-        DataTable details = dbHandler.getUserType(userID);
+            DataTable details = dbHandler.getUserType(userID);
 
-        string response = dataTableToJson(details);
+            string response = dataTableToJson(details);
 
-        return response;
+            return response;
+        }
+        catch (Exception ex)
+        {
+            // send to log file
+            using (StreamWriter w = File.AppendText("log.txt"))
+            { Log(ex.Message, w); }
+            throw ex;
+        }
+
 
     }//Get user object from session
 
@@ -242,40 +253,70 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
     //                           Dashboard
     //--------------------------------------------------------------------
-
     [WebMethod]
     public string getCoachLastResults()
     {
+        try
+        {
+            string userSession = Context.Request.Cookies["session"]["session"];
 
-        DataTable result = dbHandler.getCoachLastResults();
+            string coachID = getUserFromSession(userSession);
 
-        string response = dataTableToJson(result);
+            DataTable result = dbHandler.getCoachLastResults(coachID);
 
-        return response;
+            string response = dataTableToJson(result);
+
+            return response;
+        }
+        catch (Exception ex)
+        {
+            // send to log file
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
     }
 
     //--------------------------------------------------------------------
     //                           Snippets
     //--------------------------------------------------------------------
-
     private string dataTableToJson(DataTable table)
     {
-        JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-        List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-        Dictionary<string, object> childRow;
-        foreach (DataRow row in table.Rows)
+        try
         {
-            childRow = new Dictionary<string, object>();
-            foreach (DataColumn col in table.Columns)
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            foreach (DataRow row in table.Rows)
             {
-                childRow.Add(col.ColumnName, row[col]);
+                childRow = new Dictionary<string, object>();
+                foreach (DataColumn col in table.Columns)
+                {
+                    childRow.Add(col.ColumnName, row[col]);
+                }
+                parentRow.Add(childRow);
             }
-            parentRow.Add(childRow);
-        }
 
-        return jsSerializer.Serialize(parentRow);
+            return jsSerializer.Serialize(parentRow);
+        }
+        catch (Exception ex)
+        {
+            // send to log file
+            using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+        
     }
 
+    //--------------------------------------------------------------------
+    // log message (error)
+    //--------------------------------------------------------------------
     public static void Log(string logMessage, TextWriter w)
     {
         w.Write("\r\nLog Entry : ");
