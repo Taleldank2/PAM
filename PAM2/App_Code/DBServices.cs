@@ -36,7 +36,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -66,7 +66,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -96,7 +96,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -127,7 +127,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -149,7 +149,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -196,7 +196,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -231,7 +231,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -257,7 +257,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -279,7 +279,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -299,7 +299,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -327,7 +327,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -414,7 +414,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -448,7 +448,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -474,7 +474,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -497,7 +497,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -521,7 +521,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -551,7 +551,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -579,7 +579,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -607,7 +607,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
@@ -633,7 +633,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("..\\log.txt"))
+            using (StreamWriter w = File.AppendText("..\\../log.txt"))
             {
                 Log(ex.Message, w);
             }
@@ -662,7 +662,7 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }

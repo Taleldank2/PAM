@@ -109,7 +109,7 @@ public class WebService : System.Web.Services.WebService
                     catch (Exception ex)
                     {
 
-                        using (StreamWriter w = File.AppendText("log.txt"))
+                        using (StreamWriter w = File.AppendText("../log.txt"))
                         { Log(ex.Message, w); }
 
                         // serialize to string
@@ -132,7 +132,7 @@ public class WebService : System.Web.Services.WebService
         catch (Exception ex)
         {
             // send to log file
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText("../log.txt"))
             { Log(ex.Message, w); }
 
             // serialize to string
@@ -192,7 +192,7 @@ public class WebService : System.Web.Services.WebService
         catch (Exception ex)
         {
             // send to log file
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText("../log.txt"))
             { Log(ex.Message, w); }
             throw ex;
         }
@@ -218,7 +218,7 @@ public class WebService : System.Web.Services.WebService
         catch (Exception ex)
         {
             // send to log file
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             { Log(ex.Message, w); }
             throw ex;
         }
@@ -232,13 +232,13 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
 
     [WebMethod]
-    public string getUserEvents()
+    public string getCoachEvents()
     {
         string userSession = Context.Request.Cookies["session"]["session"];
 
         string userId = getUserFromSession(userSession);
 
-        DataTable events = dbHandler.getUserEvents(userId);
+        DataTable events = dbHandler.getCoachEvents(userId);
 
         string response = dataTableToJson(events);
 
@@ -267,7 +267,7 @@ public class WebService : System.Web.Services.WebService
         catch (Exception ex)
         {
             // send to log file
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText("../log.txt"))
             {
                 Log(ex.Message, w);
             }
@@ -301,7 +301,7 @@ public class WebService : System.Web.Services.WebService
         catch (Exception ex)
         {
             // send to log file
-            using (StreamWriter w = File.AppendText("log.txt"))
+            using (StreamWriter w = File.AppendText("../log.txt"))
             {
                 Log(ex.Message, w);
             }
