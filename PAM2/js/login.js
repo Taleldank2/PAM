@@ -34,11 +34,7 @@ function ajaxLogin(request, successCB, errorCB) {
 
 function successCB(results) {
     results = $.parseJSON(results.d);
-    if (results == "2") {
-        window.location = "Dashboard.html";
-    }
-    else
-        window.location = "index.html";
+    window.location = "index.html";
 }
 
 function errorCB(e) {
