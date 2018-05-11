@@ -11,11 +11,11 @@ using System.IO;
 /// <summary>
 /// Summary description for DBServices
 /// </summary>
-public class DBServicesCoach
+public class DBServices
 {
     private string connectionString;
 
-    public DBServicesCoach(string connection)
+    public DBServices(string connection)
     {
         connectionString = connection;
     }

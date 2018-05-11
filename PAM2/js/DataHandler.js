@@ -347,7 +347,7 @@ function updateUserPicture(results) {
 //--------------------------------------------------------------------
 function getCoachLastResults() {
     $.ajax({
-        url: 'WebServiceCoach.asmx/getCoachLastResults',
+        url: 'WebService.asmx/getCoachLastResults',
         type: 'POST',
         async: true,
         dataType: 'json',

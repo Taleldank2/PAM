@@ -9,28 +9,29 @@ using System.Web.Script.Services;
 using System.Runtime.Remoting.Contexts;
 using System.Web.Configuration;
 using System.Data;
+using System.IO;
 
 /// <summary>
-/// Summary description for WebServiceCoach
+/// Summary description for WebService
 /// </summary>
 [WebService(Namespace = "http://tempuri.org/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
 [System.Web.Script.Services.ScriptService]
-public class WebServiceCoach : System.Web.Services.WebService
+public class WebService : System.Web.Services.WebService
 {
 
     static Dictionary<string, string> usersSessions = new Dictionary<string, string>();
-    private DBServicesCoach dbHandler;
+    private DBServices dbHandler;
 
-    public WebServiceCoach()
+    public WebService()
     {
 
         //Uncomment the following line if using designed components 
         //InitializeComponent(); 
 
         string connectionString = WebConfigurationManager.ConnectionStrings["PamDBconnectionString"].ConnectionString;
-        dbHandler = new DBServicesCoach(connectionString);
+        dbHandler = new DBServices(connectionString);
 
 
     }
@@ -216,6 +217,25 @@ public class WebServiceCoach : System.Web.Services.WebService
         }
 
         return jsSerializer.Serialize(parentRow);
+    }
+
+    public static void Log(string logMessage, TextWriter w)
+    {
+        w.Write("\r\nLog Entry : ");
+        w.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(),
+            DateTime.Now.ToLongDateString());
+        w.WriteLine("  :");
+        w.WriteLine("  :{0}", logMessage);
+        w.WriteLine("-------------------------------");
+    }
+
+    public static void DumpLog(StreamReader r)
+    {
+        string line;
+        while ((line = r.ReadLine()) != null)
+        {
+            Console.WriteLine(line);
+        }
     }
 
     //--------------------------------------------------------------------
