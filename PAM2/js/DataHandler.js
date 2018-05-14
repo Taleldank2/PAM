@@ -181,88 +181,6 @@ function getCoachEvents() {
 }
 
 
-//--------------------------------------------------------------------
-//                           Messages Page
-//--------------------------------------------------------------------
-
-function getCoachMessages() {
-
-    $.ajax({
-        url: 'WebService.asmx/getCoachMessages',
-        type: 'POST',
-        async: true,
-        dataType: 'json',
-        contentType: 'application/json; charset = utf-8',
-        success: parseCoachMessages
-    })
-}
-
-function parseCoachMessages(results) {
-    results = $.parseJSON(results.d);
-    $(function () {
-        $.each(results, function (i, item) {
-
-            //parse date
-            var messageDate = parseInt(item["mDate"].split("(")[1].split(")")[0]);
-            var messageStartDate = new Date(messageDate);
-            var strDate = "";
-            strDate += messageStartDate.getDate() + "/" + (messageStartDate.getMonth() + 1) + "/" + messageStartDate.getFullYear();
-
-            //parse table
-            var messageid = item["MessageID"]
-            var $tr = $('<tr class="email-msg">').append(
-                $('<td>').html("<a class=''></a>").text(item.FirstName + " " + item.LastName),
-                $('<td class="hidden-xs">').html("<a id='" + messageid + "' class='email-msg'>"+item.Title+"</a>"),
-                $('<td class="text-right">').text(item.mTime.Hours + ":" + item.mTime.Minutes),
-                $('<td class="text-right">').text(strDate)
-            ).appendTo('#InboxTable');
-        });
-    });   
-}
-
-function UserMessageModal() {
-
-    $.ajax({
-        url: 'WebService.asmx/getUserMessages',
-        type: 'POST',
-        async: true,
-        dataType: 'json',
-        contentType: 'application/json; charset = utf-8',
-        success: parseUserMessageModal,
-        error: messageModalError
-        
-    });
-    
-}
-
-function parseUserMessageModal(results) {
-    
-    //Convert results back to JSON
-    results = $.parseJSON(results.d);  
-   
-    //Go Over the results;
-    for (var i = 0; i < results.length; i++) {
-        if (results[i].MessageID == MessageInfo.id) {
-            //load values to data modal
-            document.getElementById("messageModalTitle").innerText = results[i].Title;
-            document.getElementById("messageModalBody").innerText = results[i].mBody;
-            //open modal
-            $('#message-modal').modal('show');
-            return;
-        }
-       
-    }
-    alert("Could not find message");
-}
-
-function messageModalError(a,b,c)
-{
-    console.log(a);
-    console.log(b);
-    console.log(c);
-    alert('getUserMessagesbyID() error');
-}
-
 
 //--------------------------------------------------------------------
 //                             Register
@@ -292,6 +210,10 @@ function updateUserPicture(results) {
 //--------------------------------------------------------------------
 //                             Dashboard
 //--------------------------------------------------------------------
+
+
+//---------------------------------//
+
 function getCoachLastResults() {
     $.ajax({
         url: 'WebService.asmx/getCoachLastResults',
@@ -348,6 +270,48 @@ function parseCoachLastResluts(results) {
     });
     
 }
+
+
+//---------------------------------//
+
+function getCoachLastMessages() {
+
+    $.ajax({
+        url: 'WebService.asmx/getCoachLastMessages',
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: parseCoachLastMessages
+    })
+}
+
+function parseCoachLastMessages(results) {
+    results = $.parseJSON(results.d);
+    $(function () {
+        $.each(results, function (i, item) {
+
+            //parse date
+            var messageDate = parseInt(item["mDate"].split("(")[1].split(")")[0]);
+            var messageStartDate = new Date(messageDate);
+            var strDate = "";
+            strDate += messageStartDate.getDate() + "/" + (messageStartDate.getMonth() + 1) + "/" + messageStartDate.getFullYear();
+
+            //parse table
+            var messageid = item["MessageID"]
+            var $tr = $('<tr class="email-msg">').append(
+                $('<td>').html("<a class=''></a>").text(item.FirstName + " " + item.LastName),
+                $('<td class="hidden-xs">').html("<a id='" + messageid + "' class='email-msg'>" + item.Title + "</a>"),
+                $('<td class="text-right">').text(item.mTime.Hours + ":" + item.mTime.Minutes),
+                $('<td class="text-right">').text(strDate)
+            ).appendTo('#MessagesTableDashboard');
+        });
+    });
+}
+
+
+//---------------------------------//
+
 
 //--------------------------------------------------------------------
 //                             Results
@@ -407,3 +371,85 @@ function parseCoachResluts(results) {
     });
 
 }
+
+
+//--------------------------------------------------------------------
+//                           Messages
+//--------------------------------------------------------------------
+
+function getCoachMessages() {
+
+    $.ajax({
+        url: 'WebService.asmx/getCoachMessages',
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: parseCoachMessages
+    })
+}
+
+function parseCoachMessages(results) {
+    results = $.parseJSON(results.d);
+    $(function () {
+        $.each(results, function (i, item) {
+
+            //parse date
+            var messageDate = parseInt(item["mDate"].split("(")[1].split(")")[0]);
+            var messageStartDate = new Date(messageDate);
+            var strDate = "";
+            strDate += messageStartDate.getDate() + "/" + (messageStartDate.getMonth() + 1) + "/" + messageStartDate.getFullYear();
+
+            //parse table
+            var messageid = item["MessageID"]
+            var $tr = $('<tr class="email-msg">').append(
+                $('<td>').html("<a class=''></a>").text(item.FirstName + " " + item.LastName),
+                $('<td class="hidden-xs">').html("<a id='" + messageid + "' class='email-msg'>" + item.Title + "</a>"),
+                $('<td class="text-right">').text(item.mTime.Hours + ":" + item.mTime.Minutes),
+                $('<td class="text-right">').text(strDate)
+            ).appendTo('#MessagesTable');
+        });
+    });
+}
+
+//function UserMessageModal() {
+
+//    $.ajax({
+//        url: 'WebService.asmx/getUserMessages',
+//        type: 'POST',
+//        async: true,
+//        dataType: 'json',
+//        contentType: 'application/json; charset = utf-8',
+//        success: parseUserMessageModal,
+//        error: messageModalError
+
+//    });
+
+//}
+
+//function parseUserMessageModal(results) {
+
+//    //Convert results back to JSON
+//    results = $.parseJSON(results.d);
+
+//    //Go Over the results;
+//    for (var i = 0; i < results.length; i++) {
+//        if (results[i].MessageID == MessageInfo.id) {
+//            //load values to data modal
+//            document.getElementById("messageModalTitle").innerText = results[i].Title;
+//            document.getElementById("messageModalBody").innerText = results[i].mBody;
+//            //open modal
+//            $('#message-modal').modal('show');
+//            return;
+//        }
+
+//    }
+//    alert("Could not find message");
+//}
+
+//function messageModalError(a, b, c) {
+//    console.log(a);
+//    console.log(b);
+//    console.log(c);
+//    alert('getUserMessagesbyID() error');
+//}

@@ -58,7 +58,7 @@ function checkSession(results) {
         {
             getCoachLastResults();
             getPicturePath();
-            getCoachMessages();
+            getCoachLastMessages();
             //getUserLastEvent();
             //getLastResult();
             //getName();

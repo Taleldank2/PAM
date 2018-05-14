@@ -648,7 +648,7 @@ public class DBServices
     {
         try
         {
-            string query = "SELECT TOP (5) " +
+            string query = "SELECT TOP (3) " +
             " *, Users.FirstName,Users.LastName,Users.UserID " +
             " from results join athletes " +
             " on Athletes.AthleteID = Results.AthleteID join Users " +
@@ -665,6 +665,28 @@ public class DBServices
         catch (Exception ex)
         {
             using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
+    }
+
+    public DataTable getCoachLastMessages(string coachID)
+    {
+        try
+        {
+            string query = " SELECT TOP(3) * FROM [dbo].[Messages] " +
+               " WHERE CreatorID=" + coachID;
+
+            DataTable messagesTable = queryDb(query);
+
+            return messagesTable;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }

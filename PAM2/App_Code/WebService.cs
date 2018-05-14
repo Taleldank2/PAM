@@ -276,6 +276,20 @@ public class WebService : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public string getCoachLastMessages()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string coachId = getUserFromSession(userSession);
+
+        DataTable messages = dbHandler.getCoachLastMessages(coachId);
+
+        string response = dataTableToJson(messages);
+
+        return response;
+    }
+
     //--------------------------------------------------------------------
     //                           Results
     //--------------------------------------------------------------------
