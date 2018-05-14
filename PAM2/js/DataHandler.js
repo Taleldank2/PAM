@@ -109,7 +109,7 @@ function parseUserDetails(results) {
 
     var birthDate = parseInt(results[0]["BirthDate"].split("(")[1].split(")")[0]);
     var tempProfileAge = new Date(birthDate);
-    strProfileAge = tempProfileAge.getDate() + "/" + tempProfileAge.getMonth() + "/" + tempProfileAge.getFullYear();
+    strProfileAge = tempProfileAge.getDate() + "/" + (tempProfileAge.getMonth()+1) + "/" + tempProfileAge.getFullYear();
     $("#ProfileAge").append(strProfileAge);
     
     strProfileCity = results[0].City;
@@ -152,7 +152,7 @@ function parseUserResults(results) {
             var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
             var eventStartDate = new Date(eventTime);
             var strDate = "";
-            strDate += eventStartDate.getDate() + "/" + eventStartDate.getMonth() + "/" + eventStartDate.getFullYear();
+            strDate += eventStartDate.getDate() + "/" + (eventStartDate.getMonth()+1) + "/" + eventStartDate.getFullYear();
 
             //parse type
             var resultType;
@@ -244,7 +244,7 @@ function parseUserMessages(results) {
             var messageDate = parseInt(item["mDate"].split("(")[1].split(")")[0]);
             var messageStartDate = new Date(messageDate);
             var strDate = "";
-            strDate += messageStartDate.getDate() + "/" + messageStartDate.getMonth() + "/" + messageStartDate.getFullYear();
+            strDate += messageStartDate.getDate() + "/" + (messageStartDate.getMonth()+1) + "/" + messageStartDate.getFullYear();
             var messageid = item["MessageID"]
             var $tr = $('<tr class="email-msg">').append(
                 $('<td>').html("<a class=''></a>").text(item.FirstName + " " + item.LastName),
@@ -359,7 +359,7 @@ function parseCoachLastResluts(results) {
             var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
             var eventStartDate = new Date(eventTime);
             var strDate = "";
-            strDate += eventStartDate.getDate() + "/" + eventStartDate.getMonth() + "/" + eventStartDate.getFullYear();
+            strDate += eventStartDate.getDate() + "/" + (eventStartDate.getMonth()+1) + "/" + eventStartDate.getFullYear();
 
             //parse type
             var resultType;
@@ -411,7 +411,7 @@ function parseCoachResluts(results) {
             var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
             var eventStartDate = new Date(eventTime);
             var strDate = "";
-            strDate += eventStartDate.getDate() + "/" + eventStartDate.getMonth() + "/" + eventStartDate.getFullYear();
+            strDate += eventStartDate.getDate() + "/" + (eventStartDate.getMonth()+1) + "/" + eventStartDate.getFullYear();
 
             //parse type
             var resultType;
