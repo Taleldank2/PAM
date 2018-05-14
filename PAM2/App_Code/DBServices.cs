@@ -649,7 +649,6 @@ public class DBServices
     //--------------------------------------------------------------------
     // Dashboard page
     //--------------------------------------------------------------------
-
     public DataTable getCoachLastResults(string coachID)
     {
         try

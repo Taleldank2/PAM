@@ -78,8 +78,7 @@ function getScore() {
         async: true,
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
-        success: parseScore,
-        error: changeToCoachMode
+        success: parseScore
     }) 
 
 }
@@ -91,10 +90,6 @@ function parseScore(results) {
     $("#MainAppScore").append(" " + str);
 }
 
-//Can remove
-function changeToCoachMode(e){
-    window.location = "Dashboard.html";
-}
 
 //---------------------------------//
 
@@ -181,10 +176,22 @@ function parseUserResults(results) {
     results = $.parseJSON(results.d);
     $(function () {
         $.each(results, function (i, item) {
+
+            //parse time
+            min = item.rTime.Minutes;
+            sec = item.rTime.Seconds;
+            if (item.rTime.Minutes < 10)
+                min = "0" + item.rTime.Minutes;
+            if (  item.rTime.Seconds < 10)
+                sec = "0" + item.rTime.Seconds;
+
+            //parse date
             var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
             var eventStartDate = new Date(eventTime);
             var strDate = "";
-            strDate += eventStartDate.getDay() + "/" + eventStartDate.getMonth() + "/" + eventStartDate.getFullYear();
+            strDate += eventStartDate.getDate() + "/" + eventStartDate.getMonth() + "/" + eventStartDate.getFullYear();
+            
+            //parse type
             var resultType;
             if (item.ResultType == 1)
                 resultType = "mdi mdi-swim";
@@ -192,10 +199,12 @@ function parseUserResults(results) {
                 resultType = "mdi mdi-run-fast";
             else
                 resultType = "mdi mdi-clock-fast";
+
+            //parse table
             var $tr = $('<tr>').append(
                 $('<td>').html("<i class='"+resultType+"'></i>"),
                 $('<td>').text(item.Distance),
-                $('<td>').text(item.rTime.Minutes +":" + item.rTime.Seconds),
+                $('<td>').text(min +":" + sec),
                 $('<td>').text(strDate)
             ).appendTo('#ResultsTable');
         });

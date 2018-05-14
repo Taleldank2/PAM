@@ -82,11 +82,6 @@ function checkSession(results) {
             getUserMessages();
             getPicturePath();
         }
-        else if (window.location.pathname == "/Dashboard.html" || window.location.pathname == "/bgroup57/test1/tar1/Dashboard.html") {
-            //getCoachMessages();
-            getPicturePath();
-            getCoachLastResults();
-        }
     }
 }
 
