@@ -297,12 +297,19 @@ function parseCoachLastMessages(results) {
             var strDate = "";
             strDate += messageStartDate.getDate() + "/" + (messageStartDate.getMonth() + 1) + "/" + messageStartDate.getFullYear();
 
+            //parse time
+            min = item.mTime.Minutes;
+            if (min == 0)
+                min = "00";
+            else if (min < 10)
+                min = "0" + item.mTime.Minutes;
+
             //parse table
             var messageid = item["MessageID"]
             var $tr = $('<tr class="email-msg">').append(
                 $('<td>').html("<a class=''></a>").text(item.FirstName + " " + item.LastName),
                 $('<td class="hidden-xs">').html("<a id='" + messageid + "' class='email-msg'>" + item.Title + "</a>"),
-                $('<td class="text-right">').text(item.mTime.Hours + ":" + item.mTime.Minutes),
+                $('<td class="text-right">').text(item.mTime.Hours + ":" + min),
                 $('<td class="text-right">').text(strDate)
             ).appendTo('#MessagesTableDashboard');
         });
@@ -352,6 +359,14 @@ function parseCoachResluts(results) {
             else
                 resultType = "mdi mdi-clock-fast";
 
+            //parse time
+            min = item.rTime.Minutes;
+            sec = item.rTime.Seconds;
+            if (item.rTime.Minutes < 10)
+                min = "0" + item.rTime.Minutes;
+            if (item.rTime.Seconds < 10)
+                sec = "0" + item.rTime.Seconds;
+
             //parse note
             if (item.Note == null)
                 note = "";
@@ -363,7 +378,7 @@ function parseCoachResluts(results) {
                  $('<td>').text(item.FirstName + " " + item.LastName),
                 $('<td>').html("<i class='" + resultType + "'></i>"),
                 $('<td>').text(item.Distance),
-                $('<td>').text(item.rTime.Minutes + ":" + item.rTime.Seconds),
+                $('<td>').text(min + ":" + sec),
                 $('<td>').text(strDate),
                 $('<td>').text(note)
             ).appendTo('#ResultsTable');
@@ -400,12 +415,17 @@ function parseCoachMessages(results) {
             var strDate = "";
             strDate += messageStartDate.getDate() + "/" + (messageStartDate.getMonth() + 1) + "/" + messageStartDate.getFullYear();
 
+            //parse time
+            min = item.mTime.Minutes;
+            if (min < 10)
+                min = "0" + item.mTime.Minutes;
+
             //parse table
             var messageid = item["MessageID"]
             var $tr = $('<tr class="email-msg">').append(
                 $('<td>').html("<a class=''></a>").text(item.FirstName + " " + item.LastName),
                 $('<td class="hidden-xs">').html("<a id='" + messageid + "' class='email-msg'>" + item.Title + "</a>"),
-                $('<td class="text-right">').text(item.mTime.Hours + ":" + item.mTime.Minutes),
+                $('<td class="text-right">').text(item.mTime.Hours + ":" + min),
                 $('<td class="text-right">').text(strDate)
             ).appendTo('#MessagesTable');
         });

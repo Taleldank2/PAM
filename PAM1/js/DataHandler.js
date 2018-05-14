@@ -276,15 +276,23 @@ function parseUserMessages(results) {
     $(function () {
         $.each(results, function (i, item) {
 
+            //parse date
             var messageDate = parseInt(item["mDate"].split("(")[1].split(")")[0]);
             var messageStartDate = new Date(messageDate);
             var strDate = "";
-            strDate += messageStartDate.getDate() + "/" + (messageStartDate.getMonth()+1) + "/" + messageStartDate.getFullYear();
+            strDate += messageStartDate.getDate() + "/" + (messageStartDate.getMonth() + 1) + "/" + messageStartDate.getFullYear();
+
+            //parse time
+            min = item.mTime.Minutes;
+            if (min < 10)
+                min = "0" + item.mTime.Minutes;
+
+            //parse table
             var messageid = item["MessageID"]
             var $tr = $('<tr class="email-msg">').append(
                 $('<td>').html("<a class=''></a>").text(item.FirstName + " " + item.LastName),
                 $('<td class="hidden-xs">').html("<a id='" + messageid + "' class='email-msg'>"+item.Title+"</a>"),
-                $('<td class="text-right">').text(item.mTime.Hours + ":" + item.mTime.Minutes),
+                $('<td class="text-right">').text(item.mTime.Hours + ":" + min),
                 $('<td class="text-right">').text(strDate)
             ).appendTo('#InboxTable');
         });
