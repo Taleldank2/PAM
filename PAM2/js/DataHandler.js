@@ -21,43 +21,6 @@ function parseLastEvent(results)
     $("#MainNextEvent").html(str);
 }
 
-//---------------------------------//
-
-function getLastResult() {
-    $.ajax({
-        url: 'WebService.asmx/getLastResult',
-        type: 'POST',
-        async: true,
-        dataType: 'json',
-        contentType: 'application/json; charset = utf-8',
-        success: parseUserLastResult
-    }) // end of ajax call
-
-}
-
-function parseUserLastResult(results) {
-    results = $.parseJSON(results.d);
-    str = results[0].Distance + " מטר | " + results[0].Description + " | " + results[0].rTime.Minutes + ":" + results[0].rTime.Seconds;
-    $("#MainLastResult").html(str);
-}
-
-//---------------------------------//
-
-function getMessagesCount() {
-    $.ajax({
-        url: 'WebService.asmx/getMessagesCount',
-        type: 'POST',
-        async: true,
-        dataType: 'json',
-        contentType: 'application/json; charset = utf-8',
-        success: parseMessagesCount
-    }) 
-}
-
-function parseMessagesCount(results) {
-    str = results.d;
-    $("#MainMessages").html(str);
-}
 
 //---------------------------------//
 
@@ -77,8 +40,6 @@ function parseName(results) {
     str = results.d;
     $("#MainWelcome").append(" "+str);
 }
-
-
 
 //--------------------------------------------------------------------
 //                           Profile Page
@@ -224,27 +185,30 @@ function getCoachEvents() {
 //                           Messages Page
 //--------------------------------------------------------------------
 
-function getUserMessages() {
+function getCoachMessages() {
 
     $.ajax({
-        url: 'WebService.asmx/getUserMessages',
+        url: 'WebService.asmx/getCoachMessages',
         type: 'POST',
         async: true,
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
-        success: parseUserMessages
+        success: parseCoachMessages
     })
 }
 
-function parseUserMessages(results) {
+function parseCoachMessages(results) {
     results = $.parseJSON(results.d);
     $(function () {
         $.each(results, function (i, item) {
 
+            //parse date
             var messageDate = parseInt(item["mDate"].split("(")[1].split(")")[0]);
             var messageStartDate = new Date(messageDate);
             var strDate = "";
-            strDate += messageStartDate.getDate() + "/" + (messageStartDate.getMonth()+1) + "/" + messageStartDate.getFullYear();
+            strDate += messageStartDate.getDate() + "/" + (messageStartDate.getMonth() + 1) + "/" + messageStartDate.getFullYear();
+
+            //parse table
             var messageid = item["MessageID"]
             var $tr = $('<tr class="email-msg">').append(
                 $('<td>').html("<a class=''></a>").text(item.FirstName + " " + item.LastName),
@@ -315,9 +279,11 @@ function getPicturePath() {
 }
 
 function updateUserPicture(results) {
-        $.get(results.d, function (data) {
+    $.get(results.d, function (data) {
+
             profileImg = $('#profileimage');
             profileImg.attr("src", data);
+
             profileImgProfilePage = $('#profileimageProfile');
             profileImgProfilePage.attr("src", data);
         });

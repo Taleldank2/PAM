@@ -529,8 +529,6 @@ public class DBServices
         }
     }
 
-
-
     //--------------------------------------------------------------------
     // Results Page
     //--------------------------------------------------------------------
@@ -621,15 +619,12 @@ public class DBServices
     // Messages page
     //--------------------------------------------------------------------
 
-    public DataTable getUserMessages(string userID)
+    public DataTable getCoachMessages(string coachID)
     {
         try
         {
-            string query = "SELECT * FROM [dbo].[Messages] m " +
-               "JOIN dbo.TeamsMessages t on m.MessageID = t.MessageID " +
-               "join dbo.Athletes a on t.TeamID = a.TeamID " +
-               "join Users u on m.CreatorID = u.UserID " +
-               "WHERE AthleteID = " + userID;
+            string query = " SELECT * FROM [dbo].[Messages] " +
+               " WHERE CreatorID=" + coachID;
 
             DataTable messagesTable = queryDb(query);
 

@@ -399,7 +399,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (3,'טל','כפתורי','0523488825','talkaf1@gmail.com','12345','images/profiles/פרופיל ריק.html','תמרת',Convert(date,'14-04-1991',105))--SYS ADMIN
+VALUES (3,'טל','כפתורי','0523488825','talkaf1@gmail.com','825','images/profiles/profileempty.html','תמרת',Convert(date,'14-04-1991',105))--SYS ADMIN
 GO
 
 INSERT INTO USERS(
@@ -413,7 +413,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (3,'טל','אלדן','0505999470','taleldan188@gmail.com','12345','images/profiles/פרופיל ריק.html','רעננה',Convert(date,'20-02-1991',105))--SYS ADMIN
+VALUES (3,'טל','אלדן','0505999470','taleldan188@gmail.com','470','images/profiles/profileempty.html','רעננה',Convert(date,'20-02-1991',105))--SYS ADMIN
 GO
 	
 INSERT INTO USERS(
@@ -427,7 +427,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (2,'עידן','כפתורי','0528539214','idankaftori@gmail.com','IDAN','images/profiles/פרופיל ריק.html','טבעון',Convert(date,'12-02-1985',105))--COACH
+VALUES (2,'עידן','כפתורי','0528539214','idankaftori@gmail.com','214','images/profiles/profileempty.html','טבעון',Convert(date,'12-02-1985',105))--COACH
 GO
 
 INSERT INTO USERS(
@@ -441,7 +441,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (2,'ליאור','קליין','05059998744','lior.klain@gmail.com','A123456a','images/profiles/פרופיל ריק.html','קיבוץ רמת יוחנן',Convert(date,'18-10-1981',105))--COACH
+VALUES (2,'ליאור','קליין','0504758325','lior.klain@gmail.com','325','images/profiles/profileempty.html','קיבוץ רמת יוחנן',Convert(date,'18-10-1981',105))--COACH
 GO
 
 INSERT INTO USERS(
@@ -455,7 +455,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (2,'שאול','אלקנה','0505999925','shaul.el@gmail.com','A123456a','images/profiles/פרופיל ריק.html','אלוני אבא',Convert(date,'19-12-1959',105))--COACH
+VALUES (2,'שאול','אלקנה','0505999925','shaul.el@gmail.com','925','images/profiles/profileempty.html','אלוני אבא',Convert(date,'19-12-1959',105))--COACH
 GO
 
 INSERT INTO USERS(
@@ -469,7 +469,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (1,'גיא','כהן','0522549591','guycohen123@gmail.com','123','images/profiles/0522549591.html','טבעון',Convert(date,'19-12-2004',105))--ATHLETE
+VALUES (1,'גיא','כהן','0522549591','guycohen123@gmail.com','591','images/profiles/0522549591.html','טבעון',Convert(date,'19-12-2004',105))--ATHLETE
 GO
 
 INSERT INTO USERS(
@@ -483,7 +483,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (1,'איתמר','קנוף','0523553795','itamar1307@gmail.com','1307','images/profiles/0523553795.html','תמרת',Convert(date,'10-02-2002',105))--ATHLETE
+VALUES (1,'איתמר','קנוף','0523553795','itamar1307@gmail.com','795','images/profiles/0523553795.html','תמרת',Convert(date,'10-02-2002',105))--ATHLETE
 GO
 
 INSERT INTO USERS(
@@ -511,7 +511,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (1,'קורי','חשמונאי','0504082324','korihash@gmail.com','2324','images/profiles/0504082324.html','טבעון',Convert(date,'24-09-2002',105))--ATHLETE
+VALUES (1,'קורי','חשמונאי','0504082324','korihash@gmail.com','324','images/profiles/0504082324.html','טבעון',Convert(date,'24-09-2002',105))--ATHLETE
 GO
 
 INSERT INTO USERS(
@@ -567,7 +567,7 @@ INSERT INTO USERS(
 	City,
 	BirthDate
 )
-VALUES (1,'גיא','אלדן','0544848396','guyeldan@gmail.com','123','images/profiles/0544848396.html','טבעון',Convert(date,'20-08-2003',105))--ATHLETE
+VALUES (1,'גיא','אלדן','0544848396','guyeldan@gmail.com','396','images/profiles/0544848396.html','טבעון',Convert(date,'20-08-2003',105))--ATHLETE
 GO
 
 --------------------------------------------------
@@ -845,6 +845,69 @@ INSERT INTO EVENTS(
 	CreationTime
 	)
 VALUES (2,'טורניר הבנים','הטורניר השנתי',CONVERT(date,'28-4-2018',105),'09:00','14:30',0,'בריכה','לבוא עם חולצות קבוצה',NULL)
+GO
+
+INSERT INTO EVENTS(		
+	EventType,
+	Title,
+	E_Body,
+	E_Date,
+	StartTime,
+	EndTime,
+	IsRecursive,
+	Location,
+	Note,
+	CreationTime
+	)
+VALUES (1,'אימון רגיל','שחייה חצי שעה והשאר כדור',CONVERT(date,'21-5-2018',105),'18:00','19:00',0,'בריכה','להגיע לפני לחימום עצמאי',NULL)
+GO
+
+
+INSERT INTO EVENTS(		
+	EventType,
+	Title,
+	E_Body,
+	E_Date,
+	StartTime,
+	EndTime,
+	IsRecursive,
+	Location,
+	Note,
+	CreationTime
+	)
+VALUES (1,'אימון רגיל','בעיקר תרגול משחק ואחד יותר/פחות',CONVERT(date,'23-5-2018',105),'18:00','19:00',0,'בריכה','להגיע לפני לחימום עצמאי',NULL)
+GO
+
+
+INSERT INTO EVENTS(		
+	EventType,
+	Title,
+	E_Body,
+	E_Date,
+	StartTime,
+	EndTime,
+	IsRecursive,
+	Location,
+	Note,
+	CreationTime
+	)
+VALUES (1,'אימון בוקר','שחייה בלבד',CONVERT(date,'20-5-2018',105),'06:30','07:30',0,'בריכה','',NULL)
+GO
+
+
+INSERT INTO EVENTS(		
+	EventType,
+	Title,
+	E_Body,
+	E_Date,
+	StartTime,
+	EndTime,
+	IsRecursive,
+	Location,
+	Note,
+	CreationTime
+	)
+VALUES (1,'אימון כושר','ריצה וכוח',CONVERT(date,'23-5-2018',105),'17:00','18:00',0,'מחוץ בריכה','בגדי ספורט',NULL)
 GO
 
 --------------------------------------------------
