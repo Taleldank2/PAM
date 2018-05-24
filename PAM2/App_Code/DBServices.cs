@@ -529,7 +529,10 @@ public class DBServices
         }
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b36c7c641648c40957ab4ed7f0dfe3ff40e94123
     //--------------------------------------------------------------------
     // Results Page
     //--------------------------------------------------------------------
@@ -620,15 +623,12 @@ public class DBServices
     // Messages page
     //--------------------------------------------------------------------
 
-    public DataTable getUserMessages(string userID)
+    public DataTable getCoachMessages(string coachID)
     {
         try
         {
-            string query = "SELECT * FROM [dbo].[Messages] m " +
-               "JOIN dbo.TeamsMessages t on m.MessageID = t.MessageID " +
-               "join dbo.Athletes a on t.TeamID = a.TeamID " +
-               "join Users u on m.CreatorID = u.UserID " +
-               "WHERE AthleteID = " + userID;
+            string query = " SELECT * FROM [dbo].[Messages] " +
+               " WHERE CreatorID=" + coachID;
 
             DataTable messagesTable = queryDb(query);
 
@@ -648,12 +648,11 @@ public class DBServices
     //--------------------------------------------------------------------
     // Dashboard page
     //--------------------------------------------------------------------
-
     public DataTable getCoachLastResults(string coachID)
     {
         try
         {
-            string query = "SELECT TOP (5) " +
+            string query = "SELECT TOP (3) " +
             " *, Users.FirstName,Users.LastName,Users.UserID " +
             " from results join athletes " +
             " on Athletes.AthleteID = Results.AthleteID join Users " +
@@ -670,6 +669,28 @@ public class DBServices
         catch (Exception ex)
         {
             using (StreamWriter w = File.AppendText("log.txt"))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
+    }
+
+    public DataTable getCoachLastMessages(string coachID)
+    {
+        try
+        {
+            string query = " SELECT TOP(3) * FROM [dbo].[Messages] " +
+               " WHERE CreatorID=" + coachID;
+
+            DataTable messagesTable = queryDb(query);
+
+            return messagesTable;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }

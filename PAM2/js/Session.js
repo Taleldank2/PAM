@@ -58,15 +58,14 @@ function checkSession(results) {
         {
             getCoachLastResults();
             getPicturePath();
+            getCoachLastMessages();
             //getUserLastEvent();
             //getLastResult();
-            //getMessagesCount(); 
             //getName();
         }
         else if (window.location.pathname == "/Results.html" || window.location.pathname == "/bgroup57/test1/tar1/Results.html")
         {
             getCoachResults();
-            //getUserResults();
             getPicturePath();
         }
         else if (window.location.pathname == "/Profile.html" || window.location.pathname == "/bgroup57/test1/tar1/Profile.html") {
@@ -80,7 +79,7 @@ function checkSession(results) {
         }
         else if (window.location.pathname == "/Inbox.html" || window.location.pathname == "/bgroup57/test1/tar1/Inbox.html")
         {
-            getUserMessages();
+            getCoachMessages();
             getPicturePath();
         }
     }

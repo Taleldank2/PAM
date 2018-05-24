@@ -21,43 +21,6 @@ function parseLastEvent(results)
     $("#MainNextEvent").html(str);
 }
 
-//---------------------------------//
-
-function getLastResult() {
-    $.ajax({
-        url: 'WebService.asmx/getLastResult',
-        type: 'POST',
-        async: true,
-        dataType: 'json',
-        contentType: 'application/json; charset = utf-8',
-        success: parseUserLastResult
-    }) // end of ajax call
-
-}
-
-function parseUserLastResult(results) {
-    results = $.parseJSON(results.d);
-    str = results[0].Distance + " מטר | " + results[0].Description + " | " + results[0].rTime.Minutes + ":" + results[0].rTime.Seconds;
-    $("#MainLastResult").html(str);
-}
-
-//---------------------------------//
-
-function getMessagesCount() {
-    $.ajax({
-        url: 'WebService.asmx/getMessagesCount',
-        type: 'POST',
-        async: true,
-        dataType: 'json',
-        contentType: 'application/json; charset = utf-8',
-        success: parseMessagesCount
-    }) 
-}
-
-function parseMessagesCount(results) {
-    str = results.d;
-    $("#MainMessages").html(str);
-}
 
 //---------------------------------//
 
@@ -77,8 +40,6 @@ function parseName(results) {
     str = results.d;
     $("#MainWelcome").append(" "+str);
 }
-
-
 
 //--------------------------------------------------------------------
 //                           Profile Page
@@ -109,7 +70,7 @@ function parseUserDetails(results) {
 
     var birthDate = parseInt(results[0]["BirthDate"].split("(")[1].split(")")[0]);
     var tempProfileAge = new Date(birthDate);
-    strProfileAge = tempProfileAge.getDay() + "/" + tempProfileAge.getMonth() + "/" + tempProfileAge.getFullYear();
+    strProfileAge = tempProfileAge.getDate() + "/" + (tempProfileAge.getMonth()+1) + "/" + tempProfileAge.getFullYear();
     $("#ProfileAge").append(strProfileAge);
     
     strProfileCity = results[0].City;
@@ -152,7 +113,7 @@ function parseUserResults(results) {
             var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
             var eventStartDate = new Date(eventTime);
             var strDate = "";
-            strDate += eventStartDate.getDay() + "/" + eventStartDate.getMonth() + "/" + eventStartDate.getFullYear();
+            strDate += eventStartDate.getDate() + "/" + (eventStartDate.getMonth()+1) + "/" + eventStartDate.getFullYear();
 
             //parse type
             var resultType;
@@ -220,85 +181,6 @@ function getCoachEvents() {
 }
 
 
-//--------------------------------------------------------------------
-//                           Messages Page
-//--------------------------------------------------------------------
-
-function getUserMessages() {
-
-    $.ajax({
-        url: 'WebService.asmx/getUserMessages',
-        type: 'POST',
-        async: true,
-        dataType: 'json',
-        contentType: 'application/json; charset = utf-8',
-        success: parseUserMessages
-    })
-}
-
-function parseUserMessages(results) {
-    results = $.parseJSON(results.d);
-    $(function () {
-        $.each(results, function (i, item) {
-
-            var messageDate = parseInt(item["mDate"].split("(")[1].split(")")[0]);
-            var messageStartDate = new Date(messageDate);
-            var strDate = "";
-            strDate += messageStartDate.getDay() + "/" + messageStartDate.getMonth() + "/" + messageStartDate.getFullYear();
-            var messageid = item["MessageID"]
-            var $tr = $('<tr class="email-msg">').append(
-                $('<td>').html("<a class=''></a>").text(item.FirstName + " " + item.LastName),
-                $('<td class="hidden-xs">').html("<a id='" + messageid + "' class='email-msg'>"+item.Title+"</a>"),
-                $('<td class="text-right">').text(item.mTime.Hours + ":" + item.mTime.Minutes),
-                $('<td class="text-right">').text(strDate)
-            ).appendTo('#InboxTable');
-        });
-    });   
-}
-
-function UserMessageModal() {
-
-    $.ajax({
-        url: 'WebService.asmx/getUserMessages',
-        type: 'POST',
-        async: true,
-        dataType: 'json',
-        contentType: 'application/json; charset = utf-8',
-        success: parseUserMessageModal,
-        error: messageModalError
-        
-    });
-    
-}
-
-function parseUserMessageModal(results) {
-    
-    //Convert results back to JSON
-    results = $.parseJSON(results.d);  
-   
-    //Go Over the results;
-    for (var i = 0; i < results.length; i++) {
-        if (results[i].MessageID == MessageInfo.id) {
-            //load values to data modal
-            document.getElementById("messageModalTitle").innerText = results[i].Title;
-            document.getElementById("messageModalBody").innerText = results[i].mBody;
-            //open modal
-            $('#message-modal').modal('show');
-            return;
-        }
-       
-    }
-    alert("Could not find message");
-}
-
-function messageModalError(a,b,c)
-{
-    console.log(a);
-    console.log(b);
-    console.log(c);
-    alert('getUserMessagesbyID() error');
-}
-
 
 //--------------------------------------------------------------------
 //                             Register
@@ -315,9 +197,11 @@ function getPicturePath() {
 }
 
 function updateUserPicture(results) {
-        $.get(results.d, function (data) {
+    $.get(results.d, function (data) {
+
             profileImg = $('#profileimage');
             profileImg.attr("src", data);
+
             profileImgProfilePage = $('#profileimageProfile');
             profileImgProfilePage.attr("src", data);
         });
@@ -326,6 +210,10 @@ function updateUserPicture(results) {
 //--------------------------------------------------------------------
 //                             Dashboard
 //--------------------------------------------------------------------
+
+
+//---------------------------------//
+
 function getCoachLastResults() {
     $.ajax({
         url: 'WebService.asmx/getCoachLastResults',
@@ -359,7 +247,7 @@ function parseCoachLastResluts(results) {
             var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
             var eventStartDate = new Date(eventTime);
             var strDate = "";
-            strDate += eventStartDate.getDay() + "/" + eventStartDate.getMonth() + "/" + eventStartDate.getFullYear();
+            strDate += eventStartDate.getDate() + "/" + (eventStartDate.getMonth()+1) + "/" + eventStartDate.getFullYear();
 
             //parse type
             var resultType;
@@ -382,6 +270,55 @@ function parseCoachLastResluts(results) {
     });
     
 }
+
+
+//---------------------------------//
+
+function getCoachLastMessages() {
+
+    $.ajax({
+        url: 'WebService.asmx/getCoachLastMessages',
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: parseCoachLastMessages
+    })
+}
+
+function parseCoachLastMessages(results) {
+    results = $.parseJSON(results.d);
+    $(function () {
+        $.each(results, function (i, item) {
+
+            //parse date
+            var messageDate = parseInt(item["mDate"].split("(")[1].split(")")[0]);
+            var messageStartDate = new Date(messageDate);
+            var strDate = "";
+            strDate += messageStartDate.getDate() + "/" + (messageStartDate.getMonth() + 1) + "/" + messageStartDate.getFullYear();
+
+            //parse time
+            min = item.mTime.Minutes;
+            if (min == 0)
+                min = "00";
+            else if (min < 10)
+                min = "0" + item.mTime.Minutes;
+
+            //parse table
+            var messageid = item["MessageID"]
+            var $tr = $('<tr class="email-msg">').append(
+                $('<td>').html("<a class=''></a>").text(item.FirstName + " " + item.LastName),
+                $('<td class="hidden-xs">').html("<a id='" + messageid + "' class='email-msg'>" + item.Title + "</a>"),
+                $('<td class="text-right">').text(item.mTime.Hours + ":" + min),
+                $('<td class="text-right">').text(strDate)
+            ).appendTo('#MessagesTableDashboard');
+        });
+    });
+}
+
+
+//---------------------------------//
+
 
 //--------------------------------------------------------------------
 //                             Results
@@ -411,7 +348,7 @@ function parseCoachResluts(results) {
             var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
             var eventStartDate = new Date(eventTime);
             var strDate = "";
-            strDate += eventStartDate.getDay() + "/" + eventStartDate.getMonth() + "/" + eventStartDate.getFullYear();
+            strDate += eventStartDate.getDate() + "/" + (eventStartDate.getMonth()+1) + "/" + eventStartDate.getFullYear();
 
             //parse type
             var resultType;
@@ -421,6 +358,14 @@ function parseCoachResluts(results) {
                 resultType = "mdi mdi-run-fast";
             else
                 resultType = "mdi mdi-clock-fast";
+
+            //parse time
+            min = item.rTime.Minutes;
+            sec = item.rTime.Seconds;
+            if (item.rTime.Minutes < 10)
+                min = "0" + item.rTime.Minutes;
+            if (item.rTime.Seconds < 10)
+                sec = "0" + item.rTime.Seconds;
 
             //parse note
             if (item.Note == null)
@@ -433,7 +378,7 @@ function parseCoachResluts(results) {
                  $('<td>').text(item.FirstName + " " + item.LastName),
                 $('<td>').html("<i class='" + resultType + "'></i>"),
                 $('<td>').text(item.Distance),
-                $('<td>').text(item.rTime.Minutes + ":" + item.rTime.Seconds),
+                $('<td>').text(min + ":" + sec),
                 $('<td>').text(strDate),
                 $('<td>').text(note)
             ).appendTo('#ResultsTable');
@@ -441,3 +386,90 @@ function parseCoachResluts(results) {
     });
 
 }
+
+
+//--------------------------------------------------------------------
+//                           Messages
+//--------------------------------------------------------------------
+
+function getCoachMessages() {
+
+    $.ajax({
+        url: 'WebService.asmx/getCoachMessages',
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: parseCoachMessages
+    })
+}
+
+function parseCoachMessages(results) {
+    results = $.parseJSON(results.d);
+    $(function () {
+        $.each(results, function (i, item) {
+
+            //parse date
+            var messageDate = parseInt(item["mDate"].split("(")[1].split(")")[0]);
+            var messageStartDate = new Date(messageDate);
+            var strDate = "";
+            strDate += messageStartDate.getDate() + "/" + (messageStartDate.getMonth() + 1) + "/" + messageStartDate.getFullYear();
+
+            //parse time
+            min = item.mTime.Minutes;
+            if (min < 10)
+                min = "0" + item.mTime.Minutes;
+
+            //parse table
+            var messageid = item["MessageID"]
+            var $tr = $('<tr class="email-msg">').append(
+                $('<td>').html("<a class=''></a>").text(item.FirstName + " " + item.LastName),
+                $('<td class="hidden-xs">').html("<a id='" + messageid + "' class='email-msg'>" + item.Title + "</a>"),
+                $('<td class="text-right">').text(item.mTime.Hours + ":" + min),
+                $('<td class="text-right">').text(strDate)
+            ).appendTo('#MessagesTable');
+        });
+    });
+}
+
+//function UserMessageModal() {
+
+//    $.ajax({
+//        url: 'WebService.asmx/getUserMessages',
+//        type: 'POST',
+//        async: true,
+//        dataType: 'json',
+//        contentType: 'application/json; charset = utf-8',
+//        success: parseUserMessageModal,
+//        error: messageModalError
+
+//    });
+
+//}
+
+//function parseUserMessageModal(results) {
+
+//    //Convert results back to JSON
+//    results = $.parseJSON(results.d);
+
+//    //Go Over the results;
+//    for (var i = 0; i < results.length; i++) {
+//        if (results[i].MessageID == MessageInfo.id) {
+//            //load values to data modal
+//            document.getElementById("messageModalTitle").innerText = results[i].Title;
+//            document.getElementById("messageModalBody").innerText = results[i].mBody;
+//            //open modal
+//            $('#message-modal').modal('show');
+//            return;
+//        }
+
+//    }
+//    alert("Could not find message");
+//}
+
+//function messageModalError(a, b, c) {
+//    console.log(a);
+//    console.log(b);
+//    console.log(c);
+//    alert('getUserMessagesbyID() error');
+//}

@@ -276,8 +276,22 @@ public class WebService : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public string getCoachLastMessages()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string coachId = getUserFromSession(userSession);
+
+        DataTable messages = dbHandler.getCoachLastMessages(coachId);
+
+        string response = dataTableToJson(messages);
+
+        return response;
+    }
+
     //--------------------------------------------------------------------
-    //                           Results (new)
+    //                           Results
     //--------------------------------------------------------------------
     [WebMethod]
     public string getCoachResults()
@@ -304,6 +318,23 @@ public class WebService : System.Web.Services.WebService
             throw ex;
         }
 
+    }
+
+    //--------------------------------------------------------------------
+    //                           Messages
+    //--------------------------------------------------------------------
+    [WebMethod]
+    public string getCoachMessages()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string coachId = getUserFromSession(userSession);
+
+        DataTable messages = dbHandler.getCoachMessages(coachId);
+
+        string response = dataTableToJson(messages);
+
+        return response;
     }
 
     //--------------------------------------------------------------------
@@ -338,6 +369,21 @@ public class WebService : System.Web.Services.WebService
             throw ex;
         }
         
+    }
+
+    //--------------------------------------------------------------------
+    //                           Picture
+    //--------------------------------------------------------------------
+    [WebMethod]
+    public string getPicturePath()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string userId = getUserFromSession(userSession);
+
+        string picturePath = dbHandler.getPicturePath(userId);
+
+        return picturePath;
     }
 
     //--------------------------------------------------------------------
