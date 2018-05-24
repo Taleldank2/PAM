@@ -530,40 +530,6 @@ public class DBServices
     }
 
 
-<<<<<<< HEAD
-    //Coach Dashboard results
-    public DataTable getCoachLastResults(string coachID)
-    {
-        try
-        {
-            string query = "SELECT TOP (5) " +
-            " *, Users.FirstName,Users.LastName,Users.UserID "+
-            " from results join athletes "+
-            " on Athletes.AthleteID = Results.AthleteID join Users "+
-            " on Users.UserID = Athletes.AthleteID join teams "+
-            " on teams.TeamID = Athletes.TeamID join Coaches "+
-            " on Coaches.CoachId = teams.HeadCoachID "+
-            " where Coaches.coachID ="+ coachID +
-            " ORDER BY dbo.Results.rDate DESC ";
-
-            DataTable CoachLastResults = queryDb(query);
-
-            return CoachLastResults;
-        }
-        catch (Exception ex)
-        {
-            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
-            {
-                Log(ex.Message, w);
-            }
-            throw ex;
-        }
-
-    }
-
-
-=======
->>>>>>> de66f56bcf9dfad15b15b4864d23a09ce9833a16
     //--------------------------------------------------------------------
     // Results Page
     //--------------------------------------------------------------------
