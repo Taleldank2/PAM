@@ -1,10 +1,21 @@
-﻿//--------------------------------------------------------------------
+﻿//----------------------------------------------------------------------------------------
+//                                      local - false if app mode
+//                                              true if web mode
+//----------------------------------------------------------------------------------------
+var local = false;
+var ASMXURL = 'WebService.asmx/';
+if (!local) {
+    ASMXURL = 'http://http://proj.ruppin.ac.il/bgroup57/test1/tar1/WebService.asmx/';
+}
+
+//--------------------------------------------------------------------
 //                            index Page
 //--------------------------------------------------------------------
 
+
 function getUserLastEvent() {
     $.ajax({
-        url: 'WebService.asmx/getUserLastEvent',
+        url:  ASMXURL+ 'getUserLastEvent',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -25,7 +36,7 @@ function parseLastEvent(results)
 
 function getLastResult() {
     $.ajax({
-        url: 'WebService.asmx/getLastResult',
+        url: ASMXURL + 'getLastResult',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -54,7 +65,7 @@ function parseUserLastResult(results) {
 
 function getMessagesCount() {
     $.ajax({
-        url: 'WebService.asmx/getMessagesCount',
+        url: ASMXURL + 'getMessagesCount',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -73,7 +84,7 @@ function parseMessagesCount(results) {
 
 function getScore() {
     $.ajax({
-        url: 'WebService.asmx/getScore',
+        url: ASMXURL + 'getScore',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -93,7 +104,7 @@ function parseScore(results) {
 
 function getName() {
     $.ajax({
-        url: 'WebService.asmx/getName',
+        url: ASMXURL + 'getName',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -114,7 +125,7 @@ function parseName(results) {
 
 function getUserDetails() {
     $.ajax({
-        url: 'WebService.asmx/getUserDetails',
+        url: ASMXURL + 'getUserDetails',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -161,7 +172,7 @@ function parseUserDetails(results) {
 
 function getUserResults() {
     $.ajax({
-        url: 'WebService.asmx/getUserResults',
+        url: ASMXURL + 'getUserResults',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -217,7 +228,7 @@ function parseUserResults(results) {
 function getUserType() {
 
     userType = $.ajax({
-        url: 'WebService.asmx/getUserType',
+        url: ASMXURL + 'getUserType',
         type: 'POST',
         async: false,
         dataType: 'json',
@@ -231,7 +242,7 @@ function getUserType() {
 function getUserEvents() {
 
     events = $.ajax({
-        url: 'WebService.asmx/getUserEvents',
+        url: ASMXURL + 'getUserEvents',
         type: 'POST',
         async: false,
         dataType: 'json',
@@ -244,7 +255,7 @@ function getUserEvents() {
 function getCoachEvents() {
 
     events = $.ajax({
-        url: 'WebService.asmx/getCoachEvents',
+        url: ASMXURL + 'getCoachEvents',
         type: 'POST',
         async: false,
         dataType: 'json',
@@ -262,7 +273,7 @@ function getCoachEvents() {
 function getUserMessages() {
 
     $.ajax({
-        url: 'WebService.asmx/getUserMessages',
+        url: ASMXURL + 'getUserMessages',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -302,7 +313,7 @@ function parseUserMessages(results) {
 function UserMessageModal() {
 
     $.ajax({
-        url: 'WebService.asmx/getUserMessages',
+        url: ASMXURL + 'getUserMessages',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -348,7 +359,7 @@ function messageModalError(a,b,c)
 //--------------------------------------------------------------------
 function getPicturePath() {
     $.ajax({
-        url: 'WebService.asmx/getPicturePath',
+        url: ASMXURL + 'getPicturePath',
         type: 'POST',
         async: true,
         dataType: 'json',

@@ -1,5 +1,15 @@
 ﻿document.getElementById("editBTN").onclick = profile;
 
+//----------------------------------------------------------------------------------------
+//                                      local - false if app mode
+//                                              true if web mode
+//----------------------------------------------------------------------------------------
+var local = false;
+var ASMXURL = 'WebService.asmx/';
+if (!local) {
+    ASMXURL = 'http://http://proj.ruppin.ac.il/bgroup57/test1/tar1/WebService.asmx/';
+}
+
 function profile() {
 
     document.getElementById("editBTN").remove();
@@ -54,7 +64,7 @@ function confirm() {
     alert(dataString);
 
     $.ajax({
-        url: 'WebService.asmx/update',
+        url: ASMXURL + 'update',
         data: dataString,
         type: 'POST',
         async: false,

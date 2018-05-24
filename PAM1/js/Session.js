@@ -1,6 +1,18 @@
 ﻿//----------------------------------------------------------------------------------------
 //Session handling if the user is trying to navigate to pages before logging to the system
 //----------------------------------------------------------------------------------------
+
+
+//----------------------------------------------------------------------------------------
+//                                      local - false if app mode
+//                                              true if web mode
+//----------------------------------------------------------------------------------------
+var local = false;
+var ASMXURL = 'WebService.asmx/';
+if (!local) {
+    ASMXURL = 'http://http://proj.ruppin.ac.il/bgroup57/test1/tar1/WebService.asmx/';
+}
+
 $(document).ready(function () {
 
     cookie = document.cookie;
@@ -31,7 +43,7 @@ function checkUserExists(session) {
     var dataString = JSON.stringify(request);
 
     $.ajax({
-        url: 'WebService.asmx/checkUserSession',
+        url: ASMXURL + 'checkUserSession',
         data: dataString,
         type: 'POST',
         async: false,

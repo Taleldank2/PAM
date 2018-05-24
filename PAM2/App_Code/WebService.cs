@@ -302,7 +302,7 @@ public class WebService : System.Web.Services.WebService
 
             string coachID = getUserFromSession(userSession);
 
-            DataTable result = dbHandler.getCoachLastResults(coachID);
+            DataTable result = dbHandler.getCoachResults(coachID);
 
             string response = dataTableToJson(result);
 
@@ -379,9 +379,9 @@ public class WebService : System.Web.Services.WebService
     {
         string userSession = Context.Request.Cookies["session"]["session"];
 
-        string userId = getUserFromSession(userSession);
+        string coachId = getUserFromSession(userSession);
 
-        string picturePath = dbHandler.getPicturePath(userId);
+        string picturePath = dbHandler.getPicturePath(coachId);
 
         return picturePath;
     }

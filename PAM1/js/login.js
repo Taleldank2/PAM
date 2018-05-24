@@ -2,6 +2,17 @@
 //                              Login JS
 //-----------------------------------------------------------------------
 
+//----------------------------------------------------------------------------------------
+//                                      local - false if app mode
+//                                              true if web mode
+//----------------------------------------------------------------------------------------
+var local = false;
+var ASMXURL = 'WebService.asmx/';
+if (!local) {
+    ASMXURL = 'http://http://proj.ruppin.ac.il/bgroup57/test1/tar1/WebService.asmx/';
+}
+
+
 function Login() {
     PhoneNumber = document.getElementById("PhoneNumber").value;
     Password = document.getElementById("Password").value;
@@ -22,7 +33,7 @@ function ajaxLogin(request, successCB, errorCB) {
     //Serialize the object to JSON string
     var dataString = JSON.stringify(request);
     $.ajax({
-        url: 'WebService.asmx/Login',
+        url: ASMXURL + 'Login',
         data: dataString,
         type: 'POST',
         async: false,
@@ -75,7 +86,7 @@ function checkUserExists(session)
 
     var dataString = JSON.stringify(request);
     $.ajax({ 
-        url: 'WebService.asmx/checkUserSession',         
+        url: ASMXURL + 'checkUserSession',         
         data: dataString,                     
         type: 'POST',
         async: false,

@@ -1,9 +1,19 @@
 ﻿document.getElementById("myForm").onsubmit = register;
 
+//----------------------------------------------------------------------------------------
+//                                      local - false if app mode
+//                                              true if web mode
+//----------------------------------------------------------------------------------------
+var local = false;
+var ASMXURL = 'WebService.asmx/';
+if (!local) {
+    ASMXURL = 'http://http://proj.ruppin.ac.il/bgroup57/test1/tar1/WebService.asmx/';
+}
+
 function getTeamsNames() {
 
     $.ajax({
-        url: 'WebService.asmx/getTeamsNames',
+        url: ASMXURL + 'getTeamsNames',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -77,7 +87,7 @@ function registerNewUser(pictureBase64) {
     alert(dataString);
 
     $.ajax({
-        url: 'WebService.asmx/register',
+        url: ASMXURL + 'register',
         data: dataString,
         type: 'POST',
         async: false,
