@@ -10,6 +10,26 @@ if (!local) {
     ASMXURL = 'http://proj.ruppin.ac.il/bgroup57/test1/tar1/WebService.asmx/';
 }
 
+function getMoreDetails() {
+    getTeamsNames();
+    AthleteDetails();
+}
+
+function AthleteDetails() {
+    str = "<div class='form-group'><div class='input-group'>" +
+"<div class='input-group-prepend'><span class='input-group-text'>" +
+"<i class='mdi mdi-weight-kilogram'></i></span></div>" +
+"<input id='AthleteWeight' class='form-control' type='text' required='' placeholder='משקל'></div></div>";
+
+    str += "<div class='form-group'><div class='input-group'>" +
+    "<div class='input-group-prepend'><span class='input-group-text'>" +
+    "<i class='mdi mdi-ruler'></i></span></div>" +
+    "<input id='AthleteHeight' class='form-control' type='text' required='' placeholder='גובה'></div></div>";
+
+    $('#AthleteFileds').append(str);
+
+}
+
 function getTeamsNames() {
 
     $.ajax({
@@ -51,6 +71,8 @@ function register() {
 
     reader.readAsDataURL(file);
 }
+
+
 
 function registerNewUser(pictureBase64) {
 
@@ -106,27 +128,4 @@ function registerCompleted(result) {
 
 function errorCB(e) {
     alert("The exception message is : " + e.responseText);
-}
-
-function AthleteDetails(index) {
-    if (index == 2) {
-        getTeamsNames();
-        str = "<div class='form-group'><div class='input-group'>" +
-    "<div class='input-group-prepend'><span class='input-group-text'>" +
-    "<i class='mdi mdi-weight-kilogram'></i></span></div>" +
-    "<input id='AthleteWeight' class='form-control' type='text' required='' placeholder='משקל'></div></div>";
-
-        str += "<div class='form-group'><div class='input-group'>" +
-        "<div class='input-group-prepend'><span class='input-group-text'>" +
-        "<i class='mdi mdi-ruler'></i></span></div>" +
-        "<input id='AthleteHeight' class='form-control' type='text' required='' placeholder='גובה'></div></div>";
-
-        $('#AthleteFileds').append(str);
-    }
-    else {
-        str = "";
-        $('#AthleteFileds').html(str);
-        $('#TeamsNamesDDL').html(str);
-    }
-
 }

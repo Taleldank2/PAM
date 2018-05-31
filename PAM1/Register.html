@@ -19,7 +19,7 @@
     <script src="assets/js/modernizr.min.js"></script>
 
 </head>
-<body>
+<body onload="getMoreDetails()">
 
     <div class="wrapper-page">
 
@@ -112,19 +112,6 @@
             </div>
 
             <!-- ADDED -->
-
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="mdi mdi-bookmark"></i></span>
-                    </div>
-                    <select id="usertype" class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true" onchange="AthleteDetails(this.selectedIndex); ">
-                        <option value="" disabled selected> בחר סוג משתמש </option>
-                        <option value="2">מאמן</option>
-                        <option value="1">מתאמן</option>
-                    </select>
-                </div>
-            </div>
 
             
             <div id="TeamsNamesDDL"><!-- Place Holder -->   </div>
