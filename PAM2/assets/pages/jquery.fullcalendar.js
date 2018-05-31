@@ -6,10 +6,10 @@
 */
 
 
-!function ($) {
+!function($) {
     "use strict";
 
-    var CalendarApp = function () {
+    var CalendarApp = function() {
         this.$body = $("body")
         this.$modal = $('#event-modal'),
         this.$event = ('#external-events div.external-event'),
@@ -57,6 +57,10 @@
         document.getElementById("EventModalLocation").innerText =calEvent.location;
         document.getElementById("EventModalDateTime").innerText = calEvent.edate + " | " + startHour + ":" + startMin +
             " - " + endHour + ":" + endMin;
+
+        var form = $("<form></form>");
+        form.append("<label>Change event name</label>");
+        form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div>");
 
         $this.$modal.modal({
             backdrop: 'static'
@@ -189,17 +193,12 @@
 
             //Set ClassName in caes of different event types
             //Set default value for the background color
-            var cName = "bg-purple";
-
-
-            if (event["EventType"] == 1) {                
-                cName = "bg-blue";
-            }
-            else if (event["EventType"] == 2) {                
-                cName = "bg-green";
+            var cName = "bg-purple";            
+            if (event["EventType"] == 2) {                
+                cName = "bg-danger";
             }
             else {               
-                cName = "bg-yellow";
+                cName = "bg-primary";
             }
 
             eventList.push(
@@ -235,7 +234,12 @@
             droppable: true, // this allows things to be dropped onto the calendar !!!
             eventLimit: true, // allow "more" link when too many events
             selectable: true,
-            drop: function (date) { $this.onDrop($(this), date); },
+            drop: function (date) {
+                $this.onDrop($(this), date);
+                alert("PAM DROP");
+                $('#createEventModal').modal('show');
+                
+            },
             select: function (start, end, allDay) { $this.onSelect(start, end, allDay); },
             eventClick: function (calEvent, jsEvent, view) { $this.onEventClick(calEvent, jsEvent, view); },
 
@@ -257,8 +261,8 @@
         $.CalendarApp = new CalendarApp, $.CalendarApp.Constructor = CalendarApp
     }(window.jQuery),
 
-    //initializing CalendarApp
-    function ($) {
-        "use strict";
-        $.CalendarApp.init()
-    }(window.jQuery);
+//initializing CalendarApp
+function ($) {
+    "use strict";
+    $.CalendarApp.init()
+}(window.jQuery);

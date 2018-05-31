@@ -457,7 +457,10 @@ public class DBServices
         }
     }
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> b6c1c4ed88f88682f7a6ffa69fca149397494532
     //--------------------------------------------------------------------
     // Results Page
     //--------------------------------------------------------------------
@@ -535,13 +538,54 @@ public class DBServices
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText("..\\../log.txt"))
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
                 Log(ex.Message, w);
             }
             throw ex;
         }
 
+    }
+
+    public bool addEvent(string eventName, string eventDate, string eventDescription, string eventType, string statTime,
+        string endTime, string location)
+    {
+        SqlConnection con = null;
+
+        try
+        {
+            con = connect();
+
+            string command = "INSERT INTO [dbo].[Events] " +
+                             "([Title], [E_Date], [E_Body], [EventType],[StartTime],[EndTime],[Location])" +
+                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}','{6}')";
+
+            string[] DateStringArray = eventDate.Split('/');
+
+            string parsedDate = DateStringArray[2] + "-" + DateStringArray[1] + "-" + DateStringArray[0];
+
+            string formattedCommand = String.Format(command, eventName, parsedDate, eventDescription, eventType, statTime, endTime, location);
+
+            SqlCommand insert = new SqlCommand(formattedCommand, con);
+
+            return Convert.ToBoolean(insert.ExecuteNonQuery());
+
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
     }
 
     //--------------------------------------------------------------------
