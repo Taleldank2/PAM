@@ -269,7 +269,7 @@ public class DBServices
     {
         try
         {
-            string query = "SELECT Picture FROM [dbo].[Users] WHERE UserID =" + userID;
+            string query = "SELECT Picture FROM [dbo].[Users] WHERE UserID=" + userID;
 
             DataTable userTable = queryDb(query);
 
@@ -318,8 +318,7 @@ public class DBServices
         try
         {
             string query = "Select top 1 * from Users" +
-                " Join Athletes ON Users.UserID = Athletes.AthleteID" +
-                " where AthleteID = " + userID;
+                " where UserID = " + userID;
 
             DataTable UserDetails = queryDb(query);
 
@@ -335,18 +334,19 @@ public class DBServices
         }
     }
 
+
     //--------------------------------------------------------------------
     //Function for update profile athlete
     //--------------------------------------------------------------------
-    public bool updateDetails(string userId, string phoneNumber, string userMail, string userPassword, string city, string athleteWeight, string athleteHeight)
+    public bool updateDetails(string userId, string phoneNumber, string userMail, string userPassword, string city)
     {
         SqlConnection con = null;
 
         try
         {
             con = connect();
-            int countUpdatesUser = 0, countUpdatesAthlete = 0;
-            bool updatedUser = true, updatedAthlete = true;
+            int countUpdatesUser = 0;
+            bool updatedUser = true;
 
 
             string commandUser = "UPDATE [dbo].[Users] SET ";
@@ -379,22 +379,6 @@ public class DBServices
             commandUser += " WHERE [UserID]=" + userId;
 
 
-            string commandAthlete = "UPDATE [dbo].[Athletes] SET ";
-            if (athleteHeight != null && athleteHeight != "")
-            {
-                commandAthlete += " [Highet] =" + athleteHeight;
-                countUpdatesAthlete++;
-            }
-            if (athleteWeight != null && athleteWeight != "")
-            {
-                if (countUpdatesAthlete != 0)
-                    commandAthlete += ",";
-                commandAthlete += " [Weight] =" + athleteWeight;
-                countUpdatesAthlete++;
-            }
-            commandAthlete += " WHERE [AthleteID]=" + userId;
-
-
             if (countUpdatesUser > 0)
             {
                 string formattedCommandUser = String.Format(commandUser);
@@ -402,22 +386,12 @@ public class DBServices
                 updatedUser = Convert.ToBoolean(updateUser.ExecuteNonQuery());
             }
 
-            if (countUpdatesAthlete > 0)
-            {
-                string formattedCommandAthlete = String.Format(commandAthlete);
-                SqlCommand updateAthlete = new SqlCommand(formattedCommandAthlete, con);
-                updatedAthlete = Convert.ToBoolean(updateAthlete.ExecuteNonQuery());
-            }
-
-            return updatedAthlete && updatedUser;
+            return updatedUser;
 
         }
         catch (Exception ex)
         {
-            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
-            {
-                Log(ex.Message, w);
-            }
+            // write to log
             throw ex;
         }
         finally
@@ -432,78 +406,32 @@ public class DBServices
     //--------------------------------------------------------------------
     // Dashboard Page 
     //--------------------------------------------------------------------
-    public DataTable getUserLastEvent(string userID)
-    {
-        try
-        {
-            string query = "Select TOP 1 * from events e"
-    + " join dbo.TeamsEvents t on t.EventID = e.EventID"
-    + " join dbo.Athletes a on t.TeamID = a.TeamID"
-    + " WHERE a.AthleteID =" + userID +
-    " ORDER BY E_Date DESC";
 
-            DataTable UserEvent = queryDb(query);
+    //public DataTable getUserLastEvent(string userID)
+    //{
+    //    try
+    //    {
+    //        string query = "Select TOP 1 * from events e"
+    //+ " join dbo.TeamsEvents t on t.EventID = e.EventID"
+    //+ " join dbo.Athletes a on t.TeamID = a.TeamID"
+    //+ " WHERE a.AthleteID =" + userID +
+    //" ORDER BY E_Date DESC";
 
-            return UserEvent;
-        }
-        catch (Exception ex)
-        {
-            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
-            {
-                Log(ex.Message, w);
-            }
-            throw ex;
-        }
+    //        DataTable UserEvent = queryDb(query);
 
-    }
+    //        return UserEvent;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
+    //        {
+    //            Log(ex.Message, w);
+    //        }
+    //        throw ex;
+    //    }
 
-    public string getMessagesCount(string userID)
-    {
-        try
-        {
-            string query = "SELECT count(*) as messagescount FROM [dbo].[Messages] m " +
-               "JOIN dbo.TeamsMessages t on m.MessageID = t.MessageID " +
-               "join dbo.Athletes a on t.TeamID = a.TeamID " +
-               "WHERE AthleteID = " + userID;
+    //}
 
-            DataTable messagesTable = queryDb(query);
-
-            string messagesCount = messagesTable.Rows[0][0].ToString();
-
-            return messagesCount;
-        }
-        catch (Exception ex)
-        {
-            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
-            {
-                Log(ex.Message, w);
-            }
-            throw ex;
-        }
-
-    }
-
-    public string getUserScore(string userID)
-    {
-        try
-        {
-            string query = "select AppScore	from athletes where AthleteID = " + userID;
-
-            DataTable scoreTable = queryDb(query);
-
-            string userScore = scoreTable.Rows[0][0].ToString();
-
-            return userScore;
-        }
-        catch (Exception ex)
-        {
-            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
-            {
-                Log(ex.Message, w);
-            }
-            throw ex;
-        }
-    }
 
     public string getUserName(string userID)
     {
@@ -529,6 +457,10 @@ public class DBServices
         }
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b6c1c4ed88f88682f7a6ffa69fca149397494532
     //--------------------------------------------------------------------
     // Results Page
     //--------------------------------------------------------------------
@@ -664,8 +596,9 @@ public class DBServices
     {
         try
         {
-            string query = " SELECT * FROM [dbo].[Messages] " +
-               " WHERE CreatorID=" + coachID;
+            string query = " SELECT dbo.Messages.*, dbo.Teams.TeamName " +
+                " FROM dbo.Messages CROSS JOIN dbo.Teams " +
+                " WHERE dbo.Messages.CreatorID=" + coachID;
 
             DataTable messagesTable = queryDb(query);
 
@@ -682,9 +615,37 @@ public class DBServices
 
     }
 
+    public string getMessagesCount(string coachID)
+    {
+        try
+        {
+            string query = "SELECT count(*) as messagesCount " +
+                " FROM dbo.Messages CROSS JOIN dbo.Teams " +
+                " WHERE dbo.Messages.CreatorID=" + coachID;
+
+            DataTable messagesTable = queryDb(query);
+
+            string messagesCount = messagesTable.Rows[0][0].ToString();
+
+            return messagesCount;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
+    }
+
+
     //--------------------------------------------------------------------
     // Dashboard page
     //--------------------------------------------------------------------
+
+
     public DataTable getCoachLastResults(string coachID)
     {
         try
@@ -718,8 +679,9 @@ public class DBServices
     {
         try
         {
-            string query = " SELECT TOP(3) * FROM [dbo].[Messages] " +
-               " WHERE CreatorID=" + coachID;
+            string query = " SELECT TOP(3) dbo.Messages.*, dbo.Teams.TeamName "+
+                " FROM dbo.Messages CROSS JOIN dbo.Teams "+
+                " WHERE dbo.Messages.CreatorID=" + coachID; 
 
             DataTable messagesTable = queryDb(query);
 

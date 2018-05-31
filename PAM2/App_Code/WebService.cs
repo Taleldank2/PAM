@@ -249,6 +249,7 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
     //                           Dashboard
     //--------------------------------------------------------------------
+
     [WebMethod]
     public string getCoachLastResults()
     {
@@ -323,6 +324,19 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
     //                           Messages
     //--------------------------------------------------------------------
+
+    [WebMethod]
+    public string getMessagesCount()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string userId = getUserFromSession(userSession);
+
+        string messagesCount = dbHandler.getMessagesCount(userId);
+
+        return messagesCount;
+    }
+
     [WebMethod]
     public string getCoachMessages()
     {
@@ -335,6 +349,34 @@ public class WebService : System.Web.Services.WebService
         string response = dataTableToJson(messages);
 
         return response;
+    }
+
+    //--------------------------------------------------------------------
+    //                           Profile
+    //--------------------------------------------------------------------
+
+    [WebMethod]
+    public string getUserDetails()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string userId = getUserFromSession(userSession);
+
+        DataTable details = dbHandler.getDetails(userId);
+
+        string response = dataTableToJson(details);
+
+        return response;
+    }
+
+    [WebMethod]
+    public void update(string phoneNumber, string userMail, string userPassword, string city, string athleteWeight, string athleteHeight)
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string userId = getUserFromSession(userSession);
+
+        dbHandler.updateDetails(userId, phoneNumber, userMail, userPassword, city);
     }
 
     //--------------------------------------------------------------------
