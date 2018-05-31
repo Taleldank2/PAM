@@ -180,6 +180,61 @@ function getCoachEvents() {
     return events.responseJSON.d
 }
 
+function addEvent() {
+
+    var EventType = $('#EventModalTitle').val()
+    alert(EventType);
+
+    eventName = $('#EventName').val();
+    eventDate = $('#EventDate').val();
+    startTime = $('#StartTime').val();
+    endTime = $('#EndTime').val();
+    eventDesc = $('#EventDesc').val();
+    eventType = EventType;
+    eventLocation = $('#EventLocation').val();
+
+    request = {
+        "eventName": eventName,
+        "eventDate": eventDate,
+        "startTime": startTime,
+        "endTime": endTime,
+        "eventDesc": eventDesc,
+        "eventType": eventType,
+        "eventLocation": eventLocation,
+        
+    };
+
+    var dataString = JSON.stringify(request);
+
+    alert(dataString);
+
+    $.ajax({
+        url: 'WebService.asmx/addEvent',
+        data: dataString,
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: addEventCompleted,
+        error: errorCB
+    })
+
+    function addEventCompleted(result) {
+        alert(result);
+        results = $.parseJSON(result.d);
+        alert(result[0]);
+        alert("אירוע חדש נקלט בהצלחה");
+        
+    }
+
+    function errorCB(e) {
+        alert("The exception message is : " + e.responseText);
+    }
+
+    
+
+}
+
 
 
 //--------------------------------------------------------------------

@@ -386,6 +386,15 @@ public class WebService : System.Web.Services.WebService
         return picturePath;
     }
 
+    [WebMethod]
+    public void addEvent(string eventName, string eventDate, string eventDescription, string eventType, string statTime,
+        string endTime, string location)
+    {
+        dbHandler.addEvent(eventName, eventDate, eventDescription, eventType, statTime,
+        endTime,location);
+               
+    }
+
     //--------------------------------------------------------------------
     // log message (error)
     //--------------------------------------------------------------------
