@@ -62,12 +62,6 @@ function parseUserDetails(results) {
     strProfileName = results[0].FirstName + " " + results[0].LastName;
     $("#ProfileName").append(strProfileName);
 
-    strProfileWeight = results[0].Weight+" קילו";
-    $("#ProfileWeight").append(strProfileWeight);
-
-    strProfileHeight = results[0].Highet +" מטר";
-    $("#ProfileHeight").append(strProfileHeight);
-
     var birthDate = parseInt(results[0]["BirthDate"].split("(")[1].split(")")[0]);
     var tempProfileAge = new Date(birthDate);
     strProfileAge = tempProfileAge.getDate() + "/" + (tempProfileAge.getMonth()+1) + "/" + tempProfileAge.getFullYear();
@@ -81,12 +75,8 @@ function parseUserDetails(results) {
     
     strProfilePhone = results[0].PhoneNumber;
     $("#ProfilePhone").append(strProfilePhone);
-
-    strProfileAppScore = results[0].AppScore;
-    $("#ProfileAppScore").append(strProfileAppScore);
     
 }
-
 
 
 //--------------------------------------------------------------------
@@ -307,7 +297,7 @@ function parseCoachLastMessages(results) {
             //parse table
             var messageid = item["MessageID"]
             var $tr = $('<tr class="email-msg">').append(
-                $('<td>').html("<a class=''></a>").text(item.FirstName + " " + item.LastName),
+                $('<td>').html("<a class=''></a>").text(item.TeamName),
                 $('<td class="hidden-xs">').html("<a id='" + messageid + "' class='email-msg'>" + item.Title + "</a>"),
                 $('<td class="text-right">').text(item.mTime.Hours + ":" + min),
                 $('<td class="text-right">').text(strDate)
@@ -392,6 +382,31 @@ function parseCoachResluts(results) {
 //                           Messages
 //--------------------------------------------------------------------
 
+//---------------------------------//
+
+function getMessagesCount() {
+    $.ajax({
+        url: 'WebService.asmx/getMessagesCount',
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: parseMessagesCount
+    })
+}
+
+function parseMessagesCount(results) {
+    counter=0;
+    str = "Showing " + (counter + 1) + " - ";
+    if (((counter + 1) * 20) > results.d)
+        str +=results.d;
+    else
+        str += ((counter + 1) * 20);
+    str += " of " + results.d;
+    $("#CountInbox").html(str);
+}
+
+
 function getCoachMessages() {
 
     $.ajax({
@@ -421,10 +436,11 @@ function parseCoachMessages(results) {
                 min = "0" + item.mTime.Minutes;
 
             //parse table
-            var messageid = item["MessageID"]
+            var messageid = item["MessageID"];
             var $tr = $('<tr class="email-msg">').append(
-                $('<td>').html("<a class=''></a>").text(item.FirstName + " " + item.LastName),
-                $('<td class="hidden-xs">').html("<a id='" + messageid + "' class='email-msg'>" + item.Title + "</a>"),
+                $('<td>').html("<a class=''></a>").text(item.TeamName),
+                $('<td class="text-right">').text(item.Title),
+                $('<td class="text-right">').text(item.mBody),
                 $('<td class="text-right">').text(item.mTime.Hours + ":" + min),
                 $('<td class="text-right">').text(strDate)
             ).appendTo('#MessagesTable');

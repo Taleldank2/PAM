@@ -37,7 +37,7 @@
                     </a>
                     <!-- Image Logo -->
                     <a href="index.html" class="logo">
-                    <img src="images/Logo.png" alt="" height="80" class="logo-lg">
+                        <img src="images/Logo.png" alt="" height="80" class="logo-lg">
                     </a>
 
                 </div>
@@ -59,13 +59,14 @@
                             </a>
                             <!-- End mobile menu toggle-->
                         </li>
-                        
+
 
                         <li class="list-inline-item dropdown notification-list">
                             <a class="nav-link dropdown-toggle waves-effect nav-user" data-toggle="dropdown" href="#" role="button"
                                aria-haspopup="false" aria-expanded="false">
                                 <img id="profileimage" src="images/profiles/profileempty.html" style="height:60px; margin-top:15%; width:60px" alt="user" class="rounded-circle">
                             </a>
+
                         </li>
 
                     </ul>
@@ -85,7 +86,7 @@
                     <ul class="navigation-menu">
 
                         <li class="has-submenu">
-                            <a href="index.html"><i class="ti-home"></i>בית</a>
+                            <a href="index.html"><i class="ti-home"></i>ניהול קבוצה</a>
                         </li>
 
                         <li class="has-submenu">
@@ -109,9 +110,8 @@
                         </li>
 
                         <li class="has-submenu">
-                            <a href="Login.html" onclick="logOut()"><i class="ti-power-off"></i>התנתק/י</a>
+                            <a href="#" onclick="logOut()"><i class="ti-power-off"></i>התנתק/י</a>
                         </li>
-
 
                     </ul>
                     <!-- End navigation menu -->
@@ -121,91 +121,53 @@
     </header>
     <!-- End Navigation Bar-->
 
+    <form id="editProfile">
+        <div class="wrapper">
+            <div class="container-fluid">
 
-    <div class="wrapper">
-        <div class="container-fluid">
-
-            <!-- Page-Title -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="page-title-box">
-                        <div class="btn-group pull-right">
-                            <ol class="breadcrumb hide-phone p-0 m-0">
-                                <li class="breadcrumb-item"><a href="index.html">ניהול קבוצה</a></li>
-                                <li class="breadcrumb-item active">PAM</li>
-                            </ol>
+                <!-- Page-Title -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-title-box" style="padding:0px;margin-top:45px;">
+                            <div class="btn-group pull-right">
+                                <ol class="breadcrumb hide-phone p-0 m-0">
+                                    <li class="breadcrumb-item active">פרופיל</li>
+                                    <li class="breadcrumb-item"><a href="index.html">ניהול קבוצה</a></li>
+                                    <li class="breadcrumb-item active">PAM</li>
+                                </ol>
+                            </div>
+                            <h5 class="page-title" id="ProfileName" style="font-size:40px;"></h5>
                         </div>
-                        <h5 class="page-title" style="font-size:40px;">ניהול קבוצה</h5>
                     </div>
                 </div>
-            </div>
-            <!-- end page title end breadcrumb -->
+                <!-- end page title end breadcrumb -->
 
-           
+                <div class="row">
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="text-center card-box">
+                            <div class="member-card">
+                                <div class="thumb-xl member-thumb m-b-10 center-block">
+                                    <img id="profileimageProfile" src="images/profiles/profileempty.html" style="width:200px" class="rounded-circle img-thumbnail" alt="profile-image">
+                                </div>
+                                <div id="profileDetails" class="text-left m-t-40">              
+                                    <p class="text-muted font-13"><strong>מספר נייד: </strong><span class="m-l-15" id="ProfilePhone"></span></p>
+                                    <p class="text-muted font-13"><strong>אימייל: </strong><span class="m-l-15" id="ProfileEmail"></span></p>
+                                    <p class="text-muted font-13"><strong>מגורים: </strong><span class="m-l-15" id="ProfileCity"></span></p>
+                                    <p class="text-muted font-13"><strong>תאריך לידה: </strong><span class="m-l-15" id="ProfileAge"></span></p>
+                                </div>
+                                <button id="editBTN" type="button" style="visibility:visible" class="btn btn-danger btn-sm w-sm waves-effect m-t-10 waves-light">עריכה</button>
+                                <button id='cancelBTN' type="button" style="visibility:hidden" class="btn btn-danger btn-sm w-sm waves-effect m-t-10 waves-light">ביטול</button>
+                                <button id='confirmBTN' type="button" style="visibility:hidden" class="btn btn-success btn-sm w-sm waves-effect m-t-10 waves-light">שמור</button>
+                            </div>
 
-        </div> <!-- end container -->
-    </div>
+                        </div> <!-- end card-box -->
 
-    <!-- Results Table -->
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="card-box" style="float:right">
-                <a href="Results.html">
-                    <h4 class="text-dark  header-title m-t-0">תוצאות אחרונות</h4>
-                    <p class="text-muted m-b-25 font-13">
-                        הקש על מנת לראות את כל התוצאות
-                    </p>
 
-                    <div class="table-responsive">
-                        <table class="table mb-0">
-                            <thead>
-                                <tr>
-                                    <th>שם הספורטאי</th>
-                                    <th>ענף</th>
-                                    <th>מרחק</th>
-                                    <th>זמן</th>
-                                    <th>תאריך</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ResultsTableDashboard"></tbody>
-                        </table>
-                    </div>
-                </a>
+                    </div> <!-- end container -->
+                </div>
             </div>
         </div>
-        <!-- end col -8 -->
-
-
-    </div>
-    <!-- Results Table -->
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="card-box" style="float:right">
-                <a href="Inbox.html">
-                    <h4 class="text-dark  header-title m-t-0">הודעות אחרונות</h4>
-                    <p class="text-muted m-b-25 font-13">
-                        הקש על מנת לראות את כל ההודעות
-                    </p>
-
-                    <div class="table-responsive">
-                        <table class="table mb-0">
-                            <thead>
-                                <tr>
-                                    <th>אל</th>
-                                    <th>נושא</th>
-                                    <th>שעה</th>
-                                    <th>תאריך</th>
-                                </tr>
-                            </thead>
-                            <tbody id="MessagesTableDashboard"></tbody>
-                        </table>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <!-- end col -8 -->
-        </div>
-
+    </form>
     <!-- end wrapper -->
     <!-- Footer -->
     <footer class="footer" style="background-color:#ffc107;border-color:darkred">
@@ -218,6 +180,9 @@
         </div>
     </footer>
     <!-- End Footer -->
+    <!-- App js -->
+    <script src="js/Profile.js"></script>
+
     <!-- jQuery  -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/popper.min.js"></script><!-- Popper for Bootstrap --><!-- Tether for Bootstrap -->

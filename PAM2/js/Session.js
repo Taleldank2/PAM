@@ -59,7 +59,6 @@ function checkSession(results) {
             getCoachLastResults();
             getPicturePath();
             getCoachLastMessages();
-            //getUserLastEvent();
             //getLastResult();
             //getName();
         }
@@ -80,6 +79,7 @@ function checkSession(results) {
         else if (window.location.pathname == "/Inbox.html" || window.location.pathname == "/bgroup57/test1/tar1/Inbox.html")
         {
             getCoachMessages();
+            getMessagesCount();
             getPicturePath();
         }
     }
