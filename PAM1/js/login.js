@@ -6,7 +6,7 @@
 //                                      local - false if app mode
 //                                              true if web mode
 //----------------------------------------------------------------------------------------
-var local = true;
+var local = false;
 var ASMXURL = 'WebService.asmx/';
 if (!local) {
     ASMXURL = 'http://proj.ruppin.ac.il/bgroup57/test1/tar1/WebService.asmx/';
@@ -45,12 +45,7 @@ function ajaxLogin(request, successCB, errorCB) {
 }
 
 function successCB(results) {
-    results = $.parseJSON(results.d);
-    if (results == "2") {
-        window.location = "Dashboard.html";
-    }
-    else
-        window.location = "index.html";
+    window.location = "index.html";
 }
 
 function errorCB(e) {
