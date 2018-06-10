@@ -4,7 +4,7 @@
 //                                      local - false if app mode
 //                                              true if web mode
 //----------------------------------------------------------------------------------------
-var local = false;
+var local = true;
 var ASMXURL = 'WebService.asmx/';
 if (!local) {
     ASMXURL = 'http://proj.ruppin.ac.il/bgroup57/test1/tar1/WebService.asmx/';
@@ -61,6 +61,13 @@ function getTeamsNamesFailed() {
 }
 
 function register() {
+
+    isChecked = document.getElementById("checkbox-signup").checked;
+    if (isChecked == false) {
+        alert("תחילה יש לאשר את תנאי השימוש");
+        return;
+    }
+
     file = $('#picture')[0].files[0];
 
     var reader = new FileReader();
@@ -76,7 +83,7 @@ function register() {
 
 function registerNewUser(pictureBase64) {
 
-    userType = $('#usertype').val();
+    userType = 1;
     userTeam = $('#userteam').val();
     userName = $('#name').val();
     userLastName = $('#lastname').val();

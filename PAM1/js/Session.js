@@ -7,7 +7,7 @@
 //                                      local - false if app mode
 //                                              true if web mode
 //----------------------------------------------------------------------------------------
-var local = false;
+var local = true;
 var ASMXURL = 'WebService.asmx/';
 if (!local) {
     ASMXURL = 'http://proj.ruppin.ac.il/bgroup57/test1/tar1/WebService.asmx/';
@@ -92,6 +92,7 @@ function checkSession(results) {
         else if (window.location.pathname == "/Inbox.html" || window.location.pathname == "/bgroup57/test1/tar1/Inbox.html")
         {
             getUserMessages();
+            getMessagesCount();
             getPicturePath();
         }
     }

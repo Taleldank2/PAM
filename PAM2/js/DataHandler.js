@@ -1,10 +1,22 @@
-﻿//--------------------------------------------------------------------
+﻿//----------------------------------------------------------------------------------------
+//                                      local - false if app mode
+//                                              true if web mode
+//----------------------------------------------------------------------------------------
+var local = true;
+var ASMXURL = 'WebService.asmx/';
+if (!local) {
+    ASMXURL = 'http://proj.ruppin.ac.il/bgroup57/test1/tar1/WebService.asmx/';
+}
+
+
+
+//--------------------------------------------------------------------
 //                            index Page
 //--------------------------------------------------------------------
 
 function getUserLastEvent() {
     $.ajax({
-        url: 'WebService.asmx/getUserLastEvent',
+        url: ASMXURL+ 'getUserLastEvent',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -27,7 +39,7 @@ function parseLastEvent(results)
 
 function getName() {
     $.ajax({
-        url: 'WebService.asmx/getName',
+        url: ASMXURL+ 'getName',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -47,7 +59,7 @@ function parseName(results) {
 
 function getUserDetails() {
     $.ajax({
-        url: 'WebService.asmx/getUserDetails',
+        url: ASMXURL+ 'getUserDetails',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -85,7 +97,7 @@ function parseUserDetails(results) {
 
 function getUserResults() {
     $.ajax({
-        url: 'WebService.asmx/getUserResults',
+        url: ASMXURL+ 'getUserResults',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -133,7 +145,7 @@ function parseUserResults(results) {
 function getUserType() {
 
     userType = $.ajax({
-        url: 'WebService.asmx/getUserType',
+        url: ASMXURL+ 'getUserType',
         type: 'POST',
         async: false,
         dataType: 'json',
@@ -147,7 +159,7 @@ function getUserType() {
 function getUserEvents() {
 
     events = $.ajax({
-        url: 'WebService.asmx/getUserEvents',
+        url: ASMXURL+ 'getUserEvents',
         type: 'POST',
         async: false,
         dataType: 'json',
@@ -160,7 +172,7 @@ function getUserEvents() {
 function getCoachEvents() {
 
     events = $.ajax({
-        url: 'WebService.asmx/getCoachEvents',
+        url: ASMXURL+ 'getCoachEvents',
         type: 'POST',
         async: false,
         dataType: 'json',
@@ -199,7 +211,7 @@ function addEvent() {
     alert(dataString);
 
     $.ajax({
-        url: 'WebService.asmx/addEvent',
+        url: ASMXURL+ 'addEvent',
         data: dataString,
         type: 'POST',
         async: true,
@@ -232,7 +244,7 @@ function addEvent() {
 //--------------------------------------------------------------------
 function getPicturePath() {
     $.ajax({
-        url: 'WebService.asmx/getPicturePath',
+        url: ASMXURL+ 'getPicturePath',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -261,7 +273,7 @@ function updateUserPicture(results) {
 
 function getCoachLastResults() {
     $.ajax({
-        url: 'WebService.asmx/getCoachLastResults',
+        url: ASMXURL+ 'getCoachLastResults',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -322,7 +334,7 @@ function parseCoachLastResluts(results) {
 function getCoachLastMessages() {
 
     $.ajax({
-        url: 'WebService.asmx/getCoachLastMessages',
+        url: ASMXURL+ 'getCoachLastMessages',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -370,7 +382,7 @@ function parseCoachLastMessages(results) {
 //--------------------------------------------------------------------
 function getCoachResults() {
     $.ajax({
-        url: 'WebService.asmx/getCoachResults',
+        url: ASMXURL+ 'getCoachResults',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -441,7 +453,7 @@ function parseCoachResluts(results) {
 
 function getMessagesCount() {
     $.ajax({
-        url: 'WebService.asmx/getMessagesCount',
+        url: ASMXURL+ 'getMessagesCount',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -465,7 +477,7 @@ function parseMessagesCount(results) {
 function getCoachMessages() {
 
     $.ajax({
-        url: 'WebService.asmx/getCoachMessages',
+        url: ASMXURL+ 'getCoachMessages',
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -506,7 +518,7 @@ function parseCoachMessages(results) {
 //function UserMessageModal() {
 
 //    $.ajax({
-//        url: 'WebService.asmx/getUserMessages',
+//        url: ASMXURL+ 'getUserMessages',
 //        type: 'POST',
 //        async: true,
 //        dataType: 'json',
