@@ -457,10 +457,7 @@ public class DBServices
         }
     }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> b6c1c4ed88f88682f7a6ffa69fca149397494532
     //--------------------------------------------------------------------
     // Results Page
     //--------------------------------------------------------------------
@@ -547,24 +544,45 @@ public class DBServices
 
     }
 
-    public bool addEvent(string eventName, string eventDate, string eventDescription, string eventType, string statTime,
+    public bool addEvent(string eventName, string eventDate, string eventDescription, string eventType, string startTime,
         string endTime, string location)
     {
         SqlConnection con = null;
+
+        int eventTypeNum = 0;
+
+        switch (eventType)
+        {
+
+            case "אימון":
+                eventTypeNum = 1;
+                break;
+
+            case "משחק":
+                eventTypeNum = 2;
+                break;
+
+            case "מפגש":
+                eventTypeNum = 3;
+                break;
+
+            
+        }
+
 
         try
         {
             con = connect();
 
             string command = "INSERT INTO [dbo].[Events] " +
-                             "([Title], [E_Date], [E_Body], [EventType],[StartTime],[EndTime],[Location])" +
-                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}','{6}')";
+                             "([EventType], [Title], [E_Body], [E_Date],[StartTime],[EndTime],[IsRecursive],[Location],[Note],[CreationTime])" +
+                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}',{6},'{7}','{8}',{9})";
 
             string[] DateStringArray = eventDate.Split('/');
 
             string parsedDate = DateStringArray[2] + "-" + DateStringArray[1] + "-" + DateStringArray[0];
 
-            string formattedCommand = String.Format(command, eventName, parsedDate, eventDescription, eventType, statTime, endTime, location);
+            string formattedCommand = String.Format(command, eventTypeNum, eventName, eventDescription, parsedDate,startTime, endTime,null, location,null, DateTime.Now.ToString("h:mm:ss tt"));
 
             SqlCommand insert = new SqlCommand(formattedCommand, con);
 
@@ -679,9 +697,9 @@ public class DBServices
     {
         try
         {
-            string query = " SELECT TOP(3) dbo.Messages.*, dbo.Teams.TeamName "+
-                " FROM dbo.Messages CROSS JOIN dbo.Teams "+
-                " WHERE dbo.Messages.CreatorID=" + coachID; 
+            string query = " SELECT TOP(3) dbo.Messages.*, dbo.Teams.TeamName " +
+                " FROM dbo.Messages CROSS JOIN dbo.Teams " +
+                " WHERE dbo.Messages.CreatorID=" + coachID;
 
             DataTable messagesTable = queryDb(query);
 

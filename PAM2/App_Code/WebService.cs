@@ -246,6 +246,28 @@ public class WebService : System.Web.Services.WebService
 
     }
 
+    [WebMethod]
+    public string addEvent(string eventName, string eventDate, string eventDescription, string eventType, string statTime,
+       string endTime, string eventLocation)
+    {
+
+        bool answer = false;
+        answer = dbHandler.addEvent(eventName, eventDate, eventDescription, eventType, statTime,
+        endTime, eventLocation);
+
+        JavaScriptSerializer js = new JavaScriptSerializer();
+
+        string jsonString = js.Serialize("שגיאה בקליטת אירוע");
+
+        if (answer)
+        {
+         jsonString = js.Serialize("אירוע נקלט בהצלחה");
+        }
+        
+        return jsonString;
+              
+    }
+
     //--------------------------------------------------------------------
     //                           Dashboard
     //--------------------------------------------------------------------
@@ -428,14 +450,7 @@ public class WebService : System.Web.Services.WebService
         return picturePath;
     }
 
-    [WebMethod]
-    public void addEvent(string eventName, string eventDate, string eventDescription, string eventType, string statTime,
-        string endTime, string location)
-    {
-        dbHandler.addEvent(eventName, eventDate, eventDescription, eventType, statTime,
-        endTime,location);
-               
-    }
+   
 
     //--------------------------------------------------------------------
     // log message (error)

@@ -172,8 +172,8 @@ function getCoachEvents() {
 
 function addEvent() {
 
-    var EventType = $('#EventModalTitle').val()
-    alert(EventType);
+    //var EventType = $('#EventModalTitle').text()
+    //alert(EventType);
 
     eventName = $('#EventName').val();
     eventDate = $('#EventDate').val();
@@ -188,10 +188,9 @@ function addEvent() {
         "eventDate": eventDate,
         "startTime": startTime,
         "endTime": endTime,
-        "eventDesc": eventDesc,
+        "eventDescription": eventDesc,
         "eventType": eventType,
-        "eventLocation": eventLocation,
-        
+        "eventLocation": eventLocation,        
     };
 
     var dataString = JSON.stringify(request);
