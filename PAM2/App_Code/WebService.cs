@@ -99,10 +99,7 @@ public class WebService : System.Web.Services.WebService
                         // serialize to string
                         JavaScriptSerializer js = new JavaScriptSerializer();
                         string jsonString = "";
-                        if (Convert.ToInt32(myUser.UserType) == 1)
-                            jsonString = js.Serialize("ברוך הבא " + myUser.FirstName);
-                        else
-                            jsonString = js.Serialize(2);
+                        jsonString = js.Serialize("ברוך הבא " + myUser.FirstName);
                         return jsonString;
 
                     }

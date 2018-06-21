@@ -110,7 +110,7 @@ public class WebService : System.Web.Services.WebService
                         // serialize to string
                         JavaScriptSerializer js = new JavaScriptSerializer();
                         string jsonString = "";
-
+                        jsonString = js.Serialize("ברוך הבא " + myUser.FirstName);
                         return jsonString;
 
                     }

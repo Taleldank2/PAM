@@ -2,7 +2,7 @@
 //                                      local - false if app mode
 //                                              true if web mode
 //----------------------------------------------------------------------------------------
-var local = false;
+var local = true;
 var ASMXURL = 'WebService.asmx/';
 if (!local) {
     ASMXURL = 'http://proj.ruppin.ac.il/bgroup57/test1/tar1/WebService.asmx/';
@@ -77,6 +77,7 @@ function getMessagesCount() {
 function parseMessagesCount(results) {
     str = results.d;
     $("#MainMessages").html(str);
+    parseMessagesCountAthlete(results);
 }
 
 //---------------------------------//
@@ -115,7 +116,7 @@ function getName() {
 
 function parseName(results) {
     str = results.d;
-    $("#MainWelcome").append(" "+str);
+    $("#MainWelcome").append(" " + str);
 }
 
 
@@ -269,6 +270,19 @@ function getCoachEvents() {
 //--------------------------------------------------------------------
 //                           Messages Page
 //--------------------------------------------------------------------
+
+//---------------------------------//
+
+function parseMessagesCountAthlete(results) {
+    counter=0;
+    str = "Showing " + (counter + 1) + " - ";
+    if (((counter + 1) * 20) > results.d)
+        str +=results.d;
+    else
+        str += ((counter + 1) * 20);
+    str += " of " + results.d;
+    $("#CountInbox").html(str);
+}
 
 function getUserMessages() {
 
