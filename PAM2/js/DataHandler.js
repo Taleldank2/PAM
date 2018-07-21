@@ -463,16 +463,16 @@ function getMessagesCount() {
 }
 
 function parseMessagesCount(results) {
-    counter=0;
+    counter = 0;
     str = "Showing " + (counter + 1) + " - ";
     if (((counter + 1) * 20) > results.d)
-        str +=results.d;
+        str += results.d;
     else
         str += ((counter + 1) * 20);
     str += " of " + results.d;
     $("#CountInbox").html(str);
 }
-
+;                                                                                                                       
 
 function getCoachMessages() {
 

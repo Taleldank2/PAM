@@ -61,7 +61,7 @@ function ajaxLogin(request, successCB, errorCB) {
     //Serialize the object to JSON string
     var dataString = JSON.stringify(request);
     $.ajax({
-        url: 'WebService.asmx/Login',
+        url: ASMXURL+ 'Login',
         data: dataString,
         type: 'POST',
         async: false,
@@ -109,7 +109,7 @@ function checkUserExists(session)
 
     var dataString = JSON.stringify(request);
     $.ajax({ 
-        url: 'WebService.asmx/checkUserSession',         
+        url: ASMXURL+ 'checkUserSession',         
         data: dataString,                     
         type: 'POST',
         async: false,
@@ -133,5 +133,3 @@ function checkSessionError(a,b,c) {
     console.log(c);
     alert('checkSessionError');
 }
-
-
