@@ -167,6 +167,7 @@ public class WebService : System.Web.Services.WebService
                 return pair.Key;
             }
         }
+
         throw new Exception("Invalid session id");
 
     }
@@ -241,6 +242,28 @@ public class WebService : System.Web.Services.WebService
 
         return response;
 
+    }
+
+    [WebMethod]
+    public string addEvent(string eventName, string eventDate, string eventDescription, string eventType, string startTime,
+       string endTime, string eventLocation)
+    {
+
+        bool answer = false;
+        answer = dbHandler.addEvent(eventName, eventDate, eventDescription, eventType, startTime,
+        endTime, eventLocation);
+
+        JavaScriptSerializer js = new JavaScriptSerializer();
+
+        string jsonString = js.Serialize("שגיאה בקליטת אירוע");
+
+        if (answer)
+        {
+         jsonString = js.Serialize("אירוע נקלט בהצלחה");
+        }
+        
+        return jsonString;
+              
     }
 
     //--------------------------------------------------------------------
@@ -348,6 +371,30 @@ public class WebService : System.Web.Services.WebService
         return response;
     }
 
+    [WebMethod]
+    public string getCoachTeams()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string coachId = getUserFromSession(userSession);
+
+        DataTable teams = dbHandler.getCoachTeams(coachId);
+
+        string response = dataTableToJson(teams);
+
+        return response;
+    }
+
+    [WebMethod]
+    public void createMessage(String title, String message, String[] teamIds)
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string coachId = getUserFromSession(userSession);
+
+        dbHandler.createNewMessage(title, message, teamIds, coachId);       
+    }
+
     //--------------------------------------------------------------------
     //                           Profile
     //--------------------------------------------------------------------
@@ -425,14 +472,7 @@ public class WebService : System.Web.Services.WebService
         return picturePath;
     }
 
-    [WebMethod]
-    public void addEvent(string eventName, string eventDate, string eventDescription, string eventType, string statTime,
-        string endTime, string location)
-    {
-        dbHandler.addEvent(eventName, eventDate, eventDescription, eventType, statTime,
-        endTime,location);
-               
-    }
+   
 
     //--------------------------------------------------------------------
     // log message (error)

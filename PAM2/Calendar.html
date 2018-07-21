@@ -122,7 +122,6 @@
         </div> <!-- end navbar-custom -->
     </header>
 
-
     <div class="wrapper">
         <div class="container-fluid">
 
@@ -145,6 +144,8 @@
             <!-- Calendar -->
             <div class="row">
                 <div class="col-lg-12">
+
+
                     <div class="row">
                         <!-- Calendar -->
 
@@ -158,14 +159,14 @@
                                             </button>-->
                                             <div id="external-events" class="m-t-20">
 
-                                                <p>גרור ושחרר את האירוע במקום הרצוי או לחץ על הלוח שנה</p>
-                                                <div class="external-event bg-success ui-draggable ui-draggable-handle" data-class="bg-success" style="position: relative;">
+                                                <p style="text-align:right;">גרור ושחרר את האירוע במקום הרצוי או לחץ על הלוח שנה</p>
+                                                <div class="external-event bg-success ui-draggable ui-draggable-handle" data-class="bg-success" style="position: relative; text-align:right;">
                                                     <i class="fa fa-move"></i>אימון
                                                 </div>
-                                                <div class="external-event bg-pink ui-draggable ui-draggable-handle" data-class="bg-danger" style="position: relative;">
+                                                <div class="external-event bg-pink ui-draggable ui-draggable-handle" data-class="bg-danger" style="position: relative; text-align:right;">
                                                     <i class="fa fa-move"></i>משחק
                                                 </div>
-                                                <div class="external-event bg-info ui-draggable ui-draggable-handle" data-class="bg-info" style="position: relative;">
+                                                <div class="external-event bg-info ui-draggable ui-draggable-handle" data-class="bg-info" style="position: relative; text-align:right;">
                                                     <i class="fa fa-move"></i>מפגש
                                                 </div>
                                                 <!--<div class="external-event bg-purple ui-draggable ui-draggable-handle" data-class="bg-purple" style="position: relative;">
@@ -188,20 +189,70 @@
                         </div>
                         <div class="col-lg-9">
                             <div class="card-box">
-                                <div id="calendar" class="fc fc-unthemed fc-ltr">
-                                    <div class="col-lg-9">
-                                        <div class="card-box">
-                                            <div id="calendar"></div>
-                                        </div>
-                                    </div>
+                                <div id="calendar" class="fc fc-unthemed fc-ltr">                                   
                                 </div>
                             </div>
                         </div>
 
                     </div>
 
+                    <!--Add event Modal-->
+                    <div id="createEventModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">close</span></button>
+                                    <h4>צור אירוע</h4>
+                                </div>
 
 
+                                <div id="modalBody" class="modal-body">
+
+
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" placeholder="סוג האירוע" id="EventType" disabled="disabled">
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" placeholder="כותרת" id="EventName">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" placeholder="מיקום" id="EventLocation">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <!--<div class="input-group date" data-provide="datepicker" id="EventDatePick">-->
+                                        <input type="date" data-date-format="DD MMMM YYYY" class="form-control" placeholder="start date" id="EventDate" dir="rtl">
+                                        <!--</div>-->
+                                    </div>
+
+                                    <div class="form-group">
+                                        <!--<div class="input-group date" data-provide="datepicker">-->
+                                        <input type="time" class="form-control" placeholder="StartTime" id="StartTime" dir="rtl">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <!--<div class="input-group date" data-provide="datepicker">-->
+                                        <input type="time" class="form-control" placeholder="EndTime" id="EndTime" dir="rtl">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <textarea class="form-control" type="text" rows="4" placeholder="Event Description" id="EventDesc"></textarea>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="modal-footer">
+                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                                    <button type="submit" class="btn btn-primary" id="submitButton" onclick="addEvent()">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Show Event Modal -->
                     <div class="modal fade none-border show" id="event-modal">
                         <div class="modal-dialog">
@@ -210,7 +261,6 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     <h4 id="EventModalTitle" class="modal-title mt-0" style="font-weight:bold; color:red;">נושא: </h4>
                                 </div>
-
                                 <div class="modal-header" style="display:inline;float:right">
                                     <h5 style="float:right;font-weight:bold; text-decoration:underline"> תוכן: </h5>
                                     <h5 id="EventModalBody" style="display:inline;float:right"></h5>
@@ -238,57 +288,15 @@
                                     </form>
                                 </div>
 
-
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">סגור</button>
                                     <!--<button type="button" class="btn btn-success save-event waves-effect waves-light" data-dismiss="modal">שמור</button>-->
                                     <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">מחק</button>
                                 </div>
+
                             </div>
                         </div>
                     </div>
-
-
-                    <!-- Add Category Modal  -->
-                    <!--<div class="modal fade none-border" id="add-category">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h3 class="modal-title mt-0">קטגוריית אירוע חדשה</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <form role="form">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label class="control-label">כותרת</label>
-                                                <input class="form-control form-white" placeholder="הכנס שם" type="text" name="category-name" />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="control-label">בחר קטגוריה</label>
-                                                <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
-                                                    <option value="success">אימון</option>
-                                                    <option value="danger">משחק</option>
-                                                    <option value="info">מפגש</option>
-                                                    <option value="practice">אימון</option>
-                                                    <option value="game">משחק</option>
-                                                    <option value="meeting">מפגש</option>
-                                                    <option value="pink">Pink</option>
-                                                    <option value="primary">Primary</option>
-                                                    <option value="warning">Warning</option>
-                                                    <option value="inverse">Inverse</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
                     <!--Add event Modal-->
                     <div id="createEventModal" class="modal fade">
                         <div class="modal-dialog">
@@ -311,33 +319,20 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <div class="input-group date" data-provide="datepicker" id="EventDatePick">
-                                            <input type="text" class="form-control" placeholder="start date" id="EventDate">
-                                        </div>
+                                        <!--<div class="input-group date" data-provide="datepicker" id="EventDatePick">-->
+                                        <input type="date" class="form-control" placeholder="start date" id="EventDate">
+                                        <!--</div>-->
                                     </div>
 
                                     <div class="form-group">
-                                        <div class="input-group date" data-provide="datepicker">
-                                            <input type="time" class="form-control" placeholder="StartTime" id="StartTime">
-                                        </div>
+                                        <!--<div class="input-group date" data-provide="datepicker">-->
+                                        <input type="time" class="form-control" placeholder="StartTime" id="StartTime">
                                     </div>
 
                                     <div class="form-group">
                                         <!--<div class="input-group date" data-provide="datepicker">-->
                                         <input type="time" class="form-control" placeholder="EndTime" id="EndTime">
-                                        <div class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </div>
                                     </div>
-
-                                    <!--<div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text"><i class="mdi mdi-calendar-today"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control" placeholder="date" id="datepicker">
-                                        </div>
-                                    </div>-->
 
                                     <div class="form-group">
                                         <textarea class="form-control" type="text" rows="4" placeholder="Event Description" id="EventDesc"></textarea>
@@ -351,31 +346,15 @@
                                     <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
                                 </div>
 
-
                             </div>
                         </div>
                     </div>
 
-
-
-
                 </div>
             </div>
 
         </div>
-    </div>
-
-
-    <!-- Footer
-    <footer class="footer" style="background-color:#ffc107;border-color:darkred">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    PAM © T&T PRODUCTIONS 2018
-                </div>
-            </div>
-        </div>
-    </footer>
+    </div>  
 
 
     <!-- jQuery  -->
@@ -398,8 +377,6 @@
 
     <script src="plugins/fullcalendar/js/fullcalendar.min.js"></script>
     <script src="assets/pages/jquery.fullcalendar.js"></script>
-
-
 
 
     <!-- App js -->

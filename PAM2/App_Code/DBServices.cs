@@ -457,6 +457,9 @@ public class DBServices
         }
     }
 
+<<<<<<< HEAD
+=======
+
     //--------------------------------------------------------------------
     // Results Page
     //--------------------------------------------------------------------
@@ -543,24 +546,47 @@ public class DBServices
 
     }
 
-    public bool addEvent(string eventName, string eventDate, string eventDescription, string eventType, string statTime,
+    public bool addEvent(string eventName, string eventDate, string eventDescription, string eventType, string startTime,
         string endTime, string location)
     {
         SqlConnection con = null;
+
+        int eventTypeNum = 0;
+
+        switch (eventType)
+        {
+
+            case "אימון":
+                eventTypeNum = 1;
+                break;
+
+            case "משחק":
+                eventTypeNum = 2;
+                break;
+
+            case "מפגש":
+                eventTypeNum = 3;
+                break;
+
+            
+        }
+
 
         try
         {
             con = connect();
 
+            //CreationTime change to STRING in db!!!!
+
             string command = "INSERT INTO [dbo].[Events] " +
-                             "([Title], [E_Date], [E_Body], [EventType],[StartTime],[EndTime],[Location])" +
-                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}','{6}')";
+                             "([EventType], [Title], [E_Body], [E_Date],[StartTime],[EndTime],[IsRecursive],[Location],[Note],   [CreationTime] )" +
+                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}' )";
 
-            string[] DateStringArray = eventDate.Split('/');
+            //string[] DateStringArray = eventDate.Split('-');
 
-            string parsedDate = DateStringArray[2] + "-" + DateStringArray[1] + "-" + DateStringArray[0];
-
-            string formattedCommand = String.Format(command, eventName, parsedDate, eventDescription, eventType, statTime, endTime, location);
+            //string parsedDate = DateStringArray[2] + "-" + DateStringArray[1] + "-" + DateStringArray[0];
+            //string datet = DateTime.Now.ToString("yyyy-mm-dd hh:mi:ss");
+            string formattedCommand = String.Format(command, eventTypeNum, eventName, eventDescription, eventDate,startTime, endTime,null, location,null,DateTime.Now.ToString());
 
             SqlCommand insert = new SqlCommand(formattedCommand, con);
 
@@ -592,9 +618,10 @@ public class DBServices
     {
         try
         {
-            string query = " SELECT dbo.Messages.*, dbo.Teams.TeamName " +
-                " FROM dbo.Messages CROSS JOIN dbo.Teams " +
-                " WHERE dbo.Messages.CreatorID=" + coachID;
+            string query = " SELECT m.*, t.TeamName " +
+                " FROM dbo.Messages m JOIN dbo.TeamsMessages tm on m.MessageID = tm.MessageID  " +
+                " JOIN dbo.Teams t on t.TeamID = tm.TeamID " +
+                " WHERE m.CreatorID=" + coachID + " ORDER BY mDate DESC, mTime DESC";
 
             DataTable messagesTable = queryDb(query);
 
@@ -675,9 +702,10 @@ public class DBServices
     {
         try
         {
-            string query = " SELECT TOP(3) dbo.Messages.*, dbo.Teams.TeamName "+
-                " FROM dbo.Messages CROSS JOIN dbo.Teams "+
-                " WHERE dbo.Messages.CreatorID=" + coachID; 
+            string query = " SELECT TOP(3) m.*, t.TeamName " +
+                " FROM dbo.Messages m  JOIN  dbo.TeamsMessages tm on m.MessageID = tm.MessageID " +
+                " JOIN dbo.Teams t on t.TeamID = tm.TeamID " +
+                " WHERE m.CreatorID=" + coachID + " ORDER BY mDate DESC, mTime DESC";
 
             DataTable messagesTable = queryDb(query);
 
@@ -693,6 +721,87 @@ public class DBServices
         }
 
     }
+
+    public DataTable getCoachTeams(string coachID)
+    {
+        try
+        {
+            string query = "select TeamID, TeamName from dbo.teams where HeadCoachID = " + coachID;
+
+            DataTable messagesTable = queryDb(query);
+
+            return messagesTable;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
+    }
+
+    public void createNewMessage(string title, string message, String[] teamIds, string coachId)
+    {
+        String date = DateTime.Now.ToString("yyyy-MM-dd");
+        String hours = DateTime.Now.ToString().Split(' ')[1];
+
+        String insertQuery = "INSERT INTO dbo.Messages (CreatorID, Title, mBody, mDate, mTime) VALUES({0}, '{1}', '{2}', '{3}', '{4}'); SELECT CAST(scope_identity() AS int)";
+
+        int messageId = insertMessage(String.Format(insertQuery, coachId, title, message, date, hours), true);
+
+        String insertQuery2 = "INSERT INTO dbo.TeamsMessages VALUES({0}, {1})";
+
+        foreach (String teamId in teamIds)
+        {
+            insertMessage(String.Format(insertQuery2, messageId, teamId), false);
+        }
+    }
+
+    public int insertMessage(string command, bool isCreate)
+    {
+        SqlConnection con = null;
+
+        try 
+        {
+            con = connect();
+
+            SqlCommand cmd = new SqlCommand(command, con);
+
+            int newID = -1;
+
+            if (isCreate)
+            {
+                newID = (int)cmd.ExecuteScalar();
+            }
+            else
+            {
+                newID = (int)cmd.ExecuteNonQuery();
+            }
+
+            if (con.State == System.Data.ConnectionState.Open) con.Close();
+
+            return newID;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }            
+    }
+
 
     //--------------------------------------------------------------------
     // log message (error)

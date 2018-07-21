@@ -5,6 +5,8 @@
 * 
 */
 
+var defaultEvents;
+
 
 !function($) {
     "use strict";
@@ -20,9 +22,14 @@
         this.$calendarObj = null
     };
 
+    var EventType = "";
+    
+
     /* on drop */
     CalendarApp.prototype.onDrop = function (eventObj, date) {
         var $this = this;
+        EventType = eventObj["0"].innerText;
+        
         // retrieve the dropped element's stored Event Object
         var originalEventObject = eventObj.data('eventObject');
         var $categoryClass = eventObj.attr('data-class');
@@ -215,7 +222,9 @@
                 )
         }
 
-        var defaultEvents = eventList;
+        defaultEvents = eventList;
+        alert("defaultEvents is set")
+        alert(defaultEvents);
         var $this = this;
         $this.$calendarObj = $this.$calendar.fullCalendar({
             slotDuration: '00:15:00', /* If we want to split day time each 15minutes */
@@ -235,10 +244,17 @@
             eventLimit: true, // allow "more" link when too many events
             selectable: true,
             drop: function (date) {
-                $this.onDrop($(this), date);
-                alert("PAM DROP");
-                $('#createEventModal').modal('show');
+
+                $this.onDrop($(this), date);                
                 
+                //Send the date to the modal
+                $('#EventDate').val(date.format('YYYY-MM-DD'));
+
+                //send the event type to the modal
+                $('#EventType').val(EventType);
+
+                //open modal
+                $('#createEventModal').modal('show');                 
             },
             select: function (start, end, allDay) { $this.onSelect(start, end, allDay); },
             eventClick: function (calEvent, jsEvent, view) { $this.onEventClick(calEvent, jsEvent, view); },
