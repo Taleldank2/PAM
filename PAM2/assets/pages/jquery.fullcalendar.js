@@ -5,6 +5,8 @@
 * 
 */
 
+var defaultEvents;
+
 
 !function($) {
     "use strict";
@@ -20,7 +22,8 @@
         this.$calendarObj = null
     };
 
-    var EventType="";
+    var EventType = "";
+    
 
     /* on drop */
     CalendarApp.prototype.onDrop = function (eventObj, date) {
@@ -219,7 +222,9 @@
                 )
         }
 
-        var defaultEvents = eventList;
+        defaultEvents = eventList;
+        alert("defaultEvents is set")
+        alert(defaultEvents);
         var $this = this;
         $this.$calendarObj = $this.$calendar.fullCalendar({
             slotDuration: '00:15:00', /* If we want to split day time each 15minutes */

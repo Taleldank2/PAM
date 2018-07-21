@@ -444,6 +444,68 @@ function parseCoachResluts(results) {
 
 //---------------------------------//
 
+function sendMessage() {
+
+    teams = []
+
+    teamList = $('#teams option:selected')
+    
+    for (i = 0 ; i < teamList.length; i++)
+    {
+        teams.push(teamList[i].value)
+    }
+
+    title = $('#Title').val()
+    message = $('#Message').val()
+
+    request = {
+        "title": title,
+        "message": message,
+        "teamIds": teams
+    };
+
+    var dataString = JSON.stringify(request);
+
+    $.ajax({
+        url: ASMXURL + 'createMessage',
+        type: 'POST',
+        data: dataString,
+        async: false,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: function () {
+            alert("הודעה נשלחה בהצלחה");
+            window.location = "/Inbox.html";
+        }
+    })
+}
+
+function getCoachTeams()
+{
+    $.ajax({
+        url: ASMXURL + 'getCoachTeams',
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: updateCoachTeams
+    })
+}
+
+function updateCoachTeams(response)
+{
+    teams = JSON.parse(response.d)
+
+    for (i = 0; i < teams.length; i++) {
+        teamID = teams[i].TeamID
+        teamName = teams[i].TeamName
+
+        $("#teams").append("<option value='" + teamID + "'>" + teamName + "</option>")
+    }
+
+    $('#teams').multipleSelect();
+}
+
 function getMessagesCount() {
     $.ajax({
         url: ASMXURL+ 'getMessagesCount',

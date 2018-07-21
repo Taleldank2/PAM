@@ -167,6 +167,7 @@ public class WebService : System.Web.Services.WebService
                 return pair.Key;
             }
         }
+
         throw new Exception("Invalid session id");
 
     }
@@ -368,6 +369,30 @@ public class WebService : System.Web.Services.WebService
         string response = dataTableToJson(messages);
 
         return response;
+    }
+
+    [WebMethod]
+    public string getCoachTeams()
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string coachId = getUserFromSession(userSession);
+
+        DataTable teams = dbHandler.getCoachTeams(coachId);
+
+        string response = dataTableToJson(teams);
+
+        return response;
+    }
+
+    [WebMethod]
+    public void createMessage(String title, String message, String[] teamIds)
+    {
+        string userSession = Context.Request.Cookies["session"]["session"];
+
+        string coachId = getUserFromSession(userSession);
+
+        dbHandler.createNewMessage(title, message, teamIds, coachId);       
     }
 
     //--------------------------------------------------------------------

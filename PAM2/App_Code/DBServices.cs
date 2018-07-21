@@ -616,9 +616,10 @@ public class DBServices
     {
         try
         {
-            string query = " SELECT dbo.Messages.*, dbo.Teams.TeamName " +
-                " FROM dbo.Messages CROSS JOIN dbo.Teams " +
-                " WHERE dbo.Messages.CreatorID=" + coachID;
+            string query = " SELECT m.*, t.TeamName " +
+                " FROM dbo.Messages m JOIN dbo.TeamsMessages tm on m.MessageID = tm.MessageID  " +
+                " JOIN dbo.Teams t on t.TeamID = tm.TeamID " +
+                " WHERE m.CreatorID=" + coachID + " ORDER BY mDate DESC, mTime DESC";
 
             DataTable messagesTable = queryDb(query);
 
@@ -699,9 +700,10 @@ public class DBServices
     {
         try
         {
-            string query = " SELECT TOP(3) dbo.Messages.*, dbo.Teams.TeamName " +
-                " FROM dbo.Messages CROSS JOIN dbo.Teams " +
-                " WHERE dbo.Messages.CreatorID=" + coachID;
+            string query = " SELECT TOP(3) m.*, t.TeamName " +
+                " FROM dbo.Messages m  JOIN  dbo.TeamsMessages tm on m.MessageID = tm.MessageID " +
+                " JOIN dbo.Teams t on t.TeamID = tm.TeamID " +
+                " WHERE m.CreatorID=" + coachID + " ORDER BY mDate DESC, mTime DESC";
 
             DataTable messagesTable = queryDb(query);
 
@@ -717,6 +719,87 @@ public class DBServices
         }
 
     }
+
+    public DataTable getCoachTeams(string coachID)
+    {
+        try
+        {
+            string query = "select TeamID, TeamName from dbo.teams where HeadCoachID = " + coachID;
+
+            DataTable messagesTable = queryDb(query);
+
+            return messagesTable;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
+    }
+
+    public void createNewMessage(string title, string message, String[] teamIds, string coachId)
+    {
+        String date = DateTime.Now.ToString("yyyy-MM-dd");
+        String hours = DateTime.Now.ToString().Split(' ')[1];
+
+        String insertQuery = "INSERT INTO dbo.Messages (CreatorID, Title, mBody, mDate, mTime) VALUES({0}, '{1}', '{2}', '{3}', '{4}'); SELECT CAST(scope_identity() AS int)";
+
+        int messageId = insertMessage(String.Format(insertQuery, coachId, title, message, date, hours), true);
+
+        String insertQuery2 = "INSERT INTO dbo.TeamsMessages VALUES({0}, {1})";
+
+        foreach (String teamId in teamIds)
+        {
+            insertMessage(String.Format(insertQuery2, messageId, teamId), false);
+        }
+    }
+
+    public int insertMessage(string command, bool isCreate)
+    {
+        SqlConnection con = null;
+
+        try 
+        {
+            con = connect();
+
+            SqlCommand cmd = new SqlCommand(command, con);
+
+            int newID = -1;
+
+            if (isCreate)
+            {
+                newID = (int)cmd.ExecuteScalar();
+            }
+            else
+            {
+                newID = (int)cmd.ExecuteNonQuery();
+            }
+
+            if (con.State == System.Data.ConnectionState.Open) con.Close();
+
+            return newID;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }            
+    }
+
 
     //--------------------------------------------------------------------
     // log message (error)
