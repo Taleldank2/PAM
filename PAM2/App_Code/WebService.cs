@@ -244,12 +244,12 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string addEvent(string eventName, string eventDate, string eventDescription, string eventType, string statTime,
+    public string addEvent(string eventName, string eventDate, string eventDescription, string eventType, string startTime,
        string endTime, string eventLocation)
     {
 
         bool answer = false;
-        answer = dbHandler.addEvent(eventName, eventDate, eventDescription, eventType, statTime,
+        answer = dbHandler.addEvent(eventName, eventDate, eventDescription, eventType, startTime,
         endTime, eventLocation);
 
         JavaScriptSerializer js = new JavaScriptSerializer();

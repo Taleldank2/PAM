@@ -574,15 +574,17 @@ public class DBServices
         {
             con = connect();
 
+            //CreationTime change to STRING in db!!!!
+
             string command = "INSERT INTO [dbo].[Events] " +
-                             "([EventType], [Title], [E_Body], [E_Date],[StartTime],[EndTime],[IsRecursive],[Location],[Note],[CreationTime])" +
-                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}',{6},'{7}','{8}',{9})";
+                             "([EventType], [Title], [E_Body], [E_Date],[StartTime],[EndTime],[IsRecursive],[Location],[Note],   [CreationTime] )" +
+                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}' )";
 
-            string[] DateStringArray = eventDate.Split('/');
+            //string[] DateStringArray = eventDate.Split('-');
 
-            string parsedDate = DateStringArray[2] + "-" + DateStringArray[1] + "-" + DateStringArray[0];
-
-            string formattedCommand = String.Format(command, eventTypeNum, eventName, eventDescription, parsedDate,startTime, endTime,null, location,null, DateTime.Now.ToString("h:mm:ss tt"));
+            //string parsedDate = DateStringArray[2] + "-" + DateStringArray[1] + "-" + DateStringArray[0];
+            //string datet = DateTime.Now.ToString("yyyy-mm-dd hh:mi:ss");
+            string formattedCommand = String.Format(command, eventTypeNum, eventName, eventDescription, eventDate,startTime, endTime,null, location,null,DateTime.Now.ToString());
 
             SqlCommand insert = new SqlCommand(formattedCommand, con);
 

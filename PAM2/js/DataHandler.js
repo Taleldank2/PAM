@@ -192,7 +192,7 @@ function addEvent() {
     startTime = $('#StartTime').val();
     endTime = $('#EndTime').val();
     eventDesc = $('#EventDesc').val();
-    eventType = EventType;
+    eventType = EventType.value;
     eventLocation = $('#EventLocation').val();
 
     request = {
@@ -208,7 +208,7 @@ function addEvent() {
     var dataString = JSON.stringify(request);
 
     alert(dataString);
-
+    
     $.ajax({
         url: ASMXURL+ 'addEvent',
         data: dataString,
@@ -221,19 +221,13 @@ function addEvent() {
     })
 
     function addEventCompleted(result) {
-        alert(result);
         results = $.parseJSON(result.d);
-        alert(result[0]);
-        alert("אירוע חדש נקלט בהצלחה");
-        
+        alert(results);
     }
 
     function errorCB(e) {
         alert("The exception message is : " + e.responseText);
     }
-
-    
-
 }
 
 
@@ -514,44 +508,3 @@ function parseCoachMessages(results) {
     });
 }
 
-//function UserMessageModal() {
-
-//    $.ajax({
-//        url: ASMXURL+ 'getUserMessages',
-//        type: 'POST',
-//        async: true,
-//        dataType: 'json',
-//        contentType: 'application/json; charset = utf-8',
-//        success: parseUserMessageModal,
-//        error: messageModalError
-
-//    });
-
-//}
-
-//function parseUserMessageModal(results) {
-
-//    //Convert results back to JSON
-//    results = $.parseJSON(results.d);
-
-//    //Go Over the results;
-//    for (var i = 0; i < results.length; i++) {
-//        if (results[i].MessageID == MessageInfo.id) {
-//            //load values to data modal
-//            document.getElementById("messageModalTitle").innerText = results[i].Title;
-//            document.getElementById("messageModalBody").innerText = results[i].mBody;
-//            //open modal
-//            $('#message-modal').modal('show');
-//            return;
-//        }
-
-//    }
-//    alert("Could not find message");
-//}
-
-//function messageModalError(a, b, c) {
-//    console.log(a);
-//    console.log(b);
-//    console.log(c);
-//    alert('getUserMessagesbyID() error');
-//}
