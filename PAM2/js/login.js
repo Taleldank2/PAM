@@ -1,17 +1,14 @@
-//----------------------------------------------------------------------------------------
-//                                      local - false if app mode
-//                                              true if web mode
-//----------------------------------------------------------------------------------------
-var local = true;
-var ASMXURL = 'WebService.asmx/';
-if (!local) {
-    ASMXURL = 'http://proj.ruppin.ac.il/bgroup57/test1/tar1/WebService.asmx/';
-}
+
 
 //-----------------------------------------------------------------------
 //                              Remember me function
 //-----------------------------------------------------------------------
 $(document).ready(function () {
+
+    if (localStorage["UserID"]) {
+        window.location = "index.html";
+    }
+
 
     if (localStorage.isChecked && localStorage.isChecked != '') {
         $('#checkbox-signup').attr('checked', 'checked');
@@ -50,14 +47,14 @@ function Login() {
         password: Password
     };
 
-    ajaxLogin(request, successCB, errorCB);
+    ajaxLogin(request);
 }
 
 
 //-----------------------------------------------------------------------
 //                              Login AJAX
 //------------------------------------------------------------------------
-function ajaxLogin(request, successCB, errorCB) {
+function ajaxLogin(request) {
     //Serialize the object to JSON string
     var dataString = JSON.stringify(request);
     $.ajax({
@@ -73,7 +70,8 @@ function ajaxLogin(request, successCB, errorCB) {
 }
 
 function successCB(results) {
-    results = $.parseJSON(results.d);
+    //results = $.parseJSON(results.d);
+    localStorage["UserID"] = JSON.parse(results.d).UserId;
     window.location = "index.html";
 }
 

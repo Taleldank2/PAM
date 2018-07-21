@@ -1,65 +1,73 @@
-﻿//----------------------------------------------------------------------------------------
-//                                      local - false if app mode
-//                                              true if web mode
-//----------------------------------------------------------------------------------------
-var local = true;
-var ASMXURL = 'WebService.asmx/';
-if (!local) {
-    ASMXURL = 'http://proj.ruppin.ac.il/bgroup57/test1/tar1/WebService.asmx/';
+﻿
+//--------------------------------------------------------------------
+//                            get the user id
+//--------------------------------------------------------------------
+
+function getUserId() {
+    userIdNum = localStorage["UserID"];
+    request = {
+        coachId: userIdNum
+    };
+    return request;
 }
-
-
 
 //--------------------------------------------------------------------
 //                            index Page
 //--------------------------------------------------------------------
 
-function getUserLastEvent() {
-    $.ajax({
-        url: ASMXURL+ 'getUserLastEvent',
-        type: 'POST',
-        async: true,
-        dataType: 'json',
-        contentType: 'application/json; charset = utf-8',
-        success: parseLastEvent
-    }) 
+//function getUserLastEvent() {
 
-}
+//    $.ajax({
+//        url: ASMXURL + 'getUserLastEvent',
+//        type: 'POST',
+//        async: true,
+//        dataType: 'json',
+//        contentType: 'application/json; charset = utf-8',
+//        success: parseLastEvent
+//    }) 
 
-function parseLastEvent(results)
-{
-    results = $.parseJSON(results.d);
-    str = results[0].Title;
-    $("#MainNextEvent").html(str);
-}
+//}
+
+//function parseLastEvent(results)
+//{
+//    results = $.parseJSON(results.d);
+//    str = results[0].Title;
+//    $("#MainNextEvent").html(str);
+//}
 
 
 //---------------------------------//
 
 
-function getName() {
-    $.ajax({
-        url: ASMXURL+ 'getName',
-        type: 'POST',
-        async: true,
-        dataType: 'json',
-        contentType: 'application/json; charset = utf-8',
-        success: parseName
-    })
-}
+//function getName() {
 
-function parseName(results) {
-    str = results.d;
-    $("#MainWelcome").append(" "+str);
-}
+
+//    $.ajax({
+//        url: ASMXURL+ 'getName',
+//        type: 'POST',
+//        async: true,
+//        dataType: 'json',
+//        contentType: 'application/json; charset = utf-8',
+//        success: parseName
+//    })
+//}
+
+//function parseName(results) {
+//    str = results.d;
+//    $("#MainWelcome").append(" "+str);
+//}
 
 //--------------------------------------------------------------------
 //                           Profile Page
 //--------------------------------------------------------------------
 
 function getUserDetails() {
+    var request = getUserId();
+    dataString = JSON.stringify(request);
+
     $.ajax({
-        url: ASMXURL+ 'getUserDetails',
+        url: ASMXURL + 'getUserDetails',
+        data: dataString,
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -95,84 +103,95 @@ function parseUserDetails(results) {
 //                           Results Page
 //--------------------------------------------------------------------
 
-function getUserResults() {
-    $.ajax({
-        url: ASMXURL+ 'getUserResults',
-        type: 'POST',
-        async: true,
-        dataType: 'json',
-        contentType: 'application/json; charset = utf-8',
-        success: parseUserResults
-    }) 
-}
+//function getUserResults() {
+//    var request = getUserId();
+//    dataString = JSON.stringify(request);
 
-function parseUserResults(results) {
-    results = $.parseJSON(results.d);
-    $(function () {
-        $.each(results, function (i, item) {
+//    $.ajax({
+//        url: ASMXURL+ 'getUserResults',
+//        type: 'POST',
+//        async: true,
+//        dataType: 'json',
+//        contentType: 'application/json; charset = utf-8',
+//        success: parseUserResults
+//    }) 
+//}
 
-            //parse date
-            var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
-            var eventStartDate = new Date(eventTime);
-            var strDate = "";
-            strDate += eventStartDate.getDate() + "/" + (eventStartDate.getMonth()+1) + "/" + eventStartDate.getFullYear();
+//function parseUserResults(results) {
+//    results = $.parseJSON(results.d);
+//    $(function () {
+//        $.each(results, function (i, item) {
 
-            //parse type
-            var resultType;
-            if (item.ResultType == 1)
-                resultType = "mdi mdi-swim";
-            else if (item.ResultType == 2)
-                resultType = "mdi mdi-run-fast";
-            else
-                resultType = "mdi mdi-clock-fast";
+//            //parse date
+//            var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
+//            var eventStartDate = new Date(eventTime);
+//            var strDate = "";
+//            strDate += eventStartDate.getDate() + "/" + (eventStartDate.getMonth()+1) + "/" + eventStartDate.getFullYear();
 
-            //parse table
-            var $tr = $('<tr>').append(
-                $('<td>').html("<i class='"+resultType+"'></i>"),
-                $('<td>').text(item.Distance),
-                $('<td>').text(item.rTime.Minutes +":" + item.rTime.Seconds),
-                $('<td>').text(strDate)
-            ).appendTo('#ResultsTable');
-        });
-    });
+//            //parse type
+//            var resultType;
+//            if (item.ResultType == 1)
+//                resultType = "mdi mdi-swim";
+//            else if (item.ResultType == 2)
+//                resultType = "mdi mdi-run-fast";
+//            else
+//                resultType = "mdi mdi-clock-fast";
 
-}
+//            //parse table
+//            var $tr = $('<tr>').append(
+//                $('<td>').html("<i class='"+resultType+"'></i>"),
+//                $('<td>').text(item.Distance),
+//                $('<td>').text(item.rTime.Minutes +":" + item.rTime.Seconds),
+//                $('<td>').text(strDate)
+//            ).appendTo('#ResultsTable');
+//        });
+//    });
+
+//}
 
 //--------------------------------------------------------------------
 //                           Events Page
 //--------------------------------------------------------------------
 
-function getUserType() {
+//function getUserType() {
 
-    userType = $.ajax({
-        url: ASMXURL+ 'getUserType',
-        type: 'POST',
-        async: false,
-        dataType: 'json',
-        contentType: 'application/json; charset = utf-8',
+//    var request = getUserId();
+//    dataString = JSON.stringify(request);
+
+//    userType = $.ajax({
+//        url: ASMXURL+ 'getUserType',
+//        type: 'POST',
+//        async: false,
+//        dataType: 'json',
+//        contentType: 'application/json; charset = utf-8',
        
-    }) // end of ajax call
+//    }) // end of ajax call
 
-   return userType.responseJSON.d
-}
+//   return userType.responseJSON.d
+//}
 
-function getUserEvents() {
+//function getUserEvents() {
+//    var request = getUserId();
+//    dataString = JSON.stringify(request);
 
-    events = $.ajax({
-        url: ASMXURL+ 'getUserEvents',
-        type: 'POST',
-        async: false,
-        dataType: 'json',
-        contentType: 'application/json; charset = utf-8'
-    }) // end of ajax call
+//    events = $.ajax({
+//        url: ASMXURL+ 'getUserEvents',
+//        type: 'POST',
+//        async: false,
+//        dataType: 'json',
+//        contentType: 'application/json; charset = utf-8'
+//    }) // end of ajax call
 
-    return events.responseJSON.d
-}
+//    return events.responseJSON.d
+//}
 
 function getCoachEvents() {
+    var request = getUserId();
+    dataString = JSON.stringify(request);
 
     events = $.ajax({
-        url: ASMXURL+ 'getCoachEvents',
+        url: ASMXURL + 'getCoachEvents',
+        data: dataString,
         type: 'POST',
         async: false,
         dataType: 'json',
@@ -236,8 +255,13 @@ function addEvent() {
 //                             Register
 //--------------------------------------------------------------------
 function getPicturePath() {
+
+    var request = getUserId();
+    dataString = JSON.stringify(request);
+
     $.ajax({
-        url: ASMXURL+ 'getPicturePath',
+        url: ASMXURL + 'getPicturePath',
+        data: dataString,
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -265,8 +289,12 @@ function updateUserPicture(results) {
 //---------------------------------//
 
 function getCoachLastResults() {
+    var request = getUserId();
+    dataString = JSON.stringify(request);
+
     $.ajax({
-        url: ASMXURL+ 'getCoachLastResults',
+        url: ASMXURL + 'getCoachLastResults',
+        data: dataString,
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -325,9 +353,12 @@ function parseCoachLastResluts(results) {
 //---------------------------------//
 
 function getCoachLastMessages() {
+    var request = getUserId();
+    dataString = JSON.stringify(request);
 
     $.ajax({
-        url: ASMXURL+ 'getCoachLastMessages',
+        url: ASMXURL + 'getCoachLastMessages',
+        data: dataString,
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -373,9 +404,14 @@ function parseCoachLastMessages(results) {
 //--------------------------------------------------------------------
 //                             Results
 //--------------------------------------------------------------------
+
 function getCoachResults() {
+    var request = getUserId();
+    dataString = JSON.stringify(request);
+
     $.ajax({
-        url: ASMXURL+ 'getCoachResults',
+        url: ASMXURL + 'getCoachResults',
+        data: dataString,
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -459,6 +495,7 @@ function sendMessage() {
     message = $('#Message').val()
 
     request = {
+        "coachId": getUserId(),
         "title": title,
         "message": message,
         "teamIds": teams
@@ -482,8 +519,11 @@ function sendMessage() {
 
 function getCoachTeams()
 {
+    var request = getUserId();
+    dataString = JSON.stringify(request);
     $.ajax({
         url: ASMXURL + 'getCoachTeams',
+        data: dataString,
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -507,8 +547,11 @@ function updateCoachTeams(response)
 }
 
 function getMessagesCount() {
+    var request = getUserId();
+    dataString = JSON.stringify(request);
     $.ajax({
-        url: ASMXURL+ 'getMessagesCount',
+        url: ASMXURL + 'getMessagesCount',
+        data: dataString,
         type: 'POST',
         async: true,
         dataType: 'json',
@@ -530,9 +573,12 @@ function parseMessagesCount(results) {
 ;                                                                                                                       
 
 function getCoachMessages() {
+    var request = getUserId();
+    dataString = JSON.stringify(request);
 
     $.ajax({
-        url: ASMXURL+ 'getCoachMessages',
+        url: ASMXURL + 'getCoachMessages',
+        data: dataString,
         type: 'POST',
         async: true,
         dataType: 'json',

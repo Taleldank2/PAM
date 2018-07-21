@@ -160,19 +160,19 @@ var defaultEvents;
 
         //deside which data to fetch -  Athlete or Coach
         var myEvents;       
-
-        //Get the user type according to the user session details
-        var userType = JSON.parse(getUserType());
-        //Get events from db
-        if (userType[0].UserType == 1)
-            //Athlete
-            myEvents = JSON.parse(getUserEvents());
-        else if (userType[0].UserType == 2)
-            //Coach
-            myEvents = JSON.parse(getCoachEvents());
-        else
-            //Admin
-            alert("this is an admin user, and admin dosen't have events");
+        myEvents = JSON.parse(getCoachEvents());
+        ////Get the user type according to the user session details
+        //var userType = JSON.parse(getUserType());
+        ////Get events from db
+        //if (userType[0].UserType == 1)
+        //    //Athlete
+        //    myEvents = JSON.parse(getUserEvents());
+        //else if (userType[0].UserType == 2)
+        //    //Coach
+        //    myEvents = JSON.parse(getCoachEvents());
+        //else
+        //    //Admin
+        //    alert("this is an admin user, and admin dosen't have events");
 
         //load them into temp var
         var eventList = [];

@@ -64,50 +64,54 @@ public class WebService : System.Web.Services.WebService
                 if (dt.Rows[0][6].ToString() == password)
                 {
                     //Password is approved
+                    myUser.UserId = dt.Rows[0][0].ToString();
                     myUser.UserType = dt.Rows[0][1].ToString();
-                    myUser.Password = dt.Rows[0][6].ToString();
+                    myUser.FirstName = dt.Rows[0][2].ToString();
+                    myUser.LastName = dt.Rows[0][3].ToString();
                     myUser.PhoneNumber = dt.Rows[0][4].ToString();
+                    myUser.Email = dt.Rows[0][5].ToString();
+                    myUser.Password = dt.Rows[0][6].ToString();
+                    myUser.Picture = dt.Rows[0][7].ToString();
+                    myUser.City = dt.Rows[0][8].ToString();
+                    myUser.BirthDate = dt.Rows[0][9].ToString();
 
                     try
                     {
-                        //Crete GUID number
-                        string userGuid = Guid.NewGuid().ToString();
+                        ////Create GUID number
+                        //string userGuid = Guid.NewGuid().ToString();
 
-                        //get the user id
-                        string userId = dt.Rows[0][0].ToString();
+                        ////get the user id
+                        //string userId = dt.Rows[0][0].ToString();
 
-                        // Search inside userSession dictionary table if user is there 
-                        if (usersSessions.Keys.Contains(userId))
-                        {
-                            usersSessions[userId] = userGuid;
-                        }
-                        else
-                        {
-                            //if user is not there, add him to the dictionary
-                            usersSessions.Add(userId, userGuid);
-                        }
+                        //// Search inside userSession dictionary table if user is there 
+                        //if (usersSessions.Keys.Contains(userId))
+                        //{
+                        //    usersSessions[userId] = userGuid;
+                        //}
+                        //else
+                        //{
+                        //    //if user is not there, add him to the dictionary
+                        //    usersSessions.Add(userId, userGuid);
+                        //}
 
-                        //Give the user cookie named "session" and give it the value of the user guid for example:
-                        //"session=4564564-5646-456-4564"
-                        HttpCookie cookie = new HttpCookie("session");
-                        cookie["session"] = userGuid;
+                        ////Give the user cookie named "session" and give it the value of the user guid for example:
+                        ////"session=4564564-5646-456-4564"
+                        //HttpCookie cookie = new HttpCookie("session");
+                        //cookie["session"] = userGuid;
 
-                        cookie.Expires = DateTime.Now.AddHours(1);
+                        //cookie.Expires = DateTime.Now.AddHours(1);
 
-                        Context.Response.Cookies.Add(cookie);
+                        //Context.Response.Cookies.Add(cookie);
 
                         // serialize to string
                         JavaScriptSerializer js = new JavaScriptSerializer();
                         string jsonString = "";
-                        jsonString = js.Serialize("ברוך הבא " + myUser.FirstName);
+                        jsonString = js.Serialize(myUser);
                         return jsonString;
 
                     }
                     catch (Exception ex)
                     {
-
-                        using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
-                        { Log(ex.Message, w); }
 
                         // serialize to string
                         JavaScriptSerializer js = new JavaScriptSerializer();
@@ -123,20 +127,19 @@ public class WebService : System.Web.Services.WebService
                     string jsonString = js.Serialize("סיסמה שגויה");
                     return jsonString;
                 }
+
             }
         }
 
         catch (Exception ex)
         {
-            // send to log file
-            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
-            { Log(ex.Message, w); }
-
             // serialize to string
             JavaScriptSerializer js = new JavaScriptSerializer();
             string jsonString = js.Serialize("Unable to read from the database" + ex.Message);
             return jsonString;
+
         }
+
     }
 
     [WebMethod]
@@ -230,13 +233,13 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
 
     [WebMethod]
-    public string getCoachEvents()
+    public string getCoachEvents(string coachId)
     {
-        string userSession = Context.Request.Cookies["session"]["session"];
+        //string userSession = Context.Request.Cookies["session"]["session"];
 
-        string userId = getUserFromSession(userSession);
+        //string userId = getUserFromSession(userSession);
 
-        DataTable events = dbHandler.getCoachEvents(userId);
+        DataTable events = dbHandler.getCoachEvents(coachId);
 
         string response = dataTableToJson(events);
 
@@ -271,15 +274,15 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
 
     [WebMethod]
-    public string getCoachLastResults()
+    public string getCoachLastResults(string coachId)
     {
         try
         {
-            string userSession = Context.Request.Cookies["session"]["session"];
+            //string userSession = Context.Request.Cookies["session"]["session"];
 
-            string coachID = getUserFromSession(userSession);
+            //string coachID = getUserFromSession(userSession);
 
-            DataTable result = dbHandler.getCoachLastResults(coachID);
+            DataTable result = dbHandler.getCoachLastResults(coachId);
 
             string response = dataTableToJson(result);
 
@@ -298,11 +301,11 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string getCoachLastMessages()
+    public string getCoachLastMessages(string coachId)
     {
-        string userSession = Context.Request.Cookies["session"]["session"];
+        //string userSession = Context.Request.Cookies["session"]["session"];
 
-        string coachId = getUserFromSession(userSession);
+        //string coachId = getUserFromSession(userSession);
 
         DataTable messages = dbHandler.getCoachLastMessages(coachId);
 
@@ -315,15 +318,15 @@ public class WebService : System.Web.Services.WebService
     //                           Results
     //--------------------------------------------------------------------
     [WebMethod]
-    public string getCoachResults()
+    public string getCoachResults(string coachId)
     {
         try
         {
-            string userSession = Context.Request.Cookies["session"]["session"];
+            //string userSession = Context.Request.Cookies["session"]["session"];
 
-            string coachID = getUserFromSession(userSession);
+            //string coachID = getUserFromSession(userSession);
 
-            DataTable result = dbHandler.getCoachResults(coachID);
+            DataTable result = dbHandler.getCoachResults(coachId);
 
             string response = dataTableToJson(result);
 
@@ -346,11 +349,11 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
 
     [WebMethod]
-    public string getMessagesCount()
+    public string getMessagesCount(string userId)
     {
-        string userSession = Context.Request.Cookies["session"]["session"];
+        //string userSession = Context.Request.Cookies["session"]["session"];
 
-        string userId = getUserFromSession(userSession);
+        //string userId = getUserFromSession(userSession);
 
         string messagesCount = dbHandler.getMessagesCount(userId);
 
@@ -358,11 +361,11 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string getCoachMessages()
+    public string getCoachMessages(string coachId)
     {
-        string userSession = Context.Request.Cookies["session"]["session"];
+        //string userSession = Context.Request.Cookies["session"]["session"];
 
-        string coachId = getUserFromSession(userSession);
+        //string coachId = getUserFromSession(userSession);
 
         DataTable messages = dbHandler.getCoachMessages(coachId);
 
@@ -372,11 +375,11 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string getCoachTeams()
+    public string getCoachTeams(string coachId)
     {
-        string userSession = Context.Request.Cookies["session"]["session"];
+        //string userSession = Context.Request.Cookies["session"]["session"];
 
-        string coachId = getUserFromSession(userSession);
+        //string coachId = getUserFromSession(userSession);
 
         DataTable teams = dbHandler.getCoachTeams(coachId);
 
@@ -386,11 +389,11 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void createMessage(String title, String message, String[] teamIds)
+    public void createMessage(string coachId,String title, String message, String[] teamIds)
     {
-        string userSession = Context.Request.Cookies["session"]["session"];
+        //string userSession = Context.Request.Cookies["session"]["session"];
 
-        string coachId = getUserFromSession(userSession);
+        //string coachId = getUserFromSession(userSession);
 
         dbHandler.createNewMessage(title, message, teamIds, coachId);       
     }
@@ -400,11 +403,11 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
 
     [WebMethod]
-    public string getUserDetails()
+    public string getUserDetails(string userId)
     {
-        string userSession = Context.Request.Cookies["session"]["session"];
+        //string userSession = Context.Request.Cookies["session"]["session"];
 
-        string userId = getUserFromSession(userSession);
+        //string userId = getUserFromSession(userSession);
 
         DataTable details = dbHandler.getDetails(userId);
 
@@ -461,18 +464,16 @@ public class WebService : System.Web.Services.WebService
     //                           Picture
     //--------------------------------------------------------------------
     [WebMethod]
-    public string getPicturePath()
+    public string getPicturePath(string coachId)
     {
-        string userSession = Context.Request.Cookies["session"]["session"];
+        //string userSession = Context.Request.Cookies["session"]["session"];
 
-        string coachId = getUserFromSession(userSession);
+        //string coachId = getUserFromSession(userSession);
 
         string picturePath = dbHandler.getPicturePath(coachId);
 
         return picturePath;
     }
-
-   
 
     //--------------------------------------------------------------------
     // log message (error)
