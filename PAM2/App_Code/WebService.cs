@@ -11,6 +11,10 @@ using System.Web.Configuration;
 using System.Data;
 using System.IO;
 
+using PushSharp;
+using PushSharp.Core;
+using PushSharp.Google;
+using Newtonsoft.Json.Linq;
 /// <summary>
 /// Summary description for WebService
 /// </summary>
@@ -392,7 +396,45 @@ public class WebService : System.Web.Services.WebService
 
         string coachId = getUserFromSession(userSession);
 
-        dbHandler.createNewMessage(title, message, teamIds, coachId);       
+        dbHandler.createNewMessage(title, message, teamIds, coachId);
+
+
+        List<String> userRegIds = dbHandler.getUserRegsFromTeams(teamIds);
+
+        sendPush("הודעה חדשה מפאם", title, userRegIds);      
+             
+    }
+
+    private void sendPush(String title, String message, List<String> usersRegIds)
+    {
+        // Configuration
+        GcmConfiguration config = new GcmConfiguration("AAAAEvDyc0E:APA91bHL14izdHX_iVgykvHJA62nzx-s7kzoGca3H_ilO-yPogmsZ1CZRj0yS_6Ot3k6ID2hCohAubmpMBK5-He249HKIpnQUkn-iG23mcWRhbdBNTrG-IavHBNJ-gjOxsudHuQmg87Qcr2ydfSC97ZvAa4nD77g2g");
+        
+        // Create a new broker
+        GcmServiceBroker gcmBroker = new GcmServiceBroker(config);
+        
+        // Start the broker
+        gcmBroker.Start();
+
+        String msg = "{ \"title\" : \"" + title + "\", \"body\" : \"" + message +  " \" }";
+
+
+        foreach (var regId in usersRegIds)
+        {
+            // Queue a notification to send
+            gcmBroker.QueueNotification(new GcmNotification
+            {
+                RegistrationIds = new List<string> {
+                    regId
+                },
+                Data = JObject.Parse(msg)
+            });
+        }
+
+        // Stop the broker, wait for it to finish   
+        // This isn't done after every message, but after you're
+        // done with the broker
+        gcmBroker.Stop();
     }
 
     //--------------------------------------------------------------------

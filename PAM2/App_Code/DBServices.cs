@@ -457,8 +457,7 @@ public class DBServices
         }
     }
 
-<<<<<<< HEAD
-=======
+
 
     //--------------------------------------------------------------------
     // Results Page
@@ -741,6 +740,29 @@ public class DBServices
             throw ex;
         }
 
+    }
+
+    public List<String> getUserRegsFromTeams(String[] teamIds)
+    {
+        String query = "SELECT RegID from UsersReg u join dbo.Athletes a on u.UserID = a.AthleteID WHERE TeamID IN({0})";
+        String teamStr = "";
+
+        foreach (String teamId in teamIds)
+        {
+            teamStr += teamId;
+            teamStr += ",";
+        }
+
+        DataTable dt = queryDb(String.Format(query, teamStr.Substring(0, teamStr.Length - 1)));
+
+        List<String> regIds = new List<String>();
+
+        foreach (DataRow row in dt.Rows)
+        {
+            regIds.Add(row[0].ToString());
+        }
+
+        return regIds;
     }
 
     public void createNewMessage(string title, string message, String[] teamIds, string coachId)
