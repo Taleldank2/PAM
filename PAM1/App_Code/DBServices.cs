@@ -195,6 +195,33 @@ public class DBServices
         }
     }
 
+    public void addUserReg(string userId, string regId)
+    {
+        string query = "INSERT INTO dbo.UsersReg (UserID, RegID) VALUES ({0}, '{1}')";
+
+        SqlConnection con = null;
+
+        try
+        {
+            con = connect();
+
+            SqlCommand insert = new SqlCommand(String.Format(query, userId, regId), con);
+
+            insert.ExecuteNonQuery();
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw ex;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
+    }
 
     public void savePicture(string picPath, string userPicBase64)
     {

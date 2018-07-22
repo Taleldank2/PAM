@@ -8,7 +8,7 @@
 function getUserId() {
     userIdNum = localStorage["UserID"];
     request = {
-        userId: userIdNum
+        coachId: userIdNum
     };
     return request;
 }
@@ -56,7 +56,7 @@ function confirm() {
     userId = getUserId();
 
     request = {
-        "UserID": userId,
+        "UserID": userId["userId"],
         "phoneNumber": userPhoneNumber,
         "userMail": userMail,
         "userPassword": userPassword,

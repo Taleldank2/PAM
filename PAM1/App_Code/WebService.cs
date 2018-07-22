@@ -196,6 +196,14 @@ public class WebService : System.Web.Services.WebService
 
     }
 
+
+    [WebMethod]
+    public void addUserReg (string userId,string regId)
+    {
+        dbHandler.addUserReg(userId, regId);
+            
+    }
+
     //[WebMethod]
     //public string getUserType(string userID)
     //{

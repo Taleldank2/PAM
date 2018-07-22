@@ -240,6 +240,14 @@ CREATE TABLE [TeamsMessages] (
 )
 GO
 
+CREATE TABLE [UsersReg] (
+	UserID int not null,
+	RegID nvarchar(1000) not null,
+	CONSTRAINT PK_COACHES PRIMARY KEY (UserID, RegID)	
+)
+GO
+
+
 -----------------------------------------------------------------------------------------
 --------------------------------FORIGEN KEYS---------------------------------------------
 -----------------------------------------------------------------------------------------
@@ -296,6 +304,9 @@ ALTER TABLE [TeamsEvents]  ADD CONSTRAINT [TeamEvents_fk0] FOREIGN KEY ([EventID
 GO
 
 ALTER TABLE [TeamsEvents]  ADD CONSTRAINT [TeamEvents_fk1] FOREIGN KEY ([TeamID]) REFERENCES [Teams]([TeamID])
+GO
+
+ALTER TABLE [UsersReg]  ADD CONSTRAINT [UsersReg_fk0] FOREIGN KEY ([UserID]) REFERENCES [Users]([UserID])
 GO
 
 -----------------------------------------------------------------------------------------

@@ -245,6 +245,168 @@
         };
 
     </script>-->
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    
+        //-----------------------------------
+        // activated when the device is ready
+        //-----------------------------------
+        function onDeviceReady() {
+            // register the device on the notification server
+            var push = PushNotification.init({
+                android: {
+                    senderID: "81351832385" // this identifies your application
+                    // it must be identical to what appears in the
+                    // config.xml
+                },
+                browser: {
+                    //pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+                },
+                ios: {
+                    alert: "true",
+                    badge: "true",
+                    sound: "true"
+                },
+                windows: {}
+            });
+
+            //-----------------------------------------------------------------------
+            // triggred by the notification server once the registration is completed
+            //-----------------------------------------------------------------------
+            push.on('registration', function (data) {
+
+                var request = { "userId": localStorage["UserID"], "regId": data.registrationId }
+
+                dataString = JSON.stringify(request);
+
+                $.ajax({
+                    url: ASMXURL + 'addUserReg',
+                    data: dataString,
+                    type: 'POST',
+                    async: true,
+                    dataType: 'json',
+                    contentType: 'application/json; charset = utf-8'
+                    
+                })
+
+                //// send the registration id to the server and save it in the DB
+                //// send also the userID
+                //UserInfo.RegId = data.registrationId;
+                //// the registration key received from the notification server
+                //$('#RegId').text(UserInfo.RegId);
+
+            });
+
+            //-------------------------------------------------------------
+            // triggred by a notification sent from the notification server
+            //-------------------------------------------------------------
+            push.on('notification', function (data) {
+
+                displayData(data); // display some fields to the user
+                $('#myModal').modal('show'); // open a modal field
+
+                if (data.additionalData.foreground == true) {
+                    handleForeground();
+                }
+                else if (data.additionalData.coldstart == true) {
+                    handleColdStart();
+                }
+                else {
+                    handleBackground();
+                }
+            });
+
+            //-----------------------------------------------------------
+            // triggred when there is an error in the notification server
+            //-----------------------------------------------------------
+            push.on('error', function (e) {
+                alert(e.message);
+            });
+        }
+
+        //------------------------------------------------
+        // When the user is in the application
+        //------------------------------------------------
+        function handleForeground() {
+            $('#statusDiv').append('status: in foreground ');
+            try {
+                var my_media3 = new Media("https://www.soundjay.com/human/sounds/woman-scream-02.mp3",
+                    // success callback
+                    function () { /*$('#statusDiv').append('in Media success ');*/ },
+                    // error callback
+                    function (err) { $('#statusDiv').append('in Media err '); }
+                );
+                my_media3.play();
+            }
+            catch (err) {
+                $('#statusDiv').append("benny: " + err.message);
+            }
+        }
+
+        //-------------------------------------------------
+        // When the application runs in the background
+        //-------------------------------------------------
+        function handleBackground() {
+            $('#statusDiv').text('status: in background ');
+        }
+
+        //-------------------------------------------------
+        // When the application doesn't rub
+        //-------------------------------------------------
+        function handleColdStart() {
+            $('#statusDiv').text('status: in coldstart ');
+        }
+
+
+        //// ------------------------------
+        //// registration success callback
+        //// ------------------------------
+        //function registerSuccess(data) {
+
+        //    var userData = $.parseJSON(data.d);
+        //    localStorage.setItem('memberUser', JSON.stringify(userData));
+
+        //    $.mobile.changePage($("#firstPage"), "slide");
+        //}
+        //// -----------------------------
+        //// registration failure callback
+        //// ------------------------------
+        //function registerFail(data) {
+        //    alert("failed to register to the server, error in : " + data);
+        //}
+
+        // ------------------------------
+        //function displayData(data) {
+        //    $('#titleDiv').empty();
+        //    $('#messageDiv').empty();
+        //    $('#statusDiv').empty();
+        //    $('#resDiv').empty();
+        //    $('#allMessage').empty();
+
+        //    //present the data recived from the server
+        //    var message = '';
+        //    for (x in data) {
+        //        message += "data." + x + " :" + data[x] + " , ";
+
+        //        if (x == "additionalData") {
+        //            for (y in data.additionalData) {
+        //                message += "data.additionalData." + y + " :" + data.additionalData[y] + " , ";
+        //            }
+        //        }
+        //    }
+        //    Handling = data.message;
+
+        //    $('#titleDiv').append('Title: ' + data.title);
+        //    $('#messageDiv').append('Message: ' + data.message);
+        //    $('#resDiv').text('all the message: ' + message);
+        //    $('#allMessage').append(message);
+        //}
+
+        document.addEventListener('deviceready', onDeviceReady, true);
+
+
+    </script>
 
 </body>
 </html>
