@@ -401,26 +401,39 @@ public class WebService : System.Web.Services.WebService
 
         dbHandler.createNewMessage(title, message, teamIds, coachId);
 
+        List<string> userRegIds = dbHandler.getUserRegsFromTeams(teamIds);
 
-        List<String> userRegIds = dbHandler.getUserRegsFromTeams(teamIds);
-
-        sendPush("הודעה חדשה מפאם", title, userRegIds);      
+        sendPush("הודעה חדשה מפאם", title, userRegIds);   
              
+    }
+
+    [WebMethod]
+    //test notofication
+    public void test2()
+    {
+        //lt is the list of devices that are registerd to the app
+        //need to be detched every time we want to send notification
+        List<string> lt = new List<string>();
+        //this is an example of 1 reg id of eldan's devices
+        lt.Add("dWuu4LMRvog:APA91bEoPeUAKGsaBdtBlftB48jOxw7ci4HoujG6iu_mVebQpLTYXH3UoCGKwoF7Nf9w3SBQ7yc7mwBQUVlsVE4gSa36bQM-p7gqz1mIHkys9XZwQJV4k0lAOhctpVDlpFdsxJb2f7Jldmsa5i5qNnQ48sY9H-s7zQ");
+        sendPush("hello", "tal eldan", lt);
     }
 
     private void sendPush(String title, String message, List<String> usersRegIds)
     {
         // Configuration
-        GcmConfiguration config = new GcmConfiguration("AAAAEvDyc0E:APA91bHL14izdHX_iVgykvHJA62nzx-s7kzoGca3H_ilO-yPogmsZ1CZRj0yS_6Ot3k6ID2hCohAubmpMBK5-He249HKIpnQUkn-iG23mcWRhbdBNTrG-IavHBNJ-gjOxsudHuQmg87Qcr2ydfSC97ZvAa4nD77g2g");
-        
+        GcmConfiguration config = new GcmConfiguration("206709481331", "AAAAMCDYX3M:APA91bGholyu09oAxHchbU0OjQ9cmmacr_BlzvxKbShRuzNiuscPcfxEsqSzpayb7FIZWqW2Btlg41UAnnwmb0Fdub7iqcvPLigNOzkLwZP65RbsXojEKEKZq6o9sHNNCYzRe4K2sdImrtM3tkTBR6iX0oJZIb8C-g", "com.it");
         // Create a new broker
         GcmServiceBroker gcmBroker = new GcmServiceBroker(config);
-        
-        // Start the broker
-        gcmBroker.Start();
+
+        gcmBroker.OnNotificationFailed += GcmBroker_OnNotificationFailed;
+
+        gcmBroker.OnNotificationSucceeded += GcmBroker_OnNotificationSucceeded;
 
         String msg = "{ \"title\" : \"" + title + "\", \"body\" : \"" + message +  " \" }";
 
+        // Start the broker
+        gcmBroker.Start();
 
         foreach (var regId in usersRegIds)
         {
@@ -434,10 +447,24 @@ public class WebService : System.Web.Services.WebService
             });
         }
 
+        // Start the broker
+        gcmBroker.Start();
+
         // Stop the broker, wait for it to finish   
         // This isn't done after every message, but after you're
         // done with the broker
         gcmBroker.Stop();
+    
+    }
+
+    private void GcmBroker_OnNotificationSucceeded(GcmNotification notification)
+    {
+        string asdf = "sap";
+    }
+
+    private void GcmBroker_OnNotificationFailed(GcmNotification notification, AggregateException exception)
+    {
+        string asdf = "sap";
     }
 
     //--------------------------------------------------------------------
