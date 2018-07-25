@@ -1,17 +1,30 @@
 ﻿document.getElementById("myForm").onsubmit = register;
 
 
-function getUserId() {
-    userIdNum = localStorage["UserID"];
-    request = {
-        userId: userIdNum
-    };
-    return request;
-}
+//function getUserId() {
+//    userIdNum = localStorage["UserID"];
+//    request = {
+//        userId: userIdNum
+//    };
+//    return request;
+//}
 
 function getMoreDetails() {
     getTeamsNames();
     AthleteDetails();
+    if (localStorage["UserDetails"] == "true") {
+        $('#phonenumber').val(localStorage.UserNumber);
+        $('#userteam').attr(localStorage.UserTeam);
+        $('#name').val(localStorage.UserName);
+        $('#lastname').val(localStorage.UserLastName);
+        $('#mail').val(localStorage.UserMail);
+        $('#city').val(localStorage.UserCity);
+        $('#datepicker').val(localStorage.UserDate);
+        $('#AthleteWeight').val(localStorage.UserWeight);
+        $('#AthleteHeight').val(localStorage.UserHeight);
+        $('#picture').val(localStorage.UserPic);
+
+    }
 }
 
 function AthleteDetails() {
@@ -23,7 +36,7 @@ function AthleteDetails() {
     str += "<div class='form-group'><div class='input-group'>" +
     "<div class='input-group-prepend'><span class='input-group-text'>" +
     "<i class='mdi mdi-ruler'></i></span></div>" +
-    "<input id='AthleteHeight' class='form-control' type='text' required='' placeholder='גובה'></div></div>";
+    "<input id='AthleteHeight' class='form-control' type='text' required='' placeholder='גובה במטרים (לדוגמא: 1.68)'></div></div>";
 
     $('#AthleteFileds').append(str);
 
@@ -56,28 +69,80 @@ function getTeamsNamesCompleted(results) {
 }
 
 function getTeamsNamesFailed() {
-    alert("שמות קבוצה לא יובאו");
+    alert("שמות הקבוצה לא יובאו");
 }
 
 function register() {
+    try {
+        if (localStorage["UserDetails"] != "true") {
+            localStorage["UserDetails"] = "true";
+            localStorage["UserNumber"] = $('#phonenumber').val();
+            localStorage["UserTeam"] = $('#userteam').val();
+            localStorage["UserName"] = $('#name').val();
+            localStorage["UserLastName"] = $('#lastname').val();
+            localStorage["UserMail"] = $('#mail').val();
+            localStorage["UserCity"] = $('#city').val();
+            localStorage["UserDate"] = $('#datepicker').val();
+            localStorage["UserWeight"] = $('#AthleteWeight').val();
+            localStorage["UserHeight"] = $('#AthleteHeight').val();
+            localStorage["UserPic"] = $('#picture')[0].files[0];
+        }
 
-    isChecked = document.getElementById("checkbox-signup").checked;
-    if (isChecked == false) {
-        alert("תחילה יש לאשר את תנאי השימוש");
-        return;
+        isChecked = document.getElementById("checkbox-signup").checked;
+        if (isChecked == false) {
+            alert("תחילה יש לאשר את תנאי השימוש");
+            return;
+        }
+
+        if (($('#phonenumber').val()).length != 10) {
+            alert("יש להכניס מספר נייד בעל עשר ספרות ללא רווחים וסימנים");
+            localStorage.removeItem("UserNumber");
+            return;
+        }
+
+        userPassword = $('#pass').val();
+        userConfirmPassword = $('#passConfirm').val();
+        if (userPassword != userConfirmPassword) {
+            alert("אימות סיסמא נכשל!")
+            return;
+        }
+
+        if (isNaN(parseInt($('#AthleteWeight').val())) ){
+            alert("יש להכניס משקל עצמי כמספר עגול");
+            localStorage.removeItem("UserWeight");
+            return;
+        }
+        if (parseInt($('#AthleteWeight').val()) < 35 || parseInt($('#AthleteWeight').val()) > 150) {
+            alert("יש להכניס את המשקל האמיתי :)");
+            localStorage.removeItem("UserWeight");
+            return;
+        }
+
+        if (parseInt($('#AthleteHeight').val()) != 1 ) {
+            alert("יש להכניס גובה במטרים, למשל: 1.72");
+            localStorage.removeItem("UserHeight");
+            return;
+        }
+
+        file = $('#picture')[0].files[0];
+        if (file == null) {
+            localStorage.removeItem("UserPic");
+            alert("לא תברח/י מזה ! יש להכניס תמונה");
+            return;
+        }
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            registerNewUser(e.target.result)
+        };
+
+        reader.readAsDataURL(file);
+    }
+    catch (e) {
+        alert("תהליך נכשל !\n יש לפנות למנהל מעכת");
     }
 
-    file = $('#picture')[0].files[0];
-
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-        registerNewUser(e.target.result)
-    };
-
-    reader.readAsDataURL(file);
 }
-
 
 
 function registerNewUser(pictureBase64) {
@@ -104,13 +169,14 @@ function registerNewUser(pictureBase64) {
         "userPassword": userPassword,
         "userPicBase64": userPicture,
         "city": userCity,
-        "userBirthday": userBirthday
-       
+        "userBirthday": userBirthday,
+        "userTeam": userTeam,
+        "athleteWeight": athleteWeight,
+        "athleteHeight": athleteHeight
+
     };
 
     var dataString = JSON.stringify(request);
-
-   
 
     //alert(dataString);
 
@@ -121,33 +187,44 @@ function registerNewUser(pictureBase64) {
         async: false,
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
-        //success: registerCompleted, ----use after athlere register
-        error: errorCB
-    })
-
-    userID=getUserId();
-
-    requestAthlete = {
-        "userId": userID,
-        "userTeam": userTeam,
-        "athleteWeight": athleteWeight,
-        "athleteHeight": athleteHeight
-    };
-
-    var dataStringAthlete = JSON.stringify(requestAthlete);
-
-
-    $.ajax({
-        url: ASMXURL + 'registerAthlete',
-        data: dataString,
-        type: 'POST',
-        async: false,
-        dataType: 'json',
-        contentType: 'application/json; charset = utf-8',
         success: registerCompleted,
         error: errorCB
     })
 
+    //userID = getUserId();
+
+    //requestAthlete = {
+    //    "userId": userID,
+    //    "userTeam": userTeam,
+    //    "athleteWeight": athleteWeight,
+    //    "athleteHeight": athleteHeight
+    //};
+
+    //var dataStringAthlete = JSON.stringify(requestAthlete);
+
+
+    //$.ajax({
+    //    url: ASMXURL + 'registerAthlete',
+    //    data: dataString,
+    //    type: 'POST',
+    //    async: false,
+    //    dataType: 'json',
+    //    contentType: 'application/json; charset = utf-8',
+    //    success: registerCompleted,
+    //    error: errorCB
+    //})
+
+    localStorage.removeItem("UserDetails");
+    localStorage.removeItem("UserNumber");
+    localStorage.removeItem("UserTeam");
+    localStorage.removeItem("UserName");
+    localStorage.removeItem("UserLastName");
+    localStorage.removeItem("UserMail");
+    localStorage.removeItem("UserCity");
+    localStorage.removeItem("UserDate");
+    localStorage.removeItem("UserWeight");
+    localStorage.removeItem("UserHeight");
+    localStorage.removeItem("UserPic");
 }
 
 function registerCompleted(result) {

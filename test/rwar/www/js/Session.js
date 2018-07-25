@@ -7,7 +7,6 @@ $(document).ready(function () {
 
     if (localStorage["UserID"] == null)
     {
-        alert("move back to login page");
         window.location = "Login.html";
     }
 

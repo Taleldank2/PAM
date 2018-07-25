@@ -66,8 +66,9 @@ var defaultEvents;
             " - " + endHour + ":" + endMin;
 
         var form = $("<form></form>");
-        form.append("<label>Change event name</label>");
-        form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div>");
+        //form.append("<button>"+txt1+"</button>");
+        //form.append("<label>שם האירוע</label>");
+        //form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i>" + txt2 + "</button></span></div>");
 
         $this.$modal.modal({
             backdrop: 'static'

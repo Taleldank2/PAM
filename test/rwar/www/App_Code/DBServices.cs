@@ -119,7 +119,7 @@ public class DBServices
 
     public bool registerUser(string userType, string userName, string userLastName, string phoneNumber,
                            string userMail, string userPassword, string userPicBase64, string city,
-                           string userBirthday)
+                           string userBirthday,string userTeam, string athleteWeight,string athleteHeight)
     {
         SqlConnection con = null;
 
@@ -131,23 +131,27 @@ public class DBServices
 
             savePicture(picPath, userPicBase64);
 
-            string command = "INSERT INTO[dbo].[Users] " +
-                             "([UserType], [FirstName], [LastName], [PhoneNumber], [Email]," +
+            string command = " INSERT INTO[dbo].[Users] " +
+                             " ([UserType], [FirstName], [LastName], [PhoneNumber], [Email], " +
                              " [Password],[Picture],[City],[BirthDate]) " +
-                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')";
-
+                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}',{8}); SELECT CAST(scope_identity() AS int) ";
 
             string[] birthDayArray = userBirthday.Split('/');
 
-            string parsedBirthDay = birthDayArray[2] + "-" + birthDayArray[1] + "-" + birthDayArray[0];
+            string parsedBirthDay = "Convert(date,'"+ birthDayArray[1] + "-" + birthDayArray[0] + "-" + birthDayArray[2]+ "', 105)";
 
 
-            string formattedCommand = String.Format(command, userType, userName, userLastName,
-                phoneNumber, userMail, userPassword, picPath, city, parsedBirthDay);
+            int userId = insertAthlete(String.Format(command, userType, userName, userLastName,
+                phoneNumber, userMail, userPassword, picPath, city, parsedBirthDay),true);
 
-            SqlCommand insert = new SqlCommand(formattedCommand, con);
+            //SqlCommand insert = new SqlCommand(formattedCommand, con);
 
-            return Convert.ToBoolean(insert.ExecuteNonQuery());
+            registerAthlete(userId, userTeam, athleteWeight, athleteHeight);
+
+            return true;
+
+            //Convert.ToBoolean(insert.ExecuteNonQuery());
+
         }
         catch (Exception ex)
         {
@@ -163,7 +167,51 @@ public class DBServices
         }
     }
 
-    public bool registerAthlete(string userId, string userTeam, string athleteWeight, string athleteHeight)
+
+    public int insertAthlete(string command, bool isCreate)
+    {
+        SqlConnection con = null;
+
+        try
+        {
+            con = connect();
+
+            SqlCommand cmd = new SqlCommand(command, con);
+
+            int newID = -1;
+
+            if (isCreate)
+            {
+                newID = (int)cmd.ExecuteScalar();
+            }
+            else
+            {
+                newID = (int)cmd.ExecuteNonQuery();
+            }
+
+            if (con.State == System.Data.ConnectionState.Open) con.Close();
+
+            return newID;
+        }
+        catch (Exception ex)
+        {
+            //using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
+            //{
+            //    Log(ex.Message, w);
+            //}
+            throw ex;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
+    }
+
+
+    public bool registerAthlete(int userId, string userTeam, string athleteWeight, string athleteHeight)
     {
         SqlConnection con = null;
 
@@ -195,6 +243,33 @@ public class DBServices
         }
     }
 
+    public void addUserReg(string userId, string regId)
+    {
+        string query = "INSERT INTO dbo.UsersReg (UserID, RegID) VALUES ({0}, '{1}')";
+
+        SqlConnection con = null;
+
+        try
+        {
+            con = connect();
+
+            SqlCommand insert = new SqlCommand(String.Format(query, userId, regId), con);
+
+            insert.ExecuteNonQuery();
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw ex;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
+    }
 
     public void savePicture(string picPath, string userPicBase64)
     {

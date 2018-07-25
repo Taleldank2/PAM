@@ -196,6 +196,14 @@ public class WebService : System.Web.Services.WebService
 
     }
 
+
+    [WebMethod]
+    public void addUserReg (string userId,string regId)
+    {
+        dbHandler.addUserReg(userId, regId);
+            
+    }
+
     //[WebMethod]
     //public string getUserType(string userID)
     //{
@@ -222,7 +230,7 @@ public class WebService : System.Web.Services.WebService
                            string userBirthday, string athleteWeight, string athleteHeight)
     {
         dbHandler.registerUser(userType, userName, userLastName, phoneNumber, userMail, userPassword,
-                               userPicBase64, city, userBirthday);
+                               userPicBase64, city, userBirthday, userTeam, athleteWeight, athleteHeight);
 
         //string userSession = Context.Request.Cookies["session"]["session"];
 
