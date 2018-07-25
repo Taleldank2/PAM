@@ -1,6 +1,4 @@
-﻿
-
-document.getElementById("myForm").onsubmit = register;
+﻿document.getElementById("myForm").onsubmit = register;
 
 
 function register() {

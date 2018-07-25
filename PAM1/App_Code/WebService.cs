@@ -432,7 +432,23 @@ public class WebService : System.Web.Services.WebService
         return jsSerializer.Serialize(parentRow);
     }
 
+    [WebMethod]
+    public void addResult(string UserID, string ResultDate, string ResultType, string ResultDistance, string ResultTime, string ResultNote)
+    {
+        dbHandler.insertResult(UserID, ResultDate, ResultType, ResultDistance, ResultTime, ResultNote);
 
+        //add 100 points for any new result insert
+        updateScore(UserID, 100);
+    }
+
+    [WebMethod]
+    public void updateScore(string UserId,int addScore)
+    {
+        string scoreStr = getScore(UserId);
+        int scoreInt = int.Parse(scoreStr);
+        scoreInt += addScore;
+        dbHandler.updateToScore(UserId, scoreInt);
+    }
 }
 
 

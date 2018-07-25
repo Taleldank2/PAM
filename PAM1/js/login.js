@@ -71,6 +71,7 @@ function ajaxLogin(request) {
         success: successCB,
         error: errorCB
     })
+    
 }
 
 function successCB(results) {

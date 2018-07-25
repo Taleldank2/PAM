@@ -29,12 +29,11 @@ function getUserLastEvent() {
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
         success: parseLastEvent
-    }) 
+    })
 
 }
 
-function parseLastEvent(results)
-{
+function parseLastEvent(results) {
     results = $.parseJSON(results.d);
     str = results[0].Title;
     $("#MainNextEvent").html(str);
@@ -87,7 +86,7 @@ function getMessagesCount() {
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
         success: parseMessagesCount
-    }) 
+    })
 }
 
 function parseMessagesCount(results) {
@@ -110,7 +109,7 @@ function getScore() {
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
         success: parseScore
-    }) 
+    })
 
 }
 
@@ -166,29 +165,29 @@ function parseUserDetails(results) {
     strProfileName = results[0].FirstName + " " + results[0].LastName;
     $("#ProfileName").append(strProfileName);
 
-    strProfileWeight = results[0].Weight+" קילו";
+    strProfileWeight = results[0].Weight + " קילו";
     $("#ProfileWeight").append(strProfileWeight);
 
-    strProfileHeight = results[0].Highet +" מטר";
+    strProfileHeight = results[0].Highet + " מטר";
     $("#ProfileHeight").append(strProfileHeight);
 
     var birthDate = parseInt(results[0]["BirthDate"].split("(")[1].split(")")[0]);
     var tempProfileAge = new Date(birthDate);
-    strProfileAge = tempProfileAge.getDate() + "/" + (tempProfileAge.getMonth() +1) + "/" + tempProfileAge.getFullYear();
+    strProfileAge = tempProfileAge.getDate() + "/" + (tempProfileAge.getMonth() + 1) + "/" + tempProfileAge.getFullYear();
     $("#ProfileAge").append(strProfileAge);
-    
+
     strProfileCity = results[0].City;
     $("#ProfileCity").append(strProfileCity);
 
     strProfileEmail = results[0].Email;
     $("#ProfileEmail").append(strProfileEmail);
-    
+
     strProfilePhone = results[0].PhoneNumber;
     $("#ProfilePhone").append(strProfilePhone);
 
     strProfileAppScore = results[0].AppScore;
     $("#ProfileAppScore").append(strProfileAppScore);
-    
+
 }
 
 
@@ -207,7 +206,7 @@ function getUserResults() {
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
         success: parseUserResults
-    }) 
+    })
 }
 
 function parseUserResults(results) {
@@ -220,15 +219,15 @@ function parseUserResults(results) {
             sec = item.rTime.Seconds;
             if (item.rTime.Minutes < 10)
                 min = "0" + item.rTime.Minutes;
-            if (  item.rTime.Seconds < 10)
+            if (item.rTime.Seconds < 10)
                 sec = "0" + item.rTime.Seconds;
 
             //parse date
             var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
             var eventStartDate = new Date(eventTime);
             var strDate = "";
-            strDate += eventStartDate.getDate() + "/" + (eventStartDate.getMonth()+1) + "/" + eventStartDate.getFullYear();
-            
+            strDate += eventStartDate.getDate() + "/" + (eventStartDate.getMonth() + 1) + "/" + eventStartDate.getFullYear();
+
             //parse type
             var resultType;
             if (item.ResultType == 1)
@@ -240,9 +239,9 @@ function parseUserResults(results) {
 
             //parse table
             var $tr = $('<tr>').append(
-                $('<td>').html("<i class='"+resultType+"'></i>"),
+                $('<td>').html("<i class='" + resultType + "'></i>"),
                 $('<td>').text(item.Distance),
-                $('<td>').text(min +":" + sec),
+                $('<td>').text(min + ":" + sec),
                 $('<td>').text(strDate)
             ).appendTo('#ResultsTable');
         });
@@ -250,6 +249,71 @@ function parseUserResults(results) {
 
 }
 
+
+function addResultModal() {
+    $('#addResultModal').modal('show');
+
+    $("#resultType").append("<option value='" + (1) + "'>שחייה</option>")
+    $("#resultType").append("<option value='" + (2) + "'>ריצה</option>")
+    $("#resultType").append("<option value='" + (3) + "'>אחר</option>")
+
+    $("#resultDistance").append("<option value='" + (10) + "'>10</option>")
+    $("#resultDistance").append("<option value='" + (20) + "'>20</option>")
+    $("#resultDistance").append("<option value='" + (33) + "'>33</option>")
+    $("#resultDistance").append("<option value='" + (50) + "'>50</option>")
+    $("#resultDistance").append("<option value='" + (100) + "'>100</option>")
+    $("#resultDistance").append("<option value='" + (200) + "'>200</option>")
+    $("#resultDistance").append("<option value='" + (400) + "'>400</option>")
+    $("#resultDistance").append("<option value='" + (1000) + "'>1000</option>")
+    $("#resultDistance").append("<option value='" + (2000) + "'>2000</option>")
+
+}
+
+
+function addResult() {
+
+    resultDate = $('#resultDate').val();
+    resultType = $('#resultType').val();
+    resultDistance = $('#resultDistance').val();
+    resultTime = $('#resultTime').val();
+    resultNote = $('#resultNote').val();
+
+    userId = getUserId();
+
+    request = {
+        "UserID": userId["userId"],
+        "ResultDate": resultDate,
+        "ResultType": resultType,
+        "ResultDistance": resultDistance,
+        "ResultTime": resultTime,
+        "ResultNote": resultNote
+    };
+
+    var dataString = JSON.stringify(request);
+
+    //alert(dataString);
+
+    $.ajax({
+        url: ASMXURL + 'addResult',
+        data: dataString,
+        type: 'POST',
+        async: false,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: insertCompleted,
+        error: errorCB
+    })
+}
+
+function insertCompleted(result) {
+    alert("תוצאה הוזנה בהצלחה !")
+    window.location = "Results.html";
+}
+
+function errorCB(e) {
+    alert("The exception message is : " + e.responseText);
+    window.location = "Results.html";
+}
 //--------------------------------------------------------------------
 //                           Events Page
 //--------------------------------------------------------------------
@@ -265,7 +329,7 @@ function parseUserResults(results) {
 //        async: false,
 //        dataType: 'json',
 //        contentType: 'application/json; charset = utf-8',
-       
+
 //    }) // end of ajax call
 
 //   return userType.responseJSON.d
@@ -311,10 +375,10 @@ function getCoachEvents() {
 //---------------------------------//
 
 function parseMessagesCountAthlete(results) {
-    counter=0;
+    counter = 0;
     str = "Showing " + (counter + 1) + " - ";
     if (((counter + 1) * 20) > results.d)
-        str +=results.d;
+        str += results.d;
     else
         str += ((counter + 1) * 20);
     str += " of " + results.d;
@@ -356,12 +420,12 @@ function parseUserMessages(results) {
             var messageid = item["MessageID"]
             var $tr = $('<tr class="email-msg">').append(
                 $('<td>').html("<a class=''></a>").text(item.FirstName + " " + item.LastName),
-                $('<td class="hidden-xs">').html("<a id='" + messageid + "' class='email-msg'>"+item.Title+"</a>"),
+                $('<td class="hidden-xs">').html("<a id='" + messageid + "' class='email-msg'>" + item.Title + "</a>"),
                 $('<td class="text-right">').text(item.mTime.Hours + ":" + min),
                 $('<td class="text-right">').text(strDate)
             ).appendTo('#InboxTable');
         });
-    });   
+    });
 }
 
 function UserMessageModal() {
@@ -377,16 +441,16 @@ function UserMessageModal() {
         contentType: 'application/json; charset = utf-8',
         success: parseUserMessageModal,
         error: messageModalError
-        
+
     });
-    
+
 }
 
 function parseUserMessageModal(results) {
-    
+
     //Convert results back to JSON
-    results = $.parseJSON(results.d);  
-   
+    results = $.parseJSON(results.d);
+
     //Go Over the results;
     for (var i = 0; i < results.length; i++) {
         if (results[i].MessageID == MessageInfo.id) {
@@ -397,13 +461,12 @@ function parseUserMessageModal(results) {
             $('#message-modal').modal('show');
             return;
         }
-       
+
     }
     alert("Could not find message");
 }
 
-function messageModalError(a,b,c)
-{
+function messageModalError(a, b, c) {
     console.log(a);
     console.log(b);
     console.log(c);
@@ -429,10 +492,10 @@ function getPicturePath() {
 }
 
 function updateUserPicture(results) {
-        $.get(results.d, function (data) {
-            profileImg = $('#profileimage');
-            profileImg.attr("src", data);
-            profileImgProfilePage = $('#profileimageProfile');
-            profileImgProfilePage.attr("src", data);
-        });
-    }
+    $.get(results.d, function (data) {
+        profileImg = $('#profileimage');
+        profileImg.attr("src", data);
+        profileImgProfilePage = $('#profileimageProfile');
+        profileImgProfilePage.attr("src", data);
+    });
+}

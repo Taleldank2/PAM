@@ -119,7 +119,7 @@ public class DBServices
 
     public bool registerUser(string userType, string userName, string userLastName, string phoneNumber,
                            string userMail, string userPassword, string userPicBase64, string city,
-                           string userBirthday,string userTeam, string athleteWeight,string athleteHeight)
+                           string userBirthday, string userTeam, string athleteWeight, string athleteHeight)
     {
         SqlConnection con = null;
 
@@ -138,11 +138,11 @@ public class DBServices
 
             string[] birthDayArray = userBirthday.Split('/');
 
-            string parsedBirthDay = "Convert(date,'"+ birthDayArray[1] + "-" + birthDayArray[0] + "-" + birthDayArray[2]+ "', 105)";
+            string parsedBirthDay = "Convert(date,'" + birthDayArray[1] + "-" + birthDayArray[0] + "-" + birthDayArray[2] + "', 105)";
 
 
             int userId = insertAthlete(String.Format(command, userType, userName, userLastName,
-                phoneNumber, userMail, userPassword, picPath, city, parsedBirthDay),true);
+                phoneNumber, userMail, userPassword, picPath, city, parsedBirthDay), true);
 
             //SqlCommand insert = new SqlCommand(formattedCommand, con);
 
@@ -210,7 +210,6 @@ public class DBServices
         }
     }
 
-
     public bool registerAthlete(int userId, string userTeam, string athleteWeight, string athleteHeight)
     {
         SqlConnection con = null;
@@ -223,7 +222,8 @@ public class DBServices
                              "([AthleteID], [TeamID], [Highet], [Weight], [AppScore]) " +
                              " VALUES({0},'{1}','{2}','{3}','{4}')";
 
-            string formattedCommand = String.Format(command, userId, userTeam, athleteWeight, athleteHeight, 0);
+            //each register athlete first get 100 points for the registretion
+            string formattedCommand = String.Format(command, userId, userTeam, athleteWeight, athleteHeight, 100);
 
             SqlCommand insert = new SqlCommand(formattedCommand, con);
 
@@ -325,12 +325,12 @@ public class DBServices
         try
         {
             con = connect();
-            int countUpdatesUser = 0, countUpdatesAthlete=0;
-            bool updatedUser = true, updatedAthlete= true;
+            int countUpdatesUser = 0, countUpdatesAthlete = 0;
+            bool updatedUser = true, updatedAthlete = true;
 
 
             string commandUser = "UPDATE [dbo].[Users] SET ";
-            if (phoneNumber != null && phoneNumber!="")
+            if (phoneNumber != null && phoneNumber != "")
             {
                 commandUser += " [PhoneNumber] =" + phoneNumber;
                 countUpdatesUser++;
@@ -375,7 +375,7 @@ public class DBServices
             commandAthlete += " WHERE [AthleteID]=" + userId;
 
 
-            if(countUpdatesUser>0)
+            if (countUpdatesUser > 0)
             {
                 string formattedCommandUser = String.Format(commandUser);
                 SqlCommand updateUser = new SqlCommand(formattedCommandUser, con);
@@ -455,7 +455,38 @@ public class DBServices
             return null;
             throw;
         }
-        
+
+    }
+
+    public bool updateToScore(string userID, int newScore)
+    {
+        SqlConnection con = null;
+        try
+        {
+            con = connect();
+
+            string command = " UPDATE [dbo].[Athletes] " +
+                " SET AppScore =" + newScore +
+                " WHERE athleteId=" + userID;
+
+
+            string formattedCommand = String.Format(command);
+            SqlCommand updateScoreCommand = new SqlCommand(formattedCommand, con);
+
+            return (Convert.ToBoolean(updateScoreCommand.ExecuteNonQuery()));
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw ex;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
     }
 
     public string getUserName(string userID)
@@ -500,6 +531,42 @@ public class DBServices
         DataTable userResults = queryDb(query);
 
         return userResults;
+    }
+
+    public bool insertResult(string UserID, string ResultDate, string ResultType, string ResultDistance, string ResultTime, string ResultNote)
+    {
+        SqlConnection con = null;
+        try
+        {
+            string[] ResultDateArr = ResultDate.Split('-');
+            string parseResultDate = "Convert(date,'" + ResultDateArr[2] + "-" + ResultDateArr[1] + "-" + ResultDateArr[0] + "', 105)";
+
+            con = connect();
+
+            string command = " INSERT INTO [dbo].[Results] " +
+                " (AthleteID,ResultType,Distance,rTime,rDate,Note) " +
+                " VALUES (" + UserID + "," + ResultType + "," + ResultDistance + ",'00:" + ResultTime + "'," + parseResultDate + ",'" + ResultNote + "') ";
+
+
+            string formattedCommand = String.Format(command);
+            SqlCommand addNewResultCommand = new SqlCommand(formattedCommand, con);
+
+
+
+            return (Convert.ToBoolean(addNewResultCommand.ExecuteNonQuery()));
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw ex;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
     }
 
     //--------------------------------------------------------------------

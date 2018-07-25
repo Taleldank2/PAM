@@ -144,7 +144,12 @@
             <!-- end page title end breadcrumb -->
             <!-- Results Table -->
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-8" style="text-align:center">
+                    <button class="btn btn-warning waves-effect waves-light m-b-5" onclick="addResultModal()">
+                        <i class="fa fa-plus-circle"></i>
+                        <span>הזן תוצאה חדשה</span>
+                        <i class="fa fa-plus-circle"></i>
+                    </button>
                     <div class="card-box">
                         <!--<h4 class="text-dark  header-title m-t-0">Latest Projects</h4>-->
                         <!--<p class="text-muted m-b-25 font-13">
@@ -174,6 +179,56 @@
         </div> <!-- end container -->
     </div>
     <!-- end wrapper -->
+    <!--Add event Modal-->
+    <div id="addResultModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">close</span></button>
+                    <h4>הוסף תוצאה חדשה</h4>
+                </div>
+
+
+                <div id="modalBody" class="modal-body">
+
+                    <div class="form-group">
+                        <!--<div class="input-group date" data-provide="datepicker" id="EventDatePick">-->
+                        <input type="date" class="form-control" placeholder="תאריך התוצאה" id="resultDate">
+                        <!--</div>-->
+                    </div>
+
+                    <div class="form-group">
+                        <select class="form-control" id="resultType" placeholder="סוג התוצאה" ></select>
+                        <!--<input class="form-control" type="text" placeholder="סוג התוצאה" id="resultType">-->
+                    </div>
+
+                    <div class="form-group">
+                        <select class="form-control" id="resultDistance" placeholder="מרחק"></select>
+                        <!--<input class="form-control" type="text" placeholder="מרחק" id="resultDistance">-->
+                    </div>
+
+                    <div class="form-group">
+                        <!--<div class="input-group date" data-provide="datepicker">-->
+                        <input type="time" class="form-control" placeholder="זמן תוצאה" id="resultTime">
+                    </div>
+
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" rows="4" placeholder="הכנס הערות במידה ויש (לא חובה)" id="resultNote"></textarea>
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">בטל</button>
+                    <button type="submit" class="btn btn-primary" id="submitButton" onclick="addResult()">שגר תוצאה</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer" style="background-color:#ffc107;border-color:darkred">
         <div class="container">
