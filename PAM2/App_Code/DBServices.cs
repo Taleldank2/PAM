@@ -742,7 +742,7 @@ public class DBServices
 
     }
 
-    public List<String> getUserRegsFromTeams(String[] teamIds)
+    public List<string> getUserRegsFromTeams(string[] teamIds)
     {
         String query = "SELECT RegID from UsersReg u join dbo.Athletes a on u.UserID = a.AthleteID WHERE TeamID IN({0})";
         String teamStr = "";
@@ -822,6 +822,37 @@ public class DBServices
                 con.Close();
             }
         }            
+    }
+
+
+    //--------------------------------------------------------------------
+    // Attendance
+    //--------------------------------------------------------------------
+    public DataTable getEventMembers(string eventID)
+    {
+        try
+        {
+
+            string query = "select * from Users u"
+            + " join Athletes a on u.UserID = a.AthleteID"
+            + " join Teams t on a.TeamID = t.TeamID"
+            + " join TeamsEvents te on te.TeamID = t.TeamID"
+            + " join Events e on e.EventID = te.EventID"
+            + " where e.EventID = " + eventID;
+            
+            DataTable usersTable = queryDb(query);
+
+            return usersTable;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
     }
 
 

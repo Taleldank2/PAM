@@ -146,119 +146,58 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-box">
-                        <h4 class="m-t-0 header-title">Add &amp; Remove Rows</h4>
+                        <h4 class="m-t-0 header-title">טופס נוכחות</h4>
                         <p class="text-muted m-b-30 font-13">
-                            Add or remove rows from your FooTable.
+                            לחץ על האיקס האדום בכדי להסיר ספורטאים של הגיעו לאימון.
                         </p>
 
                         <div class="pad-btm form-inline">
                             <div class="row">
-                                <!--<div class="col-sm-6 text-xs-center">
-                                    <div class="form-group">
-                                        <button id="demo-btn-addrow" class="btn btn-primary m-b-20"><i class="fa fa-plus m-r-5"></i> Add New Row</button>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 text-xs-center text-right">
-                                    <div class="form-group">
-                                        <input id="demo-input-search2" type="text" placeholder="Search" class="form-control" autocomplete="off">
-                                    </div>
-                                </div>-->
-                                <div class="col-md-6">
-                                    <div class="card-box">
-                                        <!--<h4 class="text-dark  header-title m-t-0">Dropdown</h4>
-                                        <p class="text-muted m-b-25 font-13">
-                                            Turn a button into a dropdown toggle with some basic markup changes.
-                                        </p>-->
+                                <div class="col-sm-6 text-xs-center">
+                                
+                                    <!--Team List DDL-->
+                                    <div id="TeamsNamesDDL">
 
-                                        <div class="btn-group">
-                                            <button id="EventList" type="button" class="btn btn-secondary dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">
-                                                Dropdown
-                                                <span class="caret"></span>
-                                            </button>
-                                            <div id="dynamic-select" class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                <a class="dropdown-item" href="#">Dropdown link</a>
-                                                <a class="dropdown-item" href="#">Dropdown link</a>
-                                                <a class="dropdown-item" href="#">Dropdown link</a>
-                                            </div>
-                                        </div>
-                                        <!--<div class="btn-group">
-                                            <button type="button" class="btn btn-info dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">Dropdown <span class="caret"></span></button>
-                                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                <a class="dropdown-item" href="#">Dropdown link</a>
-                                                <a class="dropdown-item" href="#">Dropdown link</a>
-                                            </div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-success dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">Dropdown <span class="caret"></span></button>
-                                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                <a class="dropdown-item" href="#">Dropdown link</a>
-                                                <a class="dropdown-item" href="#">Dropdown link</a>
-                                            </div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-danger dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">Dropdown <span class="caret"></span></button>
-                                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                <a class="dropdown-item" href="#">Dropdown link</a>
-                                                <a class="dropdown-item" href="#">Dropdown link</a>
-                                            </div>
-                                        </div>-->
                                     </div>
+
+
                                 </div>
+                              
                             </div>
                         </div>
 
-                        <table id="demo-foo-addrow" class="table table-striped table-bordered m-b-0 toggle-circle footable-loaded footable no-paging tablet breakpoint" data-page-size="7">
+                        <!--Table-->
+                        <table id="demo-foo-addrow" class="table table-striped table-bordered m-b-0 toggle-circle footable-loaded footable phone breakpoint" data-page-size="7">
                             <thead>
                                 <tr>
                                     <th data-sort-ignore="true" class="min-width footable-visible footable-first-column"></th>
-                                    <th data-sort-initial="true" data-toggle="true" class="footable-visible footable-sortable footable-sorted">First Name<span class="footable-sort-indicator"></span></th>
-                                    <th class="footable-visible footable-sortable">Last Name<span class="footable-sort-indicator"></span></th>
-                                    <th data-hide="phone" class="footable-visible footable-sortable footable-last-column">Job Title<span class="footable-sort-indicator"></span></th>
+                                    <th data-sort-initial="true" data-toggle="true" class="footable-visible footable-sortable footable-sorted">שם פרטי<span class="footable-sort-indicator"></span></th>
+                                    <th class="footable-visible footable-sortable footable-last-column">שם משפחה<span class="footable-sort-indicator"></span></th>
+                                    <th data-hide="phone" class="footable-sortable" style="display: none;">Job Title<span class="footable-sort-indicator"></span></th>
                                     <th data-hide="phone, tablet" class="footable-sortable" style="display: none;">DOB<span class="footable-sort-indicator"></span></th>
                                     <th data-hide="phone, tablet" class="footable-sortable" style="display: none;">Status<span class="footable-sort-indicator"></span></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="footable-even" style=""><td style="text-align: center;" class="footable-visible footable-first-column"><button class="demo-delete-row btn btn-danger btn-sm btn-icon"><i class="fa fa-times"></i></button></td><td class="footable-visible"><span class="footable-toggle"></span>Adam</td><td class="footable-visible">Doe</td><td class="footable-visible footable-last-column">Traffic Court Referee</td><td class="" style="display: none;">22 Jun 1972</td><td class="" style="display: none;"><span class="badge label-table badge-success   ">Active</span></td></tr>
-                                <tr class="footable-row-detail" style="display: none;"><td class="footable-row-detail-cell" colspan="4"><div class="footable-row-detail-inner"><div class="footable-row-detail-row"><div class="footable-row-detail-name">DOB:</div><div class="footable-row-detail-value">22 Jun 1972</div></div><div class="footable-row-detail-row"><div class="footable-row-detail-name">Status:</div><div class="footable-row-detail-value"><span class="badge label-table badge-success   ">Active</span></div></div></div></td></tr>
-                                <tr class="footable-odd" style=""><td style="text-align: center;" class="footable-visible footable-first-column"><button class="demo-delete-row btn btn-danger btn-sm btn-icon"><i class="fa fa-times"></i></button></td><td class="footable-visible"><span class="footable-toggle"></span>Adam</td><td class="footable-visible">Doe</td><td class="footable-visible footable-last-column">Traffic Court Referee</td><td class="" style="display: none;">22 Jun 1972</td><td class="" style="display: none;"><span class="badge label-table badge-success   ">Active</span></td></tr>
-                                <tr class="footable-even" style=""><td style="text-align: center;" class="footable-visible footable-first-column"><button class="demo-delete-row btn btn-danger btn-sm btn-icon"><i class="fa fa-times"></i></button></td><td class="footable-visible"><span class="footable-toggle"></span>Adam</td><td class="footable-visible">Doe</td><td class="footable-visible footable-last-column">Traffic Court Referee</td><td class="" style="display: none;">22 Jun 1972</td><td class="" style="display: none;"><span class="badge label-table badge-success   ">Active</span></td></tr>
-                                <tr class="footable-odd" style="">
-                                    <td class="text-center footable-visible footable-first-column"><button class="demo-delete-row btn btn-danger btn-sm btn-icon"><i class="fa fa-times"></i></button></td>
-                                    <td class="footable-visible"><span class="footable-toggle"></span>Easer</td>
-                                    <td class="footable-visible">Dragoo</td>
-                                    <td class="footable-visible footable-last-column">Drywall Stripper</td>
-                                    <td class="" style="display: none;">13 Dec 1977</td>
-                                    <td class="" style="display: none;"><span class="badge label-table badge-success">Active</span></td>
-                                </tr>
                                 <tr class="footable-even" style="">
                                     <td class="text-center footable-visible footable-first-column"><button class="demo-delete-row btn btn-danger btn-sm btn-icon"><i class="fa fa-times"></i></button></td>
-                                    <td class="footable-visible"><span class="footable-toggle"></span>Maxine</td>
-                                    <td class="footable-visible"><a href="#">Woldt</a></td>
-                                    <td class="footable-visible footable-last-column"><a href="#">Business Services Sales Representative</a></td>
-                                    <td class="" style="display: none;">17 Oct 1987</td>
-                                    <td class="" style="display: none;"><span class="badge label-table badge-primary">Disabled</span></td>
-                                </tr>
-                                <tr class="footable-odd" style="">
-                                    <td class="text-center footable-visible footable-first-column"><button class="demo-delete-row btn btn-danger btn-sm btn-icon"><i class="fa fa-times"></i></button></td>
-                                    <td class="footable-visible"><span class="footable-toggle"></span>Shona</td>
-                                    <td class="footable-visible">Woldt</td>
-                                    <td class="footable-visible footable-last-column">Airline Transport Pilot</td>
-                                    <td class="" style="display: none;">3 Oct 1981</td>
-                                    <td class="" style="display: none;"><span class="badge label-table badge-primary">Disabled</span></td>
+                                    <td class="footable-visible"><span class="footable-toggle"></span>Easer</td>
+                                    <td class="footable-visible footable-last-column">Dragoo</td>
+                                    <td class="" style="display: none;">Drywall Stripper</td>
+                                    <td class="" style="display: none;">13 Dec 1977</td>
+                                    <td class="" style="display: none;"><span class="badge label-table badge-success">Active</span></td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr class="active">
                                     <td colspan="6" class="footable-visible">
                                         <div class="text-right">
-                                            <ul class="pagination pagination-split justify-content-end footable-pagination m-t-10"><li class="footable-page-arrow disabled"><a data-page="first" href="#first">«</a></li><li class="footable-page-arrow disabled"><a data-page="prev" href="#prev">‹</a></li><li class="footable-page active"><a data-page="0" href="#">1</a></li><li class="footable-page-arrow disabled"><a data-page="next" href="#next">›</a></li><li class="footable-page-arrow disabled"><a data-page="last" href="#last">»</a></li></ul>
+                                            <ul class="pagination pagination-split justify-content-end footable-pagination m-t-10"><li class="footable-page-arrow disabled"><a data-page="first" href="#first">«</a></li><li class="footable-page-arrow disabled"><a data-page="prev" href="#prev">‹</a></li><li class="footable-page active"><a data-page="0" href="#">1</a></li><li class="footable-page"><a data-page="1" href="#">2</a></li><li class="footable-page-arrow"><a data-page="next" href="#next">›</a></li><li class="footable-page-arrow"><a data-page="last" href="#last">»</a></li></ul>
                                         </div>
                                     </td>
                                 </tr>
                             </tfoot>
                         </table>
-
                     </div>
                 </div>
             </div>
@@ -280,7 +219,7 @@
     </footer>
     <!-- End Footer -->
 
-    <script src="js/Config.js"></script> 
+    <script src="js/Config.js"></script>
     <!-- jQuery  -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/popper.min.js"></script><!-- Popper for Bootstrap --><!-- Tether for Bootstrap -->
@@ -311,29 +250,44 @@
     <script src="js/Session.js"></script>
 
     <script>
-        //document.getElementById("demo").innerHTML = "My First JavaScript";
+
 
         $(document).ready(function () {
-            $('#EventList').click(function () {
-                alert("Welcome to EventsList")
-                alert("defaultEvents:" + defaultEvents);
+            //Get the event list of today
+            //$('#EventList').click(function () {
+                //alert("Welcome to EventsList")
+                //alert("defaultEvents:" + defaultEvents);
                 var today = new Date();
-                var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear()
+                var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear()
 
-                //console.log($('#text-to-add').val());
+                var str = "<div class='form-group'><div class='input-group'><div class='input-group-prepend'>" +
+                            "<span class='input-group-text'><i class='mdi mdi-swim'></i></span></div>" +
+                            "<select id='userteam' class='form-control select2 select2-hidden-accessible' tabindex='-1'" +
+                            "aria-hidden='true' ><option value='' disabled selected> בחר אימון </option> ";
+
                 for (var i = 0; i < defaultEvents.length; i++) {
-                    alert("todays date:" + date)
-                    alert("Event date:" + defaultEvents[i].edate)
-                    if (defaultEvents[i].edate == date)
-                    {
-                        //put here the append row ager testing
-                    }
-                    $('#dynamic-select').append('<a class="dropdown-item">' + defaultEvents[i].title + '</a>');
-                }
-               
-            });
-        });
 
+
+                    //alert("todays date:" + date)
+                    //alert("Event date:" + defaultEvents[i].edate)
+
+                    if (defaultEvents[i].edate == date) {
+                        //put here the append row after testing
+
+
+                    }
+
+                    //$('#TeamsNamesDDL').append('<a class="dropdown-item">' + defaultEvents[i].title + '</a>');
+                    str += "<option value=" + defaultEvents[i].teamid + ">" + defaultEvents[i].title + "</option>";
+                    
+
+                }
+                str += "</select></div> </div>";
+                $('#TeamsNamesDDL').append(str);
+
+            });
+
+       
     </script>
 
 

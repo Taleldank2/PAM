@@ -318,6 +318,7 @@ public class WebService : System.Web.Services.WebService
         return response;
     }
 
+
     //--------------------------------------------------------------------
     //                           Results
     //--------------------------------------------------------------------
@@ -392,6 +393,30 @@ public class WebService : System.Web.Services.WebService
         return response;
     }
 
+    //--------------------------------------------------------------------
+    //                           Attendeance
+    //--------------------------------------------------------------------
+
+    [WebMethod]
+    public string getEventMembers(string eventId)
+    {
+        //string userSession = Context.Request.Cookies["session"]["session"];
+
+        //string coachId = getUserFromSession(userSession);
+
+        DataTable EventMembers = dbHandler.getEventMembers(eventId);
+
+        string response = dataTableToJson(EventMembers);
+
+        return response;
+    }
+
+
+    //--------------------------------------------------------------------
+    //                           Send Notifications
+    //--------------------------------------------------------------------
+
+
     [WebMethod]
     public void createMessage(string coachId,String title, String message, String[] teamIds)
     {
@@ -407,8 +432,7 @@ public class WebService : System.Web.Services.WebService
              
     }
 
-    [WebMethod]
-    //test notofication
+    [WebMethod]    
     public void test2()
     {
         //lt is the list of devices that are registerd to the app
@@ -466,6 +490,7 @@ public class WebService : System.Web.Services.WebService
     {
         string asdf = "sap";
     }
+
 
     //--------------------------------------------------------------------
     //                           Profile
