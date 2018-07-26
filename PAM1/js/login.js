@@ -9,8 +9,11 @@ $(document).ready(function () {
     {
         window.location = "index.html"
     }
-
-    if (localStorage.isChecked && localStorage.isChecked != '') {
+    if (localStorage["UserNumber"]) {
+        $('#PhoneNumber').val(localStorage.UserNumber);
+        localStorage.removeItem("UserNumber");
+    }
+    else if (localStorage.isChecked && localStorage.isChecked != '') {
         $('#checkbox-signup').attr('checked', 'checked');
         $('#PhoneNumber').val(localStorage.username);
         $('#Password').val(localStorage.pass);
@@ -30,9 +33,12 @@ $(document).ready(function () {
             localStorage.isChecked = $('#checkbox-signup').val();
         }
         else {
-            localStorage.username = '';
-            localStorage.pass = '';
-            localStorage.isChecked = '';
+            localStorage.removeItem("username");
+            localStorage.removeItem("pass");
+            localStorage.removeItem("isChecked");
+            //localStorage.username = '';
+            //localStorage.pass = '';
+            //localStorage.isChecked = '';
         }
     });
 });

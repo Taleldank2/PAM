@@ -535,11 +535,23 @@ public class DBServices
         return userResults;
     }
 
-    public bool insertResult(string UserID, string ResultDate, string ResultType, string ResultDistance, string ResultTime, string ResultNote)
+    public bool insertResult(string UserID, string ResultDate, string ResultType, string ResultDistance, string ResultTimeMin, string ResultTimeSec, string ResultNote)
     {
         SqlConnection con = null;
         try
         {
+
+            string parseResultTimeSec = ResultTimeSec;
+            if (int.Parse(ResultTimeSec) < 10)
+            {
+                parseResultTimeSec = "0" + ResultTimeSec;
+            }
+            string parseResultTimeMin = ResultTimeMin;
+            if (int.Parse(ResultTimeMin) < 10)
+            {
+                parseResultTimeMin = "0" + ResultTimeMin;
+            }
+
             string[] ResultDateArr = ResultDate.Split('-');
             string parseResultDate = "Convert(date,'" + ResultDateArr[2] + "-" + ResultDateArr[1] + "-" + ResultDateArr[0] + "', 105)";
 
@@ -547,7 +559,7 @@ public class DBServices
 
             string command = " INSERT INTO [dbo].[Results] " +
                 " (AthleteID,ResultType,Distance,rTime,rDate,Note) " +
-                " VALUES (" + UserID + "," + ResultType + "," + ResultDistance + ",'00:" + ResultTime + "'," + parseResultDate + ",'" + ResultNote + "') ";
+                " VALUES (" + UserID + "," + ResultType + "," + ResultDistance + ",'00:" + parseResultTimeMin + ":"+ parseResultTimeSec + "'," + parseResultDate + ",'" + ResultNote + "') ";
 
 
             string formattedCommand = String.Format(command);

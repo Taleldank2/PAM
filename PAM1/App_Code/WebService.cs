@@ -433,9 +433,9 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void addResult(string UserID, string ResultDate, string ResultType, string ResultDistance, string ResultTime, string ResultNote)
+    public void addResult(string UserID, string ResultDate, string ResultType, string ResultDistance, string ResultTimeMin, string ResultTimeSec, string ResultNote)
     {
-        dbHandler.insertResult(UserID, ResultDate, ResultType, ResultDistance, ResultTime, ResultNote);
+        dbHandler.insertResult(UserID, ResultDate, ResultType, ResultDistance, ResultTimeMin, ResultTimeSec, ResultNote);
 
         //add 100 points for any new result insert
         updateScore(UserID, 100);

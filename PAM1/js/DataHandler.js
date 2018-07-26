@@ -275,7 +275,8 @@ function addResult() {
     resultDate = $('#resultDate').val();
     resultType = $('#resultType').val();
     resultDistance = $('#resultDistance').val();
-    resultTime = $('#resultTime').val();
+    resultTimeMin = $('#resultTimeMin').val();
+    resultTimeSec = $('#resultTimeSec').val();
     resultNote = $('#resultNote').val();
 
     userId = localStorage["UserID"];
@@ -285,13 +286,12 @@ function addResult() {
         "ResultDate": resultDate,
         "ResultType": resultType,
         "ResultDistance": resultDistance,
-        "ResultTime": resultTime,
+        "ResultTimeMin": resultTimeMin,
+        "ResultTimeSec": resultTimeSec,
         "ResultNote": resultNote
     };
 
     var dataString = JSON.stringify(request);
-
-    //alert(dataString);
 
     $.ajax({
         url: ASMXURL + 'addResult',

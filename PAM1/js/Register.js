@@ -74,7 +74,6 @@ function getTeamsNamesFailed() {
 
 function register() {
     try {
-        if (localStorage["UserDetails"] != "true") {
             localStorage["UserDetails"] = "true";
             localStorage["UserNumber"] = $('#phonenumber').val();
             localStorage["UserTeam"] = $('#userteam').val();
@@ -86,7 +85,6 @@ function register() {
             localStorage["UserWeight"] = $('#AthleteWeight').val();
             localStorage["UserHeight"] = $('#AthleteHeight').val();
             localStorage["UserPic"] = $('#picture')[0].files[0];
-        }
 
         isChecked = document.getElementById("checkbox-signup").checked;
         if (isChecked == false) {
@@ -178,8 +176,6 @@ function registerNewUser(pictureBase64) {
 
     var dataString = JSON.stringify(request);
 
-    //alert(dataString);
-
     $.ajax({
         url: ASMXURL + 'register',
         data: dataString,
@@ -191,31 +187,8 @@ function registerNewUser(pictureBase64) {
         error: errorCB
     })
 
-    //userID = getUserId();
-
-    //requestAthlete = {
-    //    "userId": userID,
-    //    "userTeam": userTeam,
-    //    "athleteWeight": athleteWeight,
-    //    "athleteHeight": athleteHeight
-    //};
-
-    //var dataStringAthlete = JSON.stringify(requestAthlete);
-
-
-    //$.ajax({
-    //    url: ASMXURL + 'registerAthlete',
-    //    data: dataString,
-    //    type: 'POST',
-    //    async: false,
-    //    dataType: 'json',
-    //    contentType: 'application/json; charset = utf-8',
-    //    success: registerCompleted,
-    //    error: errorCB
-    //})
-
     localStorage.removeItem("UserDetails");
-    localStorage.removeItem("UserNumber");
+    //localStorage.removeItem("UserNumber"); - remove agter move to login
     localStorage.removeItem("UserTeam");
     localStorage.removeItem("UserName");
     localStorage.removeItem("UserLastName");
