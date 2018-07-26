@@ -742,7 +742,7 @@ public class DBServices
 
     }
 
-    public List<String> getUserRegsFromTeams(String[] teamIds)
+    public List<string> getUserRegsFromTeams(string[] teamIds)
     {
         String query = "SELECT RegID from UsersReg u join dbo.Athletes a on u.UserID = a.AthleteID WHERE TeamID IN({0})";
         String teamStr = "";

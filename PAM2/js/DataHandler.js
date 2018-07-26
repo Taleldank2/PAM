@@ -26,7 +26,7 @@ function getUserId() {
 //        success: parseLastEvent
 //    }) 
 
-//}
+
 
 //function parseLastEvent(results)
 //{
@@ -147,7 +147,6 @@ function parseUserDetails(results) {
 //        });
 //    });
 
-//}
 
 //--------------------------------------------------------------------
 //                           Events Page
@@ -478,7 +477,6 @@ function parseCoachResluts(results) {
 //                           Messages
 //--------------------------------------------------------------------
 
-//---------------------------------//
 
 function sendMessage() {
 
@@ -569,8 +567,7 @@ function parseMessagesCount(results) {
         str += ((counter + 1) * 20);
     str += " of " + results.d;
     $("#CountInbox").html(str);
-}
-;                                                                                                                       
+}                                                                                                                       
 
 function getCoachMessages() {
     var request = getUserId();
@@ -615,4 +612,9 @@ function parseCoachMessages(results) {
         });
     });
 }
+
+
+//--------------------------------------------------------------------
+//                           Attendance
+//--------------------------------------------------------------------
 
