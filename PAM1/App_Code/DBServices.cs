@@ -127,6 +127,7 @@ public class DBServices
         {
             con = connect();
 
+            //android_asset/www/
             string picPath = "images/profiles/" + phoneNumber + ".html";
 
             savePicture(picPath, userPicBase64);
@@ -136,9 +137,9 @@ public class DBServices
                              " [Password],[Picture],[City],[BirthDate]) " +
                              " VALUES({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}',{8}); SELECT CAST(scope_identity() AS int) ";
 
-            string[] birthDayArray = userBirthday.Split('/');
+            string[] birthDayArray = userBirthday.Split('-');
 
-            string parsedBirthDay = "Convert(date,'" + birthDayArray[1] + "-" + birthDayArray[0] + "-" + birthDayArray[2] + "', 105)";
+            string parsedBirthDay = "Convert(date,'" + birthDayArray[2] + "-" + birthDayArray[1] + "-" + birthDayArray[0] + "', 105)";
 
 
             int userId = insertAthlete(String.Format(command, userType, userName, userLastName,
@@ -409,14 +410,15 @@ public class DBServices
     //--------------------------------------------------------------------
     // index Page 
     //--------------------------------------------------------------------
-    public DataTable getUserLastEvent(string userID)
+    public DataTable getUserNextEvent(string userID)
     {
 
         string query = "Select TOP 1 * from events e"
             + " join dbo.TeamsEvents t on t.EventID = e.EventID"
             + " join dbo.Athletes a on t.TeamID = a.TeamID"
-            + " WHERE a.AthleteID =" + userID +
-            " ORDER BY E_Date DESC";
+            + " WHERE a.AthleteID =" + userID + " AND"
+            + " (convert(datetime,(E_Date))+convert(datetime,(StartTime)))>=getdate()"
+            + " ORDER BY E_Date ";
 
         DataTable UserEvent = queryDb(query);
 

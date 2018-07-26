@@ -17,23 +17,23 @@ function getUserId() {
 //--------------------------------------------------------------------
 
 
-function getUserLastEvent() {
+function getUserNextEvent() {
     var request = getUserId();
     dataString = JSON.stringify(request);
 
     $.ajax({
-        url: ASMXURL + 'getUserLastEvent',
+        url: ASMXURL + 'getUserNextEvent',
         data: dataString,
         type: 'POST',
         async: true,
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
-        success: parseLastEvent
+        success: parseNextEvent
     })
 
 }
 
-function parseLastEvent(results) {
+function parseNextEvent(results) {
     results = $.parseJSON(results.d);
     str = results[0].Title;
     $("#MainNextEvent").html(str);
@@ -278,10 +278,10 @@ function addResult() {
     resultTime = $('#resultTime').val();
     resultNote = $('#resultNote').val();
 
-    userId = getUserId();
+    userId = localStorage["UserID"];
 
     request = {
-        "UserID": userId["userId"],
+        "UserID": userId,
         "ResultDate": resultDate,
         "ResultType": resultType,
         "ResultDistance": resultDistance,
@@ -306,7 +306,7 @@ function addResult() {
 }
 
 function insertCompleted(result) {
-    alert("תוצאה הוזנה בהצלחה !")
+    alert("לא רע לא רע ...");
     window.location = "Results.html";
 }
 
@@ -351,21 +351,21 @@ function getUserEvents() {
     return events.responseJSON.d
 }
 
-function getCoachEvents() {
-    var request = getUserId();
-    dataString = JSON.stringify(request);
+//function getCoachEvents() {
+//    var request = getUserId();
+//    dataString = JSON.stringify(request);
 
-    events = $.ajax({
-        url: ASMXURL + 'getCoachEvents',
-        data: dataString,
-        type: 'POST',
-        async: false,
-        dataType: 'json',
-        contentType: 'application/json; charset = utf-8'
-    }) // end of ajax call
+//    events = $.ajax({
+//        url: ASMXURL + 'getCoachEvents',
+//        data: dataString,
+//        type: 'POST',
+//        async: false,
+//        dataType: 'json',
+//        contentType: 'application/json; charset = utf-8'
+//    }) // end of ajax call
 
-    return events.responseJSON.d
-}
+//    return events.responseJSON.d
+//}
 
 
 //--------------------------------------------------------------------
@@ -417,12 +417,12 @@ function parseUserMessages(results) {
                 min = "0" + item.mTime.Minutes;
 
             //parse table
-            var messageid = item["MessageID"]
-            var $tr = $('<tr class="email-msg">').append(
-                $('<td>').html("<a class=''></a>").text(item.FirstName + " " + item.LastName),
+            var messageid = item["MessageID"];
+            var $tr = $("<tr class='email-msg'>").append(
+                $('<td>').html("<a id='" + messageid + "' class='email-msg'>" + item.FirstName + " " + item.LastName + "</a>"),
                 $('<td class="hidden-xs">').html("<a id='" + messageid + "' class='email-msg'>" + item.Title + "</a>"),
-                $('<td class="text-right">').text(item.mTime.Hours + ":" + min),
-                $('<td class="text-right">').text(strDate)
+                $('<td class="text-right">').html("<a id='" + messageid + "' class='email-msg'>" + item.mTime.Hours + ":" + min + "</a>"),
+                $('<td class="text-right" style="text-align: right!important">').html("<a id='" + messageid + "' class='email-msg'>" + strDate + "</a>")
             ).appendTo('#InboxTable');
         });
     });
