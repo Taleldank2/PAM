@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------------------
 
 
-var local = false;
+var local = true;
 
 var ASMXURL = 'http://localhost:16089/WebService.asmx/';
 if (!local) {

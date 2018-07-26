@@ -19,7 +19,7 @@ function getMoreDetails() {
         $('#lastname').val(localStorage.UserLastName);
         $('#mail').val(localStorage.UserMail);
         $('#city').val(localStorage.UserCity);
-        $('#datepicker').val(localStorage.UserDate);
+        $('#birthday').val(localStorage.UserDate);
         $('#AthleteWeight').val(localStorage.UserWeight);
         $('#AthleteHeight').val(localStorage.UserHeight);
         $('#picture').val(localStorage.UserPic);
@@ -82,7 +82,7 @@ function register() {
             localStorage["UserLastName"] = $('#lastname').val();
             localStorage["UserMail"] = $('#mail').val();
             localStorage["UserCity"] = $('#city').val();
-            localStorage["UserDate"] = $('#datepicker').val();
+            localStorage["UserDate"] = $('#birthday').val();
             localStorage["UserWeight"] = $('#AthleteWeight').val();
             localStorage["UserHeight"] = $('#AthleteHeight').val();
             localStorage["UserPic"] = $('#picture')[0].files[0];
@@ -156,7 +156,7 @@ function registerNewUser(pictureBase64) {
     userPassword = $('#pass').val();
     userPicture = pictureBase64;
     userCity = $('#city').val();
-    userBirthday = $('#datepicker').val();
+    userBirthday = $('#birthday').val();
     athleteWeight = $('#AthleteWeight').val();
     athleteHeight = $('#AthleteHeight').val();
 

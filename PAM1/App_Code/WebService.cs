@@ -270,13 +270,13 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
 
     [WebMethod]
-    public string getUserLastEvent(string userId)
+    public string getUserNextEvent(string userId)
     {
         //string userSession = Context.Request.Cookies["session"]["session"];
 
         //string userId = getUserFromSession(userSession);
 
-        DataTable events = dbHandler.getUserLastEvent(userId);
+        DataTable events = dbHandler.getUserNextEvent(userId);
 
         string response = dataTableToJson(events);
 
