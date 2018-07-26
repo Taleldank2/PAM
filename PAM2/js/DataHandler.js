@@ -618,3 +618,29 @@ function parseCoachMessages(results) {
 //                           Attendance
 //--------------------------------------------------------------------
 
+function getEventMembers() {
+    var request = getEventId();
+    dataString = JSON.stringify(request);
+
+    $.ajax({
+        url: ASMXURL + 'getEventMembers',
+        data: dataString,
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: updateCoachTeams
+    })
+}
+
+//get the event id from the picked event in the events ddl
+function getEventId() {
+
+
+}
+
+//print the users the related to the event to the table.
+function parseEventMembers(results) {
+
+
+}

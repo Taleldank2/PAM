@@ -263,7 +263,7 @@
                 var str = "<div class='form-group'><div class='input-group'><div class='input-group-prepend'>" +
                             "<span class='input-group-text'><i class='mdi mdi-swim'></i></span></div>" +
                             "<select id='userteam' class='form-control select2 select2-hidden-accessible' tabindex='-1'" +
-                            "aria-hidden='true' ><option value='' disabled selected> בחר קבוצה </option> ";
+                            "aria-hidden='true' ><option value='' disabled selected> בחר אימון </option> ";
 
                 for (var i = 0; i < defaultEvents.length; i++) {
 
@@ -278,7 +278,7 @@
                     }
 
                     //$('#TeamsNamesDDL').append('<a class="dropdown-item">' + defaultEvents[i].title + '</a>');
-                    str += "<option value=" + defaultEvents[i].title + ">" + defaultEvents[i].title + "</option>";
+                    str += "<option value=" + defaultEvents[i].teamid + ">" + defaultEvents[i].title + "</option>";
                     
 
                 }

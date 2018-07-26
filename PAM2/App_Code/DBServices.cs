@@ -826,6 +826,37 @@ public class DBServices
 
 
     //--------------------------------------------------------------------
+    // Attendance
+    //--------------------------------------------------------------------
+    public DataTable getEventMembers(string eventID)
+    {
+        try
+        {
+
+            string query = "select * from Users u"
+            + " join Athletes a on u.UserID = a.AthleteID"
+            + " join Teams t on a.TeamID = t.TeamID"
+            + " join TeamsEvents te on te.TeamID = t.TeamID"
+            + " join Events e on e.EventID = te.EventID"
+            + " where e.EventID = " + eventID;
+            
+            DataTable usersTable = queryDb(query);
+
+            return usersTable;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
+    }
+
+
+    //--------------------------------------------------------------------
     // log message (error)
     //--------------------------------------------------------------------
     public static void Log(string logMessage, TextWriter w)
