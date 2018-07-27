@@ -697,7 +697,5 @@ document.getElementById("confirmBTN").onclick = sendList;
 function sendList() {
     
 
-
-
-    
+    window.location = "Attendance.html";
 }
