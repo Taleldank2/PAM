@@ -224,8 +224,8 @@ var defaultEvents;
         }
 
         defaultEvents = eventList;
-        alert("defaultEvents is set")
-        alert(defaultEvents);
+        //alert("defaultEvents is set")
+        //alert(defaultEvents);
         var $this = this;
         $this.$calendarObj = $this.$calendar.fullCalendar({
             slotDuration: '00:15:00', /* If we want to split day time each 15minutes */

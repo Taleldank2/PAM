@@ -883,30 +883,32 @@ public class DBServices
 
     }
 
-    public void insertAttendance(string EventId, string UsersId)
+    public void insertAttendance(string EventId, string[] Attendences)
     {
-
-
-        string query = " INSERT INTO[dbo].[Attendances]"
-            + " ([EventID],[AthleteID],[IsAttend],[Note]) VALUES "
-            + " (" + EventId + "," + UsersId + ",1,null)";
-
         SqlConnection con = null;
-
-        try
+        con = connect();
+        foreach (String User in Attendences)
         {
-            con = connect();
+            try
+            {
 
-            SqlCommand insert = new SqlCommand(String.Format(query), con);
+                int UserId = int.Parse(User);
+                int Attend = int.Parse(User);
+                string query = " INSERT INTO[dbo].[Attendances]"
+                + " ([EventID],[AthleteID],[IsAttend],[Note]) VALUES "
+                 + " (" + EventId + "," + UserId + ","+ Attend + ",null)";
 
-            insert.ExecuteNonQuery();
+
+                SqlCommand insert = new SqlCommand(String.Format(query), con);
+
+                insert.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw ex;
+            }
         }
-        catch (Exception ex)
-        {
-            // write to log
-            throw ex;
-        }
-
 
 
         finally
@@ -916,7 +918,7 @@ public class DBServices
                 con.Close();
             }
         }
-}
+    }
 
     //--------------------------------------------------------------------
     // log message (error)

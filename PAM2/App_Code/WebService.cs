@@ -412,7 +412,6 @@ public class WebService : System.Web.Services.WebService
 
     }
 
-
     [WebMethod]
     public string getEventMembers(string EventId)
     {
@@ -422,6 +421,12 @@ public class WebService : System.Web.Services.WebService
         string response = dataTableToJson(EventMembers);
 
         return response;
+    }
+
+    [WebMethod]
+    public void insertAttendance(string EventId, string[] Attendences)
+    {
+        dbHandler.insertAttendance(EventId, Attendences);
     }
 
 

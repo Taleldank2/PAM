@@ -558,6 +558,7 @@ document.getElementById("confirmBTN").onclick = sendList;
 
 function sendList() {
 
+
     //Create object arrat to cintain the rows data
     var attendanceArr = [];
 
