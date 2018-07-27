@@ -641,7 +641,7 @@ function parseTodayEvents(results) {
     $(function () {
         var str = "<div class='form-group'><div class='input-group'><div class='input-group-prepend'>" +
                 "<span class='input-group-text'><i class='mdi mdi-flash'></i></span></div>" +
-                "<select id='todayEvents' class='form-control select2 select2-hidden-accessible' tabindex='-1' " +
+                "<select onchange='getEventMembers()' id='todayEvents' class='form-control select2 select2-hidden-accessible' tabindex='-1' " +
                 "aria-hidden='true'><option value='' disabled selected>בחר אימון</option> ";
         $.each(results, function (i, item) {
             str += "<option value=" + item.EventID + ">" + item.Title + "</option>";
@@ -653,31 +653,51 @@ function parseTodayEvents(results) {
 
 
 //get the event id from the picked event in the events ddl
-function getEventId() {
-   // var eventId = $('#todayEvents').find(":selected").val();‏
-    alert("get event");
-    
+function getEventMembers() {
+
+    eventId = $('#todayEvents').find(":selected").val();
+    var request = {
+        EventId: eventId
+    };
+
+    dataString = JSON.stringify(request);
+
+    $.ajax({
+        url: ASMXURL + 'getEventMembers',
+        data: dataString,
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: parseEventMembers
+    })
+
 }
 
 
-//function getEventMembers() {
-//    var request = getEventId();
-//    dataString = JSON.stringify(request);
+//print the users the related to the event to the table.
+function parseEventMembers(results) {
+    document.getElementById("confirmBTN").style.visibility = "visible";
+    results = $.parseJSON(results.d);
+    $(function () {
+        $('#athletesTable').html("");
+        $.each(results, function (i, item) {
 
-//    $.ajax({
-//        url: ASMXURL + 'getEventMembers',
-//        data: dataString,
-//        type: 'POST',
-//        async: true,
-//        dataType: 'json',
-//        contentType: 'application/json; charset = utf-8',
-//        success: parseEventMembers
-//    })
-//}
+            //parse table
+            var $tr = $('<tr class="email-msg">').append(
+                $('<td>').html("<input type='checkbox' checked='checked' id='"+item.UserID+"' />"),
+                $('<td>').html("<a class=''></a>").text(item.FirstName +" "+item.LastName )
+            ).appendTo('#athletesTable');
+        });
+    });
+}
+
+document.getElementById("confirmBTN").onclick = sendList;
+
+function sendList() {
+    
 
 
 
-////print the users the related to the event to the table.
-//function parseEventMembers(results) {
-
-//}
+    
+}

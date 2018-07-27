@@ -828,6 +828,7 @@ public class DBServices
     //--------------------------------------------------------------------
     // Attendance
     //--------------------------------------------------------------------
+
     public DataTable getTodayEvents(string coachId)
     {
         try
@@ -837,7 +838,7 @@ public class DBServices
              + " join dbo.Teams te on t.TeamID = te.TeamID"
              + " join dbo.Coaches c on te.HeadCoachID = c.CoachID"
              + " WHERE c.CoachID =" + coachId
-             + " AND E_Date=Convert(date,getdate(),105)" 
+             + " AND E_Date=Convert(date,getdate(),105)"
              + " ORDER BY E_Date DESC ";
 
             DataTable todayEvent = queryDb(query);
@@ -854,8 +855,6 @@ public class DBServices
         }
 
     }
-
-
 
     public DataTable getEventMembers(string eventID)
     {
@@ -884,6 +883,40 @@ public class DBServices
 
     }
 
+    public void insertAttendance(string EventId, string UsersId)
+    {
+
+
+        string query = " INSERT INTO[dbo].[Attendances]"
+            + " ([EventID],[AthleteID],[IsAttend],[Note]) VALUES "
+            + " (" + EventId + "," + UsersId + ",1,null)";
+
+        SqlConnection con = null;
+
+        try
+        {
+            con = connect();
+
+            SqlCommand insert = new SqlCommand(String.Format(query), con);
+
+            insert.ExecuteNonQuery();
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw ex;
+        }
+
+
+
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
+}
 
     //--------------------------------------------------------------------
     // log message (error)

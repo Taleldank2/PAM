@@ -398,13 +398,26 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
 
     [WebMethod]
-    public string getEventMembers(string eventId)
+    public string getTodayEvents(string coachId)
     {
         //string userSession = Context.Request.Cookies["session"]["session"];
 
-        //string coachId = getUserFromSession(userSession);
+        //string userId = getUserFromSession(userSession);
 
-        DataTable EventMembers = dbHandler.getEventMembers(eventId);
+        DataTable events = dbHandler.getTodayEvents(coachId);
+
+        string response = dataTableToJson(events);
+
+        return response;
+
+    }
+
+
+    [WebMethod]
+    public string getEventMembers(string EventId)
+    {
+
+        DataTable EventMembers = dbHandler.getEventMembers(EventId);
 
         string response = dataTableToJson(EventMembers);
 
@@ -583,18 +596,5 @@ public class WebService : System.Web.Services.WebService
     }
 
     
-    [WebMethod]
-    public string getTodayEvents(string coachId)
-    {
-        //string userSession = Context.Request.Cookies["session"]["session"];
 
-        //string userId = getUserFromSession(userSession);
-
-        DataTable events = dbHandler.getTodayEvents(coachId);
-
-        string response = dataTableToJson(events);
-
-        return response;
-
-    }
 }
