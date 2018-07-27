@@ -494,30 +494,30 @@ public class DBServices
     //--------------------------------------------------------------------
     // Events Page
     //--------------------------------------------------------------------
-    public DataTable getUserEvents(string userID)
-    {
-        try
-        {
-            string query = "Select * from events e"
-            + " join dbo.TeamsEvents t on t.EventID = e.EventID"
-            + " join dbo.Athletes a on t.TeamID = a.TeamID"
-            + " WHERE a.AthleteID =" + userID +
-            " ORDER BY E_Date DESC";
+    //public DataTable getUserEvents(string userID)
+    //{
+    //    try
+    //    {
+    //        string query = "Select * from events e"
+    //        + " join dbo.TeamsEvents t on t.EventID = e.EventID"
+    //        + " join dbo.Athletes a on t.TeamID = a.TeamID"
+    //        + " WHERE a.AthleteID =" + userID +
+    //        " ORDER BY E_Date DESC";
 
-            DataTable UserEvent = queryDb(query);
+    //        DataTable UserEvent = queryDb(query);
 
-            return UserEvent;
-        }
-        catch (Exception ex)
-        {
-            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
-            {
-                Log(ex.Message, w);
-            }
-            throw ex;
-        }
+    //        return UserEvent;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
+    //        {
+    //            Log(ex.Message, w);
+    //        }
+    //        throw ex;
+    //    }
 
-    }
+    //}
 
     public DataTable getCoachEvents(string userID)
     {

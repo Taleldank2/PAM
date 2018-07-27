@@ -83,51 +83,51 @@ function errorCB(e) {
 //-----------------------------------------------------------------------
 //Session handling only if the user try to navigate to Main directly 
 //------------------------------------------------------------------------
-$(document).ready(function () {
+//$(document).ready(function () {
     
-    cookie = document.cookie;
+//    cookie = document.cookie;
 
-    arr = cookie.split("=");
+//    arr = cookie.split("=");
 
-    if (arr.length==3)
-    {
-        if (arr[0] == "session")
-        {
-            session = arr[2];
-            checkUserExists(session);
-        }
-    }
-});
+//    if (arr.length==3)
+//    {
+//        if (arr[0] == "session")
+//        {
+//            session = arr[2];
+//            checkUserExists(session);
+//        }
+//    }
+//});
 
-function checkUserExists(session)
-{
-    request = {
-        userSession: session,
-    };
+//function checkUserExists(session)
+//{
+//    request = {
+//        userSession: session,
+//    };
 
-    var dataString = JSON.stringify(request);
-    $.ajax({ 
-        url: ASMXURL+ 'checkUserSession',         
-        data: dataString,                     
-        type: 'POST',
-        async: false,
-        dataType: 'json',                     
-        contentType: 'application/json; charset = utf-8',
-        success: checkSession,
-        error:checkSessionError
-    }) 
-}
+//    var dataString = JSON.stringify(request);
+//    $.ajax({ 
+//        url: ASMXURL+ 'checkUserSession',         
+//        data: dataString,                     
+//        type: 'POST',
+//        async: false,
+//        dataType: 'json',                     
+//        contentType: 'application/json; charset = utf-8',
+//        success: checkSession,
+//        error:checkSessionError
+//    }) 
+//}
 
-function checkSession(results) {
-    response = results.d;
-    if (response == "true") {
-        window.location = "index.html";
-    }
-}
+//function checkSession(results) {
+//    response = results.d;
+//    if (response == "true") {
+//        window.location = "index.html";
+//    }
+//}
 
-function checkSessionError(a,b,c) {
-    console.log(a);
-    console.log(b);
-    console.log(c);
-    alert('checkSessionError');
-}
+//function checkSessionError(a,b,c) {
+//    console.log(a);
+//    console.log(b);
+//    console.log(c);
+//    alert('checkSessionError');
+//}
