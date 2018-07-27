@@ -1,4 +1,5 @@
 ﻿
+
 //--------------------------------------------------------------------
 //                            get the user id
 //--------------------------------------------------------------------
@@ -84,18 +85,18 @@ function parseUserDetails(results) {
 
     var birthDate = parseInt(results[0]["BirthDate"].split("(")[1].split(")")[0]);
     var tempProfileAge = new Date(birthDate);
-    strProfileAge = tempProfileAge.getDate() + "/" + (tempProfileAge.getMonth()+1) + "/" + tempProfileAge.getFullYear();
+    strProfileAge = tempProfileAge.getDate() + "/" + (tempProfileAge.getMonth() + 1) + "/" + tempProfileAge.getFullYear();
     $("#ProfileAge").append(strProfileAge);
-    
+
     strProfileCity = results[0].City;
     $("#ProfileCity").append(strProfileCity);
 
     strProfileEmail = results[0].Email;
     $("#ProfileEmail").append(strProfileEmail);
-    
+
     strProfilePhone = results[0].PhoneNumber;
     $("#ProfilePhone").append(strProfilePhone);
-    
+
 }
 
 
@@ -163,7 +164,7 @@ function parseUserDetails(results) {
 //        async: false,
 //        dataType: 'json',
 //        contentType: 'application/json; charset = utf-8',
-       
+
 //    }) // end of ajax call
 
 //   return userType.responseJSON.d
@@ -220,15 +221,15 @@ function addEvent() {
         "endTime": endTime,
         "eventDescription": eventDesc,
         "eventType": eventType,
-        "eventLocation": eventLocation,        
+        "eventLocation": eventLocation,
     };
 
     var dataString = JSON.stringify(request);
 
     alert(dataString);
-    
+
     $.ajax({
-        url: ASMXURL+ 'addEvent',
+        url: ASMXURL + 'addEvent',
         data: dataString,
         type: 'POST',
         async: true,
@@ -272,13 +273,13 @@ function getPicturePath() {
 function updateUserPicture(results) {
     $.get(results.d, function (data) {
 
-            profileImg = $('#profileimage');
-            profileImg.attr("src", data);
+        profileImg = $('#profileimage');
+        profileImg.attr("src", data);
 
-            profileImgProfilePage = $('#profileimageProfile');
-            profileImgProfilePage.attr("src", data);
-        });
-    }
+        profileImgProfilePage = $('#profileimageProfile');
+        profileImgProfilePage.attr("src", data);
+    });
+}
 
 //--------------------------------------------------------------------
 //                             Dashboard
@@ -303,7 +304,7 @@ function getCoachLastResults() {
     }) // end of ajax call
 }
 
-function errorCoachLastResults(e){
+function errorCoachLastResults(e) {
     alert(e.responseText);
 }
 
@@ -324,7 +325,7 @@ function parseCoachLastResluts(results) {
             var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
             var eventStartDate = new Date(eventTime);
             var strDate = "";
-            strDate += eventStartDate.getDate() + "/" + (eventStartDate.getMonth()+1) + "/" + eventStartDate.getFullYear();
+            strDate += eventStartDate.getDate() + "/" + (eventStartDate.getMonth() + 1) + "/" + eventStartDate.getFullYear();
 
             //parse type
             var resultType;
@@ -337,7 +338,7 @@ function parseCoachLastResluts(results) {
 
             //parse table
             var $tr = $('<tr>').append(
-                 $('<td>').text(item.FirstName+" "+item.LastName),
+                 $('<td>').text(item.FirstName + " " + item.LastName),
                 $('<td>').html("<i class='" + resultType + "'></i>"),
                 $('<td>').text(item.Distance),
                 $('<td>').text(min + ":" + sec),
@@ -345,7 +346,7 @@ function parseCoachLastResluts(results) {
             ).appendTo('#ResultsTableDashboard');
         });
     });
-    
+
 }
 
 
@@ -433,7 +434,7 @@ function parseCoachResluts(results) {
             var eventTime = parseInt(item["rDate"].split("(")[1].split(")")[0]);
             var eventStartDate = new Date(eventTime);
             var strDate = "";
-            strDate += eventStartDate.getDate() + "/" + (eventStartDate.getMonth()+1) + "/" + eventStartDate.getFullYear();
+            strDate += eventStartDate.getDate() + "/" + (eventStartDate.getMonth() + 1) + "/" + eventStartDate.getFullYear();
 
             //parse type
             var resultType;
@@ -483,9 +484,8 @@ function sendMessage() {
     teams = []
 
     teamList = $('#teams option:selected')
-    
-    for (i = 0 ; i < teamList.length; i++)
-    {
+
+    for (i = 0 ; i < teamList.length; i++) {
         teams.push(teamList[i].value)
     }
 
@@ -515,8 +515,7 @@ function sendMessage() {
     })
 }
 
-function getCoachTeams()
-{
+function getCoachTeams() {
     var request = getUserId();
     dataString = JSON.stringify(request);
     $.ajax({
@@ -530,8 +529,7 @@ function getCoachTeams()
     })
 }
 
-function updateCoachTeams(response)
-{
+function updateCoachTeams(response) {
     teams = JSON.parse(response.d)
 
     for (i = 0; i < teams.length; i++) {
@@ -567,7 +565,7 @@ function parseMessagesCount(results) {
         str += ((counter + 1) * 20);
     str += " of " + results.d;
     $("#CountInbox").html(str);
-}                                                                                                                       
+}
 
 function getCoachMessages() {
     var request = getUserId();
@@ -618,29 +616,68 @@ function parseCoachMessages(results) {
 //                           Attendance
 //--------------------------------------------------------------------
 
-function getEventMembers() {
-    var request = getEventId();
+//document.getElementById("todayEvents") = getEventId();
+
+function getEventsList() {
+
+    var request = getUserId();
     dataString = JSON.stringify(request);
 
     $.ajax({
-        url: ASMXURL + 'getEventMembers',
+        url: ASMXURL + 'getTodayEvents',
         data: dataString,
         type: 'POST',
         async: true,
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
-        success: updateCoachTeams
+        success: parseTodayEvents
     })
 }
 
+
+function parseTodayEvents(results) {
+    results = $.parseJSON(results.d);
+
+    $(function () {
+        var str = "<div class='form-group'><div class='input-group'><div class='input-group-prepend'>" +
+                "<span class='input-group-text'><i class='mdi mdi-flash'></i></span></div>" +
+                "<select id='todayEvents' class='form-control select2 select2-hidden-accessible' tabindex='-1' " +
+                "aria-hidden='true'><option value='' disabled selected>בחר אימון</option> ";
+        $.each(results, function (i, item) {
+            str += "<option value=" + item.EventID + ">" + item.Title + "</option>";
+        });
+        str += "</select></div> </div>";
+        $('#EventsDDL').append(str);
+    });
+}
+
+
 //get the event id from the picked event in the events ddl
 function getEventId() {
-
-
+   // var eventId = $('#todayEvents').find(":selected").val();‏
+    alert("get event");
+    
 }
 
-//print the users the related to the event to the table.
-function parseEventMembers(results) {
+
+//function getEventMembers() {
+//    var request = getEventId();
+//    dataString = JSON.stringify(request);
+
+//    $.ajax({
+//        url: ASMXURL + 'getEventMembers',
+//        data: dataString,
+//        type: 'POST',
+//        async: true,
+//        dataType: 'json',
+//        contentType: 'application/json; charset = utf-8',
+//        success: parseEventMembers
+//    })
+//}
 
 
-}
+
+////print the users the related to the event to the table.
+//function parseEventMembers(results) {
+
+//}

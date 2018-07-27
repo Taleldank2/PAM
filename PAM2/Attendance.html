@@ -110,7 +110,7 @@
                         </li>
 
                         <li class="has-submenu">
-                            <a href="#"><i onclick="logOut()" class="ti-power-off"></i>התנתק/י</a>
+                            <a href="#" onclick="logOut()"><i class="ti-power-off"></i>התנתק/י</a>
                         </li>
 
 
@@ -132,7 +132,7 @@
                     <div class="page-title-box">
                         <div class="btn-group pull-right">
                             <ol class="breadcrumb hide-phone p-0 m-0">
-                                <li class="breadcrumb-item active">שם הדף</li>
+                                <li class="breadcrumb-item active">נוכחות</li>
                                 <li class="breadcrumb-item"><a href="index.html">בית</a></li>
                                 <li class="breadcrumb-item active">PAM</li>
                             </ol>
@@ -155,12 +155,10 @@
                             <div class="row">
                                 <div class="col-sm-6 text-xs-center">
                                 
-                                    <!--Team List DDL-->
-                                    <div id="TeamsNamesDDL">
+                                    <!--Events List DDL-->
+                                    <div id="EventsDDL">
 
                                     </div>
-
-
                                 </div>
                               
                             </div>
@@ -173,20 +171,20 @@
                                     <th data-sort-ignore="true" class="min-width footable-visible footable-first-column"></th>
                                     <th data-sort-initial="true" data-toggle="true" class="footable-visible footable-sortable footable-sorted">שם פרטי<span class="footable-sort-indicator"></span></th>
                                     <th class="footable-visible footable-sortable footable-last-column">שם משפחה<span class="footable-sort-indicator"></span></th>
-                                    <th data-hide="phone" class="footable-sortable" style="display: none;">Job Title<span class="footable-sort-indicator"></span></th>
+                                    <!--<th data-hide="phone" class="footable-sortable" style="display: none;">Job Title<span class="footable-sort-indicator"></span></th>
                                     <th data-hide="phone, tablet" class="footable-sortable" style="display: none;">DOB<span class="footable-sort-indicator"></span></th>
-                                    <th data-hide="phone, tablet" class="footable-sortable" style="display: none;">Status<span class="footable-sort-indicator"></span></th>
+                                    <th data-hide="phone, tablet" class="footable-sortable" style="display: none;">Status<span class="footable-sort-indicator"></span></th>-->
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr class="footable-even" style="">
+                            <tbody id="athletesTable">
+                                <!--<tr class="footable-even" style="">
                                     <td class="text-center footable-visible footable-first-column"><button class="demo-delete-row btn btn-danger btn-sm btn-icon"><i class="fa fa-times"></i></button></td>
                                     <td class="footable-visible"><span class="footable-toggle"></span>Easer</td>
                                     <td class="footable-visible footable-last-column">Dragoo</td>
                                     <td class="" style="display: none;">Drywall Stripper</td>
                                     <td class="" style="display: none;">13 Dec 1977</td>
                                     <td class="" style="display: none;"><span class="badge label-table badge-success">Active</span></td>
-                                </tr>
+                                </tr>-->
                             </tbody>
                             <tfoot>
                                 <tr class="active">
@@ -237,61 +235,22 @@
     <script src="plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
 
-    <script src="plugins/fullcalendar/js/fullcalendar.min.js"></script>
-    <script src="assets/pages/jquery.fullcalendar.js"></script>
-
     <!-- Page js  -->
     <script src="assets/pages/jquery.dashboard.js"></script>
 
     <!-- Custom main Js -->
     <script src="assets/js/jquery.core.js"></script>
     <script src="assets/js/jquery.app.js"></script>
-    <script src="js/DataHandler.js"></script>
     <script src="js/Session.js"></script>
-
-    <script>
-
-
-        $(document).ready(function () {
-            //Get the event list of today
-            //$('#EventList').click(function () {
-                //alert("Welcome to EventsList")
-                //alert("defaultEvents:" + defaultEvents);
-                var today = new Date();
-                var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear()
-
-                var str = "<div class='form-group'><div class='input-group'><div class='input-group-prepend'>" +
-                            "<span class='input-group-text'><i class='mdi mdi-swim'></i></span></div>" +
-                            "<select id='userteam' class='form-control select2 select2-hidden-accessible' tabindex='-1'" +
-                            "aria-hidden='true' ><option value='' disabled selected> בחר אימון </option> ";
-
-                
-
-
-                for (var i = 0; i < defaultEvents.length; i++) {
-
-
-                    //alert("todays date:" + date)
-                    //alert("Event date:" + defaultEvents[i].edate)
-
-                    if (defaultEvents[i].edate == date) {
-                        //put here the append row after testing
-
-
-                    }
-
-                    //$('#TeamsNamesDDL').append('<a class="dropdown-item">' + defaultEvents[i].title + '</a>');
-                    str += "<option value=" + defaultEvents[i].teamid + ">" + defaultEvents[i].title + "</option>";
-                    
-
-                }
-                str += "</select></div> </div>";
-                $('#TeamsNamesDDL').append(str);
-
-            });
-
+    
+    <!--<script>
        
-    </script>
+        $(document).ready(function () {
+            getEventsList();
+        });
+
+
+    </script>-->
 
 
 </body>

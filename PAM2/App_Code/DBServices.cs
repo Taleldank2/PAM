@@ -567,7 +567,7 @@ public class DBServices
                 eventTypeNum = 3;
                 break;
 
-            
+
         }
 
 
@@ -585,7 +585,7 @@ public class DBServices
 
             //string parsedDate = DateStringArray[2] + "-" + DateStringArray[1] + "-" + DateStringArray[0];
             //string datet = DateTime.Now.ToString("yyyy-mm-dd hh:mi:ss");
-            string formattedCommand = String.Format(command, eventTypeNum, eventName, eventDescription, eventDate,startTime, endTime,null, location,null,DateTime.Now.ToString());
+            string formattedCommand = String.Format(command, eventTypeNum, eventName, eventDescription, eventDate, startTime, endTime, null, location, null, DateTime.Now.ToString());
 
             SqlCommand insert = new SqlCommand(formattedCommand, con);
 
@@ -786,7 +786,7 @@ public class DBServices
     {
         SqlConnection con = null;
 
-        try 
+        try
         {
             con = connect();
 
@@ -821,13 +821,42 @@ public class DBServices
             {
                 con.Close();
             }
-        }            
+        }
     }
 
 
     //--------------------------------------------------------------------
     // Attendance
     //--------------------------------------------------------------------
+    public DataTable getTodayEvents(string coachId)
+    {
+        try
+        {
+            string query = "Select * from events e"
+             + " join dbo.TeamsEvents t on t.EventID = e.EventID"
+             + " join dbo.Teams te on t.TeamID = te.TeamID"
+             + " join dbo.Coaches c on te.HeadCoachID = c.CoachID"
+             + " WHERE c.CoachID =" + coachId
+             + " AND E_Date=Convert(date,getdate(),105)" 
+             + " ORDER BY E_Date DESC ";
+
+            DataTable todayEvent = queryDb(query);
+
+            return todayEvent;
+        }
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
+    }
+
+
+
     public DataTable getEventMembers(string eventID)
     {
         try
@@ -839,7 +868,7 @@ public class DBServices
             + " join TeamsEvents te on te.TeamID = t.TeamID"
             + " join Events e on e.EventID = te.EventID"
             + " where e.EventID = " + eventID;
-            
+
             DataTable usersTable = queryDb(query);
 
             return usersTable;

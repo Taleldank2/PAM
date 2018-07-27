@@ -582,4 +582,19 @@ public class WebService : System.Web.Services.WebService
         w.WriteLine("-------------------------------");
     }
 
+    
+    [WebMethod]
+    public string getTodayEvents(string coachId)
+    {
+        //string userSession = Context.Request.Cookies["session"]["session"];
+
+        //string userId = getUserFromSession(userSession);
+
+        DataTable events = dbHandler.getTodayEvents(coachId);
+
+        string response = dataTableToJson(events);
+
+        return response;
+
+    }
 }
