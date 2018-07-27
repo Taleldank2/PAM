@@ -565,8 +565,6 @@ public class DBServices
             string formattedCommand = String.Format(command);
             SqlCommand addNewResultCommand = new SqlCommand(formattedCommand, con);
 
-
-
             return (Convert.ToBoolean(addNewResultCommand.ExecuteNonQuery()));
         }
         catch (Exception ex)
