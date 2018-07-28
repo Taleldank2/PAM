@@ -504,7 +504,6 @@ public class DBServices
 
         switch (eventType)
         {
-
             case "אימון":
                 eventTypeNum = 1;
                 break;
@@ -526,17 +525,22 @@ public class DBServices
 
             string command = "INSERT INTO [dbo].[Events] " +
                              "([EventType], [Title], [E_Body], [E_Date],[StartTime],[EndTime],[IsRecursive],[Location],[Note],[CreationTime])" +
-                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}',{6},'{7}',{8},{9} )";
+                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}',{6},'{7}',{8},{9}); SELECT CAST(scope_identity() AS int";
 
             //string[] DateStringArray = eventDate.Split('-');
 
             //string parsedDate = DateStringArray[2] + "-" + DateStringArray[1] + "-" + DateStringArray[0];
             //string datet = DateTime.Now.ToString("yyyy-mm-dd hh:mi:ss");
+
+
             string formattedCommand = String.Format(command, eventTypeNum, eventName, eventDescription, eventDate, startTime, endTime, "null", location, "null", "null");
 
-            SqlCommand insert = new SqlCommand(formattedCommand, con);
+            int eventId = insertEvent(formattedCommand, true);
 
-            return Convert.ToBoolean(insert.ExecuteNonQuery());
+
+            insertTeamEvent(eventId,teamid);
+
+            return true;
 
         }
         catch (Exception ex)
@@ -555,6 +559,81 @@ public class DBServices
             }
         }
     }
+
+    public int insertEvent(string command, bool isCreate)
+    {
+        SqlConnection con = null;
+
+        try
+        {
+            con = connect();
+
+            SqlCommand cmd = new SqlCommand(command, con);
+
+            int newID = -1;
+
+            if (isCreate)
+            {
+                newID = (int)cmd.ExecuteScalar();
+            }
+            else
+            {
+                newID = (int)cmd.ExecuteNonQuery();
+            }
+
+            if (con.State == System.Data.ConnectionState.Open) con.Close();
+
+            return newID;
+        }
+        catch (Exception ex)
+        {
+            //using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
+            //{
+            //    Log(ex.Message, w);
+            //}
+            throw ex;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
+    }
+
+    public bool insertTeamEvent(int eventId,int teamId)
+    {
+        SqlConnection con = null;
+
+        try
+        {
+            con = connect();
+
+            string command = " INSERT INTO"
+                + " TeamsEvents(EventId, TeamId)"
+                + "  VALUES("+eventId+", "+teamId+") ";
+
+            string formattedCommand = String.Format(command, eventId, teamId);
+
+            SqlCommand insert = new SqlCommand(formattedCommand, con);
+
+            return Convert.ToBoolean(insert.ExecuteNonQuery());
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw ex;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
+    }
+
 
     //--------------------------------------------------------------------
     // Messages page

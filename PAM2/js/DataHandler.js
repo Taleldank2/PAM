@@ -111,15 +111,16 @@ function addEvent() {
         error: errorCB
     })
 
-    function addEventCompleted(result) {
-        results = $.parseJSON(result.d);
-        alert(results);
-        window.location = "Calendar.html";
-    }
+}
 
-    function errorCB(e) {
-        alert("The exception message is : " + e.responseText);
-    }
+function addEventCompleted(result) {
+    results = $.parseJSON(result.d);
+    alert(results);
+    window.location = "Calendar.html";
+}
+
+function errorCB(e) {
+    alert("The exception message is : " + e.responseText);
 }
 
 

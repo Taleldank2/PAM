@@ -237,13 +237,14 @@ public class WebService : System.Web.Services.WebService
 
         string jsonString = js.Serialize("שגיאה בקליטת אירוע");
 
+
+
         if (answer)
         {
             jsonString = js.Serialize("אירוע נקלט בהצלחה");
         }
 
         return jsonString;
-
     }
 
     //--------------------------------------------------------------------
