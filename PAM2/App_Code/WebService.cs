@@ -230,7 +230,7 @@ public class WebService : System.Web.Services.WebService
     {
 
         bool answer = false;
-        answer = dbHandler.addEvent(teamId,eventName, eventDate, eventDescription, eventType, startTime,
+        answer = dbHandler.addEvent(teamId, eventName, eventDate, eventDescription, eventType, startTime,
         endTime, eventLocation);
 
         JavaScriptSerializer js = new JavaScriptSerializer();
@@ -400,7 +400,7 @@ public class WebService : System.Web.Services.WebService
     [WebMethod]
     public void insertAttendance(string attendanceArr)
     {
-        
+
         //List<Attendance> list = new List<Attendance>();
         //Attendance[] attendArr = new Attendance[]();
         Attendance[] attendArr = new Attendance[50];
@@ -420,7 +420,7 @@ public class WebService : System.Web.Services.WebService
     //public void createMessage(string coachId, String title, String message, String[] teamIds)
 
     [WebMethod]
-    public void createMessage(string coachId,string title, string message, string [] teamIds)
+    public void createMessage(string coachId, string title, string message, string[] teamIds)
     {
         //string userSession = Context.Request.Cookies["session"]["session"];
 
@@ -485,7 +485,7 @@ public class WebService : System.Web.Services.WebService
 
     private void GcmBroker_OnNotificationSucceeded(GcmNotification notification)
     {
-       // string asdf = "sap";
+        // string asdf = "sap";
     }
 
     private void GcmBroker_OnNotificationFailed(GcmNotification notification, AggregateException exception)
@@ -513,7 +513,7 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void update(string userId,string phoneNumber, string userMail, string userPassword, string city, string athleteWeight, string athleteHeight)
+    public void update(string userId, string phoneNumber, string userMail, string userPassword, string city, string athleteWeight, string athleteHeight)
     {
         dbHandler.updateDetails(userId, phoneNumber, userMail, userPassword, city);
     }

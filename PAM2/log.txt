@@ -689,6 +689,9 @@ Log Entry : 02:16:08 שבת 28 יולי 2018
   :Invalid column name 'undefined'.
 -------------------------------
 
+<<<<<<< HEAD
+Log Entry : 19:53:26 שבת 28 יולי 2018
+=======
 Log Entry : 15:38:27 שבת 28 יולי 2018
   :
   :הזמן הקצוב פג. משך הזמן הקצוב חלף לפני השגת חיבור מהמאגר. ייתכן שהדבר אירע מכיוון שכל החיבורים במאגר היו בשימוש והגעת לגודל המאגר המקסימלי.
@@ -711,11 +714,17 @@ The statement has been terminated.
 -------------------------------
 
 Log Entry : 19:49:09 שבת 28 יולי 2018
+>>>>>>> 1273f8493804cc7c3c729c953d3ced52a5363b08
   :
   :The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.
 The statement has been terminated.
 -------------------------------
 
+<<<<<<< HEAD
+Log Entry : 19:53:50 שבת 28 יולי 2018
+  :
+  :Explicit conversion from data type int to date is not allowed.
+=======
 Log Entry : 19:50:46 שבת 28 יולי 2018
   :
   :Incorrect syntax near ','.
@@ -739,6 +748,7 @@ Log Entry : 19:58:37 שבת 28 יולי 2018
 Log Entry : 20:00:42 שבת 28 יולי 2018
   :
   :Conversion failed when converting date and/or time from character string.
+>>>>>>> 1273f8493804cc7c3c729c953d3ced52a5363b08
 -------------------------------
 
 Log Entry : 21:35:29 שבת 28 יולי 2018

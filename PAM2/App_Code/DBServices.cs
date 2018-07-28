@@ -495,7 +495,7 @@ public class DBServices
 
     }
 
-    public bool addEvent(string teamId ,string eventName, string eventDate, string eventDescription, string eventType, string startTime,
+    public bool addEvent(string teamId, string eventName, string eventDate, string eventDescription, string eventType, string startTime,
         string endTime, string location)
     {
         SqlConnection con = null;
@@ -603,7 +603,7 @@ public class DBServices
         }
     }
 
-    public bool insertTeamEvent(int eventId,int teamId)
+    public bool insertTeamEvent(int eventId, int teamId)
     {
         SqlConnection con = null;
 
@@ -613,7 +613,7 @@ public class DBServices
 
             string command = " INSERT INTO"
                 + " TeamsEvents(EventId, TeamId)"
-                + "  VALUES("+eventId+", "+teamId+") ";
+                + "  VALUES(" + eventId + ", " + teamId + ") ";
 
             string formattedCommand = String.Format(command, eventId, teamId);
 

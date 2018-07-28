@@ -75,8 +75,9 @@ function getCoachEvents() {
 
 function addEvent() {
 
+
     teamId = $('#CalTeams option:selected');
-    
+
 
     eventName = $('#EventName').val();
     eventDate = $('#EventDate').val();
@@ -87,7 +88,7 @@ function addEvent() {
     eventLocation = $('#EventLocation').val();
 
     request = {
-        "teamId":teamId[0].value,
+        "teamId": teamId[0].value,
         "eventName": eventName,
         "eventDate": eventDate,
         "startTime": startTime,
