@@ -88,6 +88,7 @@ function addEvent() {
     eventDesc = $('#EventDesc').val();
     eventType = EventType.value;
     eventLocation = $('#EventLocation').val();
+    coachId = getUserId();
 
     request = {
         "eventName": eventName,
@@ -97,6 +98,7 @@ function addEvent() {
         "eventDescription": eventDesc,
         "eventType": eventType,
         "eventLocation": eventLocation,
+        "coachId": coachId
     };
 
     var dataString = JSON.stringify(request);

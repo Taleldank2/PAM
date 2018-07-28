@@ -526,7 +526,7 @@ public class DBServices
     }
 
     public bool addEvent(string eventName, string eventDate, string eventDescription, string eventType, string startTime,
-        string endTime, string location)
+        string endTime, string location, string coachId)
     {
         SqlConnection con = null;
 
@@ -558,13 +558,10 @@ public class DBServices
             //CreationTime change to STRING in db!!!!
 
             string command = "INSERT INTO [dbo].[Events] " +
-                             "([EventType], [Title], [E_Body], [E_Date],[StartTime],[EndTime],[IsRecursive],[Location],[Note],   [CreationTime] )" +
+                             "([EventType], [Title], [E_Body], [E_Date],[StartTime],[EndTime],[IsRecursive],[Location],[Note],[CreationTime] )" +
                              " VALUES({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}' )";
 
-            //string[] DateStringArray = eventDate.Split('-');
-
-            //string parsedDate = DateStringArray[2] + "-" + DateStringArray[1] + "-" + DateStringArray[0];
-            //string datet = DateTime.Now.ToString("yyyy-mm-dd hh:mi:ss");
+            
             string formattedCommand = String.Format(command, eventTypeNum, eventName, eventDescription, eventDate, startTime, endTime, null, location, null, DateTime.Now.ToString());
 
             SqlCommand insert = new SqlCommand(formattedCommand, con);
