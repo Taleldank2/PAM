@@ -5,8 +5,8 @@
     <title>PAM</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-    
- 
+
+
     <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -196,7 +196,7 @@
                         </div>
                         <div class="col-lg-9">
                             <div class="card-box">
-                                <div id="calendar" class="fc fc-unthemed fc-ltr">                                   
+                                <div id="calendar" class="fc fc-unthemed fc-ltr">
                                 </div>
                             </div>
                         </div>
@@ -214,7 +214,7 @@
                                 </div>
 
 
-                                <div id="modalBody" class="modal-body">
+                                <div id="modalBody" style="text-align:right" class="modal-body">
 
 
                                     <div class="form-group">
@@ -232,30 +232,32 @@
 
                                     <div class="form-group">
                                         <!--<div class="input-group date" data-provide="datepicker" id="EventDatePick">-->
-                                        <input type="date" data-date-format="DD MMMM YYYY" class="form-control" placeholder="start date" id="EventDate" dir="rtl">
+                                        <input type="date" data-date-format="DD MMMM YYYY" name="תאריך האירוע" class="form-control" placeholder="start date" id="EventDate" dir="rtl">
                                         <!--</div>-->
                                     </div>
 
+                                    <label>שעת התחלה</label>
                                     <div class="form-group">
                                         <!--<div class="input-group date" data-provide="datepicker">-->
-                                        <input type="time" class="form-control" placeholder="StartTime" id="StartTime" dir="rtl">
+                                        <input type="time" class="form-control" name="שעת תחילת האירוע" placeholder="StartTime" id="StartTime" dir="rtl">
+                                    </div>
+
+                                    <label>שעת סיום</label>
+                                    <div class="form-group">
+                                        <!--<div class="input-group date" data-provide="datepicker">-->
+                                        <input type="time" class="form-control" name="שעת סיום האירוע" placeholder="EndTime" id="EndTime" dir="rtl">
                                     </div>
 
                                     <div class="form-group">
-                                        <!--<div class="input-group date" data-provide="datepicker">-->
-                                        <input type="time" class="form-control" placeholder="EndTime" id="EndTime" dir="rtl">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <textarea class="form-control" type="text" rows="4" placeholder="Event Description" id="EventDesc"></textarea>
+                                        <textarea class="form-control" type="text" rows="4" placeholder="תיאור האירוע" id="EventDesc"></textarea>
                                     </div>
 
                                 </div>
 
 
                                 <div class="modal-footer">
-                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                    <button type="submit" class="btn btn-primary" id="submitButton" onclick="addEvent()">Save</button>
+                                    <button class="btn" data-dismiss="modal" aria-hidden="true">בטל</button>
+                                    <button type="submit" class="btn btn-primary" id="submitButton" onclick="addEvent()">שגר</button>
                                 </div>
                             </div>
                         </div>
@@ -285,8 +287,7 @@
                                     <button>בטל</button>
                                     <button>הזן נוכחות</button>
                                 </div>-->
-
-                                <<!--div class="modal-body">
+                                <!--div class="modal-body">
                                     <form>
                                             <label></label>
                                              <div class="input-group">
@@ -302,75 +303,25 @@
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">סגור</button>
-                                    <button type="button" class="btn btn-warning waves-effect waves-light" onclick="attendance()" style="display:normal" >הזן נוכחות</button>
-                                    <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">מחק אירוע</button>
+                                    <button type="button" class="btn btn-warning waves-effect waves-light" onclick="location.href='Attendance.html'" style="display:normal">הזן נוכחות</button>
+                                    <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">בטל אירוע</button>
                                 </div>
 
                             </div>
                         </div>
                     </div>
-                    <!--Add event Modal-->
-                    <div id="createEventModal" class="modal fade">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
 
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">close</span></button>
-                                    <h4>Add an Event</h4>
-                                </div>
-
-
-                                <div id="modalBody" class="modal-body">
-
-                                    <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Event Name" id="EventName">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Location" id="EventLocation">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <!--<div class="input-group date" data-provide="datepicker" id="EventDatePick">-->
-                                        <input type="date" class="form-control" placeholder="start date" id="EventDate">
-                                        <!--</div>-->
-                                    </div>
-
-                                    <div class="form-group">
-                                        <!--<div class="input-group date" data-provide="datepicker">-->
-                                        <input type="time" class="form-control" placeholder="StartTime" id="StartTime">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <!--<div class="input-group date" data-provide="datepicker">-->
-                                        <input type="time" class="form-control" placeholder="EndTime" id="EndTime">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <textarea class="form-control" type="text" rows="4" placeholder="Event Description" id="EventDesc"></textarea>
-                                    </div>
-
-                                </div>
-
-
-                                <div class="modal-footer">
-                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                    <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                 
 
                 </div>
             </div>
 
         </div>
-    </div>  
+    </div>
 
 
     <!-- jQuery  -->
-    <script src="js/Config.js"></script> 
+    <script src="js/Config.js"></script>
 
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/popper.min.js"></script><!-- Popper for Bootstrap -->

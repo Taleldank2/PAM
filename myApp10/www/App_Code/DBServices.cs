@@ -127,6 +127,7 @@ public class DBServices
         {
             con = connect();
 
+            //android_asset/www/
             string picPath = "images/profiles/" + phoneNumber + ".html";
 
             savePicture(picPath, userPicBase64);
@@ -136,9 +137,9 @@ public class DBServices
                              " [Password],[Picture],[City],[BirthDate]) " +
                              " VALUES({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}',{8}); SELECT CAST(scope_identity() AS int) ";
 
-            string[] birthDayArray = userBirthday.Split('/');
+            string[] birthDayArray = userBirthday.Split('-');
 
-            string parsedBirthDay = "Convert(date,'" + birthDayArray[1] + "-" + birthDayArray[0] + "-" + birthDayArray[2] + "', 105)";
+            string parsedBirthDay = "Convert(date,'" + birthDayArray[2] + "-" + birthDayArray[1] + "-" + birthDayArray[0] + "', 105)";
 
 
             int userId = insertAthlete(String.Format(command, userType, userName, userLastName,
@@ -167,6 +168,12 @@ public class DBServices
         }
     }
 
+    public void savePicture(string picPath, string userPicBase64)
+    {
+        string dirPath = Path.Combine(HttpRuntime.AppDomainAppPath, picPath.Replace("/", "\\"));
+
+        File.WriteAllText(dirPath, userPicBase64);
+    }
 
     public int insertAthlete(string command, bool isCreate)
     {
@@ -269,13 +276,6 @@ public class DBServices
                 con.Close();
             }
         }
-    }
-
-    public void savePicture(string picPath, string userPicBase64)
-    {
-        string dirPath = Path.Combine(HttpRuntime.AppDomainAppPath, picPath.Replace("/", "\\"));
-
-        File.WriteAllText(dirPath, userPicBase64);
     }
 
     public string getPicturePath(string userID)
@@ -409,14 +409,15 @@ public class DBServices
     //--------------------------------------------------------------------
     // index Page 
     //--------------------------------------------------------------------
-    public DataTable getUserLastEvent(string userID)
+    public DataTable getUserNextEvent(string userID)
     {
 
         string query = "Select TOP 1 * from events e"
             + " join dbo.TeamsEvents t on t.EventID = e.EventID"
             + " join dbo.Athletes a on t.TeamID = a.TeamID"
-            + " WHERE a.AthleteID =" + userID +
-            " ORDER BY E_Date DESC";
+            + " WHERE a.AthleteID =" + userID + " AND"
+            + " (convert(datetime,(E_Date))+convert(datetime,(StartTime)))>=getdate()"
+            + " ORDER BY E_Date ";
 
         DataTable UserEvent = queryDb(query);
 
@@ -533,11 +534,23 @@ public class DBServices
         return userResults;
     }
 
-    public bool insertResult(string UserID, string ResultDate, string ResultType, string ResultDistance, string ResultTime, string ResultNote)
+    public bool insertResult(string UserID, string ResultDate, string ResultType, string ResultDistance, string ResultTimeMin, string ResultTimeSec, string ResultNote)
     {
         SqlConnection con = null;
         try
         {
+
+            string parseResultTimeSec = ResultTimeSec;
+            if (int.Parse(ResultTimeSec) < 10)
+            {
+                parseResultTimeSec = "0" + ResultTimeSec;
+            }
+            string parseResultTimeMin = ResultTimeMin;
+            if (int.Parse(ResultTimeMin) < 10)
+            {
+                parseResultTimeMin = "0" + ResultTimeMin;
+            }
+
             string[] ResultDateArr = ResultDate.Split('-');
             string parseResultDate = "Convert(date,'" + ResultDateArr[2] + "-" + ResultDateArr[1] + "-" + ResultDateArr[0] + "', 105)";
 
@@ -545,13 +558,11 @@ public class DBServices
 
             string command = " INSERT INTO [dbo].[Results] " +
                 " (AthleteID,ResultType,Distance,rTime,rDate,Note) " +
-                " VALUES (" + UserID + "," + ResultType + "," + ResultDistance + ",'00:" + ResultTime + "'," + parseResultDate + ",'" + ResultNote + "') ";
+                " VALUES (" + UserID + "," + ResultType + "," + ResultDistance + ",'00:" + parseResultTimeMin + ":"+ parseResultTimeSec + "'," + parseResultDate + ",'" + ResultNote + "') ";
 
 
             string formattedCommand = String.Format(command);
             SqlCommand addNewResultCommand = new SqlCommand(formattedCommand, con);
-
-
 
             return (Convert.ToBoolean(addNewResultCommand.ExecuteNonQuery()));
         }
@@ -584,26 +595,6 @@ public class DBServices
 
         return UserEvent;
     }
-
-
-    ////TO DO
-    //public DataTable getCoachEvents(string userID)
-    //{
-    //    string query = "Select * from events e"
-    //        + " join dbo.TeamsEvents t on t.EventID = e.EventID"
-    //        + " join dbo.Teams te on t.TeamID = te.TeamID"
-    //        + " join dbo.Coaches c on te.HeadCoachID = c.CoachID"
-    //        + " WHERE c.CoachID =" + userID +
-    //        " ORDER BY E_Date DESC";
-
-    //    DataTable CoachEvent = queryDb(query);
-
-    //    return CoachEvent;
-    //}
-
-
-
-
 
     //--------------------------------------------------------------------
     // Messages page

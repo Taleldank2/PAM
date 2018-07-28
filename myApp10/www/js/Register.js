@@ -19,7 +19,7 @@ function getMoreDetails() {
         $('#lastname').val(localStorage.UserLastName);
         $('#mail').val(localStorage.UserMail);
         $('#city').val(localStorage.UserCity);
-        $('#datepicker').val(localStorage.UserDate);
+        $('#birthday').val(localStorage.UserDate);
         $('#AthleteWeight').val(localStorage.UserWeight);
         $('#AthleteHeight').val(localStorage.UserHeight);
         $('#picture').val(localStorage.UserPic);
@@ -74,7 +74,6 @@ function getTeamsNamesFailed() {
 
 function register() {
     try {
-        if (localStorage["UserDetails"] != "true") {
             localStorage["UserDetails"] = "true";
             localStorage["UserNumber"] = $('#phonenumber').val();
             localStorage["UserTeam"] = $('#userteam').val();
@@ -82,11 +81,10 @@ function register() {
             localStorage["UserLastName"] = $('#lastname').val();
             localStorage["UserMail"] = $('#mail').val();
             localStorage["UserCity"] = $('#city').val();
-            localStorage["UserDate"] = $('#datepicker').val();
+            localStorage["UserDate"] = $('#birthday').val();
             localStorage["UserWeight"] = $('#AthleteWeight').val();
             localStorage["UserHeight"] = $('#AthleteHeight').val();
             localStorage["UserPic"] = $('#picture')[0].files[0];
-        }
 
         isChecked = document.getElementById("checkbox-signup").checked;
         if (isChecked == false) {
@@ -156,7 +154,7 @@ function registerNewUser(pictureBase64) {
     userPassword = $('#pass').val();
     userPicture = pictureBase64;
     userCity = $('#city').val();
-    userBirthday = $('#datepicker').val();
+    userBirthday = $('#birthday').val();
     athleteWeight = $('#AthleteWeight').val();
     athleteHeight = $('#AthleteHeight').val();
 
@@ -178,8 +176,6 @@ function registerNewUser(pictureBase64) {
 
     var dataString = JSON.stringify(request);
 
-    //alert(dataString);
-
     $.ajax({
         url: ASMXURL + 'register',
         data: dataString,
@@ -191,31 +187,8 @@ function registerNewUser(pictureBase64) {
         error: errorCB
     })
 
-    //userID = getUserId();
-
-    //requestAthlete = {
-    //    "userId": userID,
-    //    "userTeam": userTeam,
-    //    "athleteWeight": athleteWeight,
-    //    "athleteHeight": athleteHeight
-    //};
-
-    //var dataStringAthlete = JSON.stringify(requestAthlete);
-
-
-    //$.ajax({
-    //    url: ASMXURL + 'registerAthlete',
-    //    data: dataString,
-    //    type: 'POST',
-    //    async: false,
-    //    dataType: 'json',
-    //    contentType: 'application/json; charset = utf-8',
-    //    success: registerCompleted,
-    //    error: errorCB
-    //})
-
     localStorage.removeItem("UserDetails");
-    localStorage.removeItem("UserNumber");
+    //localStorage.removeItem("UserNumber"); - remove agter move to login
     localStorage.removeItem("UserTeam");
     localStorage.removeItem("UserName");
     localStorage.removeItem("UserLastName");

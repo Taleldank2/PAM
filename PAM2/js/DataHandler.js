@@ -53,12 +53,9 @@ function parseUserDetails(results) {
 }
 
 
-
 //--------------------------------------------------------------------
 //                           Events Page
 //--------------------------------------------------------------------
-
-
 
 function getCoachEvents() {
     var request = getUserId();
@@ -103,7 +100,7 @@ function addEvent() {
 
     var dataString = JSON.stringify(request);
 
-    alert(dataString);
+    //alert(dataString);
 
     $.ajax({
         url: ASMXURL + 'addEvent',
@@ -116,14 +113,16 @@ function addEvent() {
         error: errorCB
     })
 
-    function addEventCompleted(result) {
-        results = $.parseJSON(result.d);
-        alert(results);
-    }
+}
 
-    function errorCB(e) {
-        alert("The exception message is : " + e.responseText);
-    }
+function addEventCompleted(result) {
+    results = $.parseJSON(result.d);
+    alert(results);
+    window.location = "Calendar.html";
+}
+
+function errorCB(e) {
+    alert("The exception message is : " + e.responseText);
 }
 
 
@@ -560,7 +559,7 @@ function parseEventMembers(results) {
     });
 }
 
-document.getElementById("confirmBTN").onclick = sendList();
+//document.getElementById("confirmBTN").onclick = sendList();
 
 function sendList() {
 
