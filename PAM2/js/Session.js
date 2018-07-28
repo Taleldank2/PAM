@@ -3,6 +3,8 @@
 //Session handling if the user is trying to navigate to pages before logging to the system
 //----------------------------------------------------------------------------------------
 $(document).ready(function () {
+    
+
 
     if (localStorage["UserID"] == null) {
         alert("move back to login page");
