@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+        <meta name="author" content="Coderthemes">
+
+        <link rel="shortcut icon" href="assets/images/logo.ico">
+
+        <title>PAM</title>
+
+        <link href="plugins/switchery/switchery.min.css" rel="stylesheet" />
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/icons.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+
+        <script src="assets/js/modernizr.min.js"></script>
+       
+
+    </head>
+    <body>
+
+        <div class="wrapper-page">
+
+            <div class="text-center">
+                <img style="height:70%; width:70%;" src="images/Logo.png" />
+            </div>
+
+            <form class="form-horizontal m-t-20" action="Login.html">
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                        </div>
+                        <input id="PhoneNumber" class="form-control" type="text" required="" placeholder="מספר טלפון">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-12">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-key"></i></span>
+                            </div>
+                            <input id="Password" class="form-control" type="password" required="" placeholder="סיסמה">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group text-left">
+                    <div class="checkbox checkbox-primary">
+                        <i class="mdi mdi-content-save"></i>
+                        <input id="checkbox-signup" type="checkbox">
+                        <label for="checkbox-signup"> זכור אותי </label>
+                    </div>
+                </div>
+
+                <div style="text-align:center" class="form-group text-right m-t-20">
+                   <button style="left:12.5%;padding-left:30%;padding-right:30%" onclick="Login()" class="btn btn-primary btn-custom w-md waves-effect waves-light" type="submit"> כניסה </button>
+                </div>
+
+                <div class="form-group row m-t-30">
+                    <div class="col-sm-7 text-left">
+                        <a href="pages-recoverpw.html" class="text-muted"><i class="fa fa-lock m-r-5"></i> אחזור סיסמה </a>
+                    </div>
+                    <div class="col-sm-7 text-left">
+                        <a href="Register.html" class="text-muted"> <i class="mdi mdi-account-plus "></i> צור חשבון </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <!--<script>var resizefunc = [];</script>-->
+
+        <!-- Plugins  -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/popper.min.js"></script><!-- Popper for Bootstrap -->
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/detect.js"></script>
+        <script src="assets/js/fastclick.js"></script>
+        <script src="assets/js/jquery.slimscroll.js"></script>
+        <script src="assets/js/jquery.blockUI.js"></script>
+        <script src="assets/js/waves.js"></script>
+        <script src="assets/js/wow.min.js"></script>
+        <script src="assets/js/jquery.nicescroll.js"></script>
+        <script src="assets/js/jquery.scrollTo.min.js"></script>
+        <script src="plugins/switchery/switchery.min.js"></script>
+
+        <!-- Custom main Js -->
+        <script src="js/Config.js"></script>    
+        <script src="assets/js/jquery.core.js"></script>
+        <script src="assets/js/jquery.app.js"></script>
+        <script src="js/Login.js"></script>
+
+	</body>
+</html>

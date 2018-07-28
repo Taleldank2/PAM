@@ -15,6 +15,7 @@ using PushSharp;
 using PushSharp.Core;
 using PushSharp.Google;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 /// <summary>
 /// Summary description for WebService
 /// </summary>
@@ -81,31 +82,7 @@ public class WebService : System.Web.Services.WebService
 
                     try
                     {
-                        ////Create GUID number
-                        //string userGuid = Guid.NewGuid().ToString();
-
-                        ////get the user id
-                        //string userId = dt.Rows[0][0].ToString();
-
-                        //// Search inside userSession dictionary table if user is there 
-                        //if (usersSessions.Keys.Contains(userId))
-                        //{
-                        //    usersSessions[userId] = userGuid;
-                        //}
-                        //else
-                        //{
-                        //    //if user is not there, add him to the dictionary
-                        //    usersSessions.Add(userId, userGuid);
-                        //}
-
-                        ////Give the user cookie named "session" and give it the value of the user guid for example:
-                        ////"session=4564564-5646-456-4564"
-                        //HttpCookie cookie = new HttpCookie("session");
-                        //cookie["session"] = userGuid;
-
-                        //cookie.Expires = DateTime.Now.AddHours(1);
-
-                        //Context.Response.Cookies.Add(cookie);
+ 
 
                         // serialize to string
                         JavaScriptSerializer js = new JavaScriptSerializer();
@@ -424,9 +401,11 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void insertAttendance(string EventId, string[] Attendences)
+    public void insertAttendance(string attendanceArr)
     {
-        dbHandler.insertAttendance(EventId, Attendences);
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        Attendance[] attendArr = js.Deserialize<Attendance[]>(attendanceArr);
+
     }
 
 
@@ -457,7 +436,7 @@ public class WebService : System.Web.Services.WebService
         //need to be detched every time we want to send notification
         List<string> lt = new List<string>();
         //this is an example of 1 reg id of eldan's devices
-        lt.Add("dWuu4LMRvog:APA91bEoPeUAKGsaBdtBlftB48jOxw7ci4HoujG6iu_mVebQpLTYXH3UoCGKwoF7Nf9w3SBQ7yc7mwBQUVlsVE4gSa36bQM-p7gqz1mIHkys9XZwQJV4k0lAOhctpVDlpFdsxJb2f7Jldmsa5i5qNnQ48sY9H-s7zQ");
+        lt.Add("d5eaPinp36g:APA91bEP4wYxj7NzHfHWzyEAWfM46s6lX5pDUy-PDZsH9wupS4J_6aGRn4LNoynpdluhTXx5uL9_EScBgiVAhZ2UJDn5KAGTp9QhQO-iTrikKUP6GMhbfHYEeiMmDyYEzoyfp15z-PvX13XYzsCkbqEnTxIS1yOzTQ");
         sendPush("hello", "tal eldan", lt);
     }
 

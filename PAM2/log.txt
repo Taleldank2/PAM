@@ -578,3 +578,113 @@ Log Entry : 23:16:36 שבת 21 יולי 2018
   :
   :Incorrect syntax near ')'.
 -------------------------------
+
+Log Entry : 01:57:22 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 01:57:22 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 01:57:50 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 01:57:50 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:05:54 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:05:54 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:05:55 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:05:55 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:08:17 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:08:17 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:08:18 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:08:18 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:08:36 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:08:36 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:09:22 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:09:22 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:11:24 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:11:24 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:16:07 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:16:07 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:16:08 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------
+
+Log Entry : 02:16:08 שבת 28 יולי 2018
+  :
+  :Invalid column name 'undefined'.
+-------------------------------

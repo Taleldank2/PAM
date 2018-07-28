@@ -559,7 +559,7 @@ document.getElementById("confirmBTN").onclick = sendList;
 function sendList() {
 
 
-    //Create object arrat to cintain the rows data
+    //Create object arraט to cintain the rows data
     var attendanceArr = [];
 
     //Go over list and create object for each row
@@ -599,11 +599,11 @@ function sendList() {
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
         success: function (response) {
-            alert(good + "response");
+            alert("good " + response.text);
         },
         error: function (response) {
-            alert("bad" + response);
-        }
+            alert("bad " + response.text);
+        } 
     }) // end of ajax call
 
 

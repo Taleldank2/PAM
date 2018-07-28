@@ -896,7 +896,7 @@ public class DBServices
                 int Attend = int.Parse(User);
                 string query = " INSERT INTO[dbo].[Attendances]"
                 + " ([EventID],[AthleteID],[IsAttend],[Note]) VALUES "
-                 + " (" + EventId + "," + UserId + ","+ Attend + ",null)";
+                 + " (" + EventId + "," + UserId + "," + Attend + ",null)";
 
 
                 SqlCommand insert = new SqlCommand(String.Format(query), con);
@@ -908,14 +908,14 @@ public class DBServices
                 // write to log
                 throw ex;
             }
-        }
 
 
-        finally
-        {
-            if (con != null)
+            finally
             {
-                con.Close();
+                if (con != null)
+                {
+                    con.Close();
+                }
             }
         }
     }

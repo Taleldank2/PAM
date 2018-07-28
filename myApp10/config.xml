@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.PAM.QiratTivon" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>PAM</name>
+    <description>
+       Qirat Tivon Water Polo
+    </description>
+    <author email="talkaf1@gmail.com" href="http://talkaf1.com">
+        TT PRODUTIONS
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+	<allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+	
+	<platform name="android">
+        <allow-intent href="market:*" />
+        <resource-file src="google-services.json" target="app/google-services.json" />
+        <resource-file src="google-services.json" target="google-services.json" />
+    </platform>
+	
+	<plugin name="cordova-plugin-network-information" spec="~1.3.4" />
+    <plugin name="cordova-plugin-dialogs" spec="~2.0.1" />
+    <plugin name="cordova-plugin-whitelist" spec="~1.3.3" />
+    <plugin name="cordova-plugin-device" spec="~2.0.2" />
+	<plugin name="phonegap-plugin-push" source="npm" spec="~1.9.4">
+        <param name="SENDER_ID" value="206709481331" />
+    </plugin>
+</widget>
