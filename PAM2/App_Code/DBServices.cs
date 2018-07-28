@@ -495,7 +495,7 @@ public class DBServices
 
     }
 
-    public bool addEvent(string eventName, string eventDate, string eventDescription, string eventType, string startTime,
+    public bool addEvent(string teamId ,string eventName, string eventDate, string eventDescription, string eventType, string startTime,
         string endTime, string location)
     {
         SqlConnection con = null;
@@ -525,7 +525,7 @@ public class DBServices
 
             string command = "INSERT INTO [dbo].[Events] " +
                              "([EventType], [Title], [E_Body], [E_Date],[StartTime],[EndTime],[IsRecursive],[Location],[Note],[CreationTime])" +
-                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}',{6},'{7}',{8},{9}); SELECT CAST(scope_identity() AS int";
+                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}',{6},'{7}',{8},{9}); SELECT CAST(scope_identity() AS int)";
 
             //string[] DateStringArray = eventDate.Split('-');
 
@@ -537,8 +537,9 @@ public class DBServices
 
             int eventId = insertEvent(formattedCommand, true);
 
+            int TeamId = int.Parse(teamId);
 
-            insertTeamEvent(eventId,teamid);
+            insertTeamEvent(eventId, TeamId);
 
             return true;
 

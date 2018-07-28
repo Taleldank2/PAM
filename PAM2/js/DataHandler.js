@@ -75,8 +75,8 @@ function getCoachEvents() {
 
 function addEvent() {
 
-    //var EventType = $('#EventModalTitle').text()
-    //alert(EventType);
+    teamId = $('#CalTeams option:selected');
+    
 
     eventName = $('#EventName').val();
     eventDate = $('#EventDate').val();
@@ -87,6 +87,7 @@ function addEvent() {
     eventLocation = $('#EventLocation').val();
 
     request = {
+        "teamId":teamId[0].value,
         "eventName": eventName,
         "eventDate": eventDate,
         "startTime": startTime,
@@ -123,11 +124,35 @@ function errorCB(e) {
     alert("The exception message is : " + e.responseText);
 }
 
+function getCoachCalTeams() {
+    var request = getUserId();
 
+    dataString = JSON.stringify(request);
+    $.ajax({
+        url: ASMXURL + 'getCoachTeams',
+        data: dataString,
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: updateCoachCalTeams
+    })
+}
+
+function updateCoachCalTeams(response) {
+    teams = JSON.parse(response.d)
+
+    for (i = 0; i < teams.length; i++) {
+        teamID = teams[i].TeamID;
+        teamName = teams[i].TeamName;
+        $("#CalTeams").append("<option value='" + teamID + "'>" + teamName + "</option>")
+    }
+}
 
 //--------------------------------------------------------------------
 //                             Register
 //--------------------------------------------------------------------
+
 function getPicturePath() {
 
     var request = getUserId();
@@ -379,15 +404,16 @@ function sendMessage() {
             alert("הודעה נשלחה בהצלחה");
             window.location = "/Inbox.html";
         },
-        error: function (response) {          
-        console.log("bad " + response.responseJSON.Message)
-        debugger;
-    } 
+        error: function (response) {
+            console.log("bad " + response.responseJSON.Message)
+            debugger;
+        }
     })
 }
 
 function getCoachTeams() {
     var request = getUserId();
+
     dataString = JSON.stringify(request);
     $.ajax({
         url: ASMXURL + 'getCoachTeams',
@@ -404,8 +430,8 @@ function updateCoachTeams(response) {
     teams = JSON.parse(response.d)
 
     for (i = 0; i < teams.length; i++) {
-        teamID = teams[i].TeamID
-        teamName = teams[i].TeamName
+        teamID = teams[i].TeamID;
+        teamName = teams[i].TeamName;
 
         $("#teams").append("<option value='" + teamID + "'>" + teamName + "</option>")
     }
@@ -587,8 +613,8 @@ function sendList() {
         var row = {
             athleteId: userId,
             eventId: 1,
-            present: isChecked,           
-            note:"some note"
+            present: isChecked,
+            note: "some note"
         }
 
         //insert the the object to the array
@@ -599,7 +625,7 @@ function sendList() {
     //send list to database
     dataString = JSON.stringify({ 'attendanceArr': attendanceArr });
     console.log(dataString);
-    
+
 
     $.ajax({
         url: ASMXURL + 'insertAttendance',
@@ -608,13 +634,13 @@ function sendList() {
         async: true,
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
-        success: function (response) {          
+        success: function (response) {
             console.log("good " + response.responseJSON.Message)
         },
-        error: function (response) {          
+        error: function (response) {
             console.log("bad " + response.responseJSON.Message)
             debugger;
-        } 
+        }
     }) // end of ajax call
 
 

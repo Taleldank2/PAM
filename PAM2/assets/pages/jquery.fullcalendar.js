@@ -246,8 +246,11 @@ var defaultEvents;
             selectable: true,
             drop: function (date) {
 
-                $this.onDrop($(this), date);                
-                
+                $this.onDrop($(this), date);
+
+                getCoachTeams();
+                debugger;
+              
                 //Send the date to the modal
                 $('#EventDate').val(date.format('YYYY-MM-DD'));
 

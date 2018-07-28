@@ -27,6 +27,8 @@ $(document).ready(function () {
         else if (window.location.pathname == "/android_asset/www/Calendar.html" || window.location.pathname == "/Calendar.html" || window.location.pathname == "/bgroup57/test1/tar1/Calendar.html") {
             //getUserEvents() ---> jquery.fullcalendar.js is calling this function on page load
             getPicturePath();
+            getCoachCalTeams();
+            //getCoachTeams();
         }
         else if (window.location.pathname == "/android_asset/www/Inbox.html" || window.location.pathname == "/Inbox.html" || window.location.pathname == "/bgroup57/test1/tar1/Inbox.html") {
             getCoachMessages();

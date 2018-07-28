@@ -225,12 +225,12 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string addEvent(string eventName, string eventDate, string eventDescription, string eventType, string startTime,
+    public string addEvent(string teamId, string eventName, string eventDate, string eventDescription, string eventType, string startTime,
        string endTime, string eventLocation)
     {
 
         bool answer = false;
-        answer = dbHandler.addEvent(eventName, eventDate, eventDescription, eventType, startTime,
+        answer = dbHandler.addEvent(teamId,eventName, eventDate, eventDescription, eventType, startTime,
         endTime, eventLocation);
 
         JavaScriptSerializer js = new JavaScriptSerializer();
@@ -430,7 +430,7 @@ public class WebService : System.Web.Services.WebService
 
         List<string> userRegIds = dbHandler.getUserRegsFromTeams(teamIds);
 
-        sendPush("הודעה חדשה מפאם", title, userRegIds);
+        sendPush("PAM", title, userRegIds);
 
     }
 
@@ -485,7 +485,7 @@ public class WebService : System.Web.Services.WebService
 
     private void GcmBroker_OnNotificationSucceeded(GcmNotification notification)
     {
-        string asdf = "sap";
+       // string asdf = "sap";
     }
 
     private void GcmBroker_OnNotificationFailed(GcmNotification notification, AggregateException exception)

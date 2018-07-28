@@ -740,3 +740,13 @@ Log Entry : 20:00:42 שבת 28 יולי 2018
   :
   :Conversion failed when converting date and/or time from character string.
 -------------------------------
+
+Log Entry : 21:35:29 שבת 28 יולי 2018
+  :
+  :Incorrect syntax near 'int'.
+-------------------------------
+
+Log Entry : 21:38:47 שבת 28 יולי 2018
+  :
+  :Incorrect syntax near 'int'.
+-------------------------------
