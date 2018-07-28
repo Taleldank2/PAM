@@ -174,35 +174,7 @@ public class WebService : System.Web.Services.WebService
             throw ex;
         }
     }
-
-
-    //}//Get user object from session
-
-    //[WebMethod]
-    //public string getUserType()
-    //{
-    //    try
-    //    {
-    //        string userSession = Context.Request.Cookies["session"]["session"];
-
-    //        string userID = getUserFromSession(userSession);
-
-    //        DataTable details = dbHandler.getUserType(userID);
-
-    //        string response = dataTableToJson(details);
-
-    //        return response;
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        // send to log file
-    //        using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
-    //        { Log(ex.Message, w); }
-    //        throw ex;
-    //    }
-
-
-    //}//Get user object from session
+  
 
 
     //--------------------------------------------------------------------
@@ -225,13 +197,12 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string addEvent(string eventName, string eventDate, string eventDescription, string eventType, string startTime,
+    public string addEvent(string teamId, string eventName, string eventDate, string eventDescription, string eventType, string startTime,
        string endTime, string eventLocation)
     {
 
         bool answer = false;
-
-        answer = dbHandler.addEvent(eventName, eventDate, eventDescription, eventType, startTime,
+        answer = dbHandler.addEvent(teamId, eventName, eventDate, eventDescription, eventType, startTime,
         endTime, eventLocation);
 
         JavaScriptSerializer js = new JavaScriptSerializer();
@@ -402,12 +373,12 @@ public class WebService : System.Web.Services.WebService
     public void insertAttendance(string attendanceArr)
     {
 
-
-        //Attendance[] attendArr = new Attendance[50];
-        var attendArr = new List<Attendance>();
+        //List<Attendance> list = new List<Attendance>();
+        //Attendance[] attendArr = new Attendance[]();
+        Attendance[] attendArr = new Attendance[50];
         JavaScriptSerializer js = new JavaScriptSerializer();
-       
-        attendArr = js.Deserialize<List<Attendance>>(attendanceArr);
+        //list = js.Deserialize<Attendance>(attendanceArr);
+        attendArr = js.Deserialize<Attendance[]>(attendanceArr);
         Console.WriteLine(attendanceArr);
 
     }
@@ -421,18 +392,17 @@ public class WebService : System.Web.Services.WebService
     //public void createMessage(string coachId, String title, String message, String[] teamIds)
 
     [WebMethod]
-    public void createMessage(string coachId,string title, string message, string [] teamIds)
+    public void createMessage(string coachId, string title, string message, string[] teamIds)
     {
         //string userSession = Context.Request.Cookies["session"]["session"];
 
         //string coachId = getUserFromSession(userSession);
 
-
         dbHandler.createNewMessage(title, message, teamIds, coachId);
 
         List<string> userRegIds = dbHandler.getUserRegsFromTeams(teamIds);
 
-        sendPush("הודעה חדשה מפאם", title, userRegIds);
+        sendPush("PAM", title, userRegIds);
 
     }
 
@@ -444,10 +414,7 @@ public class WebService : System.Web.Services.WebService
         List<string> lt = new List<string>();
         //this is an example of 1 reg id of eldan's devices
         lt.Add("d5eaPinp36g:APA91bEP4wYxj7NzHfHWzyEAWfM46s6lX5pDUy-PDZsH9wupS4J_6aGRn4LNoynpdluhTXx5uL9_EScBgiVAhZ2UJDn5KAGTp9QhQO-iTrikKUP6GMhbfHYEeiMmDyYEzoyfp15z-PvX13XYzsCkbqEnTxIS1yOzTQ");
-        lt.Add("ef70et0LBfI:APA91bHER2m7w8bAhieureDziDkh2jSv8Hsj8Pz-b0Olcx0EtKHm6nPvI0nFY91M_4Sl0YS6J1wApbOzFzXO-VcsObrB2jMwVcjJOKMwA3YAN6s1ZYDCCdfGlnW_58hH22ijV9lzMUfWhNnX3QV1BAKDxYriztiD1w");
-        lt.Add("enbHE1Dpg5k:APA91bFQOcuAcFsNH148h9Wd8u5lWetXuV5-hiL1hXuS62K3vq45U8qXMZ15JwX97WkUDU1poRZgA5wTf3eLiwXfFT3W5L4NArnnq3k7a7BQldEXfC_Jy2NMn3sa10o2s4OWmtoURln7IVPOShcsiK1C9KSeXRZ44g");
-        sendPush("הודעה חדשה מפאם", "אימון נדחה למחר בשעה 5!", lt);
-
+        sendPush("hello", "tal eldan", lt);
     }
 
     private void sendPush(String title, String message, List<String> usersRegIds)
@@ -490,7 +457,7 @@ public class WebService : System.Web.Services.WebService
 
     private void GcmBroker_OnNotificationSucceeded(GcmNotification notification)
     {
-        string asdf = "sap";
+        // string asdf = "sap";
     }
 
     private void GcmBroker_OnNotificationFailed(GcmNotification notification, AggregateException exception)
@@ -518,7 +485,7 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void update(string userId,string phoneNumber, string userMail, string userPassword, string city, string athleteWeight, string athleteHeight)
+    public void update(string userId, string phoneNumber, string userMail, string userPassword, string city, string athleteWeight, string athleteHeight)
     {
         dbHandler.updateDetails(userId, phoneNumber, userMail, userPassword, city);
     }
