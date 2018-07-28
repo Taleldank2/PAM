@@ -168,6 +168,12 @@ public class DBServices
         }
     }
 
+    public void savePicture(string picPath, string userPicBase64)
+    {
+        string dirPath = Path.Combine(HttpRuntime.AppDomainAppPath, picPath.Replace("/", "\\"));
+
+        File.WriteAllText(dirPath, userPicBase64);
+    }
 
     public int insertAthlete(string command, bool isCreate)
     {
@@ -270,13 +276,6 @@ public class DBServices
                 con.Close();
             }
         }
-    }
-
-    public void savePicture(string picPath, string userPicBase64)
-    {
-        string dirPath = Path.Combine(HttpRuntime.AppDomainAppPath, picPath.Replace("/", "\\"));
-
-        File.WriteAllText(dirPath, userPicBase64);
     }
 
     public string getPicturePath(string userID)

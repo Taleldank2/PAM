@@ -251,6 +251,18 @@ function parseUserResults(results) {
 
 
 function addResultModal() {
+
+    //today = new Date();
+    //var dd = today.getDate();
+    //var mm = today.getMonth()+1; //January is 0!
+    //if(dd<10) {
+    //    dd = '0'+dd
+    //} 
+    //if(mm<10) {
+    //    mm = '0'+mm
+    //} 
+    //$('#resultDate').val(dd + '/' + mm + '/' + today.getFullYear());
+
     $('#addResultModal').modal('show');
 
     $("#resultType").append("<option value='" + (1) + "'>שחייה</option>")
