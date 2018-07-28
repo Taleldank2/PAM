@@ -688,3 +688,14 @@ Log Entry : 02:16:08 שבת 28 יולי 2018
   :
   :Invalid column name 'undefined'.
 -------------------------------
+
+Log Entry : 19:53:26 שבת 28 יולי 2018
+  :
+  :The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.
+The statement has been terminated.
+-------------------------------
+
+Log Entry : 19:53:50 שבת 28 יולי 2018
+  :
+  :Explicit conversion from data type int to date is not allowed.
+-------------------------------

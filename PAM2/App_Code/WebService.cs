@@ -230,6 +230,7 @@ public class WebService : System.Web.Services.WebService
     {
 
         bool answer = false;
+
         answer = dbHandler.addEvent(eventName, eventDate, eventDescription, eventType, startTime,
         endTime, eventLocation);
 
@@ -441,7 +442,10 @@ public class WebService : System.Web.Services.WebService
         List<string> lt = new List<string>();
         //this is an example of 1 reg id of eldan's devices
         lt.Add("d5eaPinp36g:APA91bEP4wYxj7NzHfHWzyEAWfM46s6lX5pDUy-PDZsH9wupS4J_6aGRn4LNoynpdluhTXx5uL9_EScBgiVAhZ2UJDn5KAGTp9QhQO-iTrikKUP6GMhbfHYEeiMmDyYEzoyfp15z-PvX13XYzsCkbqEnTxIS1yOzTQ");
-        sendPush("hello", "tal eldan", lt);
+        lt.Add("ef70et0LBfI:APA91bHER2m7w8bAhieureDziDkh2jSv8Hsj8Pz-b0Olcx0EtKHm6nPvI0nFY91M_4Sl0YS6J1wApbOzFzXO-VcsObrB2jMwVcjJOKMwA3YAN6s1ZYDCCdfGlnW_58hH22ijV9lzMUfWhNnX3QV1BAKDxYriztiD1w");
+        lt.Add("enbHE1Dpg5k:APA91bFQOcuAcFsNH148h9Wd8u5lWetXuV5-hiL1hXuS62K3vq45U8qXMZ15JwX97WkUDU1poRZgA5wTf3eLiwXfFT3W5L4NArnnq3k7a7BQldEXfC_Jy2NMn3sa10o2s4OWmtoURln7IVPOShcsiK1C9KSeXRZ44g");
+        sendPush("הודעה חדשה מפאם", "אימון נדחה למחר בשעה 5!", lt);
+
     }
 
     private void sendPush(String title, String message, List<String> usersRegIds)
