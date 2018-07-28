@@ -373,12 +373,12 @@ public class WebService : System.Web.Services.WebService
     public void insertAttendance(string attendanceArr)
     {
 
-        //List<Attendance> list = new List<Attendance>();
-        //Attendance[] attendArr = new Attendance[]();
-        Attendance[] attendArr = new Attendance[50];
+
+        List<Attendance> attendArr = new List<Attendance>();
+        //Attendance[] attendArr = new Attendance[50];
         JavaScriptSerializer js = new JavaScriptSerializer();
-        //list = js.Deserialize<Attendance>(attendanceArr);
-        attendArr = js.Deserialize<Attendance[]>(attendanceArr);
+
+        attendArr = js.Deserialize<List<Attendance>>(attendanceArr);
         Console.WriteLine(attendanceArr);
 
     }

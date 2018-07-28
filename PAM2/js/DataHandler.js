@@ -1,4 +1,5 @@
-﻿//--------------------------------------------------------------------
+﻿
+//--------------------------------------------------------------------
 //                            get the user id
 //--------------------------------------------------------------------
 
@@ -425,7 +426,7 @@ function sendMessage() {
         },
         error: function (response) {
             console.log("bad " + response.responseJSON.Message)
-            debugger;
+
         }
     })
 }
@@ -587,7 +588,7 @@ function getEventMembers() {
 }
 
 function parseEventMembers(results) {
-    document.getElementById("confirmBTN").style.visibility = "visible";
+    document.getElementById("sendAttendanceBTN").style.visibility = "visible";
     results = $.parseJSON(results.d);
     $(function () {
         $('#athletesTable').html("");
@@ -602,9 +603,10 @@ function parseEventMembers(results) {
     });
 }
 
-//document.getElementById("confirmBTN").onclick = sendList();
+document.getElementById("sendAttendanceBTN").onclick = sendList;
 
 function sendList() {
+
 
 
     //Create object arraט to cintain the rows data
@@ -658,7 +660,7 @@ function sendList() {
         },
         error: function (response) {
             console.log("bad " + response.responseJSON.Message)
-            debugger;
+
         }
     }) // end of ajax call
 
