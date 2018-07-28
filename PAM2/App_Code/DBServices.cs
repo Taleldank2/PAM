@@ -495,8 +495,8 @@ public class DBServices
 
     }
 
-    public bool addEvent(string eventName, string eventDate, string eventDescription, string eventType, string startTime,
-        string endTime, string location, string coachId)
+    public bool addEvent(string teamId, string eventName, string eventDate, string eventDescription, string eventType, string startTime,
+        string endTime, string location)
     {
         SqlConnection con = null;
 
@@ -524,29 +524,22 @@ public class DBServices
             //CreationTime change to STRING in db!!!!
 
             string command = "INSERT INTO [dbo].[Events] " +
-<<<<<<< HEAD
-                             "([EventType], [Title], [E_Body], [E_Date],[StartTime],[EndTime],[IsRecursive],[Location],[Note],[CreationTime] )" +
-                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}' )";
-
-            
-            string formattedCommand = String.Format(command, eventTypeNum, eventName, eventDescription, eventDate, startTime, endTime, null, location, null, DateTime.Now.ToString());
-=======
                              "([EventType], [Title], [E_Body], [E_Date],[StartTime],[EndTime],[IsRecursive],[Location],[Note],[CreationTime])" +
-                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}',{6},'{7}',{8},{9}); SELECT CAST(scope_identity() AS int";
+                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}',{6},'{7}',{8},{9}); SELECT CAST(scope_identity() AS int)";
 
             //string[] DateStringArray = eventDate.Split('-');
 
             //string parsedDate = DateStringArray[2] + "-" + DateStringArray[1] + "-" + DateStringArray[0];
             //string datet = DateTime.Now.ToString("yyyy-mm-dd hh:mi:ss");
->>>>>>> 1273f8493804cc7c3c729c953d3ced52a5363b08
 
 
             string formattedCommand = String.Format(command, eventTypeNum, eventName, eventDescription, eventDate, startTime, endTime, "null", location, "null", "null");
 
             int eventId = insertEvent(formattedCommand, true);
 
+            int TeamId = int.Parse(teamId);
 
-            insertTeamEvent(eventId,teamid);
+            insertTeamEvent(eventId, TeamId);
 
             return true;
 
@@ -610,7 +603,7 @@ public class DBServices
         }
     }
 
-    public bool insertTeamEvent(int eventId,int teamId)
+    public bool insertTeamEvent(int eventId, int teamId)
     {
         SqlConnection con = null;
 
@@ -620,7 +613,7 @@ public class DBServices
 
             string command = " INSERT INTO"
                 + " TeamsEvents(EventId, TeamId)"
-                + "  VALUES("+eventId+", "+teamId+") ";
+                + "  VALUES(" + eventId + ", " + teamId + ") ";
 
             string formattedCommand = String.Format(command, eventId, teamId);
 

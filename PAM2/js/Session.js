@@ -3,8 +3,6 @@
 //Session handling if the user is trying to navigate to pages before logging to the system
 //----------------------------------------------------------------------------------------
 $(document).ready(function () {
-    
-
 
     if (localStorage["UserID"] == null) {
         alert("move back to login page");
@@ -29,13 +27,15 @@ $(document).ready(function () {
         else if (window.location.pathname == "/android_asset/www/Calendar.html" || window.location.pathname == "/Calendar.html" || window.location.pathname == "/bgroup57/test1/tar1/Calendar.html") {
             //getUserEvents() ---> jquery.fullcalendar.js is calling this function on page load
             getPicturePath();
+            getCoachCalTeams();
+            //getCoachTeams();
         }
         else if (window.location.pathname == "/android_asset/www/Inbox.html" || window.location.pathname == "/Inbox.html" || window.location.pathname == "/bgroup57/test1/tar1/Inbox.html") {
             getCoachMessages();
             getMessagesCount();
             getPicturePath();
         }
-        else if (window.location.pathname == "/android_asset/www/Attendance.html" || window.location.pathname ==  "/Attendance.html" || window.location.pathname == "/bgroup57/test1/tar1/Attendance.html") {
+        else if (window.location.pathname == "/android_asset/www/Attendance.html" || window.location.pathname == "/Attendance.html" || window.location.pathname == "/bgroup57/test1/tar1/Attendance.html") {
             getEventsList();
             getPicturePath();
         }
@@ -59,14 +59,12 @@ $(document).ready(function () {
 //    }) 
 //}
 
-function err(e)
-{
+function err(e) {
     alert(e);
     window.location = "Login.html";
 }
 
-function logOut()
-{
+function logOut() {
     localStorage.removeItem("UserID");
     document.location = "Login.html";
 }
