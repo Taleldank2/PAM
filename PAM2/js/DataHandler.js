@@ -379,7 +379,11 @@ function sendMessage() {
         success: function () {
             alert("הודעה נשלחה בהצלחה");
             window.location = "/Inbox.html";
-        }
+        },
+        error: function (response) {          
+        console.log("bad " + response.responseJSON.Message)
+        debugger;
+    } 
     })
 }
 
@@ -566,6 +570,11 @@ function sendList() {
 
     $('input[type=checkbox]').each(function () {
 
+        //decleration
+        var eventId;
+        var athleteId;
+        var present;
+        var note;
 
         //user is not attend by deafult
         var userId = (this.attributes[2].value);
@@ -577,8 +586,10 @@ function sendList() {
 
         //Create object for each row
         var row = {
-            userID: userId,
-            isAttend: isChecked,
+            athleteId: userId,
+            eventId: 1,
+            present: isChecked,           
+            note:"some note"
         }
 
         //insert the the object to the array
@@ -587,9 +598,9 @@ function sendList() {
     });
 
     //send list to database
-
     dataString = JSON.stringify({ 'attendanceArr': attendanceArr });
-    alert(dataString);
+    console.log(dataString);
+    
 
     $.ajax({
         url: ASMXURL + 'insertAttendance',
@@ -598,11 +609,12 @@ function sendList() {
         async: true,
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
-        success: function (response) {
-            alert("good " + response.text);
+        success: function (response) {          
+            console.log("good " + response.responseJSON.Message)
         },
-        error: function (response) {
-            alert("bad " + response.text);
+        error: function (response) {          
+            console.log("bad " + response.responseJSON.Message)
+            debugger;
         } 
     }) // end of ajax call
 
