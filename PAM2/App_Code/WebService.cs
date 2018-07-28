@@ -82,7 +82,7 @@ public class WebService : System.Web.Services.WebService
 
                     try
                     {
- 
+
 
                         // serialize to string
                         JavaScriptSerializer js = new JavaScriptSerializer();
@@ -123,92 +123,88 @@ public class WebService : System.Web.Services.WebService
 
     }
 
-    [WebMethod]
-    public string checkUserSession(string userSession) //user session is the GUID string that is being send from:
-                                                       //checkUserExists ajax call
-                                                       //this method is being called on every page load
-    {
-        string response = "false";
+    //[WebMethod]
+    //public string checkUserSession(string userSession) //user session is the GUID string that is being send from:
+    //                                                   //checkUserExists ajax call
+    //                                                   //this method is being called on every page load
+    //{
+    //    string response = "false";
+    //    if (usersSessions.Values.Contains(userSession))
+    //    {
+    //        response = "true";
+    //    }
+    //    return response;
+    //}
 
-        if (usersSessions.Values.Contains(userSession))
+    //[WebMethod]
+    //private string getUserFromSession(string sessionId)//Extract the user id from the session table
+    //{
+    //    foreach (KeyValuePair<string, string> pair in usersSessions)
+    //    {
+    //        if (pair.Value == sessionId)
+    //        {
+    //            return pair.Key;
+    //        }
+    //    }
+    //    throw new Exception("Invalid session id");
+    //}
+
+    [WebMethod]
+    public string getUser(string userId)
+    {
+        try
         {
-            response = "true";
+            //string userSession = Context.Request.Cookies["session"]["session"];
+
+            //string userID = getUserFromSession(userSession);
+
+            DataTable details = dbHandler.getUser(userId);
+
+            string response = dataTableToJson(details);
+
+            return response;
         }
-
-        return response;
-    }
-
-    [WebMethod]
-    private string getUserFromSession(string sessionId)//Extract the user id from the session table
-    {
-
-
-
-        foreach (KeyValuePair<string, string> pair in usersSessions)
+        catch (Exception ex)
         {
-            if (pair.Value == sessionId)
+            // send to log file
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
             {
-                return pair.Key;
+                Log(ex.Message, w);
             }
+            throw ex;
         }
-
-        throw new Exception("Invalid session id");
-
     }
 
-    [WebMethod]
-    public string getUser()
-    {
-        try
-        {
-            string userSession = Context.Request.Cookies["session"]["session"];
 
-            string userID = getUserFromSession(userSession);
+    //}//Get user object from session
 
-            DataTable details = dbHandler.getUser(userID);
+    //[WebMethod]
+    //public string getUserType()
+    //{
+    //    try
+    //    {
+    //        string userSession = Context.Request.Cookies["session"]["session"];
 
-            string response = dataTableToJson(details);
+    //        string userID = getUserFromSession(userSession);
 
-            return response;
-        }
-        catch (Exception ex)
-        {
-            // send to log file
-            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
-            { Log(ex.Message, w); }
-            throw ex;
-        }
+    //        DataTable details = dbHandler.getUserType(userID);
 
+    //        string response = dataTableToJson(details);
 
-    }//Get user object from session
-
-    [WebMethod]
-    public string getUserType()
-    {
-        try
-        {
-            string userSession = Context.Request.Cookies["session"]["session"];
-
-            string userID = getUserFromSession(userSession);
-
-            DataTable details = dbHandler.getUserType(userID);
-
-            string response = dataTableToJson(details);
-
-            return response;
-        }
-        catch (Exception ex)
-        {
-            // send to log file
-            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
-            { Log(ex.Message, w); }
-            throw ex;
-        }
+    //        return response;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        // send to log file
+    //        using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
+    //        { Log(ex.Message, w); }
+    //        throw ex;
+    //    }
 
 
-    }//Get user object from session
+    //}//Get user object from session
 
-    
+
     //--------------------------------------------------------------------
     //                           Events page
     //--------------------------------------------------------------------
@@ -243,11 +239,11 @@ public class WebService : System.Web.Services.WebService
 
         if (answer)
         {
-         jsonString = js.Serialize("אירוע נקלט בהצלחה");
+            jsonString = js.Serialize("אירוע נקלט בהצלחה");
         }
-        
+
         return jsonString;
-              
+
     }
 
     //--------------------------------------------------------------------
@@ -415,7 +411,7 @@ public class WebService : System.Web.Services.WebService
 
 
     [WebMethod]
-    public void createMessage(string coachId,String title, String message, String[] teamIds)
+    public void createMessage(string coachId, String title, String message, String[] teamIds)
     {
         //string userSession = Context.Request.Cookies["session"]["session"];
 
@@ -425,11 +421,11 @@ public class WebService : System.Web.Services.WebService
 
         List<string> userRegIds = dbHandler.getUserRegsFromTeams(teamIds);
 
-        sendPush("הודעה חדשה מפאם", title, userRegIds);   
-             
+        sendPush("הודעה חדשה מפאם", title, userRegIds);
+
     }
 
-    [WebMethod]    
+    [WebMethod]
     public void test2()
     {
         //lt is the list of devices that are registerd to the app
@@ -451,7 +447,7 @@ public class WebService : System.Web.Services.WebService
 
         gcmBroker.OnNotificationSucceeded += GcmBroker_OnNotificationSucceeded;
 
-        String msg = "{ \"title\" : \"" + title + "\", \"body\" : \"" + message +  " \" }";
+        String msg = "{ \"title\" : \"" + title + "\", \"body\" : \"" + message + " \" }";
 
         // Start the broker
         gcmBroker.Start();
@@ -475,7 +471,7 @@ public class WebService : System.Web.Services.WebService
         // This isn't done after every message, but after you're
         // done with the broker
         gcmBroker.Stop();
-    
+
     }
 
     private void GcmBroker_OnNotificationSucceeded(GcmNotification notification)
@@ -485,7 +481,7 @@ public class WebService : System.Web.Services.WebService
 
     private void GcmBroker_OnNotificationFailed(GcmNotification notification, AggregateException exception)
     {
-        string asdf = "sap";
+        //string asdf = "sap";
     }
 
 
@@ -508,12 +504,8 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void update(string phoneNumber, string userMail, string userPassword, string city, string athleteWeight, string athleteHeight)
+    public void update(string userId,string phoneNumber, string userMail, string userPassword, string city, string athleteWeight, string athleteHeight)
     {
-        string userSession = Context.Request.Cookies["session"]["session"];
-
-        string userId = getUserFromSession(userSession);
-
         dbHandler.updateDetails(userId, phoneNumber, userMail, userPassword, city);
     }
 
@@ -548,7 +540,7 @@ public class WebService : System.Web.Services.WebService
             }
             throw ex;
         }
-        
+
     }
 
     //--------------------------------------------------------------------
@@ -579,6 +571,6 @@ public class WebService : System.Web.Services.WebService
         w.WriteLine("-------------------------------");
     }
 
-    
+
 
 }

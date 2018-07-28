@@ -554,7 +554,7 @@ function parseEventMembers(results) {
     });
 }
 
-document.getElementById("confirmBTN").onclick = sendList;
+document.getElementById("confirmBTN").onclick = sendList();
 
 function sendList() {
 

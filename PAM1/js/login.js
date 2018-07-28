@@ -5,14 +5,15 @@
 //-----------------------------------------------------------------------
 $(document).ready(function () {
 
-    if (localStorage["UserID"])
-    {
+    if (localStorage["UserID"]) {
         window.location = "index.html"
     }
+
     if (localStorage["UserNumber"]) {
         $('#PhoneNumber').val(localStorage.UserNumber);
         localStorage.removeItem("UserNumber");
     }
+
     else if (localStorage.isChecked && localStorage.isChecked != '') {
         $('#checkbox-signup').attr('checked', 'checked');
         $('#PhoneNumber').val(localStorage.username);
@@ -77,7 +78,7 @@ function ajaxLogin(request) {
         success: successCB,
         error: errorCB
     })
-    
+
 }
 
 function successCB(results) {
@@ -90,55 +91,35 @@ function errorCB(e) {
 }
 
 
+//function checkUserExists(session) {
+//    request = {
+//        userSession: session,
+//    };
+//    var dataString = JSON.stringify(request);
+//    $.ajax({
+//        url: ASMXURL + 'checkUserSession',
+//        data: dataString,
+//        type: 'POST',
+//        async: false,
+//        dataType: 'json',
+//        contentType: 'application/json; charset = utf-8',
+//        success: checkSession,
+//        error: checkSessionError
+//    })
+//}
 
-//-----------------------------------------------------------------------
-//Session handling only if the user try to navigate to Main directly 
-//------------------------------------------------------------------------
-//$(document).ready(function () {
-//cookie = document.cookie;
-
-//arr = cookie.split("=");
-
-//if (arr.length == 3) {
-//    if (arr[0] == "session") {
-//        session = arr[2];
-//        checkUserExists(session);
+//function checkSession(results) {
+//    response = results.d;
+//    if (response == "true") {
+//        window.location = "index.html";
 //    }
 //}
-   
-//});
 
-function checkUserExists(session)
-{
-    request = {
-        userSession: session,
-    };
-
-    var dataString = JSON.stringify(request);
-    $.ajax({ 
-        url: ASMXURL + 'checkUserSession',         
-        data: dataString,                     
-        type: 'POST',
-        async: false,
-        dataType: 'json',                     
-        contentType: 'application/json; charset = utf-8',
-        success: checkSession,
-        error:checkSessionError
-    }) 
-}
-
-function checkSession(results) {
-    response = results.d;
-    if (response == "true") {
-        window.location = "index.html";
-    }
-}
-
-function checkSessionError(a,b,c) {
-    console.log(a);
-    console.log(b);
-    console.log(c);
-    alert('checkSessionError');
-}
+//function checkSessionError(a, b, c) {
+//    console.log(a);
+//    console.log(b);
+//    console.log(c);
+//    alert('checkSessionError');
+//}
 
 

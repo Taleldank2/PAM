@@ -51,7 +51,10 @@ function confirm() {
 
     userCity = $('#city').val();
 
+    userId = getUserId();
+
     request = {
+        "UserID": userId["userId"],
         "phoneNumber": userPhoneNumber,
         "userMail": userMail,
         "userPassword": userPassword,

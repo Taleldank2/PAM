@@ -114,6 +114,7 @@ public class DBServices
     //--------------------------------------------------------------------
     //Function for Login module
     //--------------------------------------------------------------------
+
     public DataTable getUser(string userID)
     {
         try
@@ -136,27 +137,6 @@ public class DBServices
 
     }
 
-    public DataTable getUserType(string userID)
-    {
-        try
-        {
-            string query = "SELECT * FROM Users" +
-                " WHERE UserID ='" + userID + "'";
-
-            DataTable user = queryDb(query);
-
-            return user;
-        }
-        catch (Exception ex)
-        {
-            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
-            {
-                Log(ex.Message, w);
-            }
-            throw ex;
-        }
-
-    }
 
     //--------------------------------------------------------------------
     // Register

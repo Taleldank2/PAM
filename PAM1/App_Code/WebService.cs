@@ -87,31 +87,6 @@ public class WebService : System.Web.Services.WebService
 
                     try
                     {
-                        ////Create GUID number
-                        //string userGuid = Guid.NewGuid().ToString();
-
-                        ////get the user id
-                        //string userId = dt.Rows[0][0].ToString();
-
-                        //// Search inside userSession dictionary table if user is there 
-                        //if (usersSessions.Keys.Contains(userId))
-                        //{
-                        //    usersSessions[userId] = userGuid;
-                        //}
-                        //else
-                        //{
-                        //    //if user is not there, add him to the dictionary
-                        //    usersSessions.Add(userId, userGuid);
-                        //}
-
-                        ////Give the user cookie named "session" and give it the value of the user guid for example:
-                        ////"session=4564564-5646-456-4564"
-                        //HttpCookie cookie = new HttpCookie("session");
-                        //cookie["session"] = userGuid;
-
-                        //cookie.Expires = DateTime.Now.AddHours(1);
-
-                        //Context.Response.Cookies.Add(cookie);
                         
                         // serialize to string
                         JavaScriptSerializer js = new JavaScriptSerializer();
@@ -152,34 +127,41 @@ public class WebService : System.Web.Services.WebService
 
     }
 
-    [WebMethod]
-    public string checkUserSession(string userSession) //user session is the GUID string that is being send from:
-                                                       //checkUserExists ajax call
-                                                       //this method is being called on every page load
-    {
-        string response = "false";
+    //[WebMethod]
+    //public string checkUserSession(string userSession) //user session is the GUID string that is being send from:
+    //                                                   //checkUserExists ajax call
+    //                                                   //this method is being called on every page load
+    //{
+    //    string response = "false";
+    //    if (usersSessions.Values.Contains(userSession))
+    //    {
+    //        response = "true";
+    //    }
+    //    return response;
+    //}
 
-        if (usersSessions.Values.Contains(userSession))
-        {
-            response = "true";
-        }
+    //[WebMethod]
+    //private string getUserFromSession(string sessionId)//Extract the user id from the session table
+    //{
+    //    foreach (KeyValuePair<string, string> pair in usersSessions)
+    //    {
+    //        if (pair.Value == sessionId)
+    //        {
+    //            return pair.Key;
+    //        }
+    //    }
+    //    throw new Exception("Invalid session id");
+    //}
 
-        return response;
-    }
-
-    [WebMethod]
-    private string getUserFromSession(string sessionId)//Extract the user id from the session table
-    {
-        foreach (KeyValuePair<string, string> pair in usersSessions)
-        {
-            if (pair.Value == sessionId)
-            {
-                return pair.Key;
-            }
-        }
-
-        throw new Exception("Invalid session id");
-    }
+    //[WebMethod]
+    //public string getUserType(string userID)
+    //{
+    //    //string userSession = Context.Request.Cookies["session"]["session"];
+    //    //string userID = getUserFromSession(userSession);
+    //    DataTable details = dbHandler.getUserType(userID);
+    //    string response = dataTableToJson(details);
+    //    return response;
+    //}//Get user object from session
 
     [WebMethod]
     public string getUser(string userId)
@@ -196,28 +178,12 @@ public class WebService : System.Web.Services.WebService
 
     }
 
-
     [WebMethod]
     public void addUserReg (string userId,string regId)
     {
         dbHandler.addUserReg(userId, regId);
             
     }
-
-    //[WebMethod]
-    //public string getUserType(string userID)
-    //{
-    //    //string userSession = Context.Request.Cookies["session"]["session"];
-
-    //    //string userID = getUserFromSession(userSession);
-
-    //    DataTable details = dbHandler.getUserType(userID);
-
-    //    string response = dataTableToJson(details);
-
-    //    return response;
-
-    //}//Get user object from session
 
 
     //--------------------------------------------------------------------

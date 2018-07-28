@@ -9,13 +9,18 @@ $(document).ready(function () {
         window.location = "index.html";
     }
 
+    if (localStorage["UserNumber"]) {
+        $('#PhoneNumber').val(localStorage.UserNumber);
+        localStorage.removeItem("UserNumber");
+    }
 
-    if (localStorage.isChecked && localStorage.isChecked != '') {
+    else if (localStorage.isChecked && localStorage.isChecked != '') {
         $('#checkbox-signup').attr('checked', 'checked');
         $('#PhoneNumber').val(localStorage.username);
         $('#Password').val(localStorage.pass);
     }
     else {
+
         $('#checkbox-signup').removeAttr('checked');
         $('#PhoneNumber').val('');
         $('#Password').val('');
@@ -29,9 +34,12 @@ $(document).ready(function () {
             localStorage.pass = $('#Password').val();
             localStorage.isChecked = $('#checkbox-signup').val();
         } else {
-            localStorage.username = '';
-            localStorage.pass = '';
-            localStorage.isChecked = '';
+            localStorage.removeItem("username");
+            localStorage.removeItem("pass");
+            localStorage.removeItem("isChecked");
+            //localStorage.username = '';
+            //localStorage.pass = '';
+            //localStorage.isChecked = '';
         }
     });
 });
@@ -58,7 +66,7 @@ function ajaxLogin(request) {
     //Serialize the object to JSON string
     var dataString = JSON.stringify(request);
     $.ajax({
-        url: ASMXURL+ 'Login',
+        url: ASMXURL + 'Login',
         data: dataString,
         type: 'POST',
         async: false,
@@ -66,11 +74,10 @@ function ajaxLogin(request) {
         contentType: 'application/json; charset = utf-8',
         success: successCB,
         error: errorCB
-    }) 
+    })
 }
 
 function successCB(results) {
-    //results = $.parseJSON(results.d);
     localStorage["UserID"] = JSON.parse(results.d).UserId;
     window.location = "index.html";
 }
