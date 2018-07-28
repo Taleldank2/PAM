@@ -370,17 +370,12 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void insertAttendance(string attendanceArr)
+    public void insertAttendance( List<Attendance> attendanceArr)
     {
 
-
-        List<Attendance> attendArr = new List<Attendance>();
-        //Attendance[] attendArr = new Attendance[50];
-        JavaScriptSerializer js = new JavaScriptSerializer();
-
-        attendArr = js.Deserialize<List<Attendance>>(attendanceArr);
         Console.WriteLine(attendanceArr);
 
+        //dbHandler.insertAttendance();
     }
 
 
@@ -392,7 +387,7 @@ public class WebService : System.Web.Services.WebService
     //public void createMessage(string coachId, String title, String message, String[] teamIds)
 
     [WebMethod]
-    public void createMessage(string coachId, string title, string message, string[] teamIds)
+    public void createMessage(string coachId, string title, string message, List <String> teamIds)
     {
         //string userSession = Context.Request.Cookies["session"]["session"];
 
@@ -400,7 +395,7 @@ public class WebService : System.Web.Services.WebService
 
         dbHandler.createNewMessage(title, message, teamIds, coachId);
 
-        List<string> userRegIds = dbHandler.getUserRegsFromTeams(teamIds);
+        List <string> userRegIds = dbHandler.getUserRegsFromTeams(teamIds);
 
         sendPush("PAM", title, userRegIds);
 
@@ -419,6 +414,7 @@ public class WebService : System.Web.Services.WebService
 
     private void sendPush(String title, String message, List<String> usersRegIds)
     {
+
         // Configuration
         GcmConfiguration config = new GcmConfiguration("206709481331", "AAAAMCDYX3M:APA91bGholyu09oAxHchbU0OjQ9cmmacr_BlzvxKbShRuzNiuscPcfxEsqSzpayb7FIZWqW2Btlg41UAnnwmb0Fdub7iqcvPLigNOzkLwZP65RbsXojEKEKZq6o9sHNNCYzRe4K2sdImrtM3tkTBR6iX0oJZIb8C-g", "com.it");
         // Create a new broker

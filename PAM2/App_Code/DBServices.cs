@@ -768,7 +768,7 @@ public class DBServices
 
     }
 
-    public List<string> getUserRegsFromTeams(string[] teamIds)
+    public List <string> getUserRegsFromTeams( List <String> teamIds)
     {
         String query = "SELECT RegID from UsersReg u join dbo.Athletes a on u.UserID = a.AthleteID WHERE TeamID IN({0})";
         String teamStr = "";
@@ -791,7 +791,7 @@ public class DBServices
         return regIds;
     }
 
-    public void createNewMessage(string title, string message, String[] teamIds, string coachId)
+    public void createNewMessage(string title, string message, List<string> teamIds, string coachId)
     {
         String date = DateTime.Now.ToString("yyyy-MM-dd");
         String hours = DateTime.Now.ToString().Split(' ')[1];
@@ -909,41 +909,41 @@ public class DBServices
 
     }
 
-    public void insertAttendance(string EventId, string[] Attendences)
+    public void insertAttendance (List<Attendance> attendanceArr)
     {
-        SqlConnection con = null;
-        con = connect();
-        foreach (String User in Attendences)
-        {
-            try
-            {
+        //SqlConnection con = null;
+        //con = connect();
+        //foreach (String User in Attendences)
+        //{
+        //    try
+        //    {
 
-                int UserId = int.Parse(User);
-                int Attend = int.Parse(User);
-                string query = " INSERT INTO[dbo].[Attendances]"
-                + " ([EventID],[AthleteID],[IsAttend],[Note]) VALUES "
-                 + " (" + EventId + "," + UserId + "," + Attend + ",null)";
-
-
-                SqlCommand insert = new SqlCommand(String.Format(query), con);
-
-                insert.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                // write to log
-                throw ex;
-            }
+        //        int UserId = int.Parse(User);
+        //        int Attend = int.Parse(User);
+        //        string query = " INSERT INTO[dbo].[Attendances]"
+        //        + " ([EventID],[AthleteID],[IsAttend],[Note]) VALUES "
+        //         + " (" + EventId + "," + UserId + "," + Attend + ",null)";
 
 
-            finally
-            {
-                if (con != null)
-                {
-                    con.Close();
-                }
-            }
-        }
+        //        SqlCommand insert = new SqlCommand(String.Format(query), con);
+
+        //        insert.ExecuteNonQuery();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // write to log
+        //        throw ex;
+        //    }
+
+
+        //    finally
+        //    {
+        //        if (con != null)
+        //        {
+        //            con.Close();
+        //        }
+        //    }
+        //}
     }
 
     //--------------------------------------------------------------------

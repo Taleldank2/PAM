@@ -397,7 +397,7 @@ function sendMessage() {
 
     teamList = $('#teams option:selected')
 
-    for (i = 0 ; i < teamList.length; i++) {
+    for (i = 1 ; i < teamList.length; i++) {
         teams.push(teamList[i].value)
     }
 
@@ -405,7 +405,7 @@ function sendMessage() {
     message = $('#Message').val()
 
     request = {
-        "coachId": getUserId(),
+        "coachId": getUserId().coachId,
         "title": title,
         "message": message,
         "teamIds": teams
@@ -609,12 +609,12 @@ function sendList() {
 
 
 
-    //Create object arraט to cintain the rows data
+    //Create object array to contain the rows data
     var attendanceArr = [];
 
     //Go over list and create object for each row
 
-    $('input[type=checkbox]').each(function () {
+   $('input[type=checkbox]').each(function () {
 
         //decleration
         var eventId;
