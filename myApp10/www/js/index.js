@@ -33,7 +33,7 @@
             // The scope of 'this' is the event. In order to call the 'receivedEvent'
             // function, we must explicitly call 'app.receivedEvent(...);'
             onDeviceReady: function () {
-                alert("Device Ready")
+                //alert("Device Ready")
                 console.log('Received Device Ready Event');
                 console.log('calling setup push');
                 app.setupPush();
@@ -59,10 +59,10 @@
                 }
 
                 console.log('after init');
-                alert("after init")
+                //alert("after init")
                 push.on('registration', function (data) {
                     //document.getElementById("t").value = data.registrationId
-                    alert("reg completed: " + data.registrationId)
+                    //alert("reg completed: " + data.registrationId)
                     console.log('registration event: ' + data.registrationId);
 
                     var oldRegId = localStorage.getItem('registrationId');
@@ -100,7 +100,7 @@
                 });
 
                 push.on('notification', function (data) {
-                    alert("smort: " + data.message)
+                    //alert("smort: " + data.message)
                     console.log('notification event');
                     navigator.notification.alert(
                         data.message,         // message
