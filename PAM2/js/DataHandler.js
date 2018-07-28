@@ -128,6 +128,24 @@ function errorCB(e) {
 function getCoachCalTeams() {
     var request = getUserId();
 
+
+    dataString = JSON.stringify(request);
+    $.ajax({
+        url: ASMXURL + 'getCoachTeams',
+        data: dataString,
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+        contentType: 'application/json; charset = utf-8',
+        success: updateCoachCalTeams
+    })
+}
+
+function updateCoachCalTeams(response) {
+    teams = JSON.parse(response.d)
+
+
+
     dataString = JSON.stringify(request);
     $.ajax({
         url: ASMXURL + 'getCoachTeams',

@@ -35,7 +35,7 @@ $(document).ready(function () {
             getMessagesCount();
             getPicturePath();
         }
-        else if (window.location.pathname == "/android_asset/www/Attendance.html" || window.location.pathname ==  "/Attendance.html" || window.location.pathname == "/bgroup57/test1/tar1/Attendance.html") {
+        else if (window.location.pathname == "/android_asset/www/Attendance.html" || window.location.pathname == "/Attendance.html" || window.location.pathname == "/bgroup57/test1/tar1/Attendance.html") {
             getEventsList();
             getPicturePath();
         }
@@ -59,14 +59,12 @@ $(document).ready(function () {
 //    }) 
 //}
 
-function err(e)
-{
+function err(e) {
     alert(e);
     window.location = "Login.html";
 }
 
-function logOut()
-{
+function logOut() {
     localStorage.removeItem("UserID");
     document.location = "Login.html";
 }
