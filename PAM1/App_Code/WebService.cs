@@ -36,6 +36,7 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
     //                           Profile
     //--------------------------------------------------------------------
+
     [WebMethod]
     public void update(string UserID, string phoneNumber, string userMail, string userPassword, string city, string athleteWeight, string athleteHeight)
     {
@@ -49,6 +50,7 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
     //                           Login
     //--------------------------------------------------------------------
+
     [WebMethod]
     public string Login(string phoneNumber, string password)
     {

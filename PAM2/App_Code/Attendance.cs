@@ -3,82 +3,86 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+
 /// <summary>
 /// Summary description for Attendance
 /// </summary>
 /// 
 
+
 public class Attendance
 {
 
     //Fields
-    private int eventId, athleteId;
-    private bool present;
-    private string note;
+    private string EventId, AthleteId;
+    private string Present;
+    private string Note;
 
     //Ctors
     public Attendance()
     {
 
     }
-    public Attendance(int eventId, int athleteId, bool present, string note)
-    {
-        this.EventId = eventId;
-        this.AthleteId = athleteId;
-        this.Present = present;
-        this.Note = note;
-    }
+
+    //public Attendance(int eventId, int athleteId, bool present, string note)
+    //{
+    //    this.EventId = eventId;
+    //    this.AthleteId = athleteId;
+    //    this.Present = present;
+    //    this.Note = note;
+    //}
 
     //Props
-    public int AthleteId
+
+    public string athleteId
     {
         get
         {
-            return athleteId;
+            return AthleteId;
         }
 
         set
         {
-            athleteId = value;
+            AthleteId = value;
         }
     }
 
-    public int EventId
+    public string eventId
     {
         get
         {
-            return eventId;
+            return EventId;
         }
 
         set
         {
-            eventId = value;
+            EventId = value;
+        }
+    }
+    
+    public string present
+    {
+        get
+        {
+            return Present;
+        }
+
+        set
+        {
+            Present = value;
         }
     }
 
-    public bool Present
+    public string note
     {
         get
         {
-            return present;
+            return Note;
         }
 
         set
         {
-            present = value;
-        }
-    }
-
-    public string Note
-    {
-        get
-        {
-            return note;
-        }
-
-        set
-        {
-            note = value;
+            Note = value;
         }
     }
 

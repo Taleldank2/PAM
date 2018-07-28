@@ -399,8 +399,14 @@ public class WebService : System.Web.Services.WebService
     [WebMethod]
     public void insertAttendance(string attendanceArr)
     {
+        
+        //List<Attendance> list = new List<Attendance>();
+        //Attendance[] attendArr = new Attendance[]();
+        Attendance[] attendArr = new Attendance[50];
         JavaScriptSerializer js = new JavaScriptSerializer();
-        Attendance[] attendArr = js.Deserialize<Attendance[]>(attendanceArr);
+        //list = js.Deserialize<Attendance>(attendanceArr);
+        attendArr = js.Deserialize<Attendance[]>(attendanceArr);
+        Console.WriteLine(attendanceArr);
 
     }
 
@@ -410,8 +416,10 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
 
 
+    //public void createMessage(string coachId, String title, String message, String[] teamIds)
+
     [WebMethod]
-    public void createMessage(string coachId, String title, String message, String[] teamIds)
+    public void createMessage(string coachId,string title, string message, string [] teamIds)
     {
         //string userSession = Context.Request.Cookies["session"]["session"];
 

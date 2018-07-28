@@ -597,26 +597,6 @@ public class DBServices
         return UserEvent;
     }
 
-
-    ////TO DO
-    //public DataTable getCoachEvents(string userID)
-    //{
-    //    string query = "Select * from events e"
-    //        + " join dbo.TeamsEvents t on t.EventID = e.EventID"
-    //        + " join dbo.Teams te on t.TeamID = te.TeamID"
-    //        + " join dbo.Coaches c on te.HeadCoachID = c.CoachID"
-    //        + " WHERE c.CoachID =" + userID +
-    //        " ORDER BY E_Date DESC";
-
-    //    DataTable CoachEvent = queryDb(query);
-
-    //    return CoachEvent;
-    //}
-
-
-
-
-
     //--------------------------------------------------------------------
     // Messages page
     //--------------------------------------------------------------------
