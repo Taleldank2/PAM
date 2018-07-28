@@ -137,7 +137,6 @@ public class DBServices
 
     }
 
-
     //--------------------------------------------------------------------
     // Register
     //--------------------------------------------------------------------
@@ -226,7 +225,6 @@ public class DBServices
         }
     }
 
-
     public void savePicture(string picPath, string userPicBase64)
     {
         try
@@ -288,7 +286,6 @@ public class DBServices
 
     }
 
-
     //--------------------------------------------------------------------
     // Profile Page 
     //--------------------------------------------------------------------
@@ -313,7 +310,6 @@ public class DBServices
             throw ex;
         }
     }
-
 
     //--------------------------------------------------------------------
     //Function for update profile athlete
@@ -437,8 +433,6 @@ public class DBServices
         }
     }
 
-
-
     //--------------------------------------------------------------------
     // Results Page
     //--------------------------------------------------------------------
@@ -474,30 +468,6 @@ public class DBServices
     //--------------------------------------------------------------------
     // Events Page
     //--------------------------------------------------------------------
-    //public DataTable getUserEvents(string userID)
-    //{
-    //    try
-    //    {
-    //        string query = "Select * from events e"
-    //        + " join dbo.TeamsEvents t on t.EventID = e.EventID"
-    //        + " join dbo.Athletes a on t.TeamID = a.TeamID"
-    //        + " WHERE a.AthleteID =" + userID +
-    //        " ORDER BY E_Date DESC";
-
-    //        DataTable UserEvent = queryDb(query);
-
-    //        return UserEvent;
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
-    //        {
-    //            Log(ex.Message, w);
-    //        }
-    //        throw ex;
-    //    }
-
-    //}
 
     public DataTable getCoachEvents(string userID)
     {
@@ -546,10 +516,7 @@ public class DBServices
             case "מפגש":
                 eventTypeNum = 3;
                 break;
-
-
         }
-
 
         try
         {
@@ -558,14 +525,14 @@ public class DBServices
             //CreationTime change to STRING in db!!!!
 
             string command = "INSERT INTO [dbo].[Events] " +
-                             "([EventType], [Title], [E_Body], [E_Date],[StartTime],[EndTime],[IsRecursive],[Location],[Note],   [CreationTime] )" +
-                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}' )";
+                             "([EventType], [Title], [E_Body], [E_Date],[StartTime],[EndTime],[IsRecursive],[Location],[Note],[CreationTime])" +
+                             " VALUES({0},'{1}','{2}','{3}','{4}','{5}',{6},'{7}',{8},{9} )";
 
             //string[] DateStringArray = eventDate.Split('-');
 
             //string parsedDate = DateStringArray[2] + "-" + DateStringArray[1] + "-" + DateStringArray[0];
             //string datet = DateTime.Now.ToString("yyyy-mm-dd hh:mi:ss");
-            string formattedCommand = String.Format(command, eventTypeNum, eventName, eventDescription, eventDate, startTime, endTime, null, location, null, DateTime.Now.ToString());
+            string formattedCommand = String.Format(command, eventTypeNum, eventName, eventDescription, eventDate, startTime, endTime, "null", location, "null", "null");
 
             SqlCommand insert = new SqlCommand(formattedCommand, con);
 
@@ -646,7 +613,6 @@ public class DBServices
     //--------------------------------------------------------------------
     // Dashboard page
     //--------------------------------------------------------------------
-
 
     public DataTable getCoachLastResults(string coachID)
     {

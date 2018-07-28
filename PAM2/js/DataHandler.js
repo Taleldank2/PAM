@@ -53,12 +53,9 @@ function parseUserDetails(results) {
 }
 
 
-
 //--------------------------------------------------------------------
 //                           Events Page
 //--------------------------------------------------------------------
-
-
 
 function getCoachEvents() {
     var request = getUserId();
@@ -101,7 +98,7 @@ function addEvent() {
 
     var dataString = JSON.stringify(request);
 
-    alert(dataString);
+    //alert(dataString);
 
     $.ajax({
         url: ASMXURL + 'addEvent',
@@ -117,6 +114,7 @@ function addEvent() {
     function addEventCompleted(result) {
         results = $.parseJSON(result.d);
         alert(results);
+        window.location = "Calendar.html";
     }
 
     function errorCB(e) {
@@ -558,7 +556,7 @@ function parseEventMembers(results) {
     });
 }
 
-document.getElementById("confirmBTN").onclick = sendList();
+//document.getElementById("confirmBTN").onclick = sendList();
 
 function sendList() {
 

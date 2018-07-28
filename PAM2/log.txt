@@ -703,3 +703,40 @@ Log Entry : 15:38:27 שבת 28 יולי 2018
   :
   :גישה לנתיב 'C:\Program Files (x86)\IIS Express\log.txt' נדחתה.
 -------------------------------
+
+Log Entry : 19:35:32 שבת 28 יולי 2018
+  :
+  :The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.
+The statement has been terminated.
+-------------------------------
+
+Log Entry : 19:49:09 שבת 28 יולי 2018
+  :
+  :The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.
+The statement has been terminated.
+-------------------------------
+
+Log Entry : 19:50:46 שבת 28 יולי 2018
+  :
+  :Incorrect syntax near ','.
+-------------------------------
+
+Log Entry : 19:56:16 שבת 28 יולי 2018
+  :
+  :Incorrect syntax near ','.
+-------------------------------
+
+Log Entry : 19:57:33 שבת 28 יולי 2018
+  :
+  :Conversion failed when converting date and/or time from character string.
+-------------------------------
+
+Log Entry : 19:58:37 שבת 28 יולי 2018
+  :
+  :Conversion failed when converting date and/or time from character string.
+-------------------------------
+
+Log Entry : 20:00:42 שבת 28 יולי 2018
+  :
+  :Conversion failed when converting date and/or time from character string.
+-------------------------------
