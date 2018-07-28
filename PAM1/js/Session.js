@@ -35,7 +35,7 @@ $(document).ready(function () {
         }
         else if (window.location.pathname == "/android_asset/www/Inbox.html" || window.location.pathname == "/bgroup57/prod/Code/pamAthlete/index.html" || window.location.pathname == "/Inbox.html" || window.location.pathname == "/bgroup57/test1/tar1/Inbox.html") {
             getUserMessages();
-           // getMessagesCount();
+            getMessagesCount();
             getPicturePath();
         }
     }

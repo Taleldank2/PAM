@@ -351,22 +351,6 @@ function getUserEvents() {
     return events.responseJSON.d
 }
 
-//function getCoachEvents() {
-//    var request = getUserId();
-//    dataString = JSON.stringify(request);
-
-//    events = $.ajax({
-//        url: ASMXURL + 'getCoachEvents',
-//        data: dataString,
-//        type: 'POST',
-//        async: false,
-//        dataType: 'json',
-//        contentType: 'application/json; charset = utf-8'
-//    }) // end of ajax call
-
-//    return events.responseJSON.d
-//}
-
 
 //--------------------------------------------------------------------
 //                           Messages Page
