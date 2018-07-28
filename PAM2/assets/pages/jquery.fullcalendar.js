@@ -188,12 +188,12 @@ var defaultEvents;
             var eventTime = parseInt(event["E_Date"].split("(")[1].split(")")[0]);
             var EventStartDate = new Date(eventTime);
             var strDate = "";
-            strDate = EventStartDate.getDay() + "/" + EventStartDate.getMonth() + "/" + EventStartDate.getFullYear();
+            strDate = (EventStartDate.getUTCDate()+1) + "/" + (EventStartDate.getUTCMonth()+1) + "/" + EventStartDate.getFullYear();
 
             //convert to date
             var eventStartDate = new Date(eventTime);
             //Covert the event start time to milliseconds (milliseconds can be converted to the event start hour after.)
-            eventStartDate.setMilliseconds(event["StartTime"].TotalMilliseconds);
+            eventStartDate.setMilliseconds((event["StartTime"]).TotalMilliseconds);
 
             //Covert the event start time to milliseconds (milliseconds can be converted to the event start hour after.)
             var eventEndDate = new Date(eventTime);
