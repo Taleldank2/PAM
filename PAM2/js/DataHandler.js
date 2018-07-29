@@ -596,14 +596,12 @@ function parseEventMembers(results) {
 
             //parse table
             var $tr = $('<tr class="email-msg">').append(
-                $('<td>').html("<input type='checkbox' checked='checked' id='" + item.UserID + "' />"),
+                $('<td style="width:25%">').html("<input type='checkbox' checked='checked' id='" + item.UserID + "' />"),
                 $('<td>').html("<a class=''></a>").text(item.FirstName + " " + item.LastName)
             ).appendTo('#athletesTable');
         });
     });
 }
-
-document.getElementById("sendAttendanceBTN").onclick = sendList;
 
 function sendList() {
 
@@ -658,10 +656,12 @@ function sendList() {
         success: function (response) {
             alert("הרשמת הנוכחות נקלטה בהצלחה  " + response.d + " אנשים הגיעו לאימון")
             console.log("הרשמת הנוכחות נקלטה בהצלחה  " + response.d + " אנשים הגיעו לאימון")
+            window.location = "index.html"
         },
         error: function (response) {
-            alert(reponse.d  + ":שגיאה בעת קריאה לשרת")
-            console.log("bad " + reponse.d)
+            alert("אין לבחור אימון שכבר הוזן לו נוכחות")
+            console.log("bad " + response.d)
+            window.location = "Attendance.html"
 
         }
     }) // end of ajax call

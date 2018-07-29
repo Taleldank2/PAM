@@ -904,6 +904,7 @@ a:hover, a:active, a:focus {
   background-clip: padding-box;
   margin-bottom: 20px;
   background-color: #ffffff;
+  width: 100%;
 }
 
 .header-title {

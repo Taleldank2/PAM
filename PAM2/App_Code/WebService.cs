@@ -300,13 +300,13 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
 
     [WebMethod]
-    public string getMessagesCount(string userId)
+    public string getMessagesCount(string coachId)
     {
         //string userSession = Context.Request.Cookies["session"]["session"];
 
         //string userId = getUserFromSession(userSession);
 
-        string messagesCount = dbHandler.getMessagesCount(userId);
+        string messagesCount = dbHandler.getMessagesCount(coachId);
 
         return messagesCount;
     }
@@ -469,13 +469,13 @@ public class WebService : System.Web.Services.WebService
     //--------------------------------------------------------------------
 
     [WebMethod]
-    public string getUserDetails(string userId)
+    public string getUserDetails(string coachId)
     {
         //string userSession = Context.Request.Cookies["session"]["session"];
 
         //string userId = getUserFromSession(userSession);
 
-        DataTable details = dbHandler.getDetails(userId);
+        DataTable details = dbHandler.getDetails(coachId);
 
         string response = dataTableToJson(details);
 
