@@ -8,34 +8,34 @@ $(document).ready(function () {
         alert("move back to login page");
         window.location = "Login.html";
     }
-
+    
     else {
         // Load Data to html on every page when session is verified
-        if (window.location.pathname == "/android_asset/www/index.html" || window.location.pathname == "/index.html" || window.location.pathname == "/bgroup57/test1/tar1/index.html" || window.location.pathname == "/") {
+        if (window.location.pathname == "/android_asset/www/index.html" || window.location.pathname == "/index.html" || window.location.pathname == "/bgroup57/test1/tar1/index.html" || window.location.pathname == "/" || window.location.pathname == "/bgroup57/prod/Code/pamCoach/index.html") {
             getCoachLastResults();
             getPicturePath();
             getCoachLastMessages();
         }
-        else if (window.location.pathname == "/android_asset/www/Results.html" || window.location.pathname == "/Results.html" || window.location.pathname == "/bgroup57/test1/tar1/Results.html") {
+        else if (window.location.pathname == "/android_asset/www/Results.html" || window.location.pathname == "/Results.html" || window.location.pathname == "/bgroup57/test1/tar1/Results.html" || window.location.pathname == "/bgroup57/prod/Code/pamCoach/Results.html") {
             getCoachResults();
             getPicturePath();
         }
-        else if (window.location.pathname == "/android_asset/www/Profile.html" || window.location.pathname == "/Profile.html" || window.location.pathname == "/bgroup57/test1/tar1/Profile.html") {
+        else if (window.location.pathname == "/android_asset/www/Profile.html" || window.location.pathname == "/Profile.html" || window.location.pathname == "/bgroup57/test1/tar1/Profile.html" || window.location.pathname == "/bgroup57/prod/Code/pamCoach/Profile.html") {
             getUserDetails();
             getPicturePath();
         }
-        else if (window.location.pathname == "/android_asset/www/Calendar.html" || window.location.pathname == "/Calendar.html" || window.location.pathname == "/bgroup57/test1/tar1/Calendar.html") {
+        else if (window.location.pathname == "/android_asset/www/Calendar.html" || window.location.pathname == "/Calendar.html" || window.location.pathname == "/bgroup57/test1/tar1/Calendar.html" || window.location.pathname == "/bgroup57/prod/Code/pamCoach/Calendar.html") {
             //getUserEvents() ---> jquery.fullcalendar.js is calling this function on page load
             getPicturePath();
             getCoachCalTeams();
             //getCoachTeams();
         }
-        else if (window.location.pathname == "/android_asset/www/Inbox.html" || window.location.pathname == "/Inbox.html" || window.location.pathname == "/bgroup57/test1/tar1/Inbox.html") {
+        else if (window.location.pathname == "/android_asset/www/Inbox.html" || window.location.pathname == "/Inbox.html" || window.location.pathname == "/bgroup57/test1/tar1/Inbox.html" || window.location.pathname == "/bgroup57/prod/Code/pamCoach/Inbox.html") {
             getCoachMessages();
             getMessagesCount();
             getPicturePath();
         }
-        else if (window.location.pathname == "/android_asset/www/Attendance.html" || window.location.pathname == "/Attendance.html" || window.location.pathname == "/bgroup57/test1/tar1/Attendance.html") {
+        else if (window.location.pathname == "/android_asset/www/Attendance.html" || window.location.pathname == "/Attendance.html" || window.location.pathname == "/bgroup57/test1/tar1/Attendance.html" || window.location.pathname == "/bgroup57/prod/Code/pamCoach/Attendance.html") {
             getEventsList();
             getPicturePath();
         }
