@@ -808,3 +808,27 @@ Log Entry : 03:08:29 יום ראשון 29 יולי 2018
   :Violation of PRIMARY KEY constraint 'PK_ATTENDANCES'. Cannot insert duplicate key in object 'dbo.Attendances'.
 The statement has been terminated.
 -------------------------------
+
+Log Entry : 04:43:40 יום ראשון 29 יולי 2018
+  :
+  :Violation of PRIMARY KEY constraint 'PK_ATTENDANCES'. Cannot insert duplicate key in object 'dbo.Attendances'.
+The statement has been terminated.
+-------------------------------
+
+Log Entry : 04:44:20 יום ראשון 29 יולי 2018
+  :
+  :Violation of PRIMARY KEY constraint 'PK_ATTENDANCES'. Cannot insert duplicate key in object 'dbo.Attendances'.
+The statement has been terminated.
+-------------------------------
+
+Log Entry : 04:44:46 יום ראשון 29 יולי 2018
+  :
+  :Violation of PRIMARY KEY constraint 'PK_ATTENDANCES'. Cannot insert duplicate key in object 'dbo.Attendances'.
+The statement has been terminated.
+-------------------------------
+
+Log Entry : 04:46:31 יום ראשון 29 יולי 2018
+  :
+  :Violation of PRIMARY KEY constraint 'PK_ATTENDANCES'. Cannot insert duplicate key in object 'dbo.Attendances'.
+The statement has been terminated.
+-------------------------------
