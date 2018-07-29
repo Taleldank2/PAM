@@ -177,7 +177,7 @@
             var eventTime = parseInt(event["E_Date"].split("(")[1].split(")")[0]);
             var EventStartDate = new Date(eventTime);
             var strDate = "";
-            strDate = EventStartDate.getDay() + "/" + EventStartDate.getMonth() + "/" + EventStartDate.getFullYear();
+            strDate = (EventStartDate.getUTCDate() + 1) + "/" + (EventStartDate.getUTCMonth() + 1) + "/" + EventStartDate.getFullYear();
 
             //convert to date
             var eventStartDate = new Date(eventTime);

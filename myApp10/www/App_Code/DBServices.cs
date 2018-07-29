@@ -606,7 +606,9 @@ public class DBServices
                        "JOIN dbo.TeamsMessages t on m.MessageID = t.MessageID " +
                        "join dbo.Athletes a on t.TeamID = a.TeamID " +
                        "join Users u on m.CreatorID = u.UserID " +
-                       "WHERE AthleteID = " + userID;
+                       "WHERE AthleteID = " + userID+
+                       " ORDER BY mDate DESC "
+                       ;
 
         DataTable messagesTable = queryDb(query);
 

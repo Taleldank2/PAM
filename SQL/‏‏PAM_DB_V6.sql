@@ -906,21 +906,6 @@ VALUES (1,'אימון בוקר','שחייה בלבד',CONVERT(date,'20-5-2018',105),'06:30','07:30
 GO
 
 
-INSERT INTO EVENTS(		
-	EventType,
-	Title,
-	E_Body,
-	E_Date,
-	StartTime,
-	EndTime,
-	IsRecursive,
-	Location,
-	Note,
-	CreationTime
-	)
-VALUES (1,'אימון כושר','ריצה וכוח',CONVERT(date,'23-5-2018',105),'17:00','18:00',0,'מחוץ בריכה','בגדי ספורט',NULL)
-GO
-
 --------------------------------------------------
 ----------INSERT DATA RESULTS---------------------
 --------------------------------------------------
