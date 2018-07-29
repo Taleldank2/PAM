@@ -656,10 +656,12 @@ function sendList() {
         dataType: 'json',
         contentType: 'application/json; charset = utf-8',
         success: function (response) {
-            console.log("good " + response.responseJSON.Message)
+            alert("הרשמת הנוכחות נקלטה בהצלחה  " + response.d + " אנשים הגיעו לאימון")
+            console.log("הרשמת הנוכחות נקלטה בהצלחה  " + response.d + " אנשים הגיעו לאימון")
         },
         error: function (response) {
-            console.log("bad " + response.responseJSON.Message)
+            alert(reponse.d  + ":שגיאה בעת קריאה לשרת")
+            console.log("bad " + reponse.d)
 
         }
     }) // end of ajax call

@@ -370,12 +370,16 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public void insertAttendance( List<Attendance> attendanceArr)
+    public string insertAttendance( List<Attendance> attendanceArr)
     {
+        string response = "Check me on insertAttendance - you need to finish me";
 
         Console.WriteLine(attendanceArr);
 
-        //dbHandler.insertAttendance();
+        response = dbHandler.insertAttendance(attendanceArr);
+
+        return response;
+
     }
 
 
@@ -389,9 +393,7 @@ public class WebService : System.Web.Services.WebService
     [WebMethod]
     public void createMessage(string coachId, string title, string message, List <String> teamIds)
     {
-        //string userSession = Context.Request.Cookies["session"]["session"];
 
-        //string coachId = getUserFromSession(userSession);
 
         dbHandler.createNewMessage(title, message, teamIds, coachId);
 

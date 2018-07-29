@@ -750,3 +750,61 @@ Log Entry : 20:00:42 שבת 28 יולי 2018
   :Conversion failed when converting date and/or time from character string.
 >>>>>>> 1273f8493804cc7c3c729c953d3ced52a5363b08
 -------------------------------
+
+Log Entry : 02:43:39 יום ראשון 29 יולי 2018
+  :
+  :Incorrect syntax near ')'.
+-------------------------------
+
+Log Entry : 02:45:15 יום ראשון 29 יולי 2018
+  :
+  :Violation of PRIMARY KEY constraint 'PK_ATTENDANCES'. Cannot insert duplicate key in object 'dbo.Attendances'.
+The statement has been terminated.
+-------------------------------
+
+Log Entry : 02:48:21 יום ראשון 29 יולי 2018
+  :
+  :ל- ExecuteNonQuery דרוש Connection פתוח וזמין. המצב הנוכחי של החיבור הוא 'סגור'.
+-------------------------------
+
+Log Entry : 02:51:42 יום ראשון 29 יולי 2018
+  :
+  :Violation of PRIMARY KEY constraint 'PK_ATTENDANCES'. Cannot insert duplicate key in object 'dbo.Attendances'.
+The statement has been terminated.
+-------------------------------
+
+Log Entry : 02:58:19 יום ראשון 29 יולי 2018
+  :
+  :Violation of PRIMARY KEY constraint 'PK_ATTENDANCES'. Cannot insert duplicate key in object 'dbo.Attendances'.
+The statement has been terminated.
+-------------------------------
+
+Log Entry : 02:59:23 יום ראשון 29 יולי 2018
+  :
+  :Violation of PRIMARY KEY constraint 'PK_ATTENDANCES'. Cannot insert duplicate key in object 'dbo.Attendances'.
+The statement has been terminated.
+-------------------------------
+
+Log Entry : 02:59:25 יום ראשון 29 יולי 2018
+  :
+  :Violation of PRIMARY KEY constraint 'PK_ATTENDANCES'. Cannot insert duplicate key in object 'dbo.Attendances'.
+The statement has been terminated.
+-------------------------------
+
+Log Entry : 03:01:47 יום ראשון 29 יולי 2018
+  :
+  :Violation of PRIMARY KEY constraint 'PK_ATTENDANCES'. Cannot insert duplicate key in object 'dbo.Attendances'.
+The statement has been terminated.
+-------------------------------
+
+Log Entry : 03:02:06 יום ראשון 29 יולי 2018
+  :
+  :Violation of PRIMARY KEY constraint 'PK_ATTENDANCES'. Cannot insert duplicate key in object 'dbo.Attendances'.
+The statement has been terminated.
+-------------------------------
+
+Log Entry : 03:08:29 יום ראשון 29 יולי 2018
+  :
+  :Violation of PRIMARY KEY constraint 'PK_ATTENDANCES'. Cannot insert duplicate key in object 'dbo.Attendances'.
+The statement has been terminated.
+-------------------------------
