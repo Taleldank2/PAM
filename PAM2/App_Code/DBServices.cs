@@ -768,7 +768,7 @@ public class DBServices
 
     }
 
-    public List<string> getUserRegsFromTeams(string[] teamIds)
+    public List<string> getUserRegsFromTeams(List<String> teamIds)
     {
         String query = "SELECT RegID from UsersReg u join dbo.Athletes a on u.UserID = a.AthleteID WHERE TeamID IN({0})";
         String teamStr = "";
@@ -791,7 +791,7 @@ public class DBServices
         return regIds;
     }
 
-    public void createNewMessage(string title, string message, String[] teamIds, string coachId)
+    public void createNewMessage(string title, string message, List<string> teamIds, string coachId)
     {
         String date = DateTime.Now.ToString("yyyy-MM-dd");
         String hours = DateTime.Now.ToString().Split(' ')[1];
@@ -909,42 +909,57 @@ public class DBServices
 
     }
 
-    public void insertAttendance(string EventId, string[] Attendences)
+    public string insertAttendance(List<Attendance> attendanceArr)
     {
-        SqlConnection con = null;
-        con = connect();
-        foreach (String User in Attendences)
-        {
-            try
-            {
 
-                int UserId = int.Parse(User);
-                int Attend = int.Parse(User);
+
+        SqlConnection con = null;
+        int response = 0;
+        con = connect();
+
+        try
+        {
+            foreach (Attendance row in attendanceArr)
+            {
+                string UserId = row.athleteId;
+                string Attend = row.present;
+                string EventId = row.eventId;
+                string note = "null";
+
                 string query = " INSERT INTO[dbo].[Attendances]"
                 + " ([EventID],[AthleteID],[IsAttend],[Note]) VALUES "
-                 + " (" + EventId + "," + UserId + "," + Attend + ",null)";
-
+                 + " (" + EventId + "," + UserId + "," + Attend + "," + note + ")";
 
                 SqlCommand insert = new SqlCommand(String.Format(query), con);
 
-                insert.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                // write to log
-                throw ex;
-            }
-
-
-            finally
-            {
-                if (con != null)
-                {
-                    con.Close();
-                }
+                response += insert.ExecuteNonQuery();
             }
         }
+
+        catch (Exception ex)
+        {
+            using (StreamWriter w = File.AppendText(HttpContext.Current.Server.MapPath("~/log.txt")))
+            {
+                Log(ex.Message, w);
+            }
+            throw ex;
+        }
+
+        finally
+        {
+
+            if (con != null)
+            {
+                con.Close();
+            }
+
+        }
+
+        return (response.ToString());
     }
+
+
+
 
     //--------------------------------------------------------------------
     // log message (error)
